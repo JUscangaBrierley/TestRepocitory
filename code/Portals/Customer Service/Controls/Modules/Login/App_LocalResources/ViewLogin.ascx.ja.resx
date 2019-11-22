@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="LoginButton_CF.Text" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Password_CF.Text" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="RememberMe_CF.Text" xml:space="preserve">
+    <value>ログイン状態を保持する</value>
+  </data>
+  <data name="Username_CF.Text" xml:space="preserve">
+    <value>ユーザー名:</value>
+  </data>
+  <data name="DefaultContentNoSocial_LN.Text" xml:space="preserve">
+    <value>&lt;span&gt;##LBL_ERROR(cssclass=ClassDoesNotExist,labelstart=&lt;div class="error"&gt;&lt;div class="error_inner"&gt;&lt;strong&gt;アクセスできません&lt;/strong&gt; | ,labelend=&lt;/div&gt;&lt;/div&gt;)##&lt;/span&gt;
+  
+&lt;fieldset style="position: absolute; left: 50%; margin-left: -168px;"&gt;
+ &lt;h1 id="logo"&gt;&lt;a href="#"&gt;websitename 管理画面&lt;/a&gt;&lt;/h1&gt;
+ &lt;div class="formular"&gt;
+  &lt;div class="formular_inner"&gt;
+   &lt;label&gt;
+    &lt;strong&gt;##LBL_USERNAME(cssclass=ClassDoesNotExist)##&lt;/strong&gt;
+    &lt;span class="input_wrapper"&gt;
+     ##TB_USERNAME(columns=9,width=150,cssclass=ClassDoesNotExist,autofocus=true)##
+    &lt;/span&gt;
+   &lt;/label&gt;
+   &lt;label&gt;
+    &lt;strong&gt;##LBL_PASSWORD(cssclass=ClassDoesNotExist)##&lt;/strong&gt;
+    &lt;span class="input_wrapper"&gt;
+     ##TB_PASSWORD(columns=9,width=150,cssclass=ClassDoesNotExist)##
+    &lt;/span&gt;
+   &lt;/label&gt;
+
+   &lt;ul class="form_menu"&gt;
+    &lt;li&gt;&lt;span class="button"&gt;&lt;span&gt;&lt;span&gt;送信&lt;/span&gt;&lt;/span&gt;##BTN_LOGIN(cssclass=ClassDoesNotExist)##&lt;/span&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/fieldset&gt;</value>
+  </data>
+  <data name="ForgotPassword_CS.Text" xml:space="preserve">
+    <value>パスワードを忘れた場合</value>
+  </data>
+  <data name="DefaultContentNoSocial_CF.Text" xml:space="preserve">
+    <value>&lt;h2&gt;ログイン:&lt;/h2&gt;
+&lt;div id="sidebar-form"&gt;
+    &lt;div class="form-group"&gt;
+        ##LBL_USERNAME()##
+        ##TB_USERNAME(cssclass=form-control)##
+    &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+        ##LBL_PASSWORD()##
+        ##TB_PASSWORD(cssclass=form-control)##
+    &lt;/div&gt;
+    
+    ##BTN_FORGOTPASSWORD()##
+    ##CB_REMEMBERME(cssclass=checkbox)##
+&lt;/div&gt;
+##BTN_LOGIN(cssclass=btn)##</value>
+  </data>
+  <data name="DefaultContentNoSocial_CS.Text" xml:space="preserve">
+    <value>&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){{ $('#username &gt; input').first().focus(); }});
+&lt;/script&gt;
+&lt;table cellspacing="0" cellpadding="3" border="0"&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_USERNAME(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left" id="username"&gt;##TB_USERNAME(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_PASSWORD(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##TB_PASSWORD(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_LOGIN(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_FORGOTPASSWORD(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" align="left"&gt;##CB_REMEMBERME(cssclass=Normal)##&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="DefaultContentNoSocial_Engagement.Text" xml:space="preserve">
+    <value>&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){{ $('#username &gt; input').first().focus(); }});
+&lt;/script&gt;
+&lt;table cellspacing="0" cellpadding="3" border="0"&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_USERNAME(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left" id="username"&gt;##TB_USERNAME(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_PASSWORD(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##TB_PASSWORD(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_LOGIN(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_FORGOTPASSWORD(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" align="left"&gt;##CB_REMEMBERME(cssclass=Normal)##&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;div class="vertical-line"&gt;&lt;/div&gt;</value>
+  </data>
+  <data name="EmailAddress_CF.Text" xml:space="preserve">
+    <value>Eメールアドレス:</value>
+  </data>
+  <data name="LoyaltyID_CF.Text" xml:space="preserve">
+    <value>会員ID:</value>
+  </data>
+  <data name="ForgotPassword_CF.Text" xml:space="preserve">
+    <value>パスワードを忘れた場合</value>
+  </data>
+  <data name="ForgotPassword_LN.Text" xml:space="preserve">
+    <value>パスワードを忘れた場合</value>
+  </data>
+  <data name="EmailAddress_Engagement.Text" xml:space="preserve">
+    <value>Eメールアドレス:</value>
+  </data>
+  <data name="LoginButton_CS.Text" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="LoginButton_LN.Text" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="LoginButton_Engagement.Text" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="ForgotPassword_Engagement.Text" xml:space="preserve">
+    <value>パスワードを忘れた場合</value>
+  </data>
+  <data name="LoyaltyID_Engagement.Text" xml:space="preserve">
+    <value>会員ID:</value>
+  </data>
+  <data name="Password_CS.Text" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="Password_LN.Text" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="Password_Engagement.Text" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="RememberMe_CS.Text" xml:space="preserve">
+    <value>ログイン状態を保持する</value>
+  </data>
+  <data name="RememberMe_LN.Text" xml:space="preserve">
+    <value>ログイン状態を保持する</value>
+  </data>
+  <data name="RememberMe_Engagement.Text" xml:space="preserve">
+    <value>ログイン状態を保持する</value>
+  </data>
+  <data name="Username_CS.Text" xml:space="preserve">
+    <value>ユーザー名:</value>
+  </data>
+  <data name="Username_LN.Text" xml:space="preserve">
+    <value>ユーザー名:</value>
+  </data>
+  <data name="Username_Engagement.Text" xml:space="preserve">
+    <value>ユーザー名:</value>
+  </data>
+  <data name="DefaultContentSocial_CF.Text" xml:space="preserve">
+    <value>&lt;h2&gt;ログイン:&lt;/h2&gt;
+&lt;div id="sidebar-form"&gt;
+    &lt;div class="form-group"&gt;
+        ##LBL_USERNAME()##
+        ##TB_USERNAME(cssclass=form-control)##
+    &lt;/div&gt;
+    &lt;div class="form-group"&gt;
+        ##LBL_PASSWORD()##
+        ##TB_PASSWORD(cssclass=form-control)##
+    &lt;/div&gt;
+    ##CB_REMEMBERME(cssclass=checkbox)##
+    ##BTN_LOGIN(cssclass=btn)## ##BTN_FORGOTPASSWORD(cssclass=pull-right)##
+&lt;/div&gt;
+
+&lt;hr/&gt;
+&lt;span class="social-separator-span"&gt;または&lt;/span&gt;
+&lt;hr/&gt;
+&lt;p&gt;SNSアカウントを使ってサインイン&lt;/p&gt;
+##CTL_SOCIALNETWORK()##</value>
+  </data>
+  <data name="DefaultContentSocial_CS.Text" xml:space="preserve">
+    <value>&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){{ $('#username &gt; input').first().focus(); }});
+&lt;/script&gt;
+&lt;table cellspacing="0" cellpadding="3" border="0"&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_USERNAME(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left" id="username"&gt;##TB_USERNAME(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_PASSWORD(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##TB_PASSWORD(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_LOGIN(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_FORGOTPASSWORD(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" align="left"&gt;##CB_REMEMBERME(cssclass=Normal)##&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="DefaultContentSocial_LN.Text" xml:space="preserve">
+    <value>&lt;span&gt;##LBL_ERROR(cssclass=ClassDoesNotExist,labelstart=&lt;div class="error"&gt;&lt;div class="error_inner"&gt;&lt;strong&gt;アクセスできません&lt;/strong&gt; | ,labelend=&lt;/div&gt;&lt;/div&gt;)##&lt;/span&gt;
+  
+&lt;fieldset style="position: absolute; left: 50%; margin-left: -168px;"&gt;
+ &lt;h1 id="logo"&gt;&lt;a href="#"&gt;websitename 管理画面&lt;/a&gt;&lt;/h1&gt;
+ &lt;div class="formular"&gt;
+  &lt;div class="formular_inner"&gt;
+   &lt;label&gt;
+    &lt;strong&gt;##LBL_USERNAME(cssclass=ClassDoesNotExist)##&lt;/strong&gt;
+    &lt;span class="input_wrapper"&gt;
+     ##TB_USERNAME(columns=9,width=150,cssclass=ClassDoesNotExist,autofocus=true)##
+    &lt;/span&gt;
+   &lt;/label&gt;
+   &lt;label&gt;
+    &lt;strong&gt;##LBL_PASSWORD(cssclass=ClassDoesNotExist)##&lt;/strong&gt;
+    &lt;span class="input_wrapper"&gt;
+     ##TB_PASSWORD(columns=9,width=150,cssclass=ClassDoesNotExist)##
+    &lt;/span&gt;
+   &lt;/label&gt;
+
+   &lt;ul class="form_menu"&gt;
+    &lt;li&gt;&lt;span class="button"&gt;&lt;span&gt;&lt;span&gt;送信&lt;/span&gt;&lt;/span&gt;##BTN_LOGIN(cssclass=ClassDoesNotExist)##&lt;/span&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/fieldset&gt;</value>
+  </data>
+  <data name="DefaultContentSocial_Engagement.Text" xml:space="preserve">
+    <value>&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){{ $('#username &gt; input').first().focus(); }});
+&lt;/script&gt;
+&lt;table cellspacing="0" cellpadding="3" border="0"&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_USERNAME(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left" id="username"&gt;##TB_USERNAME(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##LBL_PASSWORD(cssclass=SubHead)##&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td align="left"&gt;##TB_PASSWORD(columns=9,width=150,cssclass=NormalTextBox)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_LOGIN(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##CTL_SOCIALNETWORK()##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;##BTN_FORGOTPASSWORD(cssclass=StandardButton)##&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" align="left"&gt;##CB_REMEMBERME(cssclass=Normal)##&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;div class="vertical-line"&gt;&lt;/div&gt;</value>
+  </data>
+  <data name="AccountLocked.Text" xml:space="preserve">
+    <value>この会員IDはロックされています。</value>
+  </data>
+  <data name="AlternateID_CF.Text" xml:space="preserve">
+    <value>予備会員ID</value>
+  </data>
+  <data name="AlternateID_Engagement.Text" xml:space="preserve">
+    <value>予備会員ID</value>
+  </data>
+  <data name="btnJoin.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="btnNo.Text" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="btnYes.Text" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="ChangePassBeforeLonking.Text" xml:space="preserve">
+    <value>ソーシャルログインの前に、このアカウントのパスワードを変更してください。</value>
+  </data>
+  <data name="IncorrectPassword.Text" xml:space="preserve">
+    <value>パスワードに誤りがあります。</value>
+  </data>
+  <data name="InvalidUserPass.Text" xml:space="preserve">
+    <value>ユーザ名、またはパスワードに誤りがあります。</value>
+  </data>
+  <data name="LinkMemberContent.Text" xml:space="preserve">
+    <value>この会員IDのログイン情報を保存する</value>
+  </data>
+  <data name="LinkMemberHeader.Text" xml:space="preserve">
+    <value>あなたのアカウントの作成が完了しました。</value>
+  </data>
+  <data name="LinkSocialAccountTitle.Text" xml:space="preserve">
+    <value>ソーシャルログイン</value>
+  </data>
+  <data name="LinkSocialHeader.Text" xml:space="preserve">
+    <value>ウェブサイトにアクセスする</value>
+  </data>
+  <data name="litLinkLogin.Text" xml:space="preserve">
+    <value>自動ログイン設定</value>
+  </data>
+  <data name="litSocialQuestion.Text" xml:space="preserve">
+    <value>既にアカウントをお持ちですか？</value>
+  </data>
+  <data name="litSocialWelcome.Text" xml:space="preserve">
+    <value>ようこそ</value>
+  </data>
+  <data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;P&gt;A LoginModule module&lt;/P&gt;</value>
+  </data>
+  <data name="Password_SL.Text" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="PleaseEnter.Text" xml:space="preserve">
+    <value>あなたの{0}を入力してください。</value>
+  </data>
+  <data name="RegSocialContent.Text" xml:space="preserve">
+    <value>アカウントを作成する場合は{こちら｝</value>
+  </data>
+  <data name="RegSocialHeader.Text" xml:space="preserve">
+    <value>はじめてご利用の方（新規会員登録）</value>
+  </data>
+  <data name="VariableMaxLength.Text" xml:space="preserve">
+    <value>{1}の上限は{0} 文字までです。</value>
+  </data>
+  <data name="AccountDisabled.Text" xml:space="preserve">
+    <value>--MISSING TRANSLATION --  That loyalty account is disabled.</value>
+  </data>
+</root>

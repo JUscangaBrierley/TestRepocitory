@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat> 
+    <ThreadPoolSize>14</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>noreply@brierley.com</SenderEmail>
+      <SenderDisplayName>AE Rules Processor</SenderDisplayName>
+	  <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE EvaluateTierRule Processor</Subject>
+    </EmailInformation>    
+  </RuleEngineConfig>
+  <MemberRule DirectiveName="BulkAppeasements">
+    <QueryBasedMemberRetriever 
+      RetrievalRange="0-*" 
+      RetrievalBatchSize="1000" 
+      KeyName="IpCode"
+    >
+      <QueryString>
+      -- Members with new points
+		WITH PT_TXN AS
+ (SELECT PT.VCKEY, PT.POINTS
+    FROM BP_AE.LW_POINTTRANSACTION PT
+    JOIN BP_AE.LW_POINTTYPE PTT
+      ON (PT.POINTTYPEID = PTT.POINTTYPEID)
+   WHERE PTT.NAME = 'NetSpend'
+     AND PT.TRANSACTIONDATE > TO_DATE('01-01-2015', 'mm-dd-yyyy'))
+SELECT STH.IPCODE
+  FROM (SELECT DISTINCT VCKEY, IPCODE FROM BP_AE.STAGE_TXNDETAILHEADER) STH
+  JOIN PT_TXN PT
+    ON (STH.VCKEY = PT.VCKEY)
+ WHERE NOT EXISTS (SELECT 'x'
+          FROM BP_AE.LW_MEMBERTIERS MT
+          JOIN BP_AE.LW_TIERS T
+            ON (MT.TIERID = T.TIERID)
+         WHERE T.TIERNAME = 'Extra Access'
+           AND MT.MEMBERID = STH.IPCODE
+           AND MT.TODATE > SYSDATE) HAVING SUM(PT.POINTS) > 349
+ GROUP BY IPCODE
+      </QueryString>
+    </QueryBasedMemberRetriever>
+    <RulesToInvoke>
+	  <Rule RuleName="EvaluateTier" TargetPath="Member"/>
+	  <Rule RuleName="EvaluateTierForNonTierMember" TargetPath="Member"/>
+    </RulesToInvoke>
+  </MemberRule>
+</RulesDirectives>

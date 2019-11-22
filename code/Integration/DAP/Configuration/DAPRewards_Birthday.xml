@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Birthday Reward   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\AmericanEagle\Files\Dummy">
+    <SimpleDatabaseInput CollectionName="BirthdayReward" RecordName="Global">
+      <QueryString>
+        SELECT vc.LoyaltyIdNumber,
+        vc.linkkey AS linkkey,
+        vc.loyaltyidnumber AS loyaltyidnumber,
+        nvl(md.a_pendingemailverification,'1') AS pendingemailverification,
+        nvl(md.a_pendingcellverification,'1') AS pendingcellverification,
+        md.a_emailaddress AS  emailaddress ,
+        md.a_mobilephone AS mobilephone,
+        md.a_addresslineone AS addresslineone,
+        md.a_addresslinetwo AS addresslinetwo,
+        md.a_city AS city,
+        md.a_stateorprovince AS stateorprovince,
+        md.a_ZipOrPostalCode AS ziporpostalcode,
+        md.a_country AS country,
+        md.a_languagepreference AS languagepreference,
+        md.a_gender AS gender,
+        nvl(md.a_homestoreid,0) AS homestoreid,
+        nvl(md.a_cardtype,'') AS cardtype,
+        lm.firstname AS firstname,
+        lm.lastname AS lastname,
+        to_char(nvl(lm.birthdate, to_date('01/01/1900','MM/DD/YYYY')),'DD-Mon-YYYY') AS birthdate,
+        nvl(lm.memberstatus,3) AS  memberstatus,
+        NVL(mpb.a_totalpoints,0) AS totalpoints,
+        NVL(mpb.a_pointstonextreward,0) AS pointstonextreward,
+        nvl(mpb.a_bracurrentpurchased, 0) AS bracurrentpurchased,
+        nvl(mpb.a_jeansrollingbalance,0) AS jeansrollingbalance,
+        ( SELECT COUNT (*)  FROM  bp_ae.lw_memberrewards mr
+        WHERE mr.memberid = lm.ipcode AND
+        mr.redemptiondate IS NULL AND
+        mr.rewarddefid IN ( SELECT rdf.id FROM bp_ae.lw_rewardsdef rdf
+        WHERE rdf.name = 'B5G1 Jean Reward') AND
+        (mr.expiration IS NULL OR  mr.expiration &gt; SYSDATE)) AS b5g1jean,
+        ( SELECT COUNT (*)  FROM  bp_ae.lw_memberrewards mr
+        WHERE mr.memberid = lm.ipcode AND
+        mr.redemptiondate IS NULL AND
+        mr.rewarddefid IN ( SELECT rdf.id FROM bp_ae.lw_rewardsdef rdf
+        WHERE rdf.name = 'B5G1 Bra Reward') AND
+        (mr.expiration IS NULL OR  mr.expiration &gt; SYSDATE)) AS b5g1bra,
+        ( SELECT  COUNT (*)  FROM  bp_ae.lw_memberrewards mr
+        WHERE mr.memberid = lm.ipcode AND
+        mr.redemptiondate IS NULL AND
+        mr.rewarddefid IN ( SELECT rdf.id FROM bp_ae.lw_rewardsdef rdf
+        WHERE rdf.name = 'AEO Rewards $5 Reward') AND
+        (mr.expiration IS NULL OR  mr.expiration &gt; SYSDATE))  AS aeo5reward     -- AEO-468 end
+        From lw_loyaltymember lm
+        INNER JOIN lw_virtualcard vc on lm.ipcode = vc.ipcode and vc.isprimary = 1
+        INNER JOIN ats_memberdetails md on lm.ipcode = md.a_ipcode
+        LEFT JOIN bp_ae.ats_memberpointbalances mpb ON lm.ipcode = mpb.a_ipcode
+        Where 1=1
+        AND lm.memberstatus != 3
+        AND AE_ISINPILOT(md.a_extendedplaycode) = 1
+        AND ((nvl(md.a_pendingemailverification, 1) = 0
+        AND length(nvl(md.a_emailaddress, 0)) &gt; 0)
+        OR (nvl(md.a_pendingcellverification, 1) = 0
+        AND length(nvl(md.a_mobilephone, 0)) &gt; 0))
+        AND to_char(lm.birthdate, 'MM') = to_char(add_months(sysdate,1), 'MM')
+      </QueryString>
+      <Fields>
+        <Field Name="LOYALTYIDNUMBER" Type="String" />
+        <Field Name="LINKKEY" Type="String" />
+        <Field Name="CARDTYPE" Type="String" />
+        <Field Name="PENDINGEMAILVERIFICATION" Type="String" />
+        <Field Name="PENDINGCELLVERIFICATION" Type="String" />
+        <Field Name="EMAILADDRESS" Type="String" />
+        <Field Name="MOBILEPHONE" Type="String" />
+        <Field Name="ADDRESSLINEONE" Type="String" />
+        <Field Name="ADDRESSLINETWO" Type="String" />
+        <Field Name="CITY" Type="String" />
+        <Field Name="STATEORPROVINCE" Type="String" />
+        <Field Name="ZIPORPOSTALCODE" Type="String" />
+        <Field Name="COUNTRY" Type="String" />
+        <Field Name="LANGUAGEPREFERENCE" Type="String" />
+        <Field Name="GENDER" Type="String" />
+        <Field Name="HOMESTOREID" Type="String" />
+        <Field Name="FIRSTNAME" Type="String" />
+        <Field Name="LASTNAME" Type="String" />
+        <Field Name="BIRTHDATE" Type="String" />
+        <Field Name="MEMBERSTATUS" Type="String" />
+        <Field Name="TOTALPOINTS" Type="String" />
+        <Field Name="POINTSTONEXTREWARD" Type="String" />
+        <Field Name="BRACURRENTPURCHASED" Type="String" />
+        <Field Name="JEANSROLLINGBALANCE" Type="String" />
+        <Field Name="B5G1JEAN" Type="String" />
+        <Field Name="B5G1BRA" Type="String" />
+        <Field Name="AEO5REWARD" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.BirthdayRewardFulfillment</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider></DAPDirectives>

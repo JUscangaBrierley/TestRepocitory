@@ -1,0 +1,11 @@
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\Brierley.LoyaltyWare.ClientLib.dll
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\Brierley.LoyaltyWare.ClientLib.pdb
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\mscorlib.dll
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\normidna.nlp
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\normnfc.nlp
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\normnfd.nlp
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\normnfkc.nlp
+E:\Temp\Brierley.LoyaltyWare.ClientLib\bin\Debug\normnfkd.nlp
+E:\Temp\Brierley.LoyaltyWare.ClientLib\obj\Debug\Brierley.LoyaltyWare.ClientLib.csprojResolveAssemblyReference.cache
+E:\Temp\Brierley.LoyaltyWare.ClientLib\obj\Debug\Brierley.LoyaltyWare.ClientLib.dll
+E:\Temp\Brierley.LoyaltyWare.ClientLib\obj\Debug\Brierley.LoyaltyWare.ClientLib.pdb

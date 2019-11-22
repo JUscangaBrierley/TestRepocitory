@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Pilot Email Campaign DAP Process</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\americaneagle\Trunk\LogFiles">
+    <SimpleDatabaseInput CollectionName="PilotEmailCampaign" RecordName="PilotEmails">
+      <QueryString>
+		Select 0 as rownumber
+		, CAST( 'LOYALTY_NUMBER' as NVARCHAR2(100)) as LOYALTYIDNUMBER
+		, CAST( 'CUSTOMER_NBR' as NVARCHAR2(100)) as CUSTOMERNUMBER
+		, CAST( 'EMAIL' as NVARCHAR2(100)) as EMAILADDRESS
+		, CAST( 'EID' as NVARCHAR2(100)) as EID
+		from dual
+		union
+		select rownumber, LoyaltyIdNumber, CustomerNumber, EmailAddress, EID from
+		(SELECT 1 as rownumber
+			 , CAST( pec.loyaltyidnumber as NVARCHAR2(100)) as LoyaltyIdNumber
+			, CAST( vc.linkkey as NVARCHAR2(80)) as CustomerNumber
+			, CAST( pec.email_address as NVARCHAR2(100)) as EmailAddress
+			, CAST( '291752' as NVARCHAR2(100)) as EID
+		FROM
+			bp_ae.x$_aeo_pilot_email_campaign pec
+		JOIN bp_ae.lw_virtualcard vc on vc.loyaltyidnumber = pec.loyaltyidnumber)  
+      </QueryString>
+      <Fields>
+        <Field Name="LOYALTYIDNUMBER" Type="String"  />
+		<Field Name="CUSTOMERNUMBER" Type="String"  />
+        <Field Name="EMAILADDRESS" Type="String"  />
+		<Field Name="EID" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+ <!--  <MessageTransformationMap SourceCollectionName="PilotEmailCampaign" TargetAttributeSetType="Global">
+    <FieldMap SourceField="Global/LoyaltyIdNumber">
+      <Populate TargetNode="Global/LoyaltyIdNumber"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/EmailAddress">
+      <Populate TargetNode="Global/EmailAddress"/>
+    </FieldMap>
+  </MessageTransformationMap> -->
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="PilotEmailCampaign" RecordName="PilotEmails" FileName="AEORW_EM_1000BPS_{$date(format=yyyyMMddhhmmss)}.txt" DataInAttributes="false"  Delimiter="|" OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles">
+      <FieldMap>
+		<Field Name="LOYALTYIDNUMBER" Length="100" />
+		<Field Name="CUSTOMERNUMBER" Length="100"  />
+		<Field Name="EMAILADDRESS" Length="100" />
+		<Field Name="EID" Length="100" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE HUB Sync Load Tables config</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+	  <StoredProcTask Name="Stage_PROFILEUPDATES2.load_tables">
+		  <InputParameters>
+			<Parm Name="p_filename" Type="String" Value="{$arg=ProfileFileName}" Required="true"/>
+		  </InputParameters>
+		  <ReturnParameter>
+			<Parm Name=":B1" Type="Integer" Required="true"/>
+			<ParmAction Action="SetGlobal" Name="jobnumber"/>
+		  </ReturnParameter>
+		</StoredProcTask>
+  </PreProcessor>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Dummy\Production1">
+    <SimpleDatabaseInput CollectionName="DummyList" RecordName="DummyRecord">
+      <QueryString>
+        SELECT SYSDATE as "DummyRecord"
+		FROM DUAL
+      </QueryString>
+      <Fields>
+        <Field Name="DummyRecord" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="DummyList" RecordName="DummyRecord" FileName="DUMMY.txt" DataInAttributes="false" Delimiter="," OutputFolder="E:\AmericanEagle\Files\Dummy">
+      <FieldMap>
+        <Field Name="DummyRecord"  Length="50"/>
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

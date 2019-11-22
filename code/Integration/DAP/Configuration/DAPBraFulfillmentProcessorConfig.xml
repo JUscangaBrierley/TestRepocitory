@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Bra Fulfillment  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="BraRewards" RecordName="BraReward">
+      <QueryString>
+        select vc.loyaltyidnumber as LoyaltyNumber, 'BRAS002' as PromoCode, lm.firstname as FirstName, lm.lastname as LastName, replace(md.a_addresslineone, ',', '') as Line1,
+        replace(md.a_addresslinetwo, ',', '') as Line2, replace(md.a_city, ',', '') as City, md.a_stateorprovince as State, md.a_ziporpostalcode as PostalCode, md.a_country as Country,
+        md.a_addressmailable as AddressMailable, '720' as ReasonCode, md.a_languagepreference as LanguagePreference,
+        case
+        when md.a_isunderage is null then 'N'
+        when md.a_isunderage = 0 then 'N'
+        when md.a_isunderage = 1 then 'Y'
+        end as Under13
+        ,      Nvl(Ats_Memberbrand.Brandae, 0) AS BrandFlag_AE
+        ,      Nvl(Ats_Memberbrand.Brandaerie, 0) AS BrandFlag_Aerie
+        ,      Nvl(Ats_Memberbrand.Brandkids, 0) AS BrandFlag_77kids
+        ,Case
+        When mdb.a_brandnumber = 20 Then CAST(to_char(mdb.a_brandnumber) as NVARCHAR2(100))
+        Else CAST('00' as NVARCHAR2(100))
+        End as BaseBrand
+        ,count(mr.id) as PromotionCount
+        from   lw_memberrewards mr,
+        lw_rewardsdef rd,
+        lw_virtualcard vc,
+        lw_loyaltymember lm,
+        ats_memberdetails md,
+        ats_refbrand mdb,
+        (SELECT SUM(CASE WHEN b.a_Shortbrandname = 'AE' THEN 1 ELSE 0 END) AS Brandae
+        ,SUM(CASE WHEN b.a_Shortbrandname = 'aerie' THEN 1 ELSE 0 END) AS Brandaerie
+        ,SUM(CASE WHEN b.a_Shortbrandname = '77kids' THEN 1 ELSE 0 END) AS Brandkids
+        ,Mb.a_Ipcode
+        FROM Ats_Memberbrand Mb
+        ,Ats_Refbrand    b
+        WHERE Mb.a_Brandid = b.a_Brandid
+        GROUP BY Mb.a_Ipcode) Ats_Memberbrand
+        where 1=1
+        and   mr.rewarddefid = rd.id
+        and  AE_ISINPILOT(md.a_extendedplaycode)  &lt;&gt; 1 -- AEO-Point Conversion
+        and   rd.name Like 'Bra Reward%'
+        and   mr.memberid = vc.ipcode
+        and   vc.isprimary = 1
+        and   mr.memberid = lm.ipcode
+        and   lm.ipcode = md.a_ipcode
+        and   md.a_basebrandid = mdb.a_brandid(+)
+        and   mr.memberid = Ats_Memberbrand.a_Ipcode(+)
+        and   trunc(mr.dateissued) = trunc(sysdate)
+        and   mr.fulfillmentdate is null
+        group by vc.loyaltyidnumber, lm.firstname, lm.lastname, md.a_addresslineone, md.a_addresslinetwo,
+        md.a_city, md.a_stateorprovince, md.a_ziporpostalcode, md.a_country, md.a_addressmailable,
+        '720', md.a_languagepreference, md.a_isunderage, Ats_Memberbrand.Brandae,
+        Ats_Memberbrand.Brandaerie, Ats_Memberbrand.Brandkids, mdb.a_brandnumber
+      </QueryString>
+      <Fields>
+        <Field Name="LoyaltyNumber" Type="String" />
+        <Field Name="PromoCode" Type="String" />
+        <Field Name="FirstName" Type="String" />
+        <Field Name="LastName" Type="String" />
+        <Field Name="Line1" Type="String" />
+        <Field Name="Line2" Type="String" />
+        <Field Name="City" Type="String" />
+        <Field Name="State" Type="String" />
+        <Field Name="PostalCode" Type="String" />
+        <Field Name="Country" Type="String" />
+        <Field Name="AddressMailable" Type="String" />
+        <Field Name="ReasonCode" Type="String" />
+        <Field Name="LanguagePreference" Type="String" />
+        <Field Name="Under13" Type="String" />
+        <Field Name="BrandFlag_AE" Type="String" />
+        <Field Name="BrandFlag_Aerie" Type="String" />
+        <Field Name="BrandFlag_77kids" Type="String" />
+        <Field Name="BaseBrand" Type="String" />
+        <Field Name="PromotionCount" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.BraFulfillment</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

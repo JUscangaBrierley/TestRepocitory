@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat> 
+    <ThreadPoolSize>1</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE Rule Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Loyalty Acquisition Reward Bonus Process</Subject>
+    </EmailInformation>    
+  </RuleEngineConfig>
+  <MemberRule DirectiveName="AERewards">
+    <QueryBasedMemberRetriever 
+      RetrievalRange="0-*" 
+      RetrievalBatchSize="1000" 
+      KeyName="IpCode"
+    >
+      <QueryString>
+	  <![CDATA[
+        SELECT w.IPCODE, 0, nvl(w.cardtype,0) as CARDTYPE, null as TIERLEVEL
+        FROM (
+          SELECT DISTINCT audience.ipcode, audience.cardtype
+          FROM (
+              SELECT dat.ipcode, dat.cardtype, COUNT(CASE WHEN dat.RewardName = 'Loyalty Acquisition $5 Reward' THEN 1 END) RewardsIssued
+              FROM
+              (
+                SELECT lm.ipcode AS IPCODE, md.a_cardtype as cardtype, rd.name AS RewardName
+                FROM bp_ae.lw_loyaltymember lm
+                INNER JOIN bp_ae.ats_memberdetails md    ON lm.ipcode = md.a_ipcode
+                LEFT  JOIN bp_ae.lw_memberrewards mr     ON lm.ipcode = mr.memberid
+                LEFT  JOIN bp_ae.lw_rewardsdef rd        ON rd.id = mr.rewarddefid        
+                WHERE 1 = 1
+                  AND lm.membercreatedate >= TO_DATE('10/17/2019','MM/DD/YYYY')
+                  AND lm.membercreatedate < TO_DATE('10/28/2019','MM/DD/YYYY')
+                  AND INSTR(md.a_emailaddress,'@')>0 
+                  AND (lm.memberstatus = 1 AND md.a_memberstatuscode IS NULL)
+              ) dat
+              GROUP BY dat.ipcode, dat.cardtype
+          ) audience
+          WHERE audience.RewardsIssued=0
+        ) w
+		]]>
+      </QueryString>
+    </QueryBasedMemberRetriever>
+    <RulesToInvoke>
+      <Rule RuleName="October 2019 Loyalty Acquisition Bonus Reward" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+  </RulesToInvoke>
+  </MemberRule>
+</RulesDirectives>

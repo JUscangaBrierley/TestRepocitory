@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "No activity";
+} 
+
+<!doctype html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+
+
+<!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+  <![endif]-->
+
+
+ <!--Using jQuery and jQuery UI for display effects-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <!--Using the hamburger menu display code-->
+    <script src="~/js/hamburger.js"></script>
+
+    <script src="~/js/modernizr-latest.js"></script>
+
+<link rel="shortcut icon" href="~/images/favicon.ico"/>
+<link rel="apple-touch-icon" href="~/images/72x72_ipadAppIcon.png"/>
+<title>Welcome to AEO Rewards</title>
+<link rel="canonical" href="index.html"/>
+<link rel="stylesheet" href="@Url.Content("~/CSS/aeo.css")" />
+<link rel="stylesheet" href="@Url.Content("~/CSS/media.css")" />
+
+</head>
+
+<body class="main">
+<div id="container">
+	<div class="header" align="center">
+		<div class="header_block">
+        
+        	<div id="hamburger">
+            	<div></div>
+            	<div></div>
+            	<div></div>
+        	</div>   
+
+        	<div class="header_block_logo"><img src="~/images/aeo_logo.png" width="115" height="auto" alt="American Eagle Outfitters" class="aeo_logo"/><img src="~/images/aeo_bug.png" width="50" height="auto" alt="American Eagle Outfitters" class="aeo_bug"/><div style="float:right; padding:0 5px 0 0"><a href="#"><img src="~/images/mb_search.png" width="32" height="39" alt="American Eagle Outfitters" class="aeo_bug"/></a><a href="#"><img src="~/images/mb_cart.png" width="32" height="39" alt="American Eagle Outfitters" class="aeo_bug"/></a></div></div>    
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://ae.com/web/browse/hp_womens.jsp?catId=womens&navdetail=top:women:p2" target="_self" class="link_nav">WOMEN</a></div>
+       		</div>
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://ae.com/web/browse/hp_mens.jsp?catId=mens&navdetail=top:men:p3" target="_self" class="link_nav">MEN</a></div>
+        	</div>    
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://ae.com/web/browse/jeans.jsp?catId=cat7010140&navdetail=top:jeans:p4" target="_self" class="link_nav">JEANS</a></div> 
+        	</div>
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://ae.com/aerie/index.jsp?catId=cat4840006&navdetail=top:aerie:p5" target="_self" class="link_nav">AERIE</a></div> 
+        	</div>   
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="#" target="_self" class="link_nav">GIFTS</a></div> 
+        	</div>   
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://ae.com/web/browse/hp_clearance.jsp?catId=clearance&navdetail=top:clearance:p7" target="_self" class="link_nav">CLEARANCE</a></div> 
+        	</div>
+            <div class="header_block_nav">
+                <div class="header_block_nav_link">@ViewBag.MemberName AERewards&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;@Html.ActionLink("Sign Out", "Login", "Home")</div>
+            </div>
+        </div>
+    </div>
+    
+    <!--START MOBILE NAVIGATION-->
+        
+    <nav class="hide_nav">
+    <ul>
+    <li class="menu_a"><a href="http://ae.com/web/browse/hp_womens.jsp?catId=womens&navdetail=top:women:p2">WOMEN</a></li>
+    <li class="menu_a"><a href="http://ae.com/web/browse/hp_mens.jsp?catId=mens&navdetail=top:men:p3">MEN</a></li>
+    <li class="menu_a"><a href="http://ae.com/web/browse/jeans.jsp?catId=cat7010140&navdetail=top:jeans:p4">JEANS</a></li>
+    <li class="menu_a"><a href="http://ae.com/aerie/index.jsp?catId=cat4840006&navdetail=top:aerie:p5">AERIE</a></li>
+    <li class="menu_a"><a href="#">GIFTS</a></li>
+    <li class="menu_a"><a href="http://ae.com/web/browse/hp_clearance.jsp?catId=clearance&navdetail=top:clearance:p7">CLEARANCE</a></li>
+    <li class="menu_b">@ViewBag.MemberName AERewards&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;@Html.ActionLink("Sign Out", "Login", "Home")</li>
+    <li class="menu_x">@Html.ActionLink("Earning Summary", "EarningSummary", "Home")</li>
+    <li class="menu_c">@Html.ActionLink("Earning Activity", "EarningActivity", "Home")</li>
+    <li class="menu_c">@Html.ActionLink("Available Rewards", "AvailableRewards", "Home")</li>
+    <li class="menu_c">@Html.ActionLink("Profile", "Profile", "Home")</li>
+    <li class="menu_c">@Html.ActionLink("Program Details&nbsp;&nbsp;&nbsp;+", "ProgramDetails", "Home")</li>
+    <li class="menu_c">@Html.ActionLink("FAQ", "FAQ", "Home")</li>
+    <li class="menu_c">@Html.ActionLink("Terms and Conditions", "Terms", "Home")</li>
+    <li class="menu_c"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3">Privacy Policy</a></li>
+    </ul>
+    </nav>
+    
+   	<!--END MOBILE NAVIGATION-->
+    
+    <!--The Layer that will be layed over the content
+    so that the content is unclickable while menu is shown-->
+    <div id="contentLayer"></div>
+    
+    <div id="content">
+    	<div class="aeo_body">
+    		<div class="nav_column_1">
+        		<div class="nav_column_1_head"><img src="~/images/aeo_rewards.png" width="162" height="auto" alt="AE Rewards"/></div>
+            	<div class="nav_column_1_top">
+            		<div class="nav_column_1_text">@Html.ActionLink("Earning Summary", "EarningSummary", "Home")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div style="background-color:#000000; vertical-align:middle; padding:3px 0 3px 10px; font-family:'gotham_bookregular', Helvetica, Arial, sans-serif; font-size:14px; color:#ffffff">Earning Activity</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Available Rewards", "AvailableRewards", "Home")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Profile", "Profile", "Home")</div>
+            	</div>
+            	<div class="nav_column_1_bottom">
+            		<div class="nav_column_1_text">@Html.ActionLink("Program Details+", "ProgramDetails", "Home")</div>
+            	</div>
+            </div>
+             <div>
+<!-------------------------------------
+    Content Section Begin
+  ------------------------------------->               
+            <div class="column_2">
+    			<div class="column_2_container">
+    				<div class="column_2_head">EARNING ACTIVITY</div>
+                    <div class="column_2_head_sub">Only points earned between October 2015 and July 2016 will be tracked in this pilot program fpo.</div>
+                    <div class="column_2_head_sub2">Missing points?&nbsp;<img src="images/qmark.png" width="16" height="16" alt="" /></div>
+            
+            		<div class="earning_callout">
+                    	<div class="earning_callout_head">Looks like it's time to get this shoppin party started&hellip;</div>
+                        <div class="earning_callout_button"><a href="http://www.ae.com/web/browse/category.jsp?catId=cat90040&navdetail=mega:women:c1:p2" target="_blank" class="link_footer">WOMEN'S NEW ARIVALS</a></div>
+                        <div class="earning_callout_button"><a href="http://www.ae.com/web/browse/category.jsp?catId=cat380149&navdetail=mega:men:c1:p2" target="_blank" class="link_footer">MEN'S NEW ARRIVALS</a></div>
+                        <div class="earning_callout_button"><a href="http://www.ae.com/aerie/browse/category.jsp?catId=cat6400001&navdetail=mega:aerie:c1:p2" target="_blank" class="link_footer">AERIE NEW ARRIVALS</a></div>
+                    </div>
+            
+                </div>
+            </div>
+    
+<!-------------------------------------
+    Content Section End
+  ------------------------------------->            
+
+             </div>
+    </div>   	
+    <div style="clear:both"></div>
+
+   <div class="aeo_footer">
+    	<div class="aeo_footer_content1">
+        	<div class="aeo_footer_1"><a href="http://www.ae.com/web/help/terms_of_use.jsp?topic=1&navdetail=footer:utility:p1" class="link_footer">TERMS OF USE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=5&navdetail=footer:utility:p2" class="link_footer">CALIFORNIA COMPLIANCE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" class="link_footer">PRIVACY POLICIES</a></div><div class="aeo_footer_1"><a href="http://m.ae.com/web/index.jsp?navdetail=footer:utility:p4" class="link_footer">MOBILE SITE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/sitemap/index.jsp?navdetail=footer:utility:p5" class="link_footer">SITE MAP</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/brand_protection.jsp?navdetail=footer:utility:p6" class="link_footer">BRAND PROTECTION</a></div><div class="aeo_footer_1"><a href="https://signup.cj.com/member/signup/publisher.cj;jsessionid=abcbUmpk15mUMa9_n257u?cid=4445720"  target="_blank" class="link_footer">AFFILIATE PROGRAM</a></div>
+        </div>
+        <div class="aeo_footer_content2">
+        	<div class="aeo_footer_2"><a href="http://www.ae.com/web/lp/tees.jsp?navdetail=footer:utility:p9" class="link_footer">T-SHIRTS</a></div><div class="aeo_footer_2"><a href="http://www.ae.com/web/factory/store.jsp?navdetail=footer:utility:p10" class="link_footer">AEO FACTORY STORE</a></div>
+        </div>
+        <div class="aeo_footer_content3">
+        	<div class="aeo_footer_3">&copy; 2015 AEO Management Co. All&nbsp;Rights&nbsp;Reserved.</div>
+        </div>
+        <div class="aeo_footer_content4">
+        	<img src="~/images/footer_01.png" width="61" height="30" alt=""/><img src="~/images/footer_02.png" width="37" height="30" alt=""/><img src="~/images/footer_03.png" width="106" height="30" alt=""/><img src="~/images/footer_04.png" width="77" height="30" alt=""/><img src="~/images/footer_05.png" width="45" height="30" alt=""/><img src="~/images/footer_06.png" width="61" height="30" alt=""/><img src="~/images/footer_07.png" width="63" height="30" alt=""/>
+        </div>
+    </div>
+    
+</div>
+</div>
+</body>
+</html>

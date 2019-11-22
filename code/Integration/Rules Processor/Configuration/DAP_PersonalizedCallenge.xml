@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat> 
+    <ThreadPoolSize>1</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>New Enrrolment ProfileIn Process</Subject>
+    </EmailInformation>    
+  </RuleEngineConfig>
+  <MemberRule DirectiveName="BulkAppeasements">
+    <QueryBasedMemberRetriever 
+      RetrievalRange="0-*" 
+      RetrievalBatchSize="1000" 
+      KeyName="IpCode"
+    >
+      <QueryString>
+        select w.IPCODE, w.POINTS, nvl(md2.a_cardtype,0) as CARDTYPE, tier.tierlevel as TIERLEVEL
+		from (  
+		 SELECT IPCODE, points
+		 FROM (SELECT vc.ipcode AS IPCODE,
+					  row_number() OVER(PARTITION BY vc.ipcode ORDER BY vc.ipcode) rn,
+					  sum(pt.points - pt.pointsconsumed) as points
+				 FROM bp_ae.lw_pointtransaction pt
+				INNER JOIN bp_ae.lw_pointevent pe       ON pt.pointeventid = pe.pointeventid
+				INNER JOIN bp_ae.lw_pointtype p         ON pt.pointtypeid = p.pointtypeid
+				INNER JOIN bp_ae.lw_virtualcard vc      ON pt.vckey = vc.vckey
+				INNER JOIN bp_ae.ats_memberdetails md   ON vc.ipcode = md.a_ipcode
+				INNER JOIN bp_ae.lw_loyaltymember lm    ON vc.ipcode = lm.ipcode
+				WHERE 1 = 1
+				  AND  p.Name = 'Personalized Challenge $5 Points'
+				   AND INSTR(md.a_emailaddress,'@')>0 
+				  AND pt.pointsonhold = 0
+				  AND pt.transactiontype NOT IN (3, 4)
+				  AND pt.expirationdate > sysdate
+				  AND (lm.memberstatus = 1
+				  AND md.a_memberstatuscode IS NULL) 
+				GROUP BY vc.ipcode
+			   HAVING SUM(pt.points - pt.pointsconsumed) >= 1)
+		 WHERE rn = 1 ) w
+		 inner join bp_ae.ats_memberdetails md2 on md2.a_ipcode = w.ipcode
+		 inner join (
+			 select t.tierlevel, t.memberid
+			 from (SELECT ti.tiername as tierlevel,
+						  mt.memberid,
+						  row_number() OVER(PARTITION BY mt.memberid ORDER BY mt.todate desc, mt.fromdate ASC) rn
+					 FROM bp_ae.lw_membertiers mt
+					INNER JOIN bp_ae.lw_tiers ti
+					   ON ti.tierid = MT.TIERID
+					WHERE mt.todate > SYSDATE) t
+			 where t.rn = 1
+		 ) tier on tier.memberid = md2.a_ipcode
+		  
+      </QueryString>
+    </QueryBasedMemberRetriever>
+    <RulesToInvoke>
+      <Rule RuleName="Personalized Challenge 5 Reward" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+  </RulesToInvoke>
+  </MemberRule>
+</RulesDirectives>

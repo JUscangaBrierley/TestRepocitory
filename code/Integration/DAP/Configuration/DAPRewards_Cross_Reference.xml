@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <!--AE_Certificate_BRTHDY_IN-->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Rewards DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+ 
+  
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="D:\devroot\americaneagle\workspace\LogFiles">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+       
+       SELECT c.auth_cd, c.reward_def from stg_auth_cc_ref c
+       where c.load_id in (SELECT l.load_id
+                           FROM nova_loads l
+                           WHERE l.feed_name = 'AE_AUTH_CC_REF_FEED'
+                           AND l.processing_state = 'PROCESSING'
+                          AND 1 = 1)
+					
+
+      </QueryString>
+      <Fields>
+        <Field Name="Auth_Cd" Type="String" />
+        <Field Name="Reward_Def" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput>
+      <TypeName>AmericanEagle.SDK.OutputProviders.AEOConnectedRewardCrossReference</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+  <PostProcessor>
+   <!--GENERATE REJECT FILE--> 
+   <StoredProcTask Name="feed_auth_cc_ref.ex_reject_file">
+   </StoredProcTask>
+   <!--COMPLETE THE PROCESS-->
+   <StoredProcTask Name="feed_auth_cc_ref.complete_file">
+   </StoredProcTask>
+
+  </PostProcessor>  
+</DAPDirectives>

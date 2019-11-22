@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>  
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE AIT Profile Update   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+  </PreProcessor>
+  
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\AITProfileUpdateSend">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+       select cast ('MemberRewardID|Customer_NBR|Loyalty_Number|RewardType|IssueDate' as varchar(100) ) as line1 from dual
+       union all
+       select cast (r.id || '|' ||
+              vc.linkkey ||'|' ||
+              vc.loyaltyidnumber ||'|' ||
+                   case when rd.name = 'B5G1 Bra Reward' then
+                   '9'
+                   when rd.name = 'B5G1 Jean Reward' then
+                   '10'
+                  
+                   when rd.name = 'AEO Connected $10  Reward' then
+                     '1'
+                    when rd.name ='AEO Connected Extra Access $15 Reward' then
+                     '2'
+                    when rd.name = 'AEO Connected $20  Reward' then
+                     '3'  
+                   when rd.name in ( 'AEO Connected $30  Reward','AEO Connected Extra Access $30 Reward') then
+                     '4'  
+                   when rd.name = 'AEO Connected $40  Reward' then
+                     '5'  
+                   when rd.name = 'AEO Connected Extra Access $45 Reward' then
+                     '6'    
+                   when rd.name = 'AEO Connected $50  Reward' then
+                     '7'
+                   when rd.name in ('AEO Connected $60  Reward','AEO Connected Extra Access $60 Reward' )then
+                     '8'
+              end  ||'|'||
+              to_char(sysdate,'YYYYMMDD' ) as varchar2(100)) as line1
+        from bp_ae.lw_memberrewards r
+        inner join bp_ae.lw_virtualcard vc          on vc.ipcode = r.memberid
+        inner join bp_ae.lw_loyaltymember lm        on lm.ipcode = vc.ipcode
+        inner join bp_ae.lw_rewardsdef rd           on rd.id     = r.rewarddefid
+        where r.memberid IN (SELECT DISTINCT vc.ipcode
+        FROM BP_AE.EXT_JRA_AEO2290 pu
+        INNER JOIN Bp_Ae.lw_virtualcard vc ON to_number(nvl(Pu.customer_nbr,-1)) = Vc.linkkey and vc.loyaltyidnumber = pu.new_loyalty_number)
+          and r.certificatenmbr IS NULL
+          and nvl(vc.isprimary, 0) = 1
+          and rd.name in (  'B5G1 Bra Reward',
+                            'B5G1 Jean Reward',
+                            'AEO Connected $10  Reward',
+                            'AEO Connected $20  Reward',
+                            'AEO Connected $30  Reward',
+                            'AEO Connected $40  Reward',
+                            'AEO Connected $50  Reward',
+                            'AEO Connected $60  Reward',
+                            'AEO Connected Extra Access $60 Reward',
+                            'AEO Connected Extra Access $45 Reward',
+                            'AEO Connected Extra Access $30 Reward',
+                            'AEO Connected Extra Access $15 Reward')
+      </QueryString>
+      <Fields>
+        <Field Name="line1"  Type="String"  />      
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="Rewards" RecordName="Reward" FileName="AEO_Out_Rewards_{$date(format=yyyyMMdd)}.txt" DataInAttributes="false"  Delimiter="" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="line1" Justification="Left" Length="100" />                
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>       
+  </PostProcessor>
+</DAPDirectives>

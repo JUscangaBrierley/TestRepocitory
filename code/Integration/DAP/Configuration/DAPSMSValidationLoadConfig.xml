@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>mmorales@birerley.com</RecepientEmail>
+      <Subject>AE Vendor SMS Validation Load DAP Processor (Stage) </Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\americaneagle\cline\LogFiles">
+    <FlatFileInput>
+      <CollectionRoot Name="CellValidations" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Global" Structure="Delimited" Delimiter="|" TagName="">
+          <Fields>
+            <RecordField Name="Loyalty_Number"  Type="String" />
+			<RecordField Name="Cell_Phone_Number"  Type="String" />
+			<RecordField Name="Region" Type="String" />
+            <RecordField Name="TimeStamp" Type="String" />
+            <RecordField Name="MobileEvent" Type="String" />
+            <RecordField Name="CampaignID" Type="String" />
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="CellValidations" TargetAttributeSetType="Global" DebugOutputPath="C:\devroot\americaneagle\cline\LogFiles">
+    <FieldMap SourceField="Global/Loyalty_Number">
+      <Populate TargetNode="Global/Loyalty_Number"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/Cell_Phone_Number">
+      <Populate TargetNode="Global/Cell_Phone_Number"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/Region">
+      <Populate TargetNode="Global/Region"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/TimeStamp">
+      <Populate TargetNode="Global/TimeStamp"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/MobileEvent">
+      <Populate TargetNode="Global/MobileEvent"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/CampaignID">
+      <Populate TargetNode="Global/CampaignID"/>
+    </FieldMap>
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider CheckForChangedValues="true">
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.SMSValidation</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

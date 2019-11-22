@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Bulk Bonus Loader Exception Report</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>    
+  </PreProcessor>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="e:\americaneagle\files\outbound\decrypted">
+    <SimpleDatabaseInput CollectionName="ExceptionRecords" RecordName="ExceptionRecord">
+      <QueryString>
+          SELECT 0 AS ROWNO
+                 , CAST('FILENAME' AS NVARCHAR2(100)) FILENAME
+                 , CAST('LOYALTY_NUMBER' AS NVARCHAR2(100)) LOYALTY_NUMBER
+                 , CAST('NOTES' AS NVARCHAR2(100)) NOTES
+                 , CAST('CREATE_DATE' AS NVARCHAR2(100)) CREATE_DATE     
+          FROM DUAL
+          UNION ALL
+          SELECT rownum AS ROWNO
+                 , CAST(te.filename AS NVARCHAR2(100)) AS FILENAME
+                 , CAST(te.loyaltynumber AS NVARCHAR2(100)) AS LOYALTY_NUMBER
+                 , CAST(REPLACE(te.exceptionmsg,'|',';') AS NVARCHAR2(100)) AS NOTES
+                 , CAST(TO_CHAR(te.createdate,'DD-Mon-YYYY HH24:MI:SS') AS NVARCHAR2(100)) AS CREATE_DATE
+          FROM bp_ae.AE_BONUSLOADER_EXCEPTION te 
+          WHERE 1=1
+          AND te.filename = '{$arg=BonusFile}'
+          AND TRUNC(te.createdate) = TO_DATE('{$arg=BonusDate}','mm/dd/yyyy')
+      </QueryString>
+      <Fields>
+		<Field Name="ROWNO" Type="String"  />
+		<Field Name="FILENAME" Type="String"  />
+		<Field Name="LOYALTY_NUMBER" Type="String"  />
+		<Field Name="NOTES" Type="String"  />
+		<Field Name="CREATE_DATE" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="ExceptionRecords" RecordName="ExceptionRecord" FileName="BULK_BONUS_EXCEPTION_{$date(format=yyyyMMddhhmmss)}.txt" DataInAttributes="false" Delimiter="|" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+		<Field Name="ROWNO" Length="100" />
+		<Field Name="FILENAME" Length="100" />
+		<Field Name="LOYALTY_NUMBER" Length="100" />
+		<Field Name="NOTES" Length="100"  />
+		<Field Name="CREATE_DATE" Length="100"  />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

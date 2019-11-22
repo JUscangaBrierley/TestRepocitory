@@ -1,0 +1,273 @@
+@{
+    ViewBag.Title = "ProgramFAQ";
+} 
+
+<!doctype html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+ <!--Using jQuery and jQuery UI for display effects-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <!--Using the hamburger menu display code-->
+    <script src="~/js/hamburger.js"></script>
+    
+    <script src="~/js/modernizr-latest.js"></script>
+  
+    <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+  <![endif]-->
+   
+        <script type="text/javascript">
+        var utag_data = {
+            brand_name: "AE", // Brand name - prop1 add brand AE or aerie for brand case senitive
+            channel: "AE", //   Same as brand_name
+            root_category: "rewards", // Root Category - prop2 this is always rewards
+            main_category: "faq-vanity", // Top Level Category (Categories) - prop3 changes based on page or tab so home page would be home_page and if on earnings tab earnings_tab
+            category: "", // Category (Tops) - change for different actions/events for Profile
+            sub_category: "", // Sub category (Jeans) - prop5 if used if another level
+            bar_level_category: "", // Bar category (ex Skinny) - prop41  if used if another level
+            server: "rewards", // server static
+            logged_in: "true", // Login status true or false
+            report_suite: "aeoproduction", // add aeoproduction for prod and aeodev for dev
+            page_section_type: "rewards", //  static
+            profileId: "", // AEO Profile ID if adval
+            rewardsId: "", // AEREWARDS ID  if adval.  see if I can change in code behind
+            customerId: ""// customer ID if adval
+        }
+    </script>
+
+<!-- Loading script asynchronously -->
+
+<script type="text/javascript">
+    (function (a, b, c, d) {
+        a = '//tags.tiqcdn.com/utag/americaneagle/main/prod/utag.js'; //change prod to dev if in zone
+        b = document; c = 'script'; d = b.createElement(c); d.src = a; d.type = 'text/java' + c; d.async = true;
+        a = b.getElementsByTagName(c)[0]; a.parentNode.insertBefore(d, a);
+    })();
+</script>
+
+<link rel="shortcut icon" href="~/images/favicon.ico"/>
+<link rel="apple-touch-icon" href="~/images/72x72_ipadAppIcon.png"/>
+<title>Welcome to AEO Rewards</title>
+<link rel="canonical" href="index.html"/>
+<link rel="stylesheet" href="@Url.Content("~/CSS/aeo.css")" />
+<link rel="stylesheet" href="@Url.Content("~/CSS/media.css")" />
+
+</head>
+
+<body class="main">
+<div id="container">
+	<div align="center" class="header">
+		<div class="header_block">
+        
+        <div id="hamburger">
+            	<div></div>
+            	<div></div>
+            	<div></div>
+        	</div>
+
+       	    <div class="header_block_logo"><a href="http://www.ae.com" target="_self" border="0"><img src="~/images/aeo_logo.png" width="115" alt="American Eagle Outfitters" class="aeo_logo" style="border:none"/></a><img src="~/images/aeo_bug.png" width="50" alt="American Eagle Outfitters" class="aeo_bug"/></div>    
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/hp_womens.jsp?catId=womens&navdetail=top:women:p2" target="_self" class="link_nav">WOMEN</a></div>
+       		</div>
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/hp_mens.jsp?catId=mens&navdetail=top:men:p3" target="_self" class="link_nav">MEN</a></div>
+        	</div>    
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/jeans.jsp?catId=cat7010140&navdetail=top:jeans:p4" target="_self" class="link_nav">JEANS</a></div> 
+        	</div>
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/aerie/index.jsp?catId=cat4840006&navdetail=top:aerie:p5" target="_self" class="link_nav">AERIE</a></div> 
+        	</div>   
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="https://www.ae.com/web/checkout/giftcards/giftCard.jsp?catId=cat7170001" target="_self" class="link_nav">GIFTS</a></div> 
+        	</div>   
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/hp_clearance.jsp?catId=clearance&navdetail=top:clearance:p7" target="_self" class="link_nav">CLEARANCE</a></div> 
+        	</div>
+        </div>
+    </div>
+    
+    <!--START MOBILE NAVIGATION-->
+        
+        	<nav class="hide_nav">
+        	<ul>
+            	<li><a href="http://www.ae.com/web/browse/hp_womens.jsp?catId=womens&navdetail=top:women:p2" target="_self" class="menu_a">WOMEN</a></li>
+            	<li><a href="http://www.ae.com/web/browse/hp_mens.jsp?catId=mens&navdetail=top:men:p3" target="_self" class="menu_a">MEN</a></li>
+            	<li><a href="http://www.ae.com/web/browse/jeans.jsp?catId=cat7010140&navdetail=top:jeans:p4" target="_self" class="menu_a">JEANS</a></li>
+            	<li><a href="http://www.ae.com/aerie/index.jsp?catId=cat4840006&navdetail=top:aerie:p5" target="_self" class="menu_a">AERIE</a></li>
+            	<li><a href="https://www.ae.com/web/checkout/giftcards/giftCard.jsp?catId=cat7170001" target="_self" class="menu_a">GIFTS</a></li>
+            	<li><a href="http://www.ae.com/web/browse/hp_clearance.jsp?catId=clearance&navdetail=top:clearance:p7" target="_self" class="menu_a">CLEARANCE</a></li>
+                <li class="menu_c">@Html.ActionLink("Program Details", "Program", "Info")</li>
+                <li class="menu_x">FAQs</li>
+                <li class="menu_c">@Html.ActionLink("Terms and Conditions", "ProgramTerms", "Info")</li>
+                <li><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" class="menu_c">Privacy&nbsp;Policy</a></li>
+            </ul>
+            </nav>
+    
+        	<!--END MOBILE NAVIGATION-->
+    
+    <!--The Layer that will be layed over the content
+    so that the content is unclickable while menu is shown-->
+    <div id="contentLayer"></div>
+    
+    <div id="content">
+    	<div class="aeo_body">
+    		<div class="nav_column_1">
+        		<div class="nav_column_1_head"><img src="~/images/aeo_rewards.png" alt="AE Rewards" width="137" height="48" style="display:block; min-height:48 !important;"/></div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Program Details", "Program", "Info")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div style="background-color:#000000; vertical-align:middle; padding:3px 0 3px 10px; font-family:'gotham_bookregular', Helvetica, Arial, sans-serif; font-size:14px; color:#ffffff">FAQ</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Terms and Conditions", "ProgramTerms", "Info")</div>
+            	</div>
+            	<div class="nav_column_1_bottom">
+            		<div class="nav_column_1_text"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" target="_top">Privacy Policy</a></div>
+            	</div>
+            </div>
+             <div>
+
+<!-------------------------------------
+    Content Section Begin
+  ------------------------------------->        
+
+
+<div class="column_2">
+    			<div class="column_2_container">
+    				<div class="column_2_head">FAQs</div>
+            		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+            		<tr>
+                    <td class="details_table"><b><span style="font-family:'gotham_bookregular', Helvetica, Arial, sans-serif; font-size:16px;"> General</span></b><br /><br />
+                            <span class="bold">1. What is AEO Rewards?</span><br /><br />
+                                AEO Rewards is a loyalty program whereby members in select markets earn points on purchases (after Discounts and before Taxes and Fees) made at American Eagle Outfitters and Aerie. For every 1,000 points earned a $5 Reward is issued, good for use at American Eagle Outfitters and Aerie stores. Additional benefits include buy 5 bras, get 1 free, buy 5 pairs of jeans, get 1 free, an exclusive birthday offer and members-only sales and events. At this time, the program is limited to select markets, but stay tuned for changes and more opportunities to participate.<br /><br />
+                            <span class="bold">2. How can I join the program?</span><br /><br />
+                                There is no fee to join AEO Rewards and you qualify for this program if you are in a participating market and a US resident 13 years of age and older. Ask your store associate to enroll you or call 1-800-340-0532 to find out if you are eligible to participate. You'll need to provide and validate an email address to use so that we can send you your rewards. You can also provide a mobile number if you'd like us to text your rewards to you. Standard text messaging rates apply.<br /><br />
+                            <span class="bold">3. I'm currently a member of AERewards. Do I have to do anything different to participate in the new enhanced AEO Rewards?</span><br /><br />
+                               If you are a member of our program or have an AEO credit card account or Aerie credit card account, and you reside in a participating market, you are already enrolled and all you need to do is provide and validate an email address so that we can send you your rewards. Just provide your email address to a store associate or call Customer Service at 1-800-340-0532.<br /><br />
+                            <span class="bold">4. Why is my email address required in order to participate in AEO Rewards?</span><br /><br />
+                            In order to send you your rewards, your email address is required. We do not mail rewards as our program is paperless, and want to make sure that your earned rewards get to the right place.<br /><br />
+                            <span class="bold">5. Why do I have to validate my email address?</span><br /><br />Validating your email address ensures that we have the correct information on file for your account, so that rewards are sent to the right place.<br /><br />
+                           
+                            <span class="bold">7. How do I update my account profile or check my balance?</span><br /><br />Your account information can be accessed at <a href="http://www.aeorewards.com" target="_self" class="link_body">www.aeorewards.com</a> or call 1-800-340-0532. If you were an AERewards member previously, your login remains the same. If you need to create an account, use the email you used to signed up for AEO Rewards and create a password to login to your account.<br /><br />
+                    </td>
+            		</tr>
+            		<tr>
+                    <td class="details_table"><b><span style="font-family:'gotham_bookregular', Helvetica, Arial, sans-serif; font-size:16px;"> Earning</span></b><br /><br />                      
+                            <span class="bold">7. How many points do I earn with the AEO Rewards Program?</span><br /><br />
+                           As an AEO Rewards member, you can earn 5 points for every qualifying $1 (USD) spent, rounded to the nearest USD at American Eagle Outfitters stores, Aerie stores, AEO Factory stores, online and via direct phone orders. Just make sure to let the associate know you are a member &mdash; you can show your rewards card on your mobile phone or the associate can look you up with your phone number, email address or with your last name and zip code. When you're buying online, be sure to log in before you complete your purchase.<br /><br />
+                                The number of points you earn varies by your Tier (Blue or Silver) and whether you use an AEO Credit Card.<br /><br />
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td style="width:60%; padding:5px; border-bottom:1px solid #999999">&nbsp;</td>
+                                        <td style="width:20%; padding:5px; border-bottom:1px solid #999999; border-left:1px solid #999999; border-right:1px solid #999999">Blue</td>
+                                        <td style="padding:5px; border-bottom:1px solid #999999">Silver</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:5px; border-bottom:1px solid #999999">Shop at American Eagle Outfitters or Aerie</td>
+                                        <td style="padding:5px; border-bottom:1px solid #999999; border-left:1px solid #999999; border-right:1px solid #999999">$1 = 5 points</td>
+                                        <td style="padding:5px; border-bottom:1px solid #999999">$1 = 9 points</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:5px; border-bottom:1px solid #999999">Use your AEO Credit Card or AEO Visa Card at American Eagle Outfitters or Aerie</td>
+                                        <td style="padding:5px; border-bottom:1px solid #999999; border-left:1px solid #999999; border-right:1px solid #999999">$1 = 8 points</td>
+                                        <td style="padding:5px; border-bottom:1px solid #999999">$1 = 12 points</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:5px; border-bottom:1px solid #999999">Use your AEO Visa Card everywhere else</td>
+                                        <td style="padding:5px; border-bottom:1px solid #999999; border-left:1px solid #999999; border-right:1px solid #999999">$1 = 2 points</td>
+                                        <td style="padding:5px; border-bottom:1px solid #999999">$1 = 2 points</td>
+                                    </tr>
+                                </table>
+                        <br /><br />
+                            <span class="bold">8. What's a qualifying purchase?</span><br /><br />
+                            When purchasing in-store or online, the qualifying amount for earning points is the transaction total for merchandise, excluding Gift Card purchases or charitable items, after any discounts or Rewards have been applied and before sales or other taxes, state fees, shipping charges (collectively &dagger;úTaxes and Fees&dagger;ù). But don't worry; you'll still earn points if you pay for your merchandise with a gift card.<br /><br />
+                            <span class="bold">9. Do I earn points for my online purchases?</span><br /><br />Yes! You earn the same number of points whether you shop in-store at American Eagle Outfitters or Aerie or online at AE.com or Aerie.com. Just be sure to log in before you complete your purchase.<br /><br />
+                            <span class="bold">10. How do I become a Silver AEO Rewards member?</span><br /><br />If you spend $250 USD or more (excluding gift cards and after Taxes and Fees) at American Eagle Outfitters and/or Aerie in a calendar year, you'll automatically be given Reward Silver status starting with your next purchase. Your status will be good to the end of the year and for the next calendar year as well!<br /><br />
+                            
+                            Please note that the dollar amount from returned merchandise will decrease the purchases applied towards tier status. If a return decreases the amount of purchases below $250 during the same calendar year you first earn status, your status will be re-evaluated and you may no longer have Reward Silver status.<br /><br />
+                            <span class="bold">11. What do I get for becoming a Silver AEO Rewards member?</span><br /><br />
+                            You earn 4 extra points for $1 USD of qualifying purchases at American Eagle Outfitters stores, Aerie stores, AEO Factory stores, online and via direct phone orders. Plus, you will receive special offers throughout the year.<br /><br />
+                            <span class="bold">12. Are there any other benefits of being a member of AEO Rewards?</span><br /><br />
+                            Yes! As a member, if you purchase 5 bras (excluding bandeaus, bralettes and sports bras) you will get 1 bra free! You can redeem the free bra reward at Aerie stores and online.<br /><br />
+                            Also, if you purchase 5 pairs of jeans at AEO (excluding other denim items, such as skirts, shorts and shirts) you will get 1 pair free! You can redeem for a free pair of jeans at American Eagle Outfitters stores and online.<br /><br />
+                            Once you have earned these rewards, they will be sent to you via email or text, depending on your preferences.<br /><br />
+                            You will also receive a special birthday offer, which you can use anytime during your birth month. These birthday offers are sent at the beginning of your birthday month, so make sure to watch out for it in your inbox!<br /><br />
+
+
+                      <span class="bold">13. How do I report missing points, bra or denim purchases if I forget to give my membership information?</span><br /><br />
+                           You can request points for a missing purchase by calling 1-800-340-0532 within 60 days of your purchase. In order to receive credit for a missing purchase you must have your receipt or online packing slip available.<br /><br />
+                            <span class="bold">14. Do points expire?</span><br /><br />
+                            Points only expire if you do not make at least one qualifying purchase within a 12-month timeframe. See question 9 for information about qualifying purchases. Please see the @Html.ActionLink("Program Terms", "ProgramTerms", "Info")  for additional details about points expiration.<br /><br />
+
+                    </td>
+            		</tr>
+            		<tr>
+                    <td class="details_table"><b><span style="font-family:'gotham_bookregular', Helvetica, Arial, sans-serif; font-size:16px;">Rewards</span></b><br /><br />                      
+
+                            <span class="bold">15. What do my points get me?</span><br /><br />
+                           For every 1,000 points you earn, you will receive a $5 Reward. Rewards are automatically issued 14-20 days after you reach 1,000 points, or after you have earned a free bra or denim item, Rewards are sent directly to your email address, so make sure your email address on file is up-to-date. Rewards must be used within 45 days of being issued and are non-transferable. Rewards can be used with other offers including other $5 Rewards or your Free Jeans and Free Bras Rewards. A maximum of five $5 Rewards may be used together at one time. You can also provide a mobile number if you want us to text you your Rewards. If you think you should have received a reward, but did not, please contact us at 1-800-340-0532.<br /><br />
+                            <span class="bold">16. How do I redeem a Reward?</span><br /><br />
+                            Just show the email with the $5 Reward to your store associate from your phone &ndash; or you can print it out if you prefer. If you're purchasing online, simply enter the reward code into the Promo Code box when you check out online.<br /><br />
+                            <span class="bold">17. What happens if I make a return?</span><br /><br />
+                            If you return a purchase, the points you earned from that purchase will be removed from your Rewards program account. If you return jeans or bras, the number you return will be reduced from the amount you had accumulated towards the Buy 5, Get 1 Free benefit.  If you return a purchase paid for with a reward, that reward will be restored to your account so long as the reward has not expired.<br /><br />
+                            <span class="bold">18.	Can I get cash back for any unused rewards?</span><br /><br />
+                           No, $5 Rewards and Free Jeans or Free Bra Rewards have no cash value and therefore no cash can be given for any remaining balance not spent.<br /><br />
+
+                    </td>
+            		</tr>
+            		<tr>
+                    <td class="details_table"><strong><span style="font-family:'gotham_bookregular', Helvetica, Arial, sans-serif; font-size:16px;">American Eagle Credit Card</span></strong><br>
+                      <br>
+                      <span class="bold">19. What are the benefits of having an American Eagle Credit Card?</span><br>
+                      <br>
+AEO credit card holders in select markets are automatically members of AEO Rewards and earn an extra 3 points per $1 USD spent for qualifying purchases at American Eagle Outfitters stores, Aerie stores, AEO Factory stores, online and via direct phone orders when they use their AEO Credit Card or AEO Visa Card. AEO Visa card members earn 2 points per $1 USD when you use your AEO Visa Card everywhere else Visa<sup style="font-size:11px; line-height:1px">&reg;</sup> credit cards are accepted. You&dagger;ôll earn free AEO jeans or free Aerie bras faster because you&dagger;ôll always start off with 1 bonus credit towards your 5 purchases &dagger;ìthat means you only have to buy 4 AEO jeans or 4 Aerie bras to get 1 free! You&dagger;ôll also enjoy 4 special cardmember events per year plus you can choose your own sale one day a year to receive a special discount.<br /><br />
+
+An email is not required for the AEO Credit Card or AEO Visa Card accountholders, though strongly encouraged.
+<br /><br />
+<span class="bold">20. How do I cancel my membership?</span><br>
+<br>
+AEO Rewards Program memberships can be closed at any time by calling 1-800-340-0532. For more information regarding closing an AEO or Aerie Credit card account, please contact: 1-866-913-6765.<br>
+<br>
+<span class="bold">21. I still have more questions, who can I contact?</span><br>
+<br>
+For more details, please refer to our program @Html.ActionLink("Terms and Conditions", "ProgramTerms", "Info"). For other questions, <a href="http://www.ae.com/web/contact/index.jsp?navdetail=footer:c3:p4" class="link_body">send an email</a> to one of our program experts or call 1&#8209;800&#8209;340&#8209;0532 24 hours a day (Spanish &amp; French available 8a.m. - midnight EST). <br>
+<br></td>
+            		</tr>
+
+
+            		</table>
+            
+                    
+                </div>
+            </div>        </div>
+    	<div style="clear:both"></div>
+    
+   <div class="aeo_footer">
+    	<div class="aeo_footer_content1">
+        	<div class="aeo_footer_1"><a href="http://www.ae.com/web/help/terms_of_use.jsp?topic=1&navdetail=footer:utility:p1" class="link_footer">TERMS OF USE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=5&navdetail=footer:utility:p2" class="link_footer">CALIFORNIA COMPLIANCE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" class="link_footer">PRIVACY POLICIES</a></div><div class="aeo_footer_1"><a href="http://m.ae.com/web/index.jsp?navdetail=footer:utility:p4" class="link_footer">MOBILE SITE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/sitemap/index.jsp?navdetail=footer:utility:p5" class="link_footer">SITE MAP</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/brand_protection.jsp?navdetail=footer:utility:p6" class="link_footer">BRAND PROTECTION</a></div><div class="aeo_footer_1"><a href="https://signup.cj.com/member/signup/publisher.cj;jsessionid=abcbUmpk15mUMa9_n257u?cid=4445720"  target="_self" class="link_footer">AFFILIATE PROGRAM</a></div>
+        </div>
+        <div class="aeo_footer_content2">
+        	<div class="aeo_footer_2"><a href="http://www.ae.com/web/lp/tees.jsp?navdetail=footer:utility:p9" class="link_footer">T-SHIRTS</a></div><div class="aeo_footer_2"><a href="http://www.ae.com/web/factory/store.jsp?navdetail=footer:utility:p10" class="link_footer">AEO FACTORY STORE</a></div>
+        </div>
+        <div class="aeo_footer_content3">
+        	<div class="aeo_footer_3">&copy; 2015 AEO Management Co. All&nbsp;Rights&nbsp;Reserved.</div>
+        </div>
+        <div class="aeo_footer_content4">
+        	<img src="images/footer_01.png" width="61" height="30" alt=""/><img src="images/footer_02.png" width="37" height="30" alt=""/><img src="images/footer_03.png" width="106" height="30" alt=""/><img src="images/footer_04.png" width="77" height="30" alt=""/><img src="images/footer_05.png" width="45" height="30" alt=""/><img src="images/footer_06.png" width="61" height="30" alt=""/><img src="images/footer_07.png" width="63" height="30" alt=""/>
+        </div>
+    </div>
+    
+</div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Rewards DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+		SELECT vc.ipcode AS IPCODE
+        FROM bp_ae.lw_pointtransaction pt
+        INNER JOIN bp_ae.lw_pointevent pe ON pt.pointeventid = pe.pointeventid
+        INNER JOIN bp_ae.lw_pointtype p ON pt.pointtypeid = p.pointtypeid
+        INNER JOIN bp_ae.lw_virtualcard vc ON pt.vckey = vc.vckey
+        INNER JOIN bp_ae.ats_memberdetails md ON vc.ipcode = md.a_ipcode
+        INNER JOIN bp_ae.Lw_Loyaltymember lm ON vc.ipcode = lm.ipcode
+        WHERE 1 = 1
+        AND ( (upper(trim(p.name)) IN ('AEO REWARDS BASE POINTS','AEO REWARDS BONUS POINTS','ADJUSTMENT POINTS', 'AEO REWARDS CS POINTS','ADJUSTMENT BONUS POINTS', 'WORLD SPEND POINTS')
+               AND ((pt.transactiondate  Between to_date('10/1/2015', 'mm/dd/yyyy') AND trunc(SYSDATE -14) AND pt.transactiontype = 1) OR (pt.transactiontype = 2)) )
+              OR (upper(trim(p.name)) IN ('BONUS POINTS') and pt.transactiondate  Between to_date('10/1/2016', 'mm/dd/yyyy') AND trunc(SYSDATE -14)))    
+        AND AE_ISINPILOT(md.a_extendedplaycode) = 1 -- AEO-Point Conversion
+        AND ((nvl(length(md.a_emailaddress), 0) &gt; 0) OR (nvl(md.a_pendingcellverification,1) = 0
+      AND nvl(length(md.a_mobilephone), 0) &gt; 0))
+        AND pt.pointsconsumed = 0
+        AND pt.transactiontype &lt;&gt; 4
+        AND pt.expirationdate &gt; SYSDATE
+        --AND nvl(md.a_employeecode,0) != 1		AEO-816
+        AND lm.memberstatus = 1
+        GROUP BY vc.ipcode
+        HAVING SUM (pt.points) &gt;= 1000
+      </QueryString>
+      <Fields>
+        <Field Name="IPCODE" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.Reward10Fulfillment</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

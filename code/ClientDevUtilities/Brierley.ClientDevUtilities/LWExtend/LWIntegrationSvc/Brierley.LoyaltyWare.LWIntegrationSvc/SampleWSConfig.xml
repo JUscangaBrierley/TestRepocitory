@@ -1,0 +1,705 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<IntegrationOperationDirectives xmlns="http://tempuri.org/LWIntegrationConfig.xsd"
+                                DateConversionFormat=""
+                                TrimStringSpaces="true" CheckForChangedValues="true">
+  <OperationProcessingDirectives>
+
+    <!-- Add member -->
+    <FrameworkManagedOperationDirective Name="AddMember" Authorized="true">
+      <InterceptorAssembly ReuseForFile="true">
+        <InterceptorAssemlyName></InterceptorAssemlyName>
+        <InterceptorTypeName></InterceptorTypeName>
+        <InterceptorParms>
+          <Parm Name="Title" Value="Hello World"/>
+        </InterceptorParms>
+      </InterceptorAssembly>
+      <MemberLoadDirectives ExceptionIfNotFound="false" ExceptionIfFound="true">
+        <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber"/>        
+      </MemberLoadDirectives>
+      <AttributeSetCreateDirectives>        
+      </AttributeSetCreateDirectives>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <GenericErrorMessage></GenericErrorMessage>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Member"/>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </FrameworkManagedOperationDirective>
+
+    <!-- Update member -->
+    <FrameworkManagedOperationDirective Name="UpdateMember" Authorized="true">
+      <InterceptorAssembly ReuseForFile="true">
+        <InterceptorAssemlyName></InterceptorAssemlyName>
+        <InterceptorTypeName></InterceptorTypeName>
+      </InterceptorAssembly>
+      <MemberLoadDirectives ExceptionIfNotFound="true" ExceptionIfFound="false">
+        <LoadDirective Method="IpCode" ValuePath="Member/IpCode"/>
+        <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber"/>
+      </MemberLoadDirectives>
+      <AttributeSetCreateDirectives>
+        <AttributeSetUpdate Name="MemberDetails" FindMethod="First" CreateIfNotFound="false"/>
+        <AttributeSetUpdate Name="VirtualCard" FindMethod="Attribute" FindValue="LoyaltyIdNumber" CreateIfNotFound="true"/>
+      </AttributeSetCreateDirectives>
+      <GenericErrorMessage></GenericErrorMessage>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Member"/>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </FrameworkManagedOperationDirective>
+
+    <FrameworkManagedOperationDirective Name="ExpressAddMember" Authorized="true">
+      <InterceptorAssembly ReuseForFile="true">
+        <InterceptorAssemlyName></InterceptorAssemlyName>
+        <InterceptorTypeName></InterceptorTypeName>
+        <InterceptorParms>
+          <Parm Name="Title" Value="Hello World"/>
+        </InterceptorParms>
+      </InterceptorAssembly>
+      <MemberLoadDirectives ExceptionIfNotFound="false" ExceptionIfFound="true">
+        <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber"/>
+      </MemberLoadDirectives>
+      <AttributeSetCreateDirectives>
+      </AttributeSetCreateDirectives>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+          <LoadAttributeSet>VirtualCard</LoadAttributeSet>
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <GenericErrorMessage></GenericErrorMessage>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Member"/>
+        <OperationOutput ReturnType="Member"/>
+      </OperationMetadata>
+    </FrameworkManagedOperationDirective>
+    
+    <!-- Activate a member -->
+    <CustomOperationDirective Name="ActivateMember" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ActivateMember</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Deactivate Member -->
+    <CustomOperationDirective Name="DeactivateMember" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.DeactivateMember</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Terminate Member -->
+    <CustomOperationDirective Name="TerminateMember" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.TerminateMember</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Lockdown Member -->
+    <CustomOperationDirective Name="LockdownMember" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.LockdownMember</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Retrieve an existing member -->
+    <CustomOperationDirective Name="GetMembers" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetMembers</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive" IsArray="true">
+          <Parm Name="MemberSearchType" Type="String" IsRequired="true"/>
+          <Parm Name="SearchValue" Type="String" IsRequired="true"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Member" IsArray="true"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Activate Card -->
+    <CustomOperationDirective Name="ActivateCard" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ActivateCard</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="CardID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Deactivate Card -->
+    <!--
+    <CustomOperationDirective Name="DeactivateCard" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.DeactivateCard</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="CardID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>-->
+
+    <!-- Cancel Card -->
+    <CustomOperationDirective Name="CancelCard" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.CancelCard</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="CardID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="true"/>
+          <Parm Name="CancelMember" Type="Boolean" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Replace Card -->
+    <CustomOperationDirective Name="ReplaceCard" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ReplaceCard</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="CardID" Type="String" IsRequired="true"/>
+          <Parm Name="ReplacementCardID" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="true"/>
+          <Parm Name="TransferPoints" Type="Boolean" IsRequired="false"/>
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Key"/>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Account Summary -->
+    <CustomOperationDirective Name="GetAccountSummary" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountSummary</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="CurrencyBalance" Type="Integer" IsRequired="true"/>
+          <Parm Name="MemberStatus" Type="String" IsRequired="true"/>
+          <Parm Name="MemberAddDate" Type="Date" IsRequired="true"/>
+          <Parm Name="CurrentTierName" Type="String" IsRequired="false"/>
+          <Parm Name="LastActivityDate" Type="Date" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Account History Count -->
+    <CustomOperationDirective Name="GetAccountHistoryCount" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountHistoryCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Account History -->
+    <CustomOperationDirective Name="GetAccountHistory" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountHistory</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="true"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive" IsArray="true">
+          <Parm Name="TransactionID" Type="Long" IsRequired="true"/>
+          <Parm Name="LoyaltyCurrency" Type="String" IsRequired="true"/>
+          <Parm Name="LoyaltyEvent" Type="String" IsRequired="true"/>
+          <Parm Name="TransactionType" Type="String" IsRequired="true"/>
+          <Parm Name="TransactionDate" Type="Date" IsRequired="true"/>
+          <Parm Name="CurrencyAwardDate" Type="Date" IsRequired="true"/>
+          <Parm Name="CurrencyAmount" Type="Long" IsRequired="true"/>
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+          <Parm Name="Notes" Type="String" IsRequired="false"/>
+          <Parm Name="IsOnHold" Type="Boolean" IsRequired="false"/>
+          <Parm Name="CurrencyConsumed" Type="Long" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Add Loyalty Event -->
+    <CustomOperationDirective Name="AddLoyaltyEvent" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.AddLoyaltyEvent</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="CardID" Type="String" IsRequired="true"/>
+          <Parm Name="LoyaltyEvent" Type="String" IsRequired="true"/>
+          <Parm Name="LoyaltyCurrency" Type="String" IsRequired="true"/>
+          <Parm Name="CurrencyAmount" Type="Long" IsRequired="false"/>
+          <Parm Name="TransactionDate" Type="Date" IsRequired="false"/>
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="CurrencyBalance" Type="Long" IsRequired="true"/>
+          <Parm Name="CurrencyToNextTier" Type="Long" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Add Member Reward -->
+    <CustomOperationDirective Name="AddMemberReward" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.AddMemberReward</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="CardID" Type="String" IsRequired="false"/>
+          <Parm Name="RewardName" Type="String" IsRequired="true"/>
+          <Parm Name="PromotionCode" Type="String" IsRequired="false"/>
+          <Parm Name="RewardType" Type="String" IsRequired="false"/>
+          <Parm Name="ConsumptionPolicy" Type="String" IsRequired="false"/>
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="true"/>
+          <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+          <Parm Name="CurrencyBalance" Type="Long" IsRequired="true"/>
+          <Parm Name="CurrencyToNextTier" Type="Long" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Member Rewards Count -->
+    <CustomOperationDirective Name="GetMemberRewardsCount" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetMemberRewardsCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Member Rewards -->
+    <CustomOperationDirective Name="GetMemberRewards" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetMemberRewards</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="true"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive" IsArray="true">
+          <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+          <Parm Name="RewardTypeId" Type="Long" IsRequired="true"/>
+          <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+          <Parm Name="AvailableBalance" Type="Long" IsRequired="false"/>
+          <Parm Name="FulfillmentOption" Type="String" IsRequired="false"/>
+          <Parm Name="MemberID" Type="Long" IsRequired="true"/>
+          <Parm Name="DateIssued" Type="Date" IsRequired="false"/>
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+          <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+          <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+          <Parm Name="ProductName" Type="String" IsRequired="false"/>
+          <Parm Name="ProductVariant" Type="String" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Update Member Reward -->
+    <CustomOperationDirective Name="UpdateMemberReward" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.UpdateMemberReward</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+          <!--<Parm Name="RewardTypeId" Type="Long" IsRequired="true"/>-->
+          <!--<Parm Name="CertificateNumber" Type="String" IsRequired="false"/>-->
+          <Parm Name="AvailableBalance" Type="Long" IsRequired="false"/>
+          <Parm Name="FulfillmentOption" Type="String" IsRequired="false"/>
+          <!--<Parm Name="MemberID" Type="Long" IsRequired="true"/>-->
+          <!--<Parm Name="DateIssued" Type="Date" IsRequired="false"/>-->
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+          <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+          <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+          <!--<Parm Name="ProductName" Type="String" IsRequired="false"/>
+          <Parm Name="ProductVariant" Type="String" IsRequired="false"/>-->
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Delete Member Reward -->
+    <CustomOperationDirective Name="DeleteMemberReward" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.DeleteMemberReward</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Product Count -->
+    <CustomOperationDirective Name="GetProductCount" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Products.GeProductCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="None">
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Category Count -->
+    <CustomOperationDirective Name="GetCategoryCount" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Products.GetCategoryCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="None">
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Product Catalog -->
+    <CustomOperationDirective Name="GetProducts" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Products.GetProducts</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive" IsArray="true">
+          <Parm Name="ProductID" Type="Long" IsRequired="true"/>
+          <Parm Name="CategoryName" Type="String" IsRequired="true"/>
+          <Parm Name="ProductName" Type="String" IsRequired="true"/>
+          <Parm Name="BrandName" Type="String" IsRequired="false"/>
+          <Parm Name="PartNumber" Type="String" IsRequired="false"/>
+          <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+          <Parm Name="LongDescription" Type="String" IsRequired="false"/>
+          <Parm Name="BasePrice" Type="Integer" IsRequired="false"/>
+          <Parm Name="LoyaltyCurrency" Type="String" IsRequired="false"/>
+          <Parm Name="Quantity" Type="Integer" IsRequired="false"/>
+          <Parm Name="QuantityThreshold" Type="Integer" IsRequired="false"/>
+          <Parm Name="ClassCode" Type="String" IsRequired="false"/>
+          <Parm Name="ClassDescription" Type="String" IsRequired="false"/>
+          <Parm Name="StyleCode" Type="String" IsRequired="false"/>
+          <Parm Name="StyleDescription" Type="String" IsRequired="false"/>
+          <Parm Name="DeptCode" Type="String" IsRequired="false"/>
+          <Parm Name="DeptDescription" Type="String" IsRequired="false"/>
+          <Parm Name="DivisionCode" Type="String" IsRequired="false"/>
+          <Parm Name="DivisionDescription" Type="String" IsRequired="false"/>
+          <Parm Name="CompanyCode" Type="String" IsRequired="false"/>
+          <Parm Name="CompanyDescription" Type="String" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Product Variants -->
+    <CustomOperationDirective Name="GetProductVariants" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Products.GetProductVariants</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="ProductID" Type="Long" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive" IsArray="true">
+          <Parm Name="ProductVariantID" Type="Long" IsRequired="true"/>
+          <Parm Name="Description" Type="String" IsRequired="true"/>
+          <Parm Name="PartNumber" Type="String" IsRequired="false"/>
+          <Parm Name="Quantity" Type="Integer" IsRequired="false"/>
+          <Parm Name="QuantityThreshold" Type="Integer" IsRequired="false"/>
+          <Parm Name="VariantOrder" Type="Integer" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- SendTriggeredEmail -->
+    <CustomOperationDirective Name="SendTriggeredEmail" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Emails.SendTriggeredEmail</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="Long" IsRequired="true"/>
+          <Parm Name="EmailName" Type="String" IsRequired="true"/>
+          <Parm Name="RecipientEmail" Type="String" IsRequired="true"/>
+          <Parm Name="EmailGUID" Type="String" IsRequired="true"/>
+          <Parm Name="TimeStamp" Type="Date" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="SerialNumber" Type="Long" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- SendSms -->
+    <CustomOperationDirective Name="SendSms" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Sms.SendSms</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="true">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberIdentity" Type="String" IsRequired="false"/>
+          <Parm Name="SmsName" Type="String" IsRequired="true"/>
+          <Parm Name="RecipientMobileNumber" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive">
+          <Parm Name="SerialNumber" Type="Long" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <!-- Get Survey -->
+    <CustomOperationDirective Name="GetSurvey" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Surveys.GetSurvey</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="Entity" Type="Long" IsRequired="true"/>
+          <Parm Name="SurveyName" Type="String" IsRequired="false"/>
+          <Parm Name="SurveyType" Type="String" IsRequired="true"/>
+          <Parm Name="IsComplete" Type="Boolean" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive" IsArray="true">
+          <Parm Name="SerialNumber" Type="Long" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+
+    <CustomOperationDirective Name="GetAccountActivity" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountActivity</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <Summary>This operation brings back transaction summary information for a members transactions</Summary>
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="MemberID" Type="Long" IsRequired="true"/>
+          <Parm Name="CardID" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive" IsArray="true">          
+          <Parm Name="TxnHeaderId" Type="Long" IsRequired="true"/>
+          <Parm Name="TxnDate" Type="Date" IsRequired="true"/>
+          <Parm Name="TxnNumber" Type="String" IsRequired="false"/>
+          <Parm Name="TxnCreateDate" Type="Date" IsRequired="false"/>
+          <Parm Name="StoreName" Type="String" IsRequired="false"/>
+          <Parm Name="Spend" Type="Double" IsRequired="false"/>
+          <Parm Name="Points" Type="Long" IsRequired="false"/>                    
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+    
+    <CustomOperationDirective Name="GetAccountActivityDetail" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountActivityDetail</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <Summary>This method brings back the detail line item information for a transaction</Summary>
+        <OperationInput InputParmType="Primitive">
+          <Parm Name="TxnHeaderId" Type="Long" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput ReturnType="Primitive" IsArray="true">
+          <Parm Name="ProductId" Type="Long" IsRequired="false"/>
+          <Parm Name="Class" Type="Date" IsRequired="true"/>
+          <Parm Name="Quantity" Type="String" IsRequired="false"/>                    
+        </OperationOutput>
+      </OperationMetadata>
+    </CustomOperationDirective>
+	
+	  <!-- Add Attribute Set -->
+	  <APIOperationDirective Name="AddAttributeSet" Authorized="false">
+		  <FunctionProvider>
+			  <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.AddAttributeSet</ProviderType>
+			  <ProviderAssemlyPath/>
+		  </FunctionProvider>
+		  <AttributeSetAddDirectives>
+			  <AttributeSetAdd Name="MemberDetails" />
+		  </AttributeSetAddDirectives>
+		  <OperationMetadata>
+			  <OperationInput>
+				  <Parm Name="MemberId" Type="String" IsRequired="true"/>
+				  <Parm Name="AttributeSet" Type="AttributeSet" IsRequired="true" IsArray="false"/>
+			  </OperationInput>
+			  <OperationOutput>
+				  <Parm Name="AttributeSet" Type="AttributeSet" IsRequired="true" IsArray="false"/>
+			  </OperationOutput>
+		  </OperationMetadata>
+	  </APIOperationDirective>
+
+
+  </OperationProcessingDirectives>
+</IntegrationOperationDirectives>

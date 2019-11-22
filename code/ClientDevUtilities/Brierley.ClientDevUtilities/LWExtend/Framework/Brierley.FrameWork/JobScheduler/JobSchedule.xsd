@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" xml:lang="EN"
+	targetNamespace="http://www.brierley.com/JobSchedule"
+	xmlns="http://www.brierley.com/JobSchedule"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    
+    <xs:simpleType name="ScheduleTypeEnums">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OneTime"/>
+            <xs:enumeration value="Recurring"/>                        
+        </xs:restriction>
+    </xs:simpleType>        
+    
+    <xs:simpleType name="HourlyScheduleTypeEnums">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TopOfTheHour"/>
+            <xs:enumeration value="TopOfTheHour"/>                        
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="DayTypeEnums">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Saturday"/>
+            <xs:enumeration value="Sunday"/>   
+            <xs:enumeration value="Monday"/>
+            <xs:enumeration value="Tuesday"/>
+            <xs:enumeration value="Wednesday"/>
+            <xs:enumeration value="Thursday"/>
+            <xs:enumeration value="Friday"/>                     
+        </xs:restriction>
+    </xs:simpleType>
+    
+	<xs:simpleType name="MonthDayTypeEnums">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FirstDayOfMonth"/>
+            <xs:enumeration value="LastDayOfMonth"/>		                                  
+        </xs:restriction>
+    </xs:simpleType>
+	
+    <xs:complexType name="JobDetailType">
+        <xs:sequence>
+        	<xs:element name="JobName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="DateFormat" type="xs:string"/>
+            <xs:element name="StartDate" type="xs:string"/>
+            <xs:element name="EndDate" type="xs:string"/>
+            <xs:element name="JobFactoryType" type="xs:string" minOccurs="1" 
+                maxOccurs="1"/>
+            <xs:element name="AssemblyName" type="xs:string" minOccurs="0" 
+                maxOccurs="1"/>
+            <xs:element name="JobParm" type="xs:string" minOccurs="0" maxOccurs="1"/>                       
+        </xs:sequence>
+		<xs:attribute name="ExecuteInSeparateThread" type="xs:boolean" default="false"/>
+		<xs:attribute name="PauseTimerWhileRunningJob" type="xs:boolean" default="true"/>
+    </xs:complexType>
+    
+    <xs:complexType name="ImmediateScheduleType">
+        <xs:sequence>         	                      
+        </xs:sequence>                                
+    </xs:complexType>
+    
+    <xs:complexType name="MinuteScheduleType">
+        <xs:sequence>            
+            <xs:element name="Frequency" type="xs:int"/>
+        </xs:sequence>                                
+    </xs:complexType>
+    
+    <xs:complexType name="HourlyScheduleType"> 
+        <xs:sequence>            
+            <xs:choice>
+                <xs:element name="TopOfTheHour" type="xs:string"/>
+                <xs:element name="HourFrequency" type="xs:int"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="Type" type="ScheduleTypeEnums" use="required"/>
+    </xs:complexType>
+        
+    <xs:complexType name="DailyScheduleType">
+        <xs:sequence>            
+            <xs:choice>
+                <xs:element name="DailyFrequency" type="xs:int"/>
+                <xs:element name="RunEvery" type="DayTypeEnums"/>
+            </xs:choice>
+        </xs:sequence>        
+        <xs:attribute name="Type" type="ScheduleTypeEnums" use="required"/>
+        <xs:attribute name="RunAt" type="xs:int" use="required"/>
+    </xs:complexType>
+    	
+    <xs:complexType name="WeeklyScheduleType">
+        <xs:sequence>            
+			<xs:choice>
+				<xs:element name="DayOfWeek" type="DayTypeEnums" minOccurs="0" 
+					maxOccurs="unbounded"/>
+				<xs:element name="Frequency" type="xs:int"/>
+			</xs:choice>
+        </xs:sequence>        
+        <xs:attribute name="Type" type="ScheduleTypeEnums" use="required"/>
+		<xs:attribute name="RunAt" type="xs:int" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="MonthlyScheduleType">
+		<xs:sequence>            
+			<xs:choice>
+				<xs:element name="DayOfTheMonth" type="MonthDayTypeEnums" minOccurs="0" 
+                maxOccurs="1"/>
+				<xs:element name="Frequency" type="xs:int"/>
+			</xs:choice>            
+        </xs:sequence>
+		<xs:attribute name="Type" type="ScheduleTypeEnums" use="required"/>
+		<xs:attribute name="RunAt" type="xs:int" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="JobType">
+        <xs:sequence>
+            <xs:choice>
+            	<xs:element name="ImmediateSchedule" type="ImmediateScheduleType"/>
+                <xs:element name="MinuteSchedule" type="MinuteScheduleType"/>
+                <xs:element name="HourlySchedule" type="HourlyScheduleType"/>
+                <xs:element name="DailySchedule" type="DailyScheduleType"/>
+                <xs:element name="WeeklySchedule" type="WeeklyScheduleType"/>
+                <xs:element name="MonthlySchedule" type="MonthlyScheduleType"/>
+        </xs:choice>
+        <xs:element name="JobDetail" type="JobDetailType"/>
+        </xs:sequence>                
+    </xs:complexType>
+    
+	<xs:element name="JobSchedule" type="JobType"/>
+</xs:schema>

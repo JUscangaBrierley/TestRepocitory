@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <!--AE_Certificate_BRTHDY_IN-->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO World Spend File DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+ 
+  
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="D:\devroot\americaneagle\Trunk\LogFiles">
+     <SimpleDatabaseInput CollectionName="DummyList" RecordName="DummyRecord">
+      <QueryString>
+      SELECT SYSDATE as "DummyRecord"
+		FROM DUAL
+      </QueryString>
+      <Fields>
+           <Field Name="DummyRecord" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  
+  <!-- Output Provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="DummyList" RecordName="DummyRecord" FileName="DUMMY.txt" DataInAttributes="false" Delimiter="," OutputFolder="D:\devroot\americaneagle\Trunk\LogFiles">
+      <FieldMap>
+        <Field Name="DummyRecord"  Length="50"/>
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>
+   <!--GENERATE REJECT FILE--> 
+   <StoredProcTask Name="Stage_Tlog8_WorldSpend.ex_error_log">
+   </StoredProcTask>
+  </PostProcessor>  
+</DAPDirectives>

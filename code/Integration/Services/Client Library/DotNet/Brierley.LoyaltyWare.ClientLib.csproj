@@ -1,0 +1,260 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2CC208C0-9494-4558-AB01-41642D1431C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brierley.LoyaltyWare.ClientLib</RootNamespace>
+    <AssemblyName>Brierley.LoyaltyWare.ClientLib</AssemblyName>    
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>              
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LWClientException.cs" />
+    <Compile Include="LWIntegrationSvcClientManager.cs" />
+    <Compile Include="LWIntegrationSvcProxy.cs" />
+    <Compile Include="LWXmlSerializer.cs" />
+    <Compile Include="LWMetaAttribute.cs" />    
+    <Compile Include="DomainModel\Framework\Member.cs" />
+    <Compile Include="DomainModel\Framework\VirtualCard.cs" />
+    <Compile Include="DomainModel\LWClientDataObject.cs" />
+    <Compile Include="DomainModel\LWAttributeSetContainer.cs" />
+    <Compile Include="LWLogger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+            <Compile Include="DomainModel\Client\MemberPromoDetails.cs" />
+        <Compile Include="DomainModel\Client\RefCardType.cs" />
+        <Compile Include="DomainModel\Client\MemberRewardFulfillment.cs" />
+        <Compile Include="DomainModel\Client\RefProduct.cs" />
+        <Compile Include="DomainModel\Client\MemberBraPromoSummary.cs" />
+        <Compile Include="DomainModel\Client\TlogAudit.cs" />
+        <Compile Include="DomainModel\Client\MemberBraPromoCertRedeem.cs" />
+        <Compile Include="DomainModel\Client\MemberPromoQueue.cs" />
+        <Compile Include="DomainModel\Client\TxnHeader.cs" />
+        <Compile Include="DomainModel\Client\TxnTender.cs" />
+        <Compile Include="DomainModel\Client\TxnDetailItem.cs" />
+        <Compile Include="DomainModel\Client\TxnRewardRedeem.cs" />
+        <Compile Include="DomainModel\Client\SocialMediaPost.cs" />
+        <Compile Include="DomainModel\Client\MemberBrand.cs" />
+        <Compile Include="DomainModel\Client\RefEmployee.cs" />
+        <Compile Include="DomainModel\Client\RefExtendedPlay.cs" />
+        <Compile Include="DomainModel\Client\RefGender.cs" />
+        <Compile Include="DomainModel\Client\RefItemType.cs" />
+        <Compile Include="DomainModel\Client\RefLanguagePref.cs" />
+        <Compile Include="DomainModel\Client\RefProcessID.cs" />
+        <Compile Include="DomainModel\Client\RefStates.cs" />
+        <Compile Include="DomainModel\Client\MemberMergeHistory.cs" />
+        <Compile Include="DomainModel\Client\HistoryTxnDetail.cs" />
+        <Compile Include="DomainModel\Client\RefVendors.cs" />
+        <Compile Include="DomainModel\Client\MemberProactiveMerge.cs" />
+        <Compile Include="DomainModel\Client\RefRedemptionsCodes.cs" />
+        <Compile Include="DomainModel\Client\RefBrand.cs" />
+        <Compile Include="DomainModel\Client\BraPromoFulfillment.cs" />
+        <Compile Include="DomainModel\Client\TxnLineItemDiscount.cs" />
+        <Compile Include="DomainModel\Client\MemberCardReplacements.cs" />
+        <Compile Include="DomainModel\Client\RefTenderTypes.cs" />
+        <Compile Include="DomainModel\Client\HistoryTxnDetailDiscount.cs" />
+        <Compile Include="DomainModel\Client\MemberBraPromoCertSummary.cs" />
+        <Compile Include="DomainModel\Client\MemberDetails.cs" />
+        <Compile Include="DomainModel\Client\RefReceiptType.cs" />
+        <Compile Include="DomainModel\Client\MobileAlerts.cs" />
+        <Compile Include="DomainModel\Client\BraReasonCodes.cs" />
+        <Compile Include="DomainModel\Client\MemberReceipts.cs" />
+        <Compile Include="DomainModel\Client\HistoryTxnTender.cs" />
+        <Compile Include="DomainModel\Client\RewardBarCodes.cs" />
+        <Compile Include="DomainModel\Client\HistoryTxnRewardRedeem.cs" />
+        <Compile Include="DomainModel\Client\MemberEngagements.cs" />
+        <Compile Include="DomainModel\Client\MemberDollarRewardOptOut.cs" />
+        <Compile Include="DomainModel\Client\MemberBraPromoCertHistory.cs" />
+        <Compile Include="DomainModel\Client\MemberPointBalances.cs" />
+        <Compile Include="DomainModel\Client\RefMemberSource.cs" />
+        <Compile Include="DomainModel\Client\RefTxnTypes.cs" />
+        <Compile Include="DomainModel\Client\EarlyRewardFulfillment.cs" />
+        <Compile Include="DomainModel\Client\RefPilotZipCodes.cs" />
+        <Compile Include="DomainModel\Client\RefTierReason.cs" />
+        <Compile Include="DomainModel\Client\RewardShortCode.cs" />
+        <Compile Include="DomainModel\Client\SynchronyAccountKey.cs" />
+        <Compile Include="DomainModel\Client\ConversionRates.cs" />
+        <Compile Include="DomainModel\Client\RefTerminationReason.cs" />
+        <Compile Include="DomainModel\Client\ats_programeconversionmerge.cs" />
+        <Compile Include="DomainModel\Client\ProfileUpdateMerge.cs" />
+        <Compile Include="DomainModel\Client\MemberNetSpend.cs" />
+      </ItemGroup>
+  <ItemGroup>
+        <Compile Include="DomainModel\Client\AEGetTentativePointsIn.cs" />
+        <Compile Include="DomainModel\Client\AEGetTentativePointsOut.cs" />
+        <Compile Include="DomainModel\Client\AuthenticateMemberIn.cs" />
+        <Compile Include="DomainModel\Client\GetMembersIn.cs" />
+        <Compile Include="DomainModel\Client\GetMembersExtIn.cs" />
+        <Compile Include="DomainModel\Client\GetMembersExtOut.cs" />
+        <Compile Include="DomainModel\Client\AssociateMemberSocialHandlesIn.cs" />
+        <Compile Include="DomainModel\Client\ActivateMemberIn.cs" />
+        <Compile Include="DomainModel\Client\DeactivateMemberIn.cs" />
+        <Compile Include="DomainModel\Client\TerminateMemberIn.cs" />
+        <Compile Include="DomainModel\Client\LockdownMemberIn.cs" />
+        <Compile Include="DomainModel\Client\ConvertToMemberIn.cs" />
+        <Compile Include="DomainModel\Client\MergeMembersIn.cs" />
+        <Compile Include="DomainModel\Client\ActivateCardIn.cs" />
+        <Compile Include="DomainModel\Client\DeactivateCardIn.cs" />
+        <Compile Include="DomainModel\Client\CancelCardIn.cs" />
+        <Compile Include="DomainModel\Client\ReplaceCardIn.cs" />
+        <Compile Include="DomainModel\Client\TransferCardIn.cs" />
+        <Compile Include="DomainModel\Client\ChangeCardExpirationDateIn.cs" />
+        <Compile Include="DomainModel\Client\GetAccountSummaryOut.cs" />
+        <Compile Include="DomainModel\Client\AwardLoyaltyCurrencyIn.cs" />
+        <Compile Include="DomainModel\Client\AwardLoyaltyCurrencyOut.cs" />
+        <Compile Include="DomainModel\Client\GetAccountActivityCountIn.cs" />
+        <Compile Include="DomainModel\Client\GetAccountActivitySummaryIn.cs" />
+        <Compile Include="DomainModel\Client\GetAccountActivitySummaryOut.cs" />
+        <Compile Include="DomainModel\Client\GetAccountActivityDetailsIn.cs" />
+        <Compile Include="DomainModel\Client\GetLoyaltyCurrencyBalanceIn.cs" />
+        <Compile Include="DomainModel\Client\GetLoyaltyCurrencyTransactionCountIn.cs" />
+        <Compile Include="DomainModel\Client\GetLoyaltyCurrencyTransactionsIn.cs" />
+        <Compile Include="DomainModel\Client\AddMemberRewardsIn.cs" />
+        <Compile Include="DomainModel\Client\AddMemberRewardsOut.cs" />
+        <Compile Include="DomainModel\Client\GetMemberRewardsSummaryIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberRewardSummaryByIdIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberRewardSummaryByIdOut.cs" />
+        <Compile Include="DomainModel\Client\GetMemberRewardSummaryByCertIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberRewardSummaryByCertOut.cs" />
+        <Compile Include="DomainModel\Client\GetMemberRewardsIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberRewardsByOrderNumberIn.cs" />
+        <Compile Include="DomainModel\Client\RedeemMemberRewardIn.cs" />
+        <Compile Include="DomainModel\Client\ReturnMemberRewardOrderIn.cs" />
+        <Compile Include="DomainModel\Client\GetRewardCategoriesIn.cs" />
+        <Compile Include="DomainModel\Client\GetRewardCatalogCountIn.cs" />
+        <Compile Include="DomainModel\Client\GetRewardCatalogIn.cs" />
+        <Compile Include="DomainModel\Client\GetRewardCatalogItemIn.cs" />
+        <Compile Include="DomainModel\Client\GetMessageDefinitionCountIn.cs" />
+        <Compile Include="DomainModel\Client\GetMessageDefinitionsIn.cs" />
+        <Compile Include="DomainModel\Client\GetMessageDefinitionIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberMessagesIn.cs" />
+        <Compile Include="DomainModel\Client\GetCouponDefinitionCountIn.cs" />
+        <Compile Include="DomainModel\Client\GetCouponDefinitionsIn.cs" />
+        <Compile Include="DomainModel\Client\GetCouponDefinitionIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberCouponsIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberCouponByIdIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberCouponByCertNmbrIn.cs" />
+        <Compile Include="DomainModel\Client\RedeemMemberCouponByIdIn.cs" />
+        <Compile Include="DomainModel\Client\RedeemMemberCouponByIdOut.cs" />
+        <Compile Include="DomainModel\Client\RedeemMemberCouponByCertNmbrIn.cs" />
+        <Compile Include="DomainModel\Client\RedeemMemberCouponByCertNmbrOut.cs" />
+        <Compile Include="DomainModel\Client\GetBonusDefinitionCountIn.cs" />
+        <Compile Include="DomainModel\Client\GetBonusDefinitionsIn.cs" />
+        <Compile Include="DomainModel\Client\GetBonusDefinitionIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberBonusesIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberWalletIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberWalletOut.cs" />
+        <Compile Include="DomainModel\Client\RequestCreditTxnSearchIn.cs" />
+        <Compile Include="DomainModel\Client\RequestCreditTxnSearchOut.cs" />
+        <Compile Include="DomainModel\Client\ApplyTxnCreditIn.cs" />
+        <Compile Include="DomainModel\Client\GetPromotionDefinitionsCountIn.cs" />
+        <Compile Include="DomainModel\Client\GetPromotionDefinitionsIn.cs" />
+        <Compile Include="DomainModel\Client\GetPromotionDefinitionIn.cs" />
+        <Compile Include="DomainModel\Client\AddMemberPromotionIn.cs" />
+        <Compile Include="DomainModel\Client\GetMemberPromotionsIn.cs" />
+        <Compile Include="DomainModel\Client\TriggerUserEventIn.cs" />
+        <Compile Include="DomainModel\Client\TriggerUserEventOut.cs" />
+        <Compile Include="DomainModel\Client\SendTriggeredEmailIn.cs" />
+        <Compile Include="DomainModel\Client\CreateCSNoteIn.cs" />
+        <Compile Include="DomainModel\Client\GetCSNotesIn.cs" />
+        <Compile Include="DomainModel\Client\GetServiceInfoOut.cs" />
+        <Compile Include="DomainModel\Client\AERegisterMemberIn.cs" />
+        <Compile Include="DomainModel\Client\AERegisterMemberOut.cs" />
+        <Compile Include="DomainModel\Client\AEAutoRegisterIn.cs" />
+        <Compile Include="DomainModel\Client\AEAutoRegisterOut.cs" />
+        <Compile Include="DomainModel\Client\AEValidateMemberIn.cs" />
+        <Compile Include="DomainModel\Client\AEValidateMemberOut.cs" />
+        <Compile Include="DomainModel\Client\AEGetAccountSummaryOut.cs" />
+        <Compile Include="DomainModel\Client\AEPOSGetAccountSummaryOut.cs" />
+        <Compile Include="DomainModel\Client\AERequestPointStoreIn.cs" />
+        <Compile Include="DomainModel\Client\AERequestPointStoreOut.cs" />
+        <Compile Include="DomainModel\Client\AERequestPointOnlineIn.cs" />
+        <Compile Include="DomainModel\Client\AERequestPointOnlineOut.cs" />
+        <Compile Include="DomainModel\Client\AEGetAccountActivityIn.cs" />
+        <Compile Include="DomainModel\Client\AEGetAccountActivityOut.cs" />
+        <Compile Include="DomainModel\Client\AEConnectedGetAccountActivityIn.cs" />
+        <Compile Include="DomainModel\Client\AEConnectedGetAccountActivityOut.cs" />
+        <Compile Include="DomainModel\Client\AEPOSGetAccountActivityIn.cs" />
+        <Compile Include="DomainModel\Client\AEPOSGetAccountActivityOut.cs" />
+        <Compile Include="DomainModel\Client\AEAddEngagementActivityIn.cs" />
+        <Compile Include="DomainModel\Client\TransactionDetailStruct.cs" />
+        <Compile Include="DomainModel\Client\TransactionTenderStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberSearchParmsStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberSocialHandleStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberMergeOptionsStruct.cs" />
+        <Compile Include="DomainModel\Client\LoyaltyCurrencyStruct.cs" />
+        <Compile Include="DomainModel\Client\LoyaltyEventStruct.cs" />
+        <Compile Include="DomainModel\Client\TierDefStruct.cs" />
+        <Compile Include="DomainModel\Client\AccountActivitySummaryStruct.cs" />
+        <Compile Include="DomainModel\Client\TxnStoreInfoStruct.cs" />
+        <Compile Include="DomainModel\Client\PointsHistoryStruct.cs" />
+        <Compile Include="DomainModel\Client\AdditionalAttributesStruct.cs" />
+        <Compile Include="DomainModel\Client\OtherPointsHistoryStruct.cs" />
+        <Compile Include="DomainModel\Client\AccountActivityDetailsStruct.cs" />
+        <Compile Include="DomainModel\Client\RewardOrderInfoStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberRewardSummaryStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberRewardOrderStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberRewardInfoStruct.cs" />
+        <Compile Include="DomainModel\Client\ShippingAddressStruct.cs" />
+        <Compile Include="DomainModel\Client\RewardCategoryStruct.cs" />
+        <Compile Include="DomainModel\Client\ContentSearchAttributesStruct.cs" />
+        <Compile Include="DomainModel\Client\RewardCatalogSummaryStruct.cs" />
+        <Compile Include="DomainModel\Client\RewardCatalogItemStruct.cs" />
+        <Compile Include="DomainModel\Client\ProductStruct.cs" />
+        <Compile Include="DomainModel\Client\ProductVariantStruct.cs" />
+        <Compile Include="DomainModel\Client\ContentAttributesStruct.cs" />
+        <Compile Include="DomainModel\Client\MessageDefinitionStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberMessageStruct.cs" />
+        <Compile Include="DomainModel\Client\CouponDefinitionStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberCouponStruct.cs" />
+        <Compile Include="DomainModel\Client\BonusDefinitionStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberBonusStruct.cs" />
+        <Compile Include="DomainModel\Client\MemberPromotionStruct.cs" />
+        <Compile Include="DomainModel\Client\PromotionDefinitionStruct.cs" />
+        <Compile Include="DomainModel\Client\RequestCreditTxnSearchParametersStruct.cs" />
+        <Compile Include="DomainModel\Client\TxnHistoryStruct.cs" />
+        <Compile Include="DomainModel\Client\ClientContextStruct.cs" />
+        <Compile Include="DomainModel\Client\AdditionalFieldsStruct.cs" />
+        <Compile Include="DomainModel\Client\CSNoteStruct.cs" />
+        <Compile Include="DomainModel\Client\GetLoyaltyProfileStruct.cs" />
+        <Compile Include="DomainModel\Client\TransactionHeadersStruct.cs" />
+        <Compile Include="DomainModel\Client\AEConnectedTransactionHeadersStruct.cs" />
+      </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />  
+</Project>

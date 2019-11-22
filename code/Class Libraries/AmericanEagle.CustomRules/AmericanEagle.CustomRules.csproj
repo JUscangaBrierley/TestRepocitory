@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1451ABD5-8608-45DD-B873-3A4466970EBA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmericanEagle.CustomRules</RootNamespace>
+    <AssemblyName>AmericanEagle.CustomRules</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Brierley.Clients.AmericanEagle.DataModel, Version=0.0.0.0, Culture=neutral, PublicKeyToken=fa7cdf2cd9bd4eb0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ClientLibs\Brierley.Clients.AmericanEagle.DataModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.FrameWork">
+      <HintPath>..\..\CommonLibs\Brierley.FrameWork.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Version.cs">
+      <Link>Version.cs</Link>
+    </Compile>
+    <Compile Include="AEAwardPoints.cs" />
+    <Compile Include="AmericanEagleBraIssueReward.cs" />
+    <Compile Include="AmericanEagleB5G1IssueReward.cs" />
+    <Compile Include="AmericanEagleIssueReward.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UtilClasses\AmericanEagleBraIssueRewardUtil.cs" />
+    <Compile Include="UtilClasses\AmericanEagleIssueRewardUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SocialMediaLibrary\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ClientDevUtilities\Brierley.ClientDevUtilities\Brierley.ClientDevUtilities.csproj">
+      <Project>{6f2b8acd-37ae-4f4a-a456-e213c40d9071}</Project>
+      <Name>Brierley.ClientDevUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmericanEagle.SDK\AmericanEagle.SDK.csproj">
+      <Project>{d5e49986-ba4d-4b0b-9f3f-a3f563046ef9}</Project>
+      <Name>AmericanEagle.SDK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(AssemblyName).dll" "$(SolutionDir)RemoteAssemblies"
+copy "$(TargetDir)$(AssemblyName).pdb" "$(SolutionDir)RemoteAssemblies"
+"$(SolutionDir)scripts\DeployRemoteAssembly.bat" "$(TargetDir)$(AssemblyName).dll"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

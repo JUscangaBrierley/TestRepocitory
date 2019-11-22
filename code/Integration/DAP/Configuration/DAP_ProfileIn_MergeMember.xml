@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+	<Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Merge Member ProfileIn Process</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="">
+    <SimpleDatabaseInput CollectionName="Members" RecordName="Member">
+      <QueryString>
+		WITH secondary AS (
+				SELECT s.linkkey
+				, vc.ipcode
+				, s.loyaltyidnumber
+				FROM stage_profilein s,
+				lw_virtualcard vc
+				WHERE s.recordtype = 'S'
+				and vc.loyaltyidnumber = s.loyaltyidnumber )
+				SELECT vc.ipcode         toipcode
+				, s.ipcode          fromipcode
+				, s.loyaltyidnumber fromloyaltyid
+				FROM stage_profilein p,
+				lw_virtualcard  vc,
+				secondary       s
+				WHERE p.linkkey  = s.linkkey AND
+				p.recordtype = 'P'   AND
+				vc.loyaltyidnumber = p.loyaltyidnumber AND
+				vc.ipcode != s.ipcode
+				ORDER BY 1, 2
+      </QueryString>
+      <Fields>
+		<Field Name="TOIPCODE" Type="Integer" />
+        <Field Name="FROMIPCODE" Type="Integer" />
+        <Field Name="fromloyaltyid" Type="Integer" />
+		
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Members" TargetAttributeSetType="Member" DebugOutputPath="">
+	
+	<FieldMap SourceField="Member/TOIPCODE" >
+      <Populate TargetNode="Member/TOIPCODE"/>
+    </FieldMap>
+	
+	<FieldMap SourceField="Member/FROMIPCODE" >
+      <Populate TargetNode="Member/FROMIPCODE"/>
+    </FieldMap>
+	
+	<FieldMap SourceField="Member/fromloyaltyid" >
+      <Populate TargetNode="Member/fromloyaltyid"/>
+    </FieldMap>
+	
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>3</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.ProfileInMergeMemberInterceptor</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+			<MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="false" > <!-- HandleMemberNotFoundInInterceptor="false" --> 
+		        <!-- <LoadDirective Method="UseInterceptor" ValuePath="" /> -->
+				<!-- <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber" /> -->
+				<LoadDirective Method="IpCode" ValuePath="Member/TOIPCODE" />
+			</MemberLoadDirectives>
+
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+
+  
+  <!-- PostProcessor -->
+  
+</DAPDirectives>

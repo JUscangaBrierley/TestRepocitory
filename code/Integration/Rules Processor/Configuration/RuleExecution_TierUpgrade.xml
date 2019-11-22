@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBeta</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat> 
+    <ThreadPoolSize>1</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>noreply@brierley.com</SenderEmail>
+      <SenderDisplayName>AE Rules Processor</SenderDisplayName>
+	  <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE EvaluateTierRule Processor</Subject>
+
+    </EmailInformation>    
+  </RuleEngineConfig>
+  <MemberRule DirectiveName="BulkAppeasements">
+    <QueryBasedMemberRetriever 
+      RetrievalRange="0-*" 
+      RetrievalBatchSize="1000" 
+      KeyName="IpCode">
+      <QueryString>
+      -- Members with new points
+		select distinct
+             vcrd.ipcode
+          from bp_ae.lw_pointtransaction pts
+          inner join bp_ae.lw_pointtype ptp
+            on(pts.pointtypeid = ptp.pointtypeid and ptp.name = 'NetSpend')
+          inner join bp_ae.lw_virtualcard vcrd
+            on(pts.vckey = vcrd.vckey)
+          where pts.createdate &gt;= trunc(to_date('{$arg=Date}','MM/DD/YYYY'))
+      </QueryString>
+    </QueryBasedMemberRetriever>
+    <RulesToInvoke>
+	  <Rule RuleName="EvaluateTier" TargetPath="Member"/>
+	  <Rule RuleName="EvaluateTierForNonTierMember" TargetPath="Member"/>
+    </RulesToInvoke>
+  </MemberRule>
+</RulesDirectives>

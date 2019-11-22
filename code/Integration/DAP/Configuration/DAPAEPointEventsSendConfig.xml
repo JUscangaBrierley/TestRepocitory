@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Points event descriptions for AEO Rewards Members</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="D\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="PointEventRecords" RecordName="PointEventRecord">
+      <QueryString>
+		select distinct pe.pointeventid, pe.name 
+        from bp_ae.lw_pointevent pe
+        inner join bp_ae.lw_pointtransaction p on pe.pointeventid = p.pointeventid
+        where p.transactiondate &gt; to_date('1/1/2015', 'mm/dd/yyyy')
+       order by pe.pointeventid
+      </QueryString>
+      <Fields>
+		<Field Name="PointEventId" Type="String" />
+		<Field Name="Name" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="PointEventRecords" RecordName="PointEventRecord" FileName="AE_PointEvents_{$date(format=MMddyyyyhhmmss)}.txt" DataInAttributes="false" Delimiter="|" OutputFolder="D:\devroot\americaneagle\branches\NationalRollout\Files\output">
+      <FieldMap>
+		<Field Name="PointEventId" Length="15" />
+		<Field Name="Name" Length="80" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

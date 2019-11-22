@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Brierley.LoyaltyWare.DataAcquisition.Core</name>
+    </assembly>
+    <members>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.StagedTlogMessageHelper.Initialize(System.Collections.Specialized.NameValueCollection,System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Boolean)">
+            <summary>
+            This method initializes the message producer.
+            </summary>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.StagedTlogMessageHelper.MakeXmlMessages(Brierley.FrameWork.Data.DomainModel.Member,System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Int32@,System.Int32@)">
+            <summary>
+            This method is used by the StagedTlogDatabaseProvider to convert retrieved database records into xml messages.
+            </summary>
+            <param name="member"></param>
+            <param name="details"></param>
+            <param name="tenders"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.StagedTlogMessageHelper.Dispose">
+            <summary>
+            This method is called to allow the message producer to release its resources.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.IDAPStagedTlogMessageHelper.Initialize(System.Collections.Specialized.NameValueCollection,System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Collections.Generic.Dictionary{System.String,Brierley.FrameWork.Data.Sql.LWDatabaseFieldType},System.Boolean)">
+            <summary>
+            This method initializes the message producer.
+            </summary>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.IDAPStagedTlogMessageHelper.MakeXmlMessages(Brierley.FrameWork.Data.DomainModel.Member,System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.String,System.String}},System.Int32@,System.Int32@)">
+            <summary>
+            This method is used by the StagedTlogDatabaseProvider to convert retrieved database records into xml messages.
+            </summary>
+            <param name="member"></param>
+            <param name="details"></param>
+            <param name="tenders"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.IDAPStagedTlogMessageHelper.Dispose">
+            <summary>
+            This method is called to allow the message producer to release its resources.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.IDAPDbMessageProducer.Initialize(System.Collections.Specialized.NameValueCollection,System.Boolean)">
+            <summary>
+            This method initializes the message producer.
+            </summary>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.IDAPDbMessageProducer.GetMessagesForMember(Brierley.FrameWork.Data.DomainModel.Member)">
+            <summary>
+            This method retrieves all the messages for the provided member.
+            </summary>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.IDAPDbMessageProducer.Dispose">
+            <summary>
+            This method is called to allow the message producer to release its resources.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.StagedMessageProducerBase.Initialize(System.Collections.Specialized.NameValueCollection,System.Boolean)">
+            <summary>
+            This method initializes the message producer.
+            </summary>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.StagedMessageProducerBase.GetMessagesForMember(Brierley.FrameWork.Data.DomainModel.Member)">
+            <summary>
+            This method retrieves all the messages for the provided member.
+            </summary>
+            <param name="member"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.StagedMessageProducerBase.Dispose">
+            <summary>
+            This method is called to allow the message producer to release its resources.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.IDAPInputProvider.Initialize(System.Collections.Specialized.NameValueCollection,System.Collections.Specialized.NameValueCollection,Brierley.FrameWork.Data.DomainModel.AsyncJob,Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.InputProvider,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            This method will initialize the input provider
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.IDAPInputProvider.GetNextMessage">
+            <summary>
+            This method returnes the next message in the form of an xml string.  
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.IDAPInputProvider.GetNextBatch(System.Int32@)">
+            <summary>
+            This method returns a batch of xml messages.  This is useful for Tlog processing where it is
+            desirable to schedule an entire set of messages over a single thread.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Input.IDAPInputProvider.Dispose">
+            <summary>
+            Cleanup all resources associated with this reader.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.FileProvider.DAPFileOutputProviderBase.Initialize(System.Collections.Specialized.NameValueCollection,System.Collections.Specialized.NameValueCollection,System.Int64,Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives,System.Collections.Specialized.NameValueCollection,Brierley.LoyaltyWare.DataAcquisition.Core.PerformanceCounters.DAPPerformanceCounterUtil)">
+            <summary>
+            This method is called to initialize the message dispatcher
+            </summary>
+            <param name="jobId"></param>
+            <param name="config"></param>
+            <param name="_thrdPoolMgr"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.FileProvider.DAPFileOutputProviderBase.ProcessMessageBatch(System.Collections.Generic.List{System.String})">
+            <summary>
+            This method is called to process the messages in the batch
+            </summary>
+            <param name="messageBatch"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCurrencyExchangeRateProcessor.ProcessRequest(System.Object)">
+            <summary>
+            We need to override this method to have more control on how each message gets process. 
+            </summary>
+            <param name="workItem"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCurrencyExchangeRateProcessor.ProcessExchangeRates(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives,System.Xml.Linq.XElement)">
+            <summary>
+            Process the node, this will validate that all the exchange rate data is valid and identify updates and creates. 
+            </summary>
+            <param name="inDirectives"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPSocialDataProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPSocialDataProcessor.ProcessCampaignData(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.SocialListeningDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPContactHistoryProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPContactHistoryProcessor.ProcessContactHistory(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCertificatesProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCertificatesProcessor.ProcessCertificate(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPMemberCouponProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPMemberCouponProcessor.ProcessMemberCoupon(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCSAgentProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="T:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.AttributeSetProcessingBase">
+            <summary>
+            This is the base class for processing either members or global attribute sets.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.AttributeSetProcessingBase.ConvertStringToDate(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="dateStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.AttributeSetProcessingBase.GetAttributeValue(System.Xml.Linq.XAttribute)">
+            <summary>
+            
+            </summary>
+            <param name="attribute"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.AttributeSetProcessingBase.GetRefDataAttributeFromXml(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FrameworkRefDataLoadDirective,System.String,System.Xml.Linq.XElement,System.Boolean,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ds"></param>
+            <param name="directive"></param>
+            <param name="owner"></param>
+            <param name="def"></param>
+            <param name="containingRow"></param>
+            <param name="aNode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.AttributeSetProcessingBase.Cleanup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPGlobalAttributeSetsProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPGlobalAttributeSetsProcessor.ProcessGlobal(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives,Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.ClientDataModelInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPMemberAttributeSetsProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPMemberAttributeSetsProcessor.DoChildWork">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCouponProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCouponProcessor.ProcessCoupon(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPCouponProcessor.CreateCategory(System.String)">
+            <summary>
+            This method may be called from multiple threads and if not synchronized, may end up 
+            creating duplicate categories.
+            </summary>
+            <param name="catName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPMemberBonusProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPMemberBonusProcessor.ProcessMemberOffer(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPProductProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPProductProcessor.ProcessProduct(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPProductProcessor.CreateCategory(System.String)">
+            <summary>
+            This method may be called from multiple threads and if not synchronized, may end up 
+            creating duplicate categories.
+            </summary>
+            <param name="catName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPRewardProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPRewardProcessor.ProcessReward(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPStoreProcessor.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.Threading.LWDAPStoreProcessor.ProcessStore(Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives.FwkRefDataInboundDirectives)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.Framework.DAPMessageDispatcherImpl.CreateThread(System.String)">
+            <summary>
+            Invoked by the thread pool manager to create new thread objects.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.MessageQueue.SimpleMessageQueueOutputProvider.Initialize(System.Collections.Specialized.NameValueCollection,System.Collections.Specialized.NameValueCollection,System.Int64,Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives,System.Collections.Specialized.NameValueCollection,Brierley.LoyaltyWare.DataAcquisition.Core.PerformanceCounters.DAPPerformanceCounterUtil)">
+            <summary>
+            This method is called to initialize the message dispatcher
+            </summary>
+            <param name="jobId"></param>
+            <param name="config"></param>
+            <param name="_thrdPoolMgr"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.MessageQueue.SimpleMessageQueueOutputProvider.ProcessMessageBatch(System.Collections.Generic.List{System.String})">
+            <summary>
+            This method is called to process the messages in the batch
+            </summary>
+            <param name="messageBatch"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.IDAPOutputProvider.Initialize(System.Collections.Specialized.NameValueCollection,System.Collections.Specialized.NameValueCollection,System.Int64,Brierley.LoyaltyWare.DataAcquisition.Core.DAPDirectives,System.Collections.Specialized.NameValueCollection,Brierley.LoyaltyWare.DataAcquisition.Core.PerformanceCounters.DAPPerformanceCounterUtil)">
+            <summary>
+            This method is called to initialize the message dispatcher
+            </summary>
+            <param name="jobId"></param>
+            <param name="config"></param>
+            <param name="_thrdPoolMgr"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.IDAPOutputProvider.ProcessMessageBatch(System.Collections.Generic.List{System.String})">
+            <summary>
+            This method is called to process the messages in the batch
+            </summary>
+            <param name="messageBatch"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.Output.IDAPOutputProvider.Shutdown">
+            <summary>
+            This operation shuts down the thread pool and returns the number of failed messages
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyWare.DataAcquisition.Core.DAPMain.ApplyMessageMap(System.String)">
+            <summary>
+            This method creates a new message that conforms to the target schema.
+            </summary>
+            <param name="directive"></param>
+            <param name="rawMsg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brierley.LoyaltyWare.DataAcquisition.Core.PrePostprocessor.Tasks.NextBestActionTask">
+            <summary>
+            A pre-processing task that will truncate the NextBestAction table.
+            </summary>
+        </member>
+    </members>
+</doc>

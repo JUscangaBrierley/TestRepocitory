@@ -1,0 +1,2 @@
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewTextBlockViewer.ascx.cs" Inherits="Brierley.LWModules.TextBlockViewer.ViewTextBlockViewer" %>
+<asp:PlaceHolder ID="phTextBlock" runat="server" />

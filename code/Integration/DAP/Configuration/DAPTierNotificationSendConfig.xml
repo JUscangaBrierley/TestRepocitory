@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>rochoa@brierley.com</RecepientEmail>
+      <Subject>AE Tier Notification Send   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\AmericanEagle\Files\Dummy">
+    <SimpleDatabaseInput CollectionName="TierNotification" RecordName="Global">
+      <QueryString>
+        Select '' DELIVERY_CHANNEL
+        , vc.linkkey CUSTOMER_NBR
+        , vc.loyaltyidnumber LOYALTY_NUMBER
+        , md.a_emailaddress email
+        , regexp_replace( CAST(md.a_mobilephone  as NVARCHAR2(100)), '[^[:digit:]]', null ) MOBILE_NUMBER  -- AEO-35
+        , lm.firstname FNAME
+        , lm.lastname LNAME
+        , md.a_addresslineone ADDRESS1
+        , md.a_addresslinetwo ADDRESS2
+        , md.a_city CITY
+        , md.a_stateorprovince STATE
+        , REPLACE(md.a_ziporpostalcode, '-') ZIP
+        , md.a_country COUNTRY
+        , '' AUTH_CD
+        , '' SUC_CD
+        , '' CAMPAIGN_TYPE
+        , '' CAMPAIGN_EXP_DATE
+        , CASE
+        WHEN md.a_cardtype in (1,2,3) THEN (select CAST(to_char(value) as NVARCHAR2(100)) from lw_clientconfiguration cc where cc.ckey = 'EID_EmailTierNotification_Credit')
+        ELSE (select CAST(to_char(value) as NVARCHAR2(100)) from lw_clientconfiguration cc where cc.ckey = 'EID_EmailTierNotification_nonCredit')
+        END EID
+        ,CASE
+        WHEN md.a_cardtype in (1,2,3) THEN (select CAST(to_char(value) as NVARCHAR2(100)) from lw_clientconfiguration cc where cc.ckey = 'CampaignID_SMSTierNotification_Credit')
+        ELSE (select CAST(to_char(value) as NVARCHAR2(100)) from lw_clientconfiguration cc where cc.ckey = 'CampaignID_SMSTierNotification_NoCredit')
+        END CAMPAIGN_ID
+        , CASE
+        WHEN md.a_languagepreference is NULL THEN CAST(0 as NVARCHAR2(100))
+        ELSE CAST(md.a_languagepreference as NVARCHAR2(100))
+        END LANGUAGE_PREFERENCE
+        , CAST(to_char(NVL(md.a_gender, '0')) as NVARCHAR2(100)) GENDER
+        ,  to_char(lm.birthdate, 'DD-MON-YYYY') BIRTHDATE
+        , md.a_homestoreid STORE_LOYALTY
+        , Case
+        When t.tiername = 'Silver' Then 2
+        When t.tiername = 'Gold' Then 3
+        When t.tiername = 'Select' Then 4
+        End TIER_STATUS
+        , p.a_totalpoints POINTS_BALANCE
+        , p.a_pointstonextreward POINTS_NEEDED_FOR_NEXT_REWARD
+        , p.a_bracurrentpurchased NUMBER_OF_BRAS_PURCHASED
+        , 0 CREDITS_TO_NEXT_FREE_BRA
+        , p.a_jeansrollingbalance NUMBER_OF_JEANS_PURCHASED
+        , 0 CREDITS_TO_NEXT_FREE_JEAN
+        , (SELECT  count(mr.id)
+        FROM lw_memberrewards mr
+        inner join lw_rewardsdef r on mr.rewarddefid = r.id
+        WHERE mr.memberid = vc.ipcode
+        AND r.name = 'AEO Rewards $5 Reward'
+        AND mr.fulfillmentdate is null
+        AND mr.expiration &gt; sysdate) NUMBER_OF_ACTIVE_5_OFF_REWARD
+        , (SELECT  count(mr.id)
+           FROM lw_memberrewards mr
+           inner join lw_rewardsdef r on mr.rewarddefid = r.id
+           WHERE mr.memberid = vc.ipcode
+           AND r.name = 'B5G1 Jean Reward'
+           AND mr.fulfillmentdate is null
+           AND mr.expiration &gt; sysdate) NBR_ACTIVE_FREE_JEANS_REWARD
+        , (SELECT  count(mr.id)
+           FROM lw_memberrewards mr
+           inner join lw_rewardsdef r on mr.rewarddefid = r.id
+           WHERE mr.memberid = vc.ipcode
+           AND r.name = 'B5G1 Bra Reward'
+           AND mr.fulfillmentdate is null
+           AND mr.expiration &gt; sysdate) NBR_ACTIVE_FREE_BRA_REWARD
+, '' COMMUNICATION_ID
+, '' COMM_PLAN_ID
+, '' COLLATERAL_ID
+, '' PACKAGE_ID
+, '' STEP_ID
+, '' MESSAGE_ID
+, '' SEG_ID
+, '' SEG_NM
+, '' AAP_FLAG
+, md.a_cardtype CARD_TYPE
+, '' RUN_ID
+, '' LEAD_KEY_ID
+, '' SITE_URL
+, '' ENABLE_PASSBOOK_PASS
+, '' TIMESTAMP
+From lw_loyaltymember lm
+INNER JOIN lw_virtualcard vc on lm.ipcode = vc.ipcode and vc.isprimary = 1
+INNER JOIN ats_memberdetails md on lm.ipcode = md.a_ipcode
+LEFT JOIN bp_ae.lw_membertiers mt ON mt.memberid = vc.ipcode
+LEFT JOIN lw_tiers t on mt.tierid = t.tierid
+LEFT JOIN ats_memberpointbalances p on vc.ipcode = p.a_ipcode
+Where 1=1
+AND SUBSTR(vc.loyaltyidnumber, 1, 1) != '0'
+AND LENGTH(vc.loyaltyidnumber) = 14
+AND t.tiername in ('Silver', 'Gold', 'Select')
+AND (md.a_pendingemailverification = 0 or md.a_pendingcellverification = 0)
+AND SYSDATE BETWEEN mt.fromdate AND mt.todate
+AND mt.fromdate &gt; (select to_date(to_char(value), 'mm/dd/yyyy hh24:mi:ss')
+from lw_clientconfiguration cc where cc.ckey = 'LastTierNotificationDate')
+ORDER BY vc.IPCode
+</QueryString>
+      <Fields>
+        <Field Name="DELIVERY_CHANNEL" Type="String"  />
+        <Field Name="CUSTOMER_NBR" Type="String" />
+        <Field Name="LOYALTY_NUMBER" Type="String" />
+		<Field Name="email" Type="String" />
+		<Field Name="MOBILE_NUMBER" Type="String" />
+		<Field Name="FNAME" Type="String" />
+		<Field Name="LNAME" Type="String" />
+		<Field Name="ADDRESS1" Type="String" />
+		<Field Name="ADDRESS2" Type="String" />
+		<Field Name="CITY" Type="String" />
+		<Field Name="STATE" Type="String" />
+		<Field Name="ZIP" Type="String" />
+		<Field Name="COUNTRY" Type="String" />
+		<Field Name="AUTH_CD" Type="String" />
+		<Field Name="SUC_CD" Type="String" />
+		<Field Name="CAMPAIGN_TYPE" Type="String" />
+		<Field Name="CAMPAIGN_EXP_DATE" Type="String" />
+		<Field Name="EID" Type="String" />
+		<Field Name="CAMPAIGN_ID" Type="String" />
+		<Field Name="LANGUAGE_PREFERENCE" Type="String" />
+		<Field Name="GENDER" Type="String" />
+		<Field Name="BIRTHDATE" Type="String" />
+		<Field Name="STORE_LOYALTY" Type="String" />
+		<Field Name="TIER_STATUS" Type="String" />
+		<Field Name="POINTS_BALANCE" Type="String" />
+		<Field Name="POINTS_NEEDED_FOR_NEXT_REWARD" Type="String" />
+		<Field Name="NUMBER_OF_BRAS_PURCHASED" Type="String" />
+		<Field Name="CREDITS_TO_NEXT_FREE_BRA" Type="String" />
+		<Field Name="NUMBER_OF_JEANS_PURCHASED" Type="String" />
+		<Field Name="CREDITS_TO_NEXT_FREE_JEAN" Type="String" />
+		<Field Name="NUMBER_OF_ACTIVE_5_OFF_REWARD" Type="String" />
+		<Field Name="NBR_ACTIVE_FREE_JEANS_REWARD" Type="String" />
+		<Field Name="NBR_ACTIVE_FREE_BRA_REWARD" Type="String" />
+		<Field Name="COMMUNICATION_ID" Type="String" />
+		<Field Name="COMM_PLAN_ID" Type="String" />
+		<Field Name="COLLATERAL_ID" Type="String" />
+		<Field Name="PACKAGE_ID" Type="String" />
+		<Field Name="STEP_ID" Type="String" />
+		<Field Name="MESSAGE_ID" Type="String" />
+		<Field Name="SEG_ID" Type="String" />
+		<Field Name="SEG_NM" Type="String" />
+		<Field Name="AAP_FLAG" Type="String" />
+		<Field Name="CARD_TYPE" Type="String" />
+		<Field Name="RUN_ID" Type="String" />
+		<Field Name="LEAD_KEY_ID" Type="String" />
+		<Field Name="SITE_URL" Type="String" />
+		<Field Name="ENABLE_PASSBOOK_PASS" Type="String" />
+		<Field Name="TIMESTAMP" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <MessageTransformationMap SourceCollectionName="TierNotification" TargetAttributeSetType="Global" DebugOutputPath="E:\AmericanEagle\Files\Dummy1">   
+    <FieldMap SourceField="Global/DELIVERY_CHANNEL">
+      <Populate TargetNode="Global/DELIVERY_CHANNEL"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/CUSTOMER_NBR">
+      <Populate TargetNode="Global/CUSTOMER_NBR"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/LOYALTY_NUMBER">
+      <Populate TargetNode="Global/LOYALTY_NUMBER"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/email">
+      <Populate TargetNode="Global/email"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/MOBILE_NUMBER">
+      <Populate TargetNode="Global/MOBILE_NUMBER"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/FNAME">
+      <Populate TargetNode="Global/FNAME"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/LNAME">
+      <Populate TargetNode="Global/LNAME"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/ADDRESS1">
+      <Populate TargetNode="Global/ADDRESS1"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/ADDRESS2">
+      <Populate TargetNode="Global/ADDRESS2"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CITY">
+      <Populate TargetNode="Global/CITY"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/STATE">
+      <Populate TargetNode="Global/STATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/ZIP">
+      <Populate TargetNode="Global/ZIP"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/COUNTRY">
+      <Populate TargetNode="Global/COUNTRY"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/AUTH_CD">
+      <Populate TargetNode="Global/AUTH_CD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/SUC_CD">
+      <Populate TargetNode="Global/SUC_CD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CAMPAIGN_TYPE">
+      <Populate TargetNode="Global/CAMPAIGN_TYPE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CAMPAIGN_EXP_DATE">
+      <Populate TargetNode="Global/CAMPAIGN_EXP_DATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/EID">
+      <Populate TargetNode="Global/EID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CAMPAIGN_ID">
+      <Populate TargetNode="Global/CAMPAIGN_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/LANGUAGE_PREFERENCE">
+      <Populate TargetNode="Global/LANGUAGE_PREFERENCE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/GENDER">
+      <Populate TargetNode="Global/GENDER"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/BIRTHDATE">
+      <Populate TargetNode="Global/BIRTHDATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/STORE_LOYALTY">
+      <Populate TargetNode="Global/STORE_LOYALTY"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/TIER_STATUS">
+      <Populate TargetNode="Global/TIER_STATUS"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/POINTS_BALANCE">
+      <Populate TargetNode="Global/POINTS_BALANCE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/POINTS_NEEDED_FOR_NEXT_REWARD">
+      <Populate TargetNode="Global/POINTS_NEEDED_FOR_NEXT_REWARD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/NUMBER_OF_BRAS_PURCHASED">
+      <Populate TargetNode="Global/NUMBER_OF_BRAS_PURCHASED"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CREDITS_TO_NEXT_FREE_BRA">
+      <Populate TargetNode="Global/CREDITS_TO_NEXT_FREE_BRA"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/NUMBER_OF_JEANS_PURCHASED">
+      <Populate TargetNode="Global/NUMBER_OF_JEANS_PURCHASED"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CREDITS_TO_NEXT_FREE_JEAN">
+      <Populate TargetNode="Global/CREDITS_TO_NEXT_FREE_JEAN"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/NUMBER_OF_ACTIVE_5_OFF_REWARD">
+      <Populate TargetNode="Global/NUMBER_OF_ACTIVE_5_OFF_REWARD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/NBR_ACTIVE_FREE_JEANS_REWARD">
+      <Populate TargetNode="Global/NUMBER_OF_ACTIVE_FREE_JEANS_REWARD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/NBR_ACTIVE_FREE_BRA_REWARD">
+      <Populate TargetNode="Global/NUMBER_OF_ACTIVE_FREE_BRA_REWARD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/COMMUNICATION_ID">
+      <Populate TargetNode="Global/COMMUNICATION_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/COMM_PLAN_ID">
+      <Populate TargetNode="Global/COMM_PLAN_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/COLLATERAL_ID">
+      <Populate TargetNode="Global/COLLATERAL_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/PACKAGE_ID">
+      <Populate TargetNode="Global/PACKAGE_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/STEP_ID">
+      <Populate TargetNode="Global/STEP_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/MESSAGE_ID">
+      <Populate TargetNode="Global/MESSAGE_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/SEG_ID">
+      <Populate TargetNode="Global/SEG_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/SEG_NM">
+      <Populate TargetNode="Global/SEG_NM"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/AAP_FLAG">
+      <Populate TargetNode="Global/AAP_FLAG"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CARD_TYPE">
+      <Populate TargetNode="Global/CARD_TYPE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/RUN_ID">
+      <Populate TargetNode="Global/RUN_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/LEAD_KEY_ID">
+      <Populate TargetNode="Global/LEAD_KEY_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/SITE_URL">
+      <Populate TargetNode="Global/SITE_URL"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/ENABLE_PASSBOOK_PASS">
+      <Populate TargetNode="Global/ENABLE_PASSBOOK_PASS"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/TIMESTAMP">
+      <Populate TargetNode="Global/TIMESTAMP"/>
+    </FieldMap>
+  </MessageTransformationMap>
+  <OutputProvider>    
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.TierNotification</TypeName>
+      <AssemblyName>americaneagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>  
+</DAPDirectives>

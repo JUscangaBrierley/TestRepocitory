@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE XRef Loader DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\XrefLoader\Stage1">
+    <FlatFileInput>
+      <CollectionRoot Name="XrefCollection" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Xref" Structure="FixedLength" Delimiter="" TagName="">
+          <Fields>
+            <RecordField Name="HHKey" Length="13" Justification="Left" Type="String" />
+            <RecordField Name="LoyaltyNumber" Length="14" Justification="Left" Type="String" />            
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="XrefCollection" TargetAttributeSetType="Member" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\XrefLoader\Stage2">
+    <FieldMap SourceField="Xref/HHKey">
+      <Populate TargetNode="Member/MemberDetails/HHKey"/>
+    </FieldMap>
+    <FieldMap SourceField="Xref/LoyaltyNumber">
+      <Populate TargetNode="Member/VirtualCard/LoyaltyIdNumber"/>
+    </FieldMap>
+    <MissingField TargetNode="Member/MemberDetails/ChangedBy" Value="Xref Loader"/>
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider CheckForChangedValues="true">
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>1</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+          <MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="false">
+            <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber" />
+          </MemberLoadDirectives>
+          <AttributeSetCreateDirectives>
+            <AttributeSetUpdate CreateIfNotFound="true" Name="MemberDetails" FindMethod="First"/>
+            <AttributeSetUpdate CreateIfNotFound="true" Name="VirtualCard" FindMethod="Attribute" FindValue="LoyaltyIdNumber"/>
+          </AttributeSetCreateDirectives>
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+</DAPDirectives>

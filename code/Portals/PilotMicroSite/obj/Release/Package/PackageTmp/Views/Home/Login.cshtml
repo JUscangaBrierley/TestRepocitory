@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="/web/favicon.ico"/>
+<link rel="apple-touch-icon" href="/Images/web/icons/72x72_ipadAppIcon.png"/>
+<title>Welcome to AE Rewards</title>
+<link rel="canonical" href="index.html"/>
+<!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+  <![endif]-->
+<link rel="stylesheet" href="@Url.Content("~/CSS/aeo.css")" />
+<link rel="stylesheet" href="@Url.Content("~/CSS/media.css")" />
+</head>
+<body>
+@using (Html.BeginForm("EarningSummary", "Home"))
+{
+
+<div class="aeo_body">
+	<div class="aeo_container">
+    	<div class="aeo_nav_column_1">
+        	<div class="aeo_nav_column_1_head"><img src="../images/aeo_rewards.png" width="162" height="auto" alt="AE Rewards"/></div>
+     @Html.TextBox("loyaltynumber")<br />
+   <input type="submit" value="Login" name="SubmitButton" />&nbsp;&nbsp;
+      </div>
+    </div>
+</div>
+}
+
+
+</body>
+</html> 

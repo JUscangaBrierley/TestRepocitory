@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+	<Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Test Email Process</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="">
+    <SimpleDatabaseInput CollectionName="Members" RecordName="Member">
+      <QueryString>
+			SELECT mr.a_ipcode                            ipcode, 
+				   lm.firstname                           firstname,
+				   CASE
+					 WHEN a_receipttype = 1 THEN 
+					   1
+					 ELSE
+					   2
+					 END                                  transaction_type,
+				   mr.a_txnstoreid                        storenumber,
+				   mr.a_txnnumber                         txnnumber,
+				   mr.a_txnregisternumber                 registernumber,
+				   to_char(mr.a_txndate,'MM/DD/YYYY')     txndate,
+				   mr.a_ordernumber                       ordernumber,
+				   mr.a_tenderamount                      txnamount,
+				   md.a_emailaddress                      emailaddress,
+				   vc.loyaltyidnumber                     loyaltyidnumber
+			FROM bp_ae.ats_memberreceipts mr,
+				 bp_ae.ats_memberdetails md,
+				 bp_ae.lw_virtualcard    vc,
+				 bp_ae.lw_loyaltymember  lm
+			WHERE mr.statuscode = 3 AND 
+				  vc.ipcode = mr.a_ipcode   AND 
+				  vc.isprimary = 1          AND 
+				  md.a_ipcode = mr.a_ipcode AND 
+				  lm.ipcode   = mr.a_ipcode AND 
+				  md.a_emailaddress IS NOT NULL AND
+				  md.a_emailaddressmailable = 1 AND  
+				  mr.updatedate >= (SELECT load_datetime FROM bp_ae.nova_loads WHERE feed_name = 'REQUEST_CREDIT_LATE_ENROLLMENT' AND processing_state = 'PROCESSING')
+      </QueryString>
+      <Fields>
+		<Field Name="IPCODE" Type="Integer" />
+		<Field Name="firstname" Type="String" />
+		
+		<Field Name="transaction_type" Type="Integer" />
+		<Field Name="storenumber" Type="String" />
+		<Field Name="txnnumber" Type="String" />
+		<Field Name="registernumber" Type="String" />
+		<Field Name="txndate" Type="String" />
+		<Field Name="ordernumber" Type="String" />
+		<Field Name="txnamount" Type="String" />
+		
+		<Field Name="emailaddress" Type="String" />
+		<Field Name="loyaltyidnumber" Type="String" />
+		
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Members" TargetAttributeSetType="Member" DebugOutputPath="">
+	
+	<FieldMap SourceField="Member/IPCODE" >
+      <Populate TargetNode="Member/IPCODE"/>
+    </FieldMap> 
+	
+	<FieldMap SourceField="Member/firstname" >
+      <Populate TargetNode="Member/firstname_query"/>
+    </FieldMap>
+	
+	
+	
+	<FieldMap SourceField="Member/transaction_type" >
+      <Populate TargetNode="Member/transaction_type"/>
+    </FieldMap> 
+	
+	<FieldMap SourceField="Member/storenumber" >
+      <Populate TargetNode="Member/storenumber"/>
+    </FieldMap>
+	
+	<FieldMap SourceField="Member/txnnumber" >
+      <Populate TargetNode="Member/txnnumber"/>
+    </FieldMap> 
+	
+	<FieldMap SourceField="Member/registernumber" >
+      <Populate TargetNode="Member/registernumber"/>
+    </FieldMap>
+	
+	<FieldMap SourceField="Member/txndate" >
+      <Populate TargetNode="Member/txndate"/>
+    </FieldMap> 
+	
+	<FieldMap SourceField="Member/ordernumber" >
+      <Populate TargetNode="Member/ordernumber"/>
+    </FieldMap>
+	
+	<FieldMap SourceField="Member/txnamount" >
+      <Populate TargetNode="Member/txnamount"/>
+    </FieldMap> 
+	
+	
+	<FieldMap SourceField="Member/emailaddress" >
+      <Populate TargetNode="Member/emailaddress_query"/>
+    </FieldMap>  
+	
+	<FieldMap SourceField="Member/loyaltyidnumber" >
+      <Populate TargetNode="Member/loyaltyidnumber_query"/>
+    </FieldMap> 
+	
+	
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>3</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.SendRequestCreditExpiredEmailInterceptor</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+			<MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="false" > <!-- HandleMemberNotFoundInInterceptor="false" --> 
+		        <!-- <LoadDirective Method="UseInterceptor" ValuePath="" /> -->
+				<!-- <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber" /> -->
+				<LoadDirective Method="IpCode" ValuePath="Member/IPCODE" />
+			</MemberLoadDirectives>
+
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+
+  
+  <!-- PostProcessor -->
+  
+</DAPDirectives>

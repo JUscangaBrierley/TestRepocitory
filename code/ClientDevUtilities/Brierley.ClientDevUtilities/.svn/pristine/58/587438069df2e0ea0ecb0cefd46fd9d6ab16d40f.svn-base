@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>    
+    <section name="lw.msg" type="Brierley.FrameWork.Messaging.Config.MSBConfigurationSection, Brierley.FrameWork, Version=5.0.0.0, Culture=neutral, PublicKeyToken=f2e291d4566ee7dc"/>
+  </configSections>
+  <lw.msg>    
+    <Messages>
+      <add 
+        Name="MessageDefs23" 
+        MessageTypeName = "Type1" 
+        MessageAssemblyName = "Assembly1" />      
+    </Messages>
+    <EndPoints>
+      <add 
+        Name="Receiver1" 
+        Uri="msmq://||YourServerNameHere||/TestPublicQueue" 
+        Public="false" 
+        Transactional="true" 
+        MessageName="MessageDefs23"
+        PollingTimeout="1000"
+        Direction ="Incoming" 
+        NumberOfThreads="5"/>
+      <add 
+        Name="Sender1" 
+        Uri="msmq://||YourServerNameHere||/TestPublicQueue" 
+        Public="true" 
+        Transactional="true" 
+        MessageName="MessageDefs23"
+        PollingTimeout="1000"
+        Direction ="Outgoing"/>
+    </EndPoints>
+    <Consumers>
+      <add 
+        Name="" 
+        FactoryTypeName="" 
+        FactoryAssemblyName="" 
+        MessageName=""
+        LifeCyclePolicy="PerInstanceConsumption"
+        ConsumerPoolSize="10"/>
+    </Consumers>
+  </lw.msg>
+</configuration>

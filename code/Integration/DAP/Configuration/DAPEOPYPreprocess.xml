@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentCLine</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE EOPY Pre Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="AEOCONNECTEDJOBS.i_ae_eopyipcode">
+       <InputParameters>
+	          <Parm Name="p_procdate" Type="String" Value="{$arg=ProcDate}" Required="true"/>
+      </InputParameters>
+      <!--<ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/> 
+      </ReturnParameter> -->
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->	
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Dummy\Stage1">
+    <SimpleDatabaseInput CollectionName="DummyList" RecordName="DummyRecord">
+      <QueryString>
+        SELECT SYSDATE as "DummyRecord"
+		FROM DUAL
+      </QueryString>
+      <Fields>
+        <Field Name="DummyRecord" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="DummyList" RecordName="DummyRecord" FileName="DUMMY.txt" DataInAttributes="false" Delimiter="," OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="DummyRecord"  Length="50"/>
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>  
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject> back-log file from all updates Output  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+    <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\AITProfileUpdateSend">
+    <SimpleDatabaseInput CollectionName="MemberProfiles" RecordName="MemberProfile">
+      <QueryString>
+                 SELECT                 
+                   rpad(nvl(regexp_replace(vc.linkkey,chr(10)||'|'||CHR(13)||'|'||CHR(9), ''),' '),13) ||
+                    rpad(nvl(regexp_replace(lm.firstname,chr(10)||'|'||CHR(13)||'|'||CHR(9), ''),' '),40) ||
+                    rpad(nvl(regexp_replace(lm.lastname,chr(10)||'|'||CHR(13)||'|'||CHR(9), ''),' '),40)  ||
+                    rpad(nvl(regexp_replace(md.a_addresslineone,chr(10)||'|'||CHR(13)||'|'||CHR(9), ''),' '),50) ||
+                    rpad(nvl(regexp_replace(md.a_addresslinetwo,chr(10)||'|'||CHR(13)||'|'||CHR(9), ''),' '),50)  ||
+                    rpad(nvl(regexp_replace(md.a_city,chr(10)||'|'||CHR(13)||'|'||CHR(9), ''),' '),50)  ||
+                    rpad(nvl(regexp_replace( md.a_stateorprovince,chr(10)||'|'||CHR(13)||'|'||CHR(9), ''),' '),2)  ||
+                    rpad(nvl(regexp_replace(  REPLACE(md.a_ziporpostalcode, '-'),chr(10)||'|'||CHR(13)||'|'||CHR(9),''),' '),9) ||
+
+                   CASE
+                    WHEN md.a_country = 'USA' THEN 'USA'
+                    WHEN md.a_country = 'CAN' THEN 'CAN'
+                    WHEN md.a_country is NULL AND Exists(Select 1 from bp_ae.ats_refstates rs Where UPPER(rs.a_statecode) = UPPER(md.a_stateorprovince) and UPPER(rs.a_countrycode) = 'CAN') Then 'CAN'
+                    ELSE 'USA'
+                    END ||
+
+                   
+                    CASE to_char(lm.birthdate) || 'X'
+                    WHEN 'X' THEN RPAD(' ',8)
+                    ELSE    TO_CHAR(lm.birthdate,'mmddyyyy')
+                    END ||
+                    
+                    rpad(nvl(lm.primaryphonenumber,' '),10) ||
+
+                    CASE to_char(md.a_gender)
+                    WHEN NULL THEN ' '
+                    WHEN '1' THEN 'M'
+                    WHEN '2' THEN 'F'
+                    ELSE ' '
+                    END ||
+
+                    RPAD( nvl(vc.loyaltyidnumber, ' '),14) ||
+                    rpad(regexp_replace(  REPLACE( NVL( md.a_emailaddress,' ') , '-'),chr(10)||'|'||CHR(13)||'|'||CHR(9),''),150) ||
+                    '0' ||
+                    '0' ||
+                 
+                    CASE to_char(lm.membercreatedate) ||'X'
+                    WHEN 'X' THEN RPAD(' ',8)
+                    ELSE    TO_CHAR(lm.membercreatedate,'mmddyyyy')
+                    END ||
+
+                    CASE
+                    WHEN vc.isprimary = 1 THEN 'P'
+                    ELSE 'S'
+                    END ||
+
+                    CASE
+                 
+                    WHEN b.a_brandid in (0,1) THEN  '0'
+                    WHEN b.a_brandid in (2) THEN  '2'
+                    ELSE '0'
+                    END ||
+
+                    NVL2( md.a_homestoreid, RPAD(to_char(md.a_homestoreid),5),RPAD(' ',5) )||
+
+              
+                  CASE
+                    WHEN lm.memberstatus IN (2,3,5) THEN TO_CHAR(lm.memberstatus)
+                    WHEN lm.memberstatus IN (4) THEN TO_CHAR(lm.memberstatus)
+                    ELSE TO_CHAR(1)
+                  END ||
+
+
+                    rpad(CASE md.a_membersource
+                    WHEN 1 THEN 'In-Store Enrollment'
+                    WHEN 2 THEN 'Registration Enrollment'
+                    WHEN 3 THEN 'Pilot Pre-Enrollment'
+                    WHEN 4 THEN 'Mail-In Enrollment'
+                    WHEN 5 THEN 'Online Enrollment'
+                    WHEN 6 THEN 'Online Enrollment from Customer Service'
+                    WHEN 7 THEN 'Registration from Customer Service'
+                    WHEN 8 THEN 'In-Store Registration'
+                    WHEN 9 THEN 'Mail-In Registration'
+                    WHEN 11 THEN 'Pilot Pre-Enrollment Register'
+                    WHEN 12 THEN 'Launch Pre-Enrollment'
+                    WHEN 13 THEN 'Launch Pre-Enrollment Register'
+                    WHEN 14 THEN 'AE Card Holder File'
+                    WHEN 15 THEN 'AE EDM File'
+                    WHEN 16 THEN 'AE Decline File'
+                    WHEN 19 THEN 'Online AE Registered'
+                    WHEN 20 THEN 'Online AE Enrolled'
+                    WHEN 21 THEN 'CSPortal - Unlinked'
+                    ELSE   RPAD(' ',50)
+                    END,50) ||
+
+
+                    CASE to_char(md.updatedate) || 'X'
+                    WHEN 'X' THEN RPAD(' ',8)
+                    ELSE    TO_CHAR(md.updatedate,'mmddyyyy')
+                    END ||
+
+                    NVL2(md.a_changedby,RPAD(regexp_replace( md.a_changedby,chr(10)||'|'||CHR(13)||'|'||CHR(9),''),255, ' '),RPAD(' ',255)) ||
+
+                    CASE to_char(lm.memberclosedate) || 'X'
+                    WHEN 'X' THEN RPAD(' ',8)
+                    ELSE   TO_CHAR(lm.memberclosedate,'mmddyyyy')
+                    END || 
+
+
+                    CASE
+                    WHEN LENGTH(REPLACE(nvl(md.a_mobilephone,' '), '-')) &lt;10 THEN TO_CHAR(RPAD(' ',10))
+                    ELSE TO_CHAR(RPAD(NVL( REPLACE(md.a_mobilephone, '-'),RPAD(' ',10)) ,10,' '))
+                    END ||
+
+                    substr( CASE
+                    WHEN md.a_employeecode  IS NULL THEN '0'
+                    WHEN md.a_employeecode not in (0,1,2)  THEN  '0'
+                    ELSE to_char(md.a_employeecode)
+                    END ,1,1 )||
+
+                    CASE
+                    WHEN md.a_languagepreference  IS NULL THEN '0'
+                    WHEN SUBSTR(md.a_languagepreference,1,1) = '0'  THEN  '0'
+                    WHEN SUBSTR(md.a_languagepreference,1,1) = '1'  THEN  '1'
+                    WHEN SUBSTR(md.a_languagepreference,1,1) = '2'  THEN  '2'
+                    ELSE '0'
+                    END  ||
+
+                   '1' ||
+
+                    nvl((SELECT  rpad(t.tiername,20,' ')
+                            FROM bp_ae.lw_membertiers mt
+                            inner join bp_ae.lw_tiers t on mt.tierid = t.tierid
+                            inner join bp_ae.ats_memberdetails md on mt.memberid = md.a_ipcode 
+                            WHERE mt.memberid = vc.ipcode AND SYSDATE BETWEEN mt.fromdate AND mt.todate
+                            AND ROWNUM = 1),RPAD(' ',20))
+                    ||
+                   
+                    CASE
+                    WHEN nvl(md.a_pendingemailverification,0) = 1    Then 0
+                    WHEN nvl(md.a_pendingemailverification,0) = 0   Then 1
+                    ELSE 0  
+                    END ||
+
+                    CASE
+                    WHEN nvl(md.a_pendingcellverification,0) = 1   Then 0
+                    WHEN nvl(md.a_pendingcellverification,0) = 0   Then 1
+                      ELSE 0
+                    END ||
+                    rpad(nvl(vc.ipcode,'0'),30) ||
+                    CASE md.a_terminationreasonid
+                         WHEN NULL THEN
+                           '  '
+                         ELSE
+                          CASE
+                            WHEN lm.memberstatus = 3 THEN rpad(TO_CHAR(nvl(md.a_terminationreasonid,'0')),2)
+                            ELSE '  '
+                          END
+                    END ||
+                    nvl((SELECT  rpad(mt.description,255,' ')
+                            FROM bp_ae.lw_membertiers mt
+                            inner join bp_ae.lw_tiers t on mt.tierid = t.tierid
+                            inner join bp_ae.ats_memberdetails md on mt.memberid = md.a_ipcode 
+                            WHERE mt.memberid = vc.ipcode AND SYSDATE BETWEEN mt.fromdate AND mt.todate
+                           AND ROWNUM = 1),RPAD(' ',255))  as line
+                    FROM  bp_ae.lw_virtualcard vc  
+                    INNER JOIN bp_ae.lw_loyaltymember lm   ON vc.ipcode = lm.ipcode
+                    INNER JOIN bp_ae.ats_memberdetails md  ON vc.ipcode = md.a_ipcode                    
+                    LEFT JOIN bp_ae.ats_refbrand b         ON md.a_basebrandid = b.a_brandid                    
+                    WHERE 1=1 AND   
+                               md.a_aitupdate = 1 AND
+                                   lm.memberstatus =1  OR lm.memberstatus = 3
+  </QueryString>
+      <Fields>
+        <Field Name="line"  Type="String"  />      
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <FixedRecordFileOutput CollectionName="MemberProfiles" RecordName="MemberProfile" FileName="ae_transitionmembers_{$date(format=ddMMyyyy)}.txt" DataInAttributes="false"   OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>	  
+        <Field Name="line"     Length="1101"  />
+              
+      </FieldMap>
+    </FixedRecordFileOutput>
+  </OutputProvider>
+  
+</DAPDirectives>

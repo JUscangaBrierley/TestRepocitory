@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+	<Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Rewards DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  
+  <InputProvider MessageProcessingScheme="Batch" DebugOutputPath="E:\AmericanEagle\Logs">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+      select * from bp_ae.ae_rewardtoissue r
+       where  mod (r.ipcode, 3) = 2 and r.datestaged  &gt;=  (
+      select to_date(
+      (SELECT nvl(to_char(cc.value),to_char(sysdate, 'MM/DD/YYYY HH24:mi:ss'))  
+       FROM BP_AE.LW_CLIENTCONFIGURATION CC
+       WHERE LOWER(CC.CKEY) ='lastrewarddate'
+      ) ,'MM/DD/YYYY HH24:mi:ss') from dual)
+      </QueryString>
+      <Fields>
+        <Field Name="IPCODE" Type="String" />
+        <Field Name="REWARDTYPE" Type="String" />
+		<Field Name="POINTS" Type="String" />
+		<Field Name="CARDTYPE" Type="String" />
+		<Field Name="TIERLEVEL" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.AEOConnectedRewardFulfillment</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

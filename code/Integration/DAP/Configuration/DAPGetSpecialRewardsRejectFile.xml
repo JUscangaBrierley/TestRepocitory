@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>  
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE AIT Profile Update   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+  </PreProcessor>
+  
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\AITProfileUpdateSend">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+       select Distinct line1 FROM
+(select cast ('Old_Loyalty_Num|New_Loyalty_Num|Customer_Nbr|Reject Reason' as varchar(100) ) as line1 from dual
+       union all
+SELECT cast (pu.old_loyalty_number || '|' || pu.new_loyalty_number || '|' || pu.customer_nbr || '|Loyalty Number not in Database' as varchar2(100)) as line1
+        FROM BP_AE.X$_JRA_AEO2290_EXC pu
+        LEFT JOIN Bp_Ae.lw_virtualcard vc ON  to_number(nvl(Pu.customer_nbr,-1)) = Vc.linkkey
+        WHERE  (vc.linkkey IS NULL)
+    union all
+SELECT cast (pu.old_loyalty_number || '|' || pu.new_loyalty_number || '|' || pu.customer_nbr || '|Loyalty Number not in Database' as varchar2(100)) as line1
+        FROM BP_AE.X$_JRA_AEO2290_EXC pu
+        LEFT JOIN Bp_Ae.lw_virtualcard vc ON pu.old_loyalty_number = Vc.Loyaltyidnumber
+        WHERE  (Vc.Loyaltyidnumber IS NULL)
+        union all
+SELECT cast (pu.old_loyalty_number || '|' || pu.new_loyalty_number || '|' || pu.customer_nbr || '|Loyalty Number not in Database' as varchar2(100)) as line1
+        FROM BP_AE.X$_JRA_AEO2290_EXC pu
+        LEFT JOIN Bp_Ae.lw_virtualcard vc ON pu.new_loyalty_number = Vc.Loyaltyidnumber
+        WHERE  (Vc.Loyaltyidnumber IS NULL)) 
+      </QueryString>
+      <Fields>
+        <Field Name="line1"  Type="String"  />      
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="Rewards" RecordName="Reward" FileName="AEO_LP423REWARDS_{$date(format=yyyyMMdd_HHmmss)}.TXT.REJ" DataInAttributes="false"  Delimiter="" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="line1" Justification="Left" Length="100" />                
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>       
+  </PostProcessor>
+</DAPDirectives>

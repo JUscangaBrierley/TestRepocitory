@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <!--<SMTPServer>LPEXS01.brierley.com</SMTPServer>-->
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Card Loader   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\DevRoot\AmericanEagle\LWTemp\DAP\CardReplacement">
+    <FlatFileInput>
+      <CollectionRoot Name="CardReplacements" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Member" Structure="Delimited" Delimiter="," TagName="">
+          <Fields>
+            <RecordField Name="OldLoyaltyNumber" Type="String" />
+            <RecordField Name="NewLoyaltyNumber" Type="String" />
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="CardReplacements" TargetAttributeSetType="Member" DebugOutputPath="C:\DevRoot\AmericanEagle\LWTemp\DAP\CardReplacement">
+    <Scripts>
+      <Script Name="ConvertLoyaltyNumber" InParmName="LoyaltyIDNumber"  >
+        <Code>
+          <![CDATA[
+              string srrCode = LoyaltyIDNumber.Replace("\"", null);;
+              return srrCode;
+          ]]>
+        </Code>
+      </Script>
+      <Script Name="GetCurrentDate" >
+        <Code>
+          <![CDATA[
+            return DateTime.Now.ToShortDateString(); 
+          ]]>
+        </Code>
+      </Script>
+      <Script Name="UpdateAITFLAG" >
+        <Code>
+          <![CDATA[
+              string modAITflag = "1";
+              return modAITflag;
+          ]]>
+        </Code>
+      </Script>
+    </Scripts>
+    <FieldMap SourceField="Member/NewLoyaltyNumber">
+      <Populate TargetNode="Member/MemberCardReplacements/LoyaltyIdNumber"  UseScript="ConvertLoyaltyNumber" />
+      <Populate TargetNode="Member/VirtualCard/LoyaltyIdNumber" UseScript="ConvertLoyaltyNumber" />
+      <Populate TargetNode="Member/MemberDetails/AITUpdate" UseScript="UpdateAITFLAG" />
+    </FieldMap>
+    <FieldMap SourceField="Member/OldLoyaltyNumber">
+      <Populate TargetNode="Member/MemberCardReplacements/OldLoyaltyIdNumber" UseScript="ConvertLoyaltyNumber" />
+    </FieldMap>
+    <MissingField TargetNode="Member/RejectedRecordsFileName" UseMacro="{$arg=RejectedRecordsFileName}"/>
+    <MissingField TargetNode="Member/MemberCardReplacements/changedBy" Value="Card Loader DAP"/>
+    <MissingField TargetNode="Member/MemberCardReplacements/DateReceived" UseScript="GetCurrentDate"/>
+    <MissingField TargetNode="Member/MemberCardReplacements/StatusCode" Value="3"/>
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>1</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.AmericanEagleCardLoaderInterceptor</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+          <MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="true">
+            <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/MemberCardReplacements/OldLoyaltyIdNumber"/>
+            <!--<LoadDirective Method="UseInterceptor" ValuePath="" />-->
+          </MemberLoadDirectives>
+          <AttributeSetCreateDirectives>
+            <AttributeSetCreate Name="VirtualCard" IfPresent="LoyaltyIdNumber">
+              <MarkTrue>IsPrimary</MarkTrue>
+            </AttributeSetCreate>
+            <AttributeSetUpdate CreateIfNotFound="true" Name="MemberCardReplacements" FindMethod="Attribute" FindValue="LoyaltyIdNumber"/>
+            <AttributeSetUpdate CreateIfNotFound="false" Name="MemberDetails" FindMethod="First"/>
+          </AttributeSetCreateDirectives>
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+</DAPDirectives>

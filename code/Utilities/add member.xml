@@ -1,0 +1,8 @@
+<AddMember>
+  <parameter>
+    <object IpCode="0" MemberCreateDate="0001-01-01T00:00:00.000" MemberCloseDate="" MemberStatus="" BirthDate="" FirstName="" LastName="" MiddleName="" NamePrefix="" NameSuffix="" AlternateId="0" MobileDeviceType="" Username="" Password="" PrimaryEmailAddress="" PrimaryPhoneNumber="" PrimaryPostalCode="" LastActivityDate="" IsEmployee="False" ChangedBy="">
+      <MemberDetails AITUpdate="True" CardType="" ChangedBy="" PassValidation="True" EmailAddress="sjohn@brierley.com" BaseBrandID="1" City="plano" StateOrProvince="tx" ZipOrPostalCode="75150" County="" Country="" AddressMailable="True" HomePhone="" MobilePhone="" WorkPhone="" SecondaryEmailAddress="" MemberStatusCode="" DirectMailOptInDate="" EmailOptInDate="" SMSOptInDate="" EnrollDate="" Gender="" MemberSource="" LanguagePreference="" SecurityQuestion="" SecurityAnswer="" OldEmailAddress="" HomeStoreID="" HasEmailBonusCredit="False" IsUnderAge="False" EmployeeCode="" SMSOptIn="False" DirectMailOptIn="False" EmailOptIn="False" HHKey="" OldCellNumber="" ExtendedPlayCode="" EmailAddressMailable="False" AddressLineOne="333 main st" AddressLineTwo="" AddressLineThree="" AddressLineFour="" LastBraStoreNumber="" BraFirstPurchaseDate="" JeansFirstPurchaseDate="" LastPurchasePoints="" LastBraPurchaseDate="" GwObjVer="" GwLinked="" />
+      <Member IpCode="0" MemberCreateDate="0001-01-01T00:00:00.000" MemberCloseDate="" MemberStatus="" BirthDate="" FirstName="Sony" LastName="jo" MiddleName="" NamePrefix="" NameSuffix="" AlternateId="0" MobileDeviceType="" Username="" Password="" PrimaryEmailAddress="sjohn@brierley.com" PrimaryPhoneNumber="" PrimaryPostalCode="" LastActivityDate="" IsEmployee="False" ChangedBy="" />
+    </object>
+  </parameter>
+</AddMember>

@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5CD748CD-F6AE-4204-934F-7CCE5BF4140C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brierley.LoyaltyWare.LWIntegrationSvc</RootNamespace>
+    <AssemblyName>Brierley.LoyaltyWare.LWIntegrationSvc</AssemblyName>
+    <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NewRelic.Api.Agent, Version=6.3.123.0, Culture=neutral, PublicKeyToken=06552fced0b33d87, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\NewRelic.Api.Agent.dll</HintPath>
+    </Reference>
+    <Reference Include="NVelocity, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\NVelocity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeGen\JavaSvcManagerClassMapping.cs" />
+    <Compile Include="CodeGen\JavaOperationParmClassMapping.cs" />
+    <Compile Include="CodeGen\JavaClassMapping.cs" />
+    <Compile Include="CodeGen\JavaIntegrationClientLibGenerator.cs" />
+    <Compile Include="CodeGen\DotNetClassMapping.cs" />
+    <Compile Include="CodeGen\DotNetOperationParmClassMapping.cs" />
+    <Compile Include="CodeGen\DotNetSvcManagerClassMapping.cs" />
+    <Compile Include="CodeGen\DotNetIntegrationClientLibGenerator.cs" />
+    <Compile Include="CodeGen\DotNetProjectMapping.cs" />
+    <Compile Include="CodeGen\XsdGenerator.cs" />
+    <Compile Include="Exceptions\LWResponseMarshallingException.cs" />
+    <Compile Include="ILWIntegrationService.cs" />
+    <Compile Include="LWIntegrationDirectives.cs" />
+    <Compile Include="LWAPIResponse.cs" />
+    <Compile Include="Marshalling\APIArguments.cs" />
+    <Compile Include="Marshalling\APIStruct.cs" />
+    <Compile Include="Marshalling\SerializationUtils.cs" />
+    <Compile Include="NewRelicAttribute.cs" />
+    <Compile Include="OperationProviders\Coupons\AddAndRedeemMemberCoupon.cs" />
+    <Compile Include="OperationProviders\Coupons\AddMemberCoupon.cs" />
+    <Compile Include="OperationProviders\Coupons\IsMemberCouponRedeemable.cs" />
+    <Compile Include="OperationProviders\GetReferenceData.cs" />
+    <Compile Include="OperationProviders\Coupons\UnredeemMemberCouponById.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="OperationProviders\GetServiceInfo.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetBonusDefinitionCount.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetBonusDefinitions.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetBonusDefinition.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetMemberBonuses.cs" />
+    <Compile Include="OperationProviders\Members\AddAttributeSet.cs" />
+    <Compile Include="OperationProviders\Members\AssociateMemberSocialHandles.cs" />
+    <Compile Include="OperationProviders\Members\GetMemberTiers.cs" />
+    <Compile Include="OperationProviders\Members\GetMemberWallet.cs" />
+    <Compile Include="OperationProviders\Members\GetMemberSocialHandles.cs" />
+    <Compile Include="OperationProviders\Members\PasswordReset.cs" />
+    <Compile Include="OperationProviders\Members\PasswordResetOptions.cs" />
+    <Compile Include="OperationProviders\Messages\SetMemberMessageStatus.cs" />
+    <Compile Include="OperationProviders\PointTransactionHelper.cs" />
+    <Compile Include="OperationProviders\Coupons\GetMemberCouponById.cs" />
+    <Compile Include="OperationProviders\Coupons\RedeemMemberCouponById.cs" />
+    <Compile Include="OperationProviders\Coupons\GetMemberCouponByCertNmbr.cs" />
+    <Compile Include="OperationProviders\Coupons\GetCouponDefinitionCount.cs" />
+    <Compile Include="OperationProviders\Coupons\GetCouponDefinitions.cs" />
+    <Compile Include="OperationProviders\Coupons\GetMemberCoupons.cs" />
+    <Compile Include="OperationProviders\Members\ApplyTxnCredit.cs" />
+    <Compile Include="OperationProviders\Members\AuthenticateMember.cs" />
+    <Compile Include="OperationProviders\Members\ChangeCardExpirationDate.cs" />
+    <Compile Include="OperationProviders\Members\GetMembersExt.cs" />
+    <Compile Include="OperationProviders\Members\GetLoyaltyCurrencyBalance.cs" />
+    <Compile Include="OperationProviders\Members\RequestCreditTxnSearch.cs" />
+    <Compile Include="OperationProviders\Members\TriggerUserEvent.cs" />
+    <Compile Include="OperationProviders\Bonuses\BonusUtil.cs" />
+    <Compile Include="OperationProviders\Coupons\UnredeemMemberCouponByCertNmbr.cs" />
+    <Compile Include="OperationProviders\Messages\MessageUtil.cs" />
+    <Compile Include="OperationProviders\Coupons\CouponHelper.cs" />
+    <Compile Include="OperationProviders\Coupons\RedeemMemberCouponByCertNmbr.cs" />
+    <Compile Include="OperationProviders\Coupons\GetCouponDefinition.cs" />
+    <Compile Include="OperationProviders\CustomerService\CreateCSNote.cs" />
+    <Compile Include="OperationProviders\CustomerService\GetCSNotes.cs" />
+    <Compile Include="OperationProviders\Emails\SendTriggeredEmail.cs" />
+    <Compile Include="OperationProviders\Members\ActivateMember.cs" />
+    <Compile Include="OperationProviders\Members\ActivateCard.cs" />
+    <Compile Include="OperationProviders\Members\AwardLoyaltyCurrency.cs" />
+    <Compile Include="OperationProviders\Members\CancelCard.cs" />
+    <Compile Include="OperationProviders\Members\ConvertToMember.cs" />
+    <Compile Include="OperationProviders\Members\DeactivateCard.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountActivitySummary.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountActivityCount.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountActivityDetails.cs" />
+    <Compile Include="OperationProviders\Members\MergeMembers.cs" />
+    <Compile Include="OperationProviders\Members\TransferCard.cs" />
+    <Compile Include="OperationProviders\Members\GetLoyaltyCurrencyTransactions.cs" />
+    <Compile Include="OperationProviders\Members\GetLoyaltyCurrencyTransactionCount.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountSummary.cs" />
+    <Compile Include="OperationProviders\Members\ReplaceCard.cs" />
+    <Compile Include="OperationProviders\Members\LockdownMember.cs" />
+    <Compile Include="OperationProviders\Members\TerminateMember.cs" />
+    <Compile Include="OperationProviders\Members\DeactivateMember.cs" />
+    <Compile Include="OperationProviders\Messages\GetMessageDefinition.cs" />
+    <Compile Include="OperationProviders\Messages\GetMemberMessages.cs" />
+    <Compile Include="OperationProviders\Messages\GetMessageDefinitions.cs" />
+    <Compile Include="OperationProviders\Messages\GetMessageDefinitionCount.cs" />
+    <Compile Include="OperationProviders\ProgramInfo\GetCategories.cs" />
+    <Compile Include="OperationProviders\ProgramInfo\GetTiers.cs" />
+    <Compile Include="OperationProviders\ProgramInfo\GetLoyaltyEvents.cs" />
+    <Compile Include="OperationProviders\ProgramInfo\GetLoyaltyCurrencies.cs" />
+    <Compile Include="OperationProviders\ProgramInfo\GetLoyaltyEventNames.cs" />
+    <Compile Include="OperationProviders\ProgramInfo\GetLoyaltyCurrencyNames.cs" />
+    <Compile Include="OperationProviders\ProgramInfo\GetTierNames.cs" />
+    <Compile Include="OperationProviders\Members\GetMembers.cs" />
+    <Compile Include="OperationProviders\IAPIOperation.cs" />
+    <Compile Include="OperationProviders\OperationProviderBase.cs" />
+    <Compile Include="OperationProviders\Promotions\AddMemberPromotion.cs" />
+    <Compile Include="OperationProviders\Promotions\EnrollMemberPromotion.cs" />
+    <Compile Include="OperationProviders\Promotions\GetMemberPromotions.cs" />
+    <Compile Include="OperationProviders\Promotions\GetMemberPromotionsCount.cs" />
+    <Compile Include="OperationProviders\Promotions\GetPromotionDefinition.cs" />
+    <Compile Include="OperationProviders\Promotions\GetPromotionDefinitionsCount.cs" />
+    <Compile Include="OperationProviders\Promotions\GetPromotionDefinitions.cs" />
+    <Compile Include="OperationProviders\Promotions\PromotionUtil.cs" />
+    <Compile Include="OperationProviders\Rewards\AddMemberRewards.cs" />
+    <Compile Include="OperationProviders\Rewards\CancelMemberReward.cs" />
+    <Compile Include="OperationProviders\Rewards\CancelMemberRewardOrder.cs" />
+    <Compile Include="OperationProviders\Rewards\ConsumeLoyaltyCurrencyAsPayment.cs" />
+    <Compile Include="OperationProviders\Rewards\GetLoyaltyCurrencyAsPaymentValues.cs" />
+    <Compile Include="OperationProviders\Rewards\IsMemberRewardRedeemed.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewardSummaryByCert.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewardSummaryById.cs" />
+    <Compile Include="OperationProviders\Rewards\MemberRewardSerializationUtility.cs" />
+    <Compile Include="OperationProviders\Rewards\ReturnMemberRewardOrder.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewardsSummary.cs" />
+    <Compile Include="OperationProviders\Rewards\GetAllRewardOrderShippingAddresses.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewardsByOrderNumber.cs" />
+    <Compile Include="OperationProviders\Rewards\GetRewardCategories.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewards.cs" />
+    <Compile Include="OperationProviders\Rewards\GetRewardCatalog.cs" />
+    <Compile Include="OperationProviders\Rewards\GetRewardCatalogCount.cs" />
+    <Compile Include="OperationProviders\Rewards\GetRewardCatalogItem.cs" />
+    <Compile Include="OperationProviders\Rewards\MemberRewardsBase.cs" />
+    <Compile Include="OperationProviders\Rewards\RedeemMemberReward.cs" />
+    <Compile Include="OperationProviders\Rewards\RewardDefSerializationUtility.cs" />
+    <Compile Include="OperationProviders\Rewards\SetRewardChoice.cs" />
+    <Compile Include="OperationProviders\Sms\SendSms.cs" />
+    <Compile Include="PerformanceCounters\SAPIPerformanceCounterUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LWIntegrationService.cs" />
+    <Compile Include="Marshalling\MemberResponseHelperUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EmbeddedResource Include="CodeGen\Templates\netclass.vm" />
+    <EmbeddedResource Include="CodeGen\Templates\vsproject.vm" />
+    <EmbeddedResource Include="CodeGen\Templates\vssolution.vm" />
+    <EmbeddedResource Include="CodeGen\Templates\netsvcmgrclass.vm" />
+    <EmbeddedResource Include="CodeGen\Templates\netoperationparmclass.vm" />
+    <EmbeddedResource Include="CodeGen\Templates\javaclass.vm" />
+    <EmbeddedResource Include="CodeGen\Templates\javaoperationparmclass.vm" />
+    <EmbeddedResource Include="CodeGen\Templates\javasvcmgrclass.vm" />
+    <None Include="LWIntegrationConfig.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SampleWSConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Brierley.FrameWork\Brierley.FrameWork.csproj">
+      <Project>{78f0f5bd-ecdc-4cc1-a3f4-f916a2276b30}</Project>
+      <Name>Brierley.FrameWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Brierley.WebFrameWork\Brierley.WebFrameWork.csproj">
+      <Project>{74c5e17a-e964-49ca-88c3-6e4163b6a77b}</Project>
+      <Name>Brierley.WebFrameWork</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
+        <WcfProjectProperties>
+          <AutoStart>True</AutoStart>
+        </WcfProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

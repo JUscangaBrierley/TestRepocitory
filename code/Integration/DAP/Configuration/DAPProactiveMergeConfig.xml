@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Proactive Merge   DAP Process</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single">
+    <SimpleDatabaseInput CollectionName="ProactiveMerges" RecordName="Global">
+      <QueryString>
+        SELECT DISTINCT
+               pm.a_FirstName AS FirstName,
+               pm.a_LastName AS LastName,
+               pm.a_AddressLineOne AS AddressLineOne,
+               CASE
+                  WHEN md.a_country = 'USA' THEN SUBSTR (pm.a_zipcode, 0, 5)
+                  ELSE pm.a_zipcode
+               END
+                  AS ZipCode
+          FROM    ats_MemberProactiveMerge pm
+               INNER JOIN
+                  ats_memberdetails md
+               ON pm.a_ipcode = md.a_ipcode
+         WHERE pm.a_MemberCreateDate &gt;=
+                  (SELECT TRUNC (TO_DATE (TO_CHAR (VALUE), 'mm/dd/yyyy hh24:mi:ss'))
+                     FROM lw_clientconfiguration cc
+                    WHERE cc.ckey = 'ProactiveMergeStartDate')
+               AND pm.a_MemberCreateDate &lt; TRUNC (SYSDATE)
+               AND pm.a_MemberStatus = 1        
+      </QueryString>
+      <Fields>
+        <Field Name="FirstName" Type="String"  />
+        <Field Name="LastName" Type="String"  />
+        <Field Name="AddressLineOne" Type="String"  />
+        <Field Name="ZipCode" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="ProactiveMerges" TargetAttributeSetType="Global">
+    <FieldMap SourceField="Global/FirstName">
+      <Populate TargetNode="Global/FirstName"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/LastName">
+      <Populate TargetNode="Global/LastName"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/AddressLineOne">
+      <Populate TargetNode="Global/AddressLineOne"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/ZipCode">
+      <Populate TargetNode="Global/ZipCode"/>
+    </FieldMap>
+  </MessageTransformationMap>
+  <!-- Output provider -->
+  <OutputProvider>
+    <CustomOutput>
+      <TypeName>AmericanEagle.SDK.OutputProviders.ProactiveMerge</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

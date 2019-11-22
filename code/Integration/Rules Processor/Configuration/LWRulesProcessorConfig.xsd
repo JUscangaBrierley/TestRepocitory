@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LWIntegrationConfig"
+    targetNamespace="http://brierley.com/LWRulesProcessorConfig.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://brierley.com/LWRulesProcessorConfig.xsd"
+    xmlns:mstns="http://brierley.com/LWRulesProcessorConfig.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  
+  <!-- Enumerations -->
+
+  <xs:simpleType name="AndOrEnums">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AND"/>
+      <xs:enumeration value="OR"/>            
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PredicateEnums">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Eq"/>
+      <xs:enumeration value="Ne"/>
+      <xs:enumeration value="Le"/>
+      <xs:enumeration value="Lt"/>
+      <xs:enumeration value="Ge"/>
+      <xs:enumeration value="Gt"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RetrievalOrderEnums">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ascending"/>
+      <xs:enumeration value="Descending"/>      
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PointsRetrievalChoiceEnums">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PointBalance"/>
+      <xs:enumeration value="EarnedBalance"/>
+      <xs:enumeration value="PointsOnHold"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- General -->
+  <xs:complexType name="CustomRetrieverParmType">
+    <xs:sequence>
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+    <xs:attribute name="Value" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CustomRetrieverType">
+    <xs:sequence>
+      <xs:element name="TypeName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="AssemblyName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Parameters" type="CustomRetrieverParmsType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="CustomRetrieverParmsType">
+    <xs:sequence>
+      <xs:element name="Parameter" type="CustomRetrieverParmType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RuleToInvokeType">
+    <xs:sequence>      
+    </xs:sequence>
+    <xs:attribute name="RuleName" type="xs:string" use="required"/>
+    <xs:attribute name="TargetPath" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="CSharpClassToInvokeType">
+    <xs:sequence>
+    </xs:sequence>
+    <xs:attribute name="TypeName" type="xs:string" use="required"/>
+    <xs:attribute name="AssemblyName" type="xs:string" use="required"/>
+    <xs:attribute name="TargetPath" type="xs:string" use="optional"/>
+    <xs:attribute name="ReuseClass" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  
+  <xs:complexType name="RulesToInvokeType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="Rule" type="RuleToInvokeType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="CSharpClass" type="CSharpClassToInvokeType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:choice>      
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- Stored Proc -->
+
+  <xs:simpleType name="InputFieldTypeEnums">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="String"/>
+      <xs:enumeration value="Integer"/>
+      <xs:enumeration value="Long"/>
+      <xs:enumeration value="Double"/>
+      <xs:enumeration value="Date"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="StoredProcParameterType">
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+    <xs:attribute name="Type" type="InputFieldTypeEnums" use="required"/>
+    <xs:attribute name="Value" type="xs:string" use="optional"/>
+    <xs:attribute name="Required" type="xs:boolean" use="optional"/>
+    <xs:attribute name="DefaultValue" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="StoredProcParametersType">
+    <xs:sequence>
+      <xs:element name="Parm" type="StoredProcParameterType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="StoredProcReturnParmType">
+    <xs:sequence>
+      <xs:element name="Parm" type="StoredProcParameterType" minOccurs="1" maxOccurs="1"/>      
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- Member Based -->
+  <xs:complexType name="RangeBasedMemberRetrieverType">
+    <xs:sequence>      
+    </xs:sequence>
+    <xs:attribute name="RetrievalRange" type="xs:string" use="required"/>
+    <xs:attribute name="RetrievalBatchSize" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="QueryBasedRetrieverType">
+    <xs:sequence>
+      <xs:element name="QueryString" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="RetrievalRange" type="xs:string" use="required"/>
+    <xs:attribute name="RetrievalBatchSize" type="xs:int" use="required"/>
+    <xs:attribute name="KeyName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="StoredProcBasedRetrieverType">
+    <xs:sequence>
+      <xs:element name="InputParameters" type="StoredProcParametersType" minOccurs="0" maxOccurs="1"/>      
+    </xs:sequence>
+    <xs:attribute name="RetrievalRange" type="xs:string" use="required"/>
+    <xs:attribute name="RetrievalBatchSize" type="xs:int" use="required"/>
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+    <xs:attribute name="ReturnParameterName" type="xs:string" use="required"/>
+    <xs:attribute name="GlobalAttributeSet" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  
+  <xs:complexType name="LoyaltyCurrenciesType">
+    <xs:sequence>
+      <xs:element name="LoyaltyCurrency" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>    
+  </xs:complexType>
+
+  <xs:complexType name="LoyaltyEventsType">
+    <xs:sequence>
+      <xs:element name="LoyaltyEvent" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="PointsBasedMemberRetrieverType">
+    <xs:sequence>
+      <xs:element name="LoyaltyCurrencies" type="LoyaltyCurrenciesType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="LoyaltyEvents" type="LoyaltyEventsType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="StartDate" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="EndDate" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Criteria" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Method" type="PointsRetrievalChoiceEnums" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="Predicate" type="PredicateEnums" minOccurs="1" maxOccurs="1"/>
+            <xs:element name ="Value" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>      
+    </xs:sequence>
+    <xs:attribute name="RetrievalRange" type="xs:string" use="required"/>
+    <xs:attribute name="RetrievalBatchSize" type="xs:int" use="required"/>
+  </xs:complexType>
+  
+  <xs:complexType name="MemberRuleProcessingDirectiveType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="RangeBasedMemberRetriever" type="RangeBasedMemberRetrieverType"/>
+        <xs:element name="PointsBasedMemberRetriever" type="PointsBasedMemberRetrieverType"/>
+        <xs:element name="CriteriaBasedMemberRetriever" type="CriteriaBasedRetrieverType"/>
+        <xs:element name="QueryBasedMemberRetriever" type="QueryBasedRetrieverType"/>
+        <xs:element name="StoredProcBasedMemberRetriever" type="StoredProcBasedRetrieverType"/>
+        <xs:element name="CustomMemberRetriever" type="CustomRetrieverType"/>
+      </xs:choice>
+      <xs:element name="RulesToInvoke" type="RulesToInvokeType" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="DirectiveName" type="xs:string" use="required"/>    
+  </xs:complexType>
+  
+  <!-- Attribute Set Based -->
+
+  <xs:complexType name="RetrievalOrderType">
+    <xs:sequence>            
+    </xs:sequence>
+    <xs:attribute name="Attribute" type="xs:string" use="required"/>
+    <xs:attribute name="OrderType" type="RetrievalOrderEnums" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CriteriaComponentValueType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="UseScript" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="UseValue" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      </xs:choice>
+    </xs:sequence>    
+  </xs:complexType>
+  
+  <xs:complexType name="CriteriaComponentType">
+    <xs:sequence>      
+      <xs:element name="Attribute" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Predicate" type="PredicateEnums" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Value" type="CriteriaComponentValueType" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="IsDate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="RetrievalCriteriaType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="Component" type="CriteriaComponentType"/>
+        <xs:element name="AndOr" type="AndOrEnums"/>
+      </xs:choice>            
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="QueryScriptType">
+    <xs:sequence>
+      <xs:element name="Code" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+    <xs:attribute name="InParmName" type="xs:string" use="optional"/>
+  </xs:complexType>
+  
+  <xs:complexType name="QueryScriptsType">
+    <xs:sequence>
+      <xs:element name="Script" type="QueryScriptType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="CriteriaBasedRetrieverType">
+    <xs:sequence>
+      <xs:element name="Scripts" type="QueryScriptsType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Criteria" type="RetrievalCriteriaType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="OrderBy" type="RetrievalOrderType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="RetrievalRange" type="xs:string" use="required"/>
+    <xs:attribute name="RetrievalBatchSize" type="xs:int" use="required"/>
+    <xs:attribute name="GlobalAttributeSet" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  
+  <xs:complexType name="AttributeSetsRuleProcessingDirectiveType">
+    <xs:sequence>
+      <!--<xs:element name="Path" type="xs:string" minOccurs="1" maxOccurs="1"/>-->
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="CriteriaBasedAttributeSetRetriever" type="CriteriaBasedRetrieverType"/>
+        <xs:element name="QueryBasedAttributeSetRetriever" type="QueryBasedRetrieverType"/>
+        <xs:element name="StoredProcBasedMemberRetriever" type="StoredProcBasedRetrieverType"/>
+        <xs:element name="CustomAttributeSetRetriever" type="CustomRetrieverType"/>
+      </xs:choice>
+      <xs:element name="RulesToInvoke" type="RulesToInvokeType" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>    
+    <xs:attribute name="DirectiveName" type="xs:string" use="required"/>
+    <xs:attribute name="AttributeSetName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <!-- Rule Execution Engine Parameters -->
+  <xs:complexType name="InterceptorParmsType">
+    <xs:sequence>
+      <xs:element name="Parm" type="InterceptorParmType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InterceptorParmType">
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+    <xs:attribute name="Value" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="InterceptorAssemblyType">
+    <xs:sequence>
+      <xs:element name="InterceptorAssemlyName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="InterceptorTypeName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="InterceptorParms" type="InterceptorParmsType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="ReuseForFile" type="xs:boolean"/>
+  </xs:complexType>
+  
+  <xs:complexType name="EmailInformationType">
+    <xs:sequence>
+      <xs:element name="SMTPServer" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="SenderEmail" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="SenderDisplayName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="RecepientEmail" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Subject" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="EmailInterceptor" type="InterceptorAssemblyType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="RuleEngineConfigType">
+    <xs:sequence>
+      <xs:element name="Organization" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Environment" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="DateConversionFormat" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="ThreadPoolSize" type="xs:int" minOccurs="0" maxOccurs="1" default="10"/>      
+      <xs:element name="EmailInformation" type="EmailInformationType" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- LW Rules Processing Directives -->
+  <xs:complexType name="RuleProcessingDirectivesType">
+    <xs:sequence>
+      <xs:element name="RuleEngineConfig" type="RuleEngineConfigType"/>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="MemberRule" type="MemberRuleProcessingDirectiveType"/>        
+        <xs:element name="AttributeSetRule" type="AttributeSetsRuleProcessingDirectiveType"/>
+      </xs:choice>      
+    </xs:sequence>    
+  </xs:complexType>
+  
+  <!-- Root element -->
+  <xs:element name="RulesDirectives" type="RuleProcessingDirectivesType"/>
+  
+</xs:schema>

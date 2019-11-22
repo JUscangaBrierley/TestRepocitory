@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <!--AE_CERTIFICATE AE_Certificate_BRTHDY-->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Rewards DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+ 
+  
+  <InputProvider MessageProcessingScheme="Batch" DebugOutputPath="D:\devroot\americaneagle\workspace\LogFiles">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+       
+	SELECT c.loy_card_nbr as LoyaltyNumber,
+       c.auth_cd as Offercode,
+       c.suc as CertificateNumber,
+       to_date(c.start_date, 'MM/DD/YYYY') AS StartDate,
+       to_date(c.exp_date, 'MM/DD/YYYY') AS ExpirationDate,
+       '2' as Documenttype,
+       c.issue_date AS IssueDate
+  FROM bp_ae.stg_cert_brthdy c
+  where c.load_id in (SELECT l.load_id
+                       FROM bp_ae.nova_loads l
+                      WHERE l.feed_name = 'AE_CERT_BRTHDY_FEED'
+                        AND l.processing_state = 'PROCESSING'
+                        AND 1 = 1)        
+	AND not exists ( 
+          SELECT mr.certificatenmbr 
+          FROM bp_ae.lw_memberrewards mr 
+          WHERE 1=1 
+                AND mr.createdate  &gt;= SYSDATE - 7 
+                and mr.certificatenmbr = c.suc
+      )  
+
+  
+
+      </QueryString>
+      <Fields>
+        <Field Name="LoyaltyNumber" Type="String" />
+        <Field Name="Offercode" Type="String" />
+		<Field Name="CertificateNumber" Type="String" />
+		<Field Name="StartDate" Type="String"/>
+		<Field Name="ExpirationDate" Type="String" />
+		<Field Name="Documenttype" Type="String"/>
+		<Field Name="IssueDate" Type="String"/>
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput>
+      <TypeName>AmericanEagle.SDK.OutputProviders.AEOConnectedAdHocReward</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+  <PostProcessor>
+    
+  
+	
+   <StoredProcTask Name="feed_cert_brthdy.ex_reject_file">
+   </StoredProcTask>
+   <StoredProcTask Name="feed_cert_brthdy.complete_file">
+   </StoredProcTask>
+	
+
+  </PostProcessor>  
+</DAPDirectives>

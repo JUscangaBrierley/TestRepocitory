@@ -1,0 +1,35 @@
+deploymentType: NetworkShare
+credentialsId: brierley-jenkinsuat
+artifactShare: '\\cy2cdeploy01.brierley.com\Builds'
+artifactPath: AmericanEagle\A-Line
+organization: AmericanEagle
+environment: StageCLine
+navigatorUrl: https://aeoadmin.brierleyweb.net/
+schedulerUrl: net.tcp://cypwbs303.brierleyweb.com:9543/LWJobScheduler
+navigatorInstanceId: aeo
+deployRemoteAssemblyMode: NugetBatchProject
+confluenceDeploymentReportId: 975339737
+projects:
+  LWIntgrService:
+    websiteName: stage-apiaerewards-cline.brierley.com
+    deployPath: E$\wwwroot\stage-apiaerewards-cline
+    targetHosts:
+    - cy2twbs20.brierley.com
+  CustomerServicePortal:
+    websiteName: stage-csaerewards-cline.brierley.com
+    deployPath: E$\wwwroot\stage-csaerewards-cline
+    targetHosts:
+    - cy2twbs20.brierley.com
+    skipSkinDirectory: true
+  DAP:
+    deployPath: E$\AmericanEagleCline\Processors\DAP
+    targetHosts:
+    - cy2tapp01.brierley.com
+  RulesProcessor:
+    deployPath: E$\AmericanEagleCline\Processors\RulesProcessor
+    targetHosts:
+    - cy2tapp01.brierley.com
+  FileCountUtility:
+    deployPath: E$\AmericanEagleCline\Utilities\FileCountUtility
+    targetHosts:
+    - cy2tapp01.brierley.com

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Reward Preliminary Counts Send DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="aerewards.QuarterlyRewardsPrelimCounts">
+      <InputParameters>
+        <Parm Name="p_Dummy" Type="String" Value="DummyParm" Required="true"/>
+        <Parm Name="p_IncludeEmployees" Type="String" Value="{$arg=IncludeEmployees}" Required="true"/>
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PreProcessor>  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="MemberRewards" RecordName="MemberReward">
+      <QueryString>
+        SELECT Country, Reward, Tier, NumberOfRecords FROM AE_RewardCounts
+      </QueryString>
+      <Fields>
+        <Field Name="Country" Type="String"  />
+        <Field Name="Reward" Type="String" />
+        <Field Name="Tier" Type="String" />
+        <Field Name="NumberOfRecords" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="MemberRewards" RecordName="MemberReward" FileName="AEPreliminarayRewardCounts_{$date(format=MMddyyyyhhmmss)}.csv" DataInAttributes="false" Delimiter="," OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles">
+      <FieldMap>
+        <Field Name="Country" Length="100"  />
+        <Field Name="Reward" Length="100" />
+        <Field Name="Tier" Length="100" />
+        <Field Name="NumberOfRecords" Length="100" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

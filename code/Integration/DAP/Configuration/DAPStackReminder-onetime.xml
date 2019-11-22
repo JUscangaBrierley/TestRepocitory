@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject> Rewards Stacking Reminder Job DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\AmericanEagle\Files\Dummy">
+    <SimpleDatabaseInput CollectionName="RewardsReminder" RecordName="Global">
+		<QueryString>
+			SELECT 0 AS ROWNO
+			, CAST('LOYALTYID' AS NVARCHAR2(100)) LOYALTYID
+			, CAST('CUSTOMERID' AS NVARCHAR2(100)) CUSTOMERID
+			, CAST('EMAIL' AS NVARCHAR2(150)) EMAIL
+			, CAST('AUTH_CD' AS NVARCHAR2(100)) AUTH_CD
+			, CAST('SUC_CD' AS NVARCHAR2(100)) SUC_CD
+			, CAST('CAMPAIGN_EXP_DATE' AS NVARCHAR2(100)) CAMPAIGN_EXP_DATE
+			, CAST('EID' AS NVARCHAR2(100)) EID
+			, CAST('OFFERVALUE' AS NVARCHAR2(100)) OFFERVALUE
+			FROM Dual
+			UNION
+			SELECT 1 AS ROWNO
+     			 ,CAST(vc.loyaltyidnumber AS  NVARCHAR2(80)) AS LOYALTYID
+  			 ,CAST(vc.linkkey AS NVARCHAR2(80)) AS CUSTOMERID
+  			 ,CAST(md.a_emailaddress AS  NVARCHAR2(150)) AS  EMAIL
+ 			 ,CAST(mr.offercode AS  NVARCHAR2(100)) AS AUTH_CD
+			 ,CAST(mr.certificatenmbr AS  NVARCHAR2(100)) AS SUC_CD
+			 ,CAST(to_char(mr.expiration,'DD-Mon-YYYY') AS NVARCHAR2(80)) AS CAMPAIGN_EXP_DATE
+  			 ,CAST((SELECT CAST(cc.value AS NVARCHAR2(100)) FROM bp_ae.LW_CLIENTCONFIGURATION cc WHERE cc.ckey = 'EID_StackedReward') AS NVARCHAR2(100)) AS EID
+                         ,CAST ((replace(replace(trim(substr(rd.name,14,3)),' ' ,''),'S','')) AS NVARCHAR2(100)) AS OFFERVALUE
+  			 FROM bp_ae.lw_memberrewards mr
+ 			 inner join bp_Ae.Lw_Rewardsdef rd on rd.id = mr.rewarddefid
+  			 INNER JOIN bp_ae.lw_virtualcard vc
+   			 ON vc.ipcode = mr.memberid
+    			 INNER JOIN bp_ae.ats_memberdetails md
+  			 ON md.a_ipcode = vc.ipcode
+  			 INNER JOIN bp_ae.lw_loyaltymember lm
+   			 ON lm.ipcode = md.a_ipcode
+   			 WHERE 1=1
+  			 AND rd.name LIKE  '%Stacked Reward%'
+  			 AND mr.redemptiondate IS NULL
+   			 AND lm.memberstatus != 3
+   			 and vc.isprimary = 1
+			 ORDER BY RowNo
+		</QueryString>
+      <Fields>
+	    <Field Name="ROWNO" Type="Integer"  />
+        <Field Name="LOYALTYID" Type="String" />
+        <Field Name="CUSTOMERID" Type="String" />
+		<Field Name="EMAIL" Type="String" />
+		<Field Name="AUTH_CD" Type="String" />
+		<Field Name="SUC_CD" Type="String" />
+		<Field Name="CAMPAIGN_EXP_DATE" Type="String" />
+		<Field Name="EID" Type="String" />
+		<Field Name="OFFERVALUE" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <MessageTransformationMap SourceCollectionName="RewardsReminder" TargetAttributeSetType="Global" DebugOutputPath="E:\AmericanEagle\Files\Dummy">
+    <FieldMap SourceField="Global/LOYALTYID">
+      <Populate TargetNode="Global/LOYALTYID"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/CUSTOMERID">
+      <Populate TargetNode="Global/CUSTOMERID"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/EMAIL">
+      <Populate TargetNode="Global/EMAIL"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/AUTH_CD">
+      <Populate TargetNode="Global/AUTH_CD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/SUC_CD">
+      <Populate TargetNode="Global/SUC_CD"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/CAMPAIGN_EXP_DATE">
+      <Populate TargetNode="Global/CAMPAIGN_EXP_DATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/EID">
+      <Populate TargetNode="Global/EID"/>
+    </FieldMap>
+	<FieldMap SourceField="Global/OFFERVALUE">
+      <Populate TargetNode="Global/OFFERVALUE"/>
+    </FieldMap>
+  </MessageTransformationMap>
+  <OutputProvider>
+   <DelimetedFileOutput CollectionName="AttributeSets" RecordName="Global" FileName="AEORW_EM_BACKLOG_{$date(format=yyyyMMddhhmmss)}.txt" DataInAttributes="false"  Delimiter="|" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>     
+		    <Field Name="LOYALTYID" Length="100" />
+		    <Field Name="CUSTOMERID" Length="100" />
+		    <Field Name="EMAIL" Length="100" />
+		    <Field Name="AUTH_CD" Length="100" />
+		    <Field Name="SUC_CD" Length="100" />
+		    <Field Name="CAMPAIGN_EXP_DATE" Length="100" />
+		    <Field Name="EID" Length="100" />
+		    <Field Name="OFFERVALUE" Length="100" />
+        </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

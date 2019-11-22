@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBeta</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat> 
+    <ThreadPoolSize>1</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>noreply@brierley.com</SenderEmail>
+      <SenderDisplayName>AE Rules Processor</SenderDisplayName>
+	  <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE TierDowngradeRule Processor</Subject>
+
+    </EmailInformation>    
+  </RuleEngineConfig>
+  <MemberRule DirectiveName="BulkAppeasements">
+    <QueryBasedMemberRetriever 
+      RetrievalRange="0-*" 
+      RetrievalBatchSize="1000" 
+      KeyName="IpCode"
+    >
+      <QueryString>
+      -- Members with 'active' memberstatus
+      SELECT lm.ipcode
+      FROM bp_ae.lw_loyaltymember lm
+      WHERE lm.memberstatus IN (1)
+      </QueryString>
+    </QueryBasedMemberRetriever>
+    <RulesToInvoke>
+	  <Rule RuleName="DowngradeTier" TargetPath="Member"/>
+	  
+    </RulesToInvoke>
+  </MemberRule>
+</RulesDirectives>

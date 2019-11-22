@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Pilot Email Campaign DAP Process</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\americaneagle\Trunk\LogFiles">
+    <SimpleDatabaseInput CollectionName="PilotEmailCampaign" RecordName="PilotEmails">
+      <QueryString>
+        <!-- Insert your dope ass select statement here BROOOOO -->
+		select
+		distinct   CAST(vc.loyaltyidnumber as NVARCHAR2(100)) as LoyaltyIdNumber
+				 , CAST( '1000' as NVARCHAR2(100)) as Points 
+		from bp_ae.lw_virtualcard vc
+		join bp_ae.ats_memberdetails md on md.a_ipcode = vc.ipcode
+		join bp_ae.lw_loyaltymember lm on lm.ipcode = md.a_ipcode
+		join bp_ae.ats_txnheader hd on hd.a_vckey = vc.vckey
+		where 1=1
+			and md.a_emailaddress is not null
+			and md.a_ipcode not in (select v.ipcode from bp_ae.lw_virtualcard v
+								   join bp_ae.x$_aeo_pilot_email_campaign pec on pec.loyaltyidnumber = v.loyaltyidnumber)
+			and md.a_extendedplaycode = 1
+			and lm.createdate &lt; to_date('11/01/2016', 'MM/DD/YYYY')
+			and hd.a_txndate between to_date('11/01/2016','MM/DD/YYYY') and to_date('11/19/2016', 'MM/DD/YYYY')
+      </QueryString>
+      <Fields>
+        <Field Name="LoyaltyIdNumber" Type="String"  />
+        <Field Name="Points" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="PilotEmailCampaign" RecordName="PilotEmails" FileName="AEO_Pilot_Email_Final_{$date(format=yyyyMMddhhmmss)}.txt" DataInAttributes="false"  Delimiter="," OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles">
+      <FieldMap>
+		<Field Name="LoyaltyIdNumber" Length="100" />
+		<Field Name="Points" Length="100" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

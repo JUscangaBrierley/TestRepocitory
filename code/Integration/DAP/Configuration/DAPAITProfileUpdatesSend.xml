@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>  
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE AIT Profile Update   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="aejobs.stageaitprofilesentdate">
+      <InputParameters>
+        <Parm Name="p_Dummy" Type="String" Value="" Required="true"/> 
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":retval" Type="String" Required="true"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\AITProfileUpdateSend">
+    <SimpleDatabaseInput CollectionName="MemberProfiles" RecordName="MemberProfile">
+      <QueryString>
+      SELECT * FROM BP_AE.AE_PROFILE_UPDATES ORDER BY LOYALTYIDNUMBER
+      </QueryString>
+      <Fields>
+        <Field Name="CID"  Type="String"  />
+        <Field Name="IPCODE"  Type="String"  />
+        <Field Name="LOYALTYIDNUMBER"  Type="String"  />
+        <Field Name="EMAILADDRESS"  Type="String"  />
+        <Field Name="RECORDTYPE"  Type="String"  />
+        <Field Name="MEMBERSTATUS"  Type="String"  />
+        <Field Name="TERMINATIONREASONCODE"  Type="String"  />
+        <Field Name="UPDATEDATE"  Type="String"  />
+        <Field Name="CHANGEDBY"  Type="String"  />
+        <Field Name="MEMBERCLOSEDATE"  Type="String"  />
+        <Field Name="TIERNAME"  Type="String"  />
+        <Field Name="TIERSTARTDATE"  Type="String"  />
+        <Field Name="TIERENDDATE"  Type="String"  />
+        <Field Name="EMAILADDRESSUPDATEDATE"  Type="String"  />
+        <Field Name="PILOTFLAG"  Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="MemberProfiles" RecordName="MemberProfile" FileName="ae_loy_new_{$date(format=ddMMyyyy)}.txt" DataInAttributes="false"  Delimiter="|" OutputFolder="E:\AmericanEagleCline\Files\Outbound">
+      <FieldMap>
+        <Field Name="CID" Justification="Left" Length="100" />        
+        <Field Name="IPCODE" Justification="Left" Length="100" />
+        <Field Name="LOYALTYIDNUMBER" Justification="Left" Length="100" />
+        <Field Name="EMAILADDRESS" Justification="Left" Length="100"/>
+        <Field Name="RECORDTYPE" Justification="Left" Length="2"/>
+        <Field Name="MEMBERSTATUS" Justification="Left" Length="100"/>
+        <Field Name="TERMINATIONREASONCODE" Justification="Left" Length="2"/>
+        <Field Name="UPDATEDATE" Justification="Left" Length="8"/>
+        <Field Name="CHANGEDBY" Justification="Left" Length="100"/>
+        <Field Name="MEMBERCLOSEDATE" Justification="Left" Length="8"/>
+        <Field Name="TIERNAME" Justification="Left" Length="50"/>
+        <Field Name="TIERSTARTDATE" Justification="Left" Length="8"/>
+        <Field Name="TIERENDDATE" Justification="Left" Length="8"/>
+        <Field Name="EMAILADDRESSUPDATEDATE" Justification="Left" Length="20"/>
+        <Field Name="PILOTFLAG" Justification="Left" Length="1"/>
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>
+    <StoredProcTask Name="aejobs.UpdateLastAITProfileSentDate">
+      <!--Program Redesign 2015 (MMV) Changes Begin-->
+      <InputParameters>
+        <Parm Name="p_Dummy" Type="String" Value="" Required="true"/>  
+      </InputParameters>
+	     <ReturnParameter>
+        <Parm Name=":retval" Type="String" Required="true"/>
+       
+      </ReturnParameter>
+      <!--Program Redesign 2015 (MMV) Changes End-->
+    </StoredProcTask>
+  </PostProcessor>
+</DAPDirectives>

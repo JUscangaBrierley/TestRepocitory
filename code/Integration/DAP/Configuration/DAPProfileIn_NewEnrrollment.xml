@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+	<Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>New Enrrolment ProfileIn Process</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="">
+    <SimpleDatabaseInput CollectionName="Members" RecordName="Member">
+      <QueryString>
+		SELECT * FROM stage_profilein 
+		WHERE newenrollment = 1 and 
+		not exists (SELECT null FROM lw_virtualcard WHERE lw_virtualcard.loyaltyidnumber = stage_profilein.loyaltyidnumber) 
+      </QueryString>
+      <Fields>
+        <Field Name="IPCODE" Type="Integer" />
+        <Field Name="VCKEY" Type="String" />
+		<Field Name="LINKKEY" Type="Integer" />
+		<Field Name="FIRSTNAME" Type="String" />
+		<Field Name="LASTNAME" Type="String" />
+		<Field Name="ADDRESSLINEONE" Type="String" />
+		<Field Name="ADDRESSLINETWO" Type="String" />
+		<Field Name="CITY" Type="String" />
+		<Field Name="STATEORPROVINCE" Type="String" />
+		<Field Name="ZIPORPOSTALCODE" Type="String" />
+		<Field Name="PRIMARYPOSTALCODE" Type="String" />
+		<Field Name="COUNTRY" Type="String" />
+        <Field Name="BIRTHDATE" Type="Date" />
+		<Field Name="MOBILEPHONE" Type="String" />
+		<Field Name="GENDER" Type="String" />
+		<Field Name="LOYALTYIDNUMBER" Type="String" />
+		<Field Name="EMAILADDRESS" Type="String" />
+		<Field Name="SMSOPTIN" Type="String" />
+		<Field Name="HOMESTOREID" Type="String" />
+		<Field Name="LANGUAGEPREFERENCE" Type="String" />
+		<Field Name="MEMBERCREATEDATE" Type="Date" />
+		<Field Name="SMSOPTINDATE" Type="String" />
+		<Field Name="DATEISSUED" Type="Date" />
+		<Field Name="DATEREGISTERED" Type="String" />
+        <Field Name="MEMBERSOURCE" Type="String" />
+		<Field Name="ENROLLMENTID" Type="String" />
+		<Field Name="CARDTYPE" Type="String" />
+		<Field Name="CARDOPENDATE" Type="Date" />
+		<Field Name="CARDCLOSEDATE" Type="Date" />
+		<Field Name="ACCOUNTKEY" Type="String" />
+		<Field Name="STATUSCODE" Type="String" />
+		<Field Name="NEWENROLLMENT" Type="String" />
+		<Field Name="RECORDTYPE" Type="String" />
+		<Field Name="LOAD_ID" Type="String" />
+		<Field Name="STAGE_ID" Type="String" />
+		<Field Name="TIERID" Type="String" />
+		<Field Name="TODATE" Type="String" />
+		<Field Name="ADDRESSMAILABLE" Type="String" />
+		<Field Name="EMAILADDRESSMAILABLE" Type="String" />
+		
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Members" TargetAttributeSetType="Member" DebugOutputPath="">
+	<FieldMap SourceField="Member/IPCODE" >
+      <Populate TargetNode="Member/IPCODE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/IPCODE" >
+      <Populate TargetNode="Member/VirtualCard/IPCODE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/IPCODE" >
+      <Populate TargetNode="Member/MemberDetails/IPCODE"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/VCKEY" >
+      <Populate TargetNode="Member/VirtualCard/VCKEY" />
+    </FieldMap>
+    <FieldMap SourceField="Member/LINKKEY" >
+      <Populate TargetNode="Member/VirtualCard/LINKKEY"/>
+    </FieldMap> 
+	
+	<FieldMap SourceField="Member/FIRSTNAME">
+		<Populate TargetNode="Member/FIRSTNAME"/>
+	</FieldMap>
+	<FieldMap SourceField="Member/LASTNAME">
+		<Populate TargetNode="Member/LASTNAME"/>
+	</FieldMap>
+
+	<FieldMap SourceField="Member/ADDRESSLINEONE" >
+      <Populate TargetNode="Member/MemberDetails/ADDRESSLINEONE"/>
+    </FieldMap> 
+	<FieldMap SourceField="Member/ADDRESSLINETWO" >
+      <Populate TargetNode="Member/MemberDetails/ADDRESSLINETWO"/>
+    </FieldMap>  
+	<FieldMap SourceField="Member/CITY" >
+      <Populate TargetNode="Member/MemberDetails/CITY"/>
+    </FieldMap>  
+	<FieldMap SourceField="Member/STATEORPROVINCE" >
+      <Populate TargetNode="Member/MemberDetails/STATEORPROVINCE"/>
+    </FieldMap>  
+	<FieldMap SourceField="Member/ZIPORPOSTALCODE" >
+      <Populate TargetNode="Member/MemberDetails/ZIPORPOSTALCODE"/>
+    </FieldMap>  
+
+	<FieldMap SourceField="Member/PRIMARYPOSTALCODE" >
+      <Populate TargetNode="Member/PRIMARYPOSTALCODE"/>
+    </FieldMap>  
+
+	<FieldMap SourceField="Member/COUNTRY" >
+      <Populate TargetNode="Member/MemberDetails/COUNTRY"/>
+    </FieldMap> 
+
+	<FieldMap SourceField="Member/BIRTHDATE" >
+      <Populate TargetNode="Member/BIRTHDATE"/>
+    </FieldMap> 
+
+	<FieldMap SourceField="Member/MOBILEPHONE" >
+      <Populate TargetNode="Member/MemberDetails/MOBILEPHONE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/GENDER" >
+      <Populate TargetNode="Member/MemberDetails/GENDER"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/LOYALTYIDNUMBER" >
+      <Populate TargetNode="Member/VirtualCard/LoyaltyIdNumber"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/EMAILADDRESS" >
+      <Populate TargetNode="Member/MemberDetails/EMAILADDRESS"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/SMSOPTIN" >
+      <Populate TargetNode="Member/MemberDetails/SMSOPTIN"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/HOMESTOREID" >
+      <Populate TargetNode="Member/MemberDetails/HOMESTOREID"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/LANGUAGEPREFERENCE" >
+      <Populate TargetNode="Member/MemberDetails/LANGUAGEPREFERENCE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/MEMBERCREATEDATE" >
+      <Populate TargetNode="Member/MEMBERCREATEDATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/MEMBERCREATEDATE" >
+      <Populate TargetNode="Member/CREATEDATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/SMSOPTINDATE" >
+      <Populate TargetNode="Member/MemberDetails/SMSOPTINDATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/DATEISSUED" >
+      <Populate TargetNode="Member/VirtualCard/DATEISSUED"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/DATEREGISTERED" >
+      <Populate TargetNode="Member/VirtualCard/DATEREGISTERED"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/MEMBERSOURCE" >
+      <Populate TargetNode="Member/MemberDetails/MEMBERSOURCE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/ENROLLMENTID" >
+      <Populate TargetNode="Member/MemberDetails/ENROLLMENTID"/>
+    </FieldMap>
+	
+	
+	
+	<FieldMap SourceField="Member/CARDTYPE" >
+      <Populate TargetNode="Member/MemberDetails/CARDTYPE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/CARDOPENDATE" >
+      <Populate TargetNode="Member/MemberDetails/CARDOPENDATE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/CARDCLOSEDATE" >
+      <Populate TargetNode="Member/MemberDetails/CARDCLOSEDATE"/>
+    </FieldMap>
+	
+	
+	<FieldMap SourceField="Member/ADDRESSMAILABLE" >
+      <Populate TargetNode="Member/MemberDetails/ADDRESSMAILABLE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/EMAILADDRESSMAILABLE" >
+      <Populate TargetNode="Member/MemberDetails/EMAILADDRESSMAILABLE"/>
+	</FieldMap>
+	
+	
+	<FieldMap SourceField="Member/ACCOUNTKEY" >
+      <Populate TargetNode="Member/ACCOUNTKEY"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/STATUSCODE" >
+      <Populate TargetNode="Member/STATUSCODE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/NEWENROLLMENT" >
+      <Populate TargetNode="Member/NEWENROLLMENT"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/RECORDTYPE" >
+      <Populate TargetNode="Member/RECORDTYPE"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/LOAD_ID" >
+      <Populate TargetNode="Member/LOAD_ID"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/STAGE_ID" >
+      <Populate TargetNode="Member/STAGE_ID"/>
+    </FieldMap>
+	
+	<FieldMap SourceField="Member/TIERID" >
+      <Populate TargetNode="Member/TIERID"/>
+    </FieldMap>
+	<FieldMap SourceField="Member/TODATE" >
+      <Populate TargetNode="Member/TODATE"/>
+    </FieldMap>
+	
+	
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>3</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.ProfileInNewEnrollmentInterceptor</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+			<MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="false" > <!-- HandleMemberNotFoundInInterceptor="false" --> 
+		        <!-- <LoadDirective Method="UseInterceptor" ValuePath="" /> -->
+				<LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber" />
+				<!-- <LoadDirective Method="IpCode" ValuePath="Member/IPCODE" /> -->
+			</MemberLoadDirectives>
+		    <AttributeSetCreateDirectives>
+			      <AttributeSetUpdate Name="MemberDetails" CreateIfNotFound="true" FindMethod="First"/>
+				  <AttributeSetUpdate CreateIfNotFound="true" Name="VirtualCard" FindMethod="Attribute" FindValue="LoyaltyIdNumber" />
+				  <!-- <AttributeSetUpdate Name="MemberPreferences" CreateIfNotFound="true" FindMethod="First"/> -->
+				  <!-- <AttributeSetUpdate Name="VirtualCard" CreateIfNotFound="true" FindMethod="First" /> -->
+				  <!--  <AttributeSetUpdate Name="VirtualCard" CreateIfNotFound="true" FindMethod="Attribute" FindValue="LOYALTYIDNUMBER"/>   -->
+			</AttributeSetCreateDirectives>
+		
+		
+			<!-- 
+          <MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="true">
+            <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LOYALTYIDNUMBER" />
+          </MemberLoadDirectives> 
+          <AttributeSetCreateDirectives>
+            <AttributeSetUpdate CreateIfNotFound="false" Name="MemberDetails" FindMethod="First"/>
+            <AttributeSetUpdate CreateIfNotFound="false" Name="MemberPreferences" FindMethod="First"/>
+			<AttributeSetUpdate CreateIfNotFound="true" Name="VirtualCard" FindMethod="Attribute" FindValue="LOYALTYIDNUMBER" />
+          </AttributeSetCreateDirectives>
+		  
+		  -->
+		  
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+
+  
+  <!-- PostProcessor -->
+  
+</DAPDirectives>

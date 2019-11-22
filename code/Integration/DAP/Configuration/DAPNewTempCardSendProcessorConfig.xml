@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Temp Card Send DAP  Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="AttributeSets" RecordName="CardReplacement">
+      <QueryString>
+        SELECT  trim(to_char(rownum, '0000000000')) as "RowID",
+        t.a_loyaltyidnumber as LoyaltyIDNumber,
+        a.a_hhkey as AlternateID,
+        p.nameprefix as NamePrefix,
+        p.FirstName as FirstName,
+        p.LastName as LastName,
+        p.namesuffix as NameSuffix,
+        a.a_addresslineone as AddressLineOne,
+        a.a_addresslinetwo as AddressLineTwo,
+        '' as Company,
+        a.a_city as City,
+        a.a_stateorprovince as StateOrProvince,
+        a.a_ziporpostalcode as ZipOrPostalCode,
+        Case
+        When a.a_country = 'USA' Then 'US'
+        When a.a_country = 'CAN' Then 'CANADA'
+        When a.a_country is NULL And Exists(Select 1 from bp_ae.ats_refstates rs Where UPPER(rs.a_statecode) = UPPER(a.a_stateorprovince) and UPPER(rs.a_countrycode) = 'CAN') Then 'CANADA'
+        Else 'US'
+        End as Country,
+        '' as Filler1,
+        'J1001-001' as Program,
+        '' as OfferCode, '' as RewardLevel, '0' as StartingPoints,
+        '0' as BasePoints, '0' as BonusPoints, '0' as RemainingPoints, '0' as TotalPoints,
+        '0' as AuthCode,
+        Case
+        When b.a_brandnumber is null or b.a_brandnumber = 0 Then CAST('00' as NVARCHAR2(100))
+        When b.a_brandnumber  &lt; 0 Then CAST('00' as NVARCHAR2(100))
+        Else CAST(to_char(b.a_brandnumber) as NVARCHAR2(100))
+        End AS BaseLoyaltyBrand,
+        CASE
+        WHEN a.a_languagepreference is NULL THEN CAST(0 as NVARCHAR2(100))
+        ELSE CAST(to_char(a.a_languagepreference) as NVARCHAR2(100))
+        END as languagepreference,
+        '' as Filler3
+        FROM LW_LoyaltyMember p
+        INNER JOIN (SELECT DISTINCT cr.a_ipcode, a_loyaltyidnumber
+        FROM ats_membercardreplacements cr
+        WHERE ((cr.a_istemporary = 1 AND cr.statuscode = 2 AND cr.a_datesent is null) or
+        (cr.a_istemporary = 1 AND cr.statuscode = 2 AND trunc(cr.a_datesent) &gt;  trunc(sysdate-2)))
+        )t ON t.a_ipcode = p.ipcode
+        LEFT JOIN Ats_Memberdetails a ON t.a_ipcode = a.a_ipcode
+        LEFT JOIN ats_refstates aes ON a.a_stateorprovince = aes.a_statecode
+        LEFT JOIN ats_refbrand b ON a.a_basebrandid = b.a_brandid
+        LEFT JOIN LW_VIRTUALCARD vc ON t.a_loyaltyidnumber = vc.loyaltyidnumber
+        WHERE 1=1
+        AND a.a_addressmailable = 1
+        AND p.memberstatus = 1
+        AND vc.isprimary = 1
+        AND (a.a_extendedplaycode not in (1,3) or a.a_extendedplaycode is null ) -- AEO-503
+
+      </QueryString>
+      <Fields>
+        <Field Name="RowID" Type="String"  />
+        <Field Name="LoyaltyIDNumber" Type="String" />
+        <Field Name="AlternateID" Type="String" />
+        <Field Name="NamePrefix" Type="String" />
+        <Field Name="FirstName" Type="String" />
+        <Field Name="LastName" Type="String" />
+        <Field Name="NameSuffix" Type="String" />
+        <Field Name="AddressLineOne" Type="String" />
+        <Field Name="AddressLineTwo" Type="String"  />
+        <Field Name="Company" Type="String" />
+        <Field Name="City" Type="String" />
+        <Field Name="StateOrProvince" Type="String" />
+        <Field Name="ZipOrPostalCode" Type="String" />
+        <Field Name="Country" Type="String" />
+        <Field Name="Filler1" Type="String" />
+        <Field Name="Program" Type="String"  />
+        <Field Name="OfferCode" Type="String" />
+        <Field Name="RewardLevel" Type="String" />
+        <Field Name="StartingPoints" Type="String" />
+        <Field Name="BasePoints" Type="String" />
+        <Field Name="BonusPoints" Type="String" />
+        <Field Name="RemainingPoints" Type="String" />
+        <Field Name="TotalPoints" Type="String" />
+        <Field Name="AuthCode" Type="String" />
+        <Field Name="BaseLoyaltyBrand" Type="String" />
+        <Field Name="LanguagePreference" Type="String" />
+        <Field Name="Filler3" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.ReplaceCardSend</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

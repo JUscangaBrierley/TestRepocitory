@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+	<Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Rewards DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Batch" DebugOutputPath="E:\AmericanEagleCline\Logs">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+        SELECT IPCODE, ROWTYPE FROM (
+                    SELECT vc.ipcode AS IPCODE, '$' AS ROWTYPE
+                        ,row_number() OVER (PARTITION BY vc.ipcode ORDER BY vc.ipcode) rn
+                        FROM bp_ae.lw_pointtransaction pt
+                        INNER JOIN bp_ae.lw_pointevent pe ON pt.pointeventid = pe.pointeventid
+                        INNER JOIN bp_ae.lw_pointtype p ON pt.pointtypeid = p.pointtypeid
+                        INNER JOIN bp_ae.lw_virtualcard vc ON pt.vckey = vc.vckey
+                        INNER JOIN bp_ae.ats_memberdetails md ON vc.ipcode = md.a_ipcode
+                        INNER JOIN bp_ae.Lw_Loyaltymember lm ON vc.ipcode = lm.ipcode
+                        WHERE 1 = 1
+                        AND ( (upper(trim(p.name)) IN
+                                  ('AEO CONNECTED POINTS'
+                                  ,'AEO CONNECTED BONUS POINTS'
+                                  ,'ADJUSTMENT POINTS'
+                                  ,'AEO CUSTOMER SERVICE POINTS'
+                                  ,'ADJUSTMENT BONUS POINTS'
+                                  ,'AEO VISA CARD POINTS')
+                               AND (pt.transactiontype = 1
+                                    OR pt.transactiontype = 2) )
+                               OR  upper(trim(p.name)) IN ('BONUS POINTS'))
+                        AND ((length(md.a_emailaddress) &gt; 0)
+                              OR (nvl(md.a_smsoptin,1) = 0
+                                  AND length(md.a_mobilephone) &gt; 0)
+                              OR (md.a_cardtype IN (1,2,3)
+                                  AND md.a_cardopendate &lt;= to_date('9/5/2017', 'mm/dd/yyyy')))
+                        AND pt.pointsconsumed = 0
+                        AND pt.pointsonhold = 0
+                        AND pt.transactiontype NOT IN (3,4)
+                        AND pt.expirationdate &gt; SYSDATE
+                        AND nvl(md.a_employeecode,0) NOT IN (1,2)
+                        AND lm.memberstatus = 1
+                        GROUP BY vc.ipcode
+                        HAVING SUM (pt.points) &gt;= 2500
+                --------------------------------------------------------------------------------
+                UNION ALL
+                --------------------------------------------------------------------------------
+                      SELECT vc.ipcode AS IPCODE, 'B' as ROWTYPE
+                       ,row_number() OVER (PARTITION BY vc.ipcode ORDER BY vc.ipcode) rn
+                        FROM bp_ae.lw_pointtransaction pt
+                        INNER JOIN bp_ae.lw_pointevent pe ON pt.pointeventid = pe.pointeventid
+                        INNER JOIN bp_ae.lw_pointtype p ON pt.pointtypeid = p.pointtypeid
+                        INNER JOIN bp_ae.lw_virtualcard vc ON pt.vckey = vc.vckey
+                        INNER JOIN bp_ae.ats_memberdetails md ON vc.ipcode = md.a_ipcode
+                        INNER JOIN bp_ae.lw_loyaltymember lm on vc.ipcode = lm.ipcode -- AEO-646
+                        WHERE 1 = 1
+                        AND ( ( (pe.name IN ('Bra Purchase - 1'
+                                           , 'Bra Purchase - 15'
+                                           , 'B5G1 Bra Purchase'
+                                           , 'Bra Credit'
+										   , 'Bra Credit Appeasement'
+                                           , 'Bra AECC Bonus Credit'
+                                           , 'Returned Bra Reward Points')))
+                                OR pe.name IN ('Bra Return'))
+                        AND p.name IN ('Bra Points')
+                        --AND NVL (md.a_employeecode, 0) = 0    AEO-816
+                        AND pt.pointsconsumed = 0
+                        AND pt.pointsonhold = 0
+                        AND pt.transactiontype NOT IN (3,4)
+                        AND pt.expirationdate &gt; SYSDATE
+                        AND nvl(lm.memberstatus,3) = 1 -- AEO-646
+                        AND ((nvl(length(md.a_emailaddress), 0) &gt; 0)
+                             OR (nvl(md.a_smsoptin, 1) = 0
+                                AND nvl(length(md.a_mobilephone), 0) &gt; 0)
+                             OR (md.a_cardtype IN (1,2,3)
+                                 AND md.a_cardopendate &lt;= to_date('9/5/2017', 'mm/dd/yyyy')))
+                        GROUP BY vc.ipcode
+                        HAVING SUM(pt.points) &gt;= 5
+                --------------------------------------------------------------------------------
+                UNION ALL
+                --------------------------------------------------------------------------------
+                        SELECT vc.ipcode AS IPCODE, 'J' AS ROWTYPE
+                       ,row_number() OVER (PARTITION BY vc.ipcode ORDER BY vc.ipcode) rn
+                        FROM bp_ae.lw_pointtransaction pt
+                        INNER JOIN bp_ae.lw_pointevent pe ON pt.pointeventid = pe.pointeventid
+                        INNER JOIN bp_ae.lw_pointtype p ON pt.pointtypeid = p.pointtypeid
+                        INNER JOIN bp_ae.lw_virtualcard vc ON pt.vckey = vc.vckey
+                        INNER JOIN bp_ae.ats_memberdetails md ON vc.ipcode = md.a_ipcode
+                        INNER JOIN bp_ae.lw_loyaltymember lm on vc.ipcode = lm.ipcode
+                        WHERE 1 = 1
+                        AND ( ( (pe.name IN ('Jean Purchase'
+                                            , 'B5G1 Jean Purchase'
+                                            , 'Jeans Credit'
+											, 'Jean Credit Appeasement'
+                                            ,'Jean AECC Bonus Credit'
+                                            ,'Returned Jean Reward Points')))
+                                OR pe.name IN ('Jean Return'))
+                        AND p.name IN ('Jean Points')
+                        AND pt.pointsconsumed = 0
+                        AND pt.pointsonhold = 0
+                        AND nvl(lm.memberstatus,3) = 1
+                        AND pt.transactiontype NOT IN (3,4)
+                        AND pt.expirationdate &gt; SYSDATE
+                        AND pt.transactiondate &gt; to_date('9/30/2015 11:59:59PM', 'mm/dd/yyyy hh:mi:ssPM')
+                        AND (( nvl(length(md.a_emailaddress), 0) &gt; 0)
+                               OR (nvl(md.a_smsoptin, 1) = 0
+                                  AND nvl(length(md.a_mobilephone), 0) &gt; 0)
+                               OR (md.a_cardtype IN (1,2,3)
+                                  AND md.a_cardopendate &lt;= to_date('9/5/2017', 'mm/dd/yyyy')))
+                        GROUP BY vc.ipcode
+                        HAVING SUM(pt.points) &gt;= 5
+                )
+                WHERE rn = 1
+      </QueryString>
+      <Fields>
+        <Field Name="IPCODE" Type="String" />
+        <Field Name="ROWTYPE" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.AEOConnectedRewardFulfillment</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

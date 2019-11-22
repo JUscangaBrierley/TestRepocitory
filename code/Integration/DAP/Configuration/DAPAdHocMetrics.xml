@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+         <Subject>AE Pilot AD-Hoc Metrics   </Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="PILOT_ADHOC_METRICS.RETRIEVE_DATA">
+        <InputParameters>
+        </InputParameters>
+       <!-- <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>-->
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\AmericanEagle\cline\LogFiles\debug\input">
+    <SimpleDatabaseInput CollectionName="Metrics" RecordName="Metric">
+      <QueryString>
+        SELECT 5 AS Section,
+        to_char(en1.SUMMARY_DATE,'DD-MON-YYYY')  as SUMMARY_DATE,
+        en1.ONLINE_SUMMARY,
+        en1.STORE_107,
+        en1.STORE_140,
+        en1.STORE_180,
+        en1.STORE_209,
+        en1.STORE_225,
+        en1.STORE_228,
+        en1.STORE_260,
+        en1.STORE_269,
+        en1.STORE_282,
+        en1.STORE_291,
+        en1.STORE_300,
+        en1.STORE_312,
+        en1.STORE_366,
+        en1.STORE_418,
+        en1.STORE_482,
+        en1.STORE_728,
+        en1.STORE_825,
+        en1.STORE_880,
+        en1.STORE_882,
+        en1.STORE_2082,
+        en1.TOTAL,
+        en1.AVERAGE,
+        en1.BALANCE
+        FROM STG_ADHOC_METRICS_ENROLLMENTS en1
+        Union
+        SELECT 1 AS Section,
+        to_char(en2.SUMMARY_DATE,'DD-MON-YYYY'),
+        en2.ONLINE_SUMMARY as SUMMARY_DATE,
+        en2.STORE_107,
+        en2.STORE_140,
+        en2.STORE_180,
+        en2.STORE_209,
+        en2.STORE_225,
+        en2.STORE_228,
+        en2.STORE_260,
+        en2.STORE_269,
+        en2.STORE_282,
+        en2.STORE_291,
+        en2.STORE_300,
+        en2.STORE_312,
+        en2.STORE_366,
+        en2.STORE_418,
+        en2.STORE_482,
+        en2.STORE_728,
+        en2.STORE_825,
+        en2.STORE_880,
+        en2.STORE_882,
+        en2.STORE_2082,
+        en2.TOTAL,
+        en2.AVERAGE,
+        en2.BALANCE
+        FROM STG_ADHOC_METRICS_SALES  en2
+        Union
+        SELECT 2 AS Section,
+        to_char(en3.SUMMARY_DATE,'DD-MON-YYYY') as SUMMARY_DATE,
+        en3.ONLINE_SUMMARY,
+        en3.STORE_107,
+        en3.STORE_140,
+        en3.STORE_180,
+        en3.STORE_209,
+        en3.STORE_225,
+        en3.STORE_228,
+        en3.STORE_260,
+        en3.STORE_269,
+        en3.STORE_282,
+        en3.STORE_291,
+        en3.STORE_300,
+        en3.STORE_312,
+        en3.STORE_366,
+        en3.STORE_418,
+        en3.STORE_482,
+        en3.STORE_728,
+        en3.STORE_825,
+        en3.STORE_880,
+        en3.STORE_882,
+        en3.STORE_2082,
+        en3.TOTAL,
+        en3.AVERAGE,
+        en3.BALANCE
+        FROM STG_ADHOC_METRICS_TXN   en3
+        Union
+        SELECT 3 AS Section,
+        to_char(en4.SUMMARY_DATE,'DD-MON-YYYY') as SUMMARY_DATE,
+        en4.ONLINE_SUMMARY,
+        en4.STORE_107,
+        en4.STORE_140,
+        en4.STORE_180,
+        en4.STORE_209,
+        en4.STORE_225,
+        en4.STORE_228,
+        en4.STORE_260,
+        en4.STORE_269,
+        en4.STORE_282,
+        en4.STORE_291,
+        en4.STORE_300,
+        en4.STORE_312,
+        en4.STORE_366,
+        en4.STORE_418,
+        en4.STORE_482,
+        en4.STORE_728,
+        en4.STORE_825,
+        en4.STORE_880,
+        en4.STORE_882,
+        en4.STORE_2082,
+        en4.TOTAL,
+        en4.AVERAGE,
+        en4.BALANCE
+        FROM STG_ADHOC_METRICS_NEW    en4
+        Union
+        SELECT 4 AS Section,
+        to_char(en5.SUMMARY_DATE,'DD-MON-YYYY') as SUMMARY_DATE,
+        en5.ONLINE_SUMMARY,
+        en5.STORE_107,
+        en5.STORE_140,
+        en5.STORE_180,
+        en5.STORE_209,
+        en5.STORE_225,
+        en5.STORE_228,
+        en5.STORE_260,
+        en5.STORE_269,
+        en5.STORE_282,
+        en5.STORE_291,
+        en5.STORE_300,
+        en5.STORE_312,
+        en5.STORE_366,
+        en5.STORE_418,
+        en5.STORE_482,
+        en5.STORE_728,
+        en5.STORE_825,
+        en5.STORE_880,
+        en5.STORE_882,
+        en5.STORE_2082,
+        en5.TOTAL,
+        en5.AVERAGE,
+        en5.BALANCE
+        FROM STG_ADHOC_METRICS_EXISTING     en5
+        ORDER BY Section, SUMMARY_DATE
+
+      </QueryString>
+      <Fields>
+        <Field Name="Section" Type="Integer" />
+        <Field Name="Summary_Date" Type="String" />
+        <Field Name="Online_Summary" Type="Long" />
+        <Field Name="Store_107"  Type="Long" />
+        <Field Name="Store_140"  Type="Long" />
+        <Field Name="Store_180"  Type="Long" />
+        <Field Name="Store_209"  Type="Long" />
+        <Field Name="Store_225"  Type="Long" />
+        <Field Name="Store_228"  Type="Long" />
+        <Field Name="Store_260"  Type="Long" />
+        <Field Name="Store_269"  Type="Long" />
+        <Field Name="Store_282"  Type="Long" />
+        <Field Name="Store_291"  Type="Long" />
+        <Field Name="Store_300"  Type="Long" />
+        <Field Name="Store_312"  Type="Long" />
+        <Field Name="Store_366"  Type="Long" />
+        <Field Name="Store_418"  Type="Long" />
+        <Field Name="Store_482"  Type="Long" />
+        <Field Name="Store_728"  Type="Long" />
+        <Field Name="Store_825"  Type="Long" />
+        <Field Name="Store_880"  Type="Long" />
+        <Field Name="Store_882"  Type="Long" />
+        <Field Name="Store_2082" Type="Long" />
+        <Field Name="Total" Type="Long" />
+        <Field Name="Average" Type="Long" />
+        <Field Name="Balance" Type="Long" />
+       
+     </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+
+  
+  <!-- Output Provider -->
+     <OutputProvider>
+      <CustomOutput >
+        <TypeName>AmericanEagle.SDK.OutputProviders.PilotAdHocMetrics</TypeName>
+        <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+      </CustomOutput>
+    </OutputProvider>
+</DAPDirectives>

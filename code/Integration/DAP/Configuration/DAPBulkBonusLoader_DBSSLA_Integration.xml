@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Bulk Bonus Loader DBS SLA Integration</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <!--GENERATE REJECT FILE--> 
+    <StoredProcTask Name="FEED_BULK_BONUS.ex_reject_file">
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->	
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Dummy\Production1">
+    <SimpleDatabaseInput CollectionName="DummyList" RecordName="DummyRecord">
+      <QueryString>
+        SELECT SYSDATE as "DummyRecord"
+		FROM DUAL
+      </QueryString>
+      <Fields>
+        <Field Name="DummyRecord" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="DummyList" RecordName="DummyRecord" FileName="DUMMY.txt" DataInAttributes="false" Delimiter="," OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="DummyRecord"  Length="100"/>
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>
+   <!--COMPLETE THE PROCESS-->
+   <StoredProcTask Name="FEED_BULK_BONUS.complete_file">
+   </StoredProcTask>
+  </PostProcessor>  
+</DAPDirectives>

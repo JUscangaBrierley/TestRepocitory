@@ -1,0 +1,3047 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IntegrationOperationDirectives xmlns="http://tempuri.org/LWIntegrationConfig.xsd"
+                                MemberIdentityType="LoyaltyIdNumber"
+                                CheckForChangedValues="true"
+                                TrimStringSpaces="true"
+                                IgnoreTimeZoneOffset="true" 
+                                EnforceValidBatch="true"
+								PasswordChangedEmailName="CSPasswordChangedEmail"
+                                >
+  <OperationProcessingDirectives>
+    
+	<!--Start  RedeemMemberReward -->
+    <APIOperationDirective Name="RedeemMemberReward" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.RedeemMemberReward</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>          
+          <Parm Name="NullRedeemDateIfNotProvided" Value="True"/>          
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+          <Parm Name="AvailableBalance" Type="Decimal" IsRequired="false"/>
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+          <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!--End  RedeemMemberReward -->
+	
+    <!-- start -AERequestPointStore Method -->
+    <APIOperationDirective Name="AERequestPointStore" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AERequestPointStore</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="RegisterNumber" Type="String" IsRequired="false"/>
+          <Parm Name="StoreNumber" Type="String" IsRequired="false"/>
+          <Parm Name="TotalPayment" Type="String" IsRequired="false"/>
+          <Parm Name="TransactionDate" Type="String" IsRequired="false"/>
+          <Parm Name="TransactionNumber" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="ResponseMessage" Type="String" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AERequestPointStore Method -->	
+
+	<!--Start GetMemberRewardSummary Method-->
+    <APIOperationDirective Name="GetMemberRewardsSummary" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetMemberRewardsSummary</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="CategoryId" Type="Long" IsRequired="false"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+          <Parm Name="UnRedeemedOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="UnexpiredOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="Language" Type="String" StringLength="20" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberRewardSummary" Type="Struct" IsRequired="true" IsArray="true">
+            <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+            <Parm Name="PointsConsumed" Type="Decimal" IsRequired="false"/>
+            <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+            <Parm Name="AvailableBalance" Type="Decimal" IsRequired="false"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+            <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RewardName" Type="String" IsRequired="false"/>
+            <Parm Name="CategoryName" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LongDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LegalText" Type="String" IsRequired="false"/>
+            <Parm Name="SmallImageFile" Type="String" IsRequired="false"/>
+            <Parm Name="LargeImageFile" Type="String" IsRequired="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+	<!-- End -GetMemberRewardSummary Method -->
+	
+	<!--Start AEGetTentativePoints -->
+    <APIOperationDirective Name="AEGetTentativePoints" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEGetTentativePoints</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="TransactionDate" Type="Date" IsRequired="false"/>
+          <Parm Name="StoreNumber" Type="Long" IsRequired="false"/>
+          <Parm Name="TransactionDetail" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="SKUNumber" Type="String" IsRequired="false"/>
+            <Parm Name="ClassCode" Type="String" IsRequired="false"/>
+            <Parm Name="Quantity" Type="Integer" IsRequired="false"/>
+            <Parm Name="FinalSalePrice" Type="String" IsRequired="true"/>
+          </Parm>
+          <Parm Name="TransactionTender" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="TenderType" Type="Integer" IsRequired="true"/>
+			 <Parm Name="TenderAmount" Type="String" IsRequired="true"/>
+          </Parm>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="TotalPoints" Type="Decimal" IsRequired="true"/>
+          <Parm Name="TotalBraCredits" Type="Decimal" IsRequired="true"/>
+          <Parm Name="TotalJeanCredits" Type="Decimal" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+	<!-- End AEGetTentativePoints Method -->
+	
+	<!-- start -AEConnectedGetAccountActivity Method -->
+    <APIOperationDirective Name="AEConnectedGetAccountActivity" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEConnectedGetAccountActivity</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="PageNumber" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="TotalPageCount" Type="Integer" IsRequired="false"/>
+          <Parm Name="BasicPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BonusPoints" Type="String" IsRequired="false"/>
+          <Parm Name="TotalPoints" Type="String" IsRequired="false"/>
+          <Parm Name="NumberOfRewardsEarned" Type="Integer" IsRequired="false"/>
+          <Parm Name="StartDate" Type="String" IsRequired="false"/>
+          <Parm Name="EndDate" Type="String" IsRequired="false"/>
+          <Parm Name="AEConnectedTransactionHeaders" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="TransactionNumber" Type="String" IsRequired="true"/>
+            <Parm Name="StoreName" Type="String" IsRequired="true"/>
+            <Parm Name="PurchaseDate" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="true"/>
+            <Parm Name="TotalPoints" Type="String" IsRequired="true"/>
+            <Parm Name="TransactionAmount" Type="String" IsRequired="true"/>
+            <Parm Name="JeansPurchased" Type="String" IsRequired="true"/>
+            <Parm Name="BrasPurchased" Type="String" IsRequired="true"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AEConnectedGetAccountActivity Method -->
+	
+	<!-- start -AERequestPointOnline Method -->
+    <APIOperationDirective Name="AERequestPointOnline" Authorized="true">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AERequestPointOnline</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="OrderNumber" Type="String" IsRequired="false"/>
+          <Parm Name="OrderAmount" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="ResponseMessage" Type="String" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AERequestPointOnline Method -->
+	
+	<!-- start GetMemberRewards Method -->
+    <APIOperationDirective Name="GetMemberRewards" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetMemberRewards</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="CategoryId" Type="Long" IsRequired="false"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>          
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>                    
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberRewardOrder" Type="Struct" IsArray="true">
+            <Parm Name="OrderNumber" Type="String" IsRequired="false"/>            
+            <Parm Name="Source" Type="String" IsRequired="false"/>
+            <Parm Name="Channel" Type="String" IsRequired="false"/>
+            <Parm Name="ChangedBy" Type="String" IsRequired="false"/>
+            <Parm Name="FirstName" Type="String" IsRequired="false"/>
+            <Parm Name="LastName" Type="String" IsRequired="false"/>
+            <Parm Name="EmailAddress" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineOne" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineTwo" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineThree" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineFour" Type="String" IsRequired="false"/>
+            <Parm Name="City" Type="String" IsRequired="false"/>
+            <Parm Name="StateOrProvince" Type="String" IsRequired="false"/>
+            <Parm Name="ZipOrPostalCode" Type="String" IsRequired="false"/>
+            <Parm Name="County" Type="String" IsRequired="false"/>
+            <Parm Name="Country" Type="String" IsRequired="false"/>            
+            <Parm Name="MemberRewardInfo" Type="Struct" IsRequired="true" IsArray="true">
+              <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+              <Parm Name="RewardDefID" Type="Long" IsRequired="true"/>
+              <Parm Name="FPOrderNumber" Type="String" IsRequired="false"/>
+              <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+              <Parm Name="AvailableBalance" Type="Decimal" IsRequired="false"/>
+              <Parm Name="DateIssued" Type="Date" IsRequired="false"/>
+              <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+              <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+              <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+              <Parm Name="OrderStatus" Type="String" IsRequired="false"/>
+              <Parm Name="TrackingUrl" Type="String" IsRequired="false"/>
+              <Parm Name="TrackingNumber" Type="String" IsRequired="false"/>              
+            </Parm>                                                            
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+	<!-- End -AEGetMember Method -->	
+
+	<!-- start -AEGetLoyaltyProfile Method -->
+    <APIOperationDirective Name="AEGetLoyaltyProfile" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEGetLoyaltyProfile</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="GetLoyaltyProfile" Type="Struct" IsArray="false">
+            <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+            <Parm Name="FirstName" Type="String" IsRequired="false"/>
+            <Parm Name="LastName" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineOne" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineTwo" Type="String" IsRequired="false"/>
+            <Parm Name="City" Type="String" IsRequired="false"/>
+            <Parm Name="State" Type="String" IsRequired="false"/>
+            <Parm Name="PostalCode" Type="String" IsRequired="false"/>
+            <Parm Name="Country" Type="String" IsRequired="false"/>
+            <Parm Name="HomePhone" Type="String" IsRequired="false"/>
+            <Parm Name="MobilePhone" Type="String" IsRequired="false"/>
+            <Parm Name="SMSOptIn" Type="String" IsRequired="false"/>
+            <Parm Name="Gender" Type="String" IsRequired="false"/>
+            <Parm Name="LanguagePreference" Type="String" IsRequired="false"/>
+            <Parm Name="BaseBrand" Type="String" IsRequired="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AEGetLoyaltyProfile Method -->
+		
+	<!-- start -AEGetMember Method -->
+    <APIOperationDirective Name="AEGetMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AExGetMember</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+          <LoadAttributeSet>VirtualCard/TxnHeader</LoadAttributeSet>
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member" IsArray="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AEGetMember Method -->
+
+	<!-- start -AEGetAccountSummary Method -->
+    <APIOperationDirective Name="AEGetAccountSummary" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEGetAccountSummary</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="FirstName" Type="String" IsRequired="false"/>
+          <Parm Name="LastName" Type="String" IsRequired="false"/>
+          <Parm Name="AddressLineOne" Type="String" IsRequired="false"/>
+          <Parm Name="AddressLineTwo" Type="String" IsRequired="false"/>
+          <Parm Name="City" Type="String" IsRequired="false"/>
+          <Parm Name="State" Type="String" IsRequired="false"/>
+          <Parm Name="PostalCode" Type="String" IsRequired="false"/>
+          <Parm Name="CountryCode" Type="String" IsRequired="false"/>
+          <Parm Name="HomePhone" Type="String" IsRequired="false"/>
+          <Parm Name="MobilePhone" Type="String" IsRequired="false"/>
+          <Parm Name="SMSOptIn" Type="String" IsRequired="false"/>
+          <Parm Name="Gender" Type="String" IsRequired="false"/>
+          <Parm Name="LanguagePreference" Type="String" IsRequired="false"/>
+	      <Parm Name="DollarRewardMember" Type="String" IsRequired="false"/>
+          <Parm Name="EnrollmentDate" Type="String" IsRequired="false"/>
+          <Parm Name="StartingPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BasicPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BonusPoints" Type="String" IsRequired="false"/>
+		  <Parm Name="PointsPerMonth" Type="String" IsRequired="false"/>
+          <Parm Name="TotalPoints" Type="String" IsRequired="false"/>
+          <Parm Name="PointsNeeded" Type="String" IsRequired="false"/>
+          <Parm Name="RewardLevel" Type="String" IsRequired="false"/>
+          <Parm Name="BaseBrand" Type="String" IsRequired="false"/>
+          <Parm Name="CurrentBrasPurchased" Type="String" IsRequired="false"/>
+          <Parm Name="CurrentBrasEarned" Type="String" IsRequired="false"/>
+          <Parm Name="FreeBrasMailed" Type="String" IsRequired="false"/>
+          <Parm Name="LastFreeBraMailedDate" Type="String" IsRequired="false"/>
+          <Parm Name="BraHomeDate" Type="String" IsRequired="false"/>
+          <Parm Name="FreeBraRedeemedDate" Type="String" IsRequired="false"/>
+          <Parm Name="StartDate" Type="String" IsRequired="false"/>
+          <Parm Name="EndDate" Type="String" IsRequired="false"/>		  
+          <Parm Name="MemberTier" Type="String" IsRequired="false"/>		  
+          <Parm Name="CurrentJeansPurchased" Type="String" IsRequired="false"/>		
+		  </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End AEGetAccountSummary Method -->
+		
+	<!-- start -AEPOSGetAccountActivity Method -->
+    <APIOperationDirective Name="AEPOSGetAccountActivity" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEPOSGetAccountActivity</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="PageNumber" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="TotalPageCount" Type="Integer" IsRequired="false"/>
+          <Parm Name="StartingPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BasicPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BonusPoints" Type="String" IsRequired="false"/>
+          <Parm Name="TotalPoints" Type="String" IsRequired="false"/>
+          <Parm Name="RewardLevel" Type="String" IsRequired="false"/>
+		  <Parm Name="DollarRewardMember" Type="String" IsRequired="false"/>		  
+          <Parm Name="StartDate" Type="String" IsRequired="false"/>
+          <Parm Name="EndDate" Type="String" IsRequired="false"/>
+          <Parm Name="TransactionHeaders" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="TransactionNumber" Type="String" IsRequired="true"/>
+            <Parm Name="StoreName" Type="String" IsRequired="true"/>
+            <Parm Name="PurchaseDate" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="true"/>
+            <Parm Name="Points" Type="String" IsRequired="true"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AEPOSGetAccountActivity Method -->
+	
+	<!-- start -AEPOSGetAccountSummary Method -->
+    <APIOperationDirective Name="AEPOSGetAccountSummary" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEPOSGetAccountSummary</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="FirstName" Type="String" IsRequired="false"/>
+          <Parm Name="LastName" Type="String" IsRequired="false"/>
+          <Parm Name="AddressLineOne" Type="String" IsRequired="false"/>
+          <Parm Name="AddressLineTwo" Type="String" IsRequired="false"/>
+          <Parm Name="City" Type="String" IsRequired="false"/>
+          <Parm Name="State" Type="String" IsRequired="false"/>
+          <Parm Name="PostalCode" Type="String" IsRequired="false"/>
+          <Parm Name="CountryCode" Type="String" IsRequired="false"/>
+          <Parm Name="HomePhone" Type="String" IsRequired="false"/>
+          <Parm Name="MobilePhone" Type="String" IsRequired="false"/>
+          <Parm Name="SMSOptIn" Type="String" IsRequired="false"/>
+          <Parm Name="Gender" Type="String" IsRequired="false"/>
+          <Parm Name="LanguagePreference" Type="String" IsRequired="false"/>
+	  <Parm Name="DollarRewardMember" Type="String" IsRequired="false"/>
+          <Parm Name="EnrollmentDate" Type="String" IsRequired="false"/>
+          <Parm Name="StartingPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BasicPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BonusPoints" Type="String" IsRequired="false"/>
+          <Parm Name="PointsPerMonth" Type="String" IsRequired="false"/>
+          <Parm Name="TotalPoints" Type="String" IsRequired="false"/>
+          <Parm Name="PointsNeeded" Type="String" IsRequired="false"/>
+          <Parm Name="RewardLevel" Type="String" IsRequired="false"/>
+          <Parm Name="BaseBrand" Type="String" IsRequired="false"/>
+          <Parm Name="CurrentBrasPurchased" Type="String" IsRequired="false"/>
+          <Parm Name="CurrentBrasEarned" Type="String" IsRequired="false"/>
+          <Parm Name="FreeBrasMailed" Type="String" IsRequired="false"/>
+          <Parm Name="LastFreeBraMailedDate" Type="String" IsRequired="false"/>
+          <Parm Name="BraHomeDate" Type="String" IsRequired="false"/>
+          <Parm Name="FreeBraRedeemedDate" Type="String" IsRequired="false"/>
+          <Parm Name="StartDate" Type="String" IsRequired="false"/>
+          <Parm Name="EndDate" Type="String" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End AEPOSGetAccountSummary Method -->
+	
+	<!-- start -AEGetAccountActivity Method -->
+    <APIOperationDirective Name="AEGetAccountActivity" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEGetAccountActivity</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="PageNumber" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="TotalPageCount" Type="Integer" IsRequired="false"/>
+          <Parm Name="StartingPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BasicPoints" Type="String" IsRequired="false"/>
+          <Parm Name="BonusPoints" Type="String" IsRequired="false"/>
+          <Parm Name="TotalPoints" Type="String" IsRequired="false"/>
+          <Parm Name="RewardLevel" Type="String" IsRequired="false"/>
+		  <Parm Name="DollarRewardMember" Type="String" IsRequired="false"/>
+          <Parm Name="StartDate" Type="String" IsRequired="false"/>
+          <Parm Name="EndDate" Type="String" IsRequired="false"/>
+          <Parm Name="TransactionHeaders" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="TransactionNumber" Type="String" IsRequired="true"/>
+            <Parm Name="StoreName" Type="String" IsRequired="true"/>
+            <Parm Name="PurchaseDate" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="true"/>
+            <Parm Name="Points" Type="String" IsRequired="true"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AEGetAccountActivity Method -->
+	
+    <!-- Add member -->
+    <FrameworkManagedOperationDirective Name="AddMember" Authorized="false">
+      <InterceptorAssembly ReuseForFile="true">
+        <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+        <InterceptorTypeName>AmericanEagle.SDK.Interceptors.AddMemberInterceptor</InterceptorTypeName>
+      </InterceptorAssembly>
+      <MemberLoadDirectives ExceptionIfNotFound="false" ExceptionIfFound="true">
+        <LoadDirective Method="UseInterceptor" ValuePath=""/>
+      </MemberLoadDirectives>      
+      <AttributeSetCreateDirectives>
+        <AttributeSetCreate Name="VirtualCard" IfPresent="LoyaltyIdNumber">
+          <MarkTrue>IsPrimary</MarkTrue>
+        </AttributeSetCreate>
+      </AttributeSetCreateDirectives>
+      <OperationResponse>
+        <AttributeSetsToLoad ReloadMember="true">
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>          
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <GenericErrorMessage></GenericErrorMessage>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="member" Type="Member" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member"/>          
+        </OperationOutput>
+      </OperationMetadata>      
+    </FrameworkManagedOperationDirective>
+
+    <!-- A strictly test method to add member without any cards (In production this method can be removed) -->
+    <!--<FrameworkManagedOperationDirective Name="AddMemberWithNoCards" Authorized="false">
+      <InterceptorAssembly ReuseForFile="true">
+        <InterceptorAssemlyName></InterceptorAssemlyName>
+        <InterceptorTypeName></InterceptorTypeName>
+        <InterceptorParms>
+          <Parm Name="Title" Value="Hello World"/>
+        </InterceptorParms>
+      </InterceptorAssembly>
+      <MemberLoadDirectives ExceptionIfNotFound="false" ExceptionIfFound="true">
+        <LoadDirective Method="UserName" ValuePath="Member/Username"/>
+      </MemberLoadDirectives>
+      <AttributeSetCreateDirectives>        
+      </AttributeSetCreateDirectives>
+      <OperationResponse>
+        <AttributeSetsToLoad ReloadMember="true">
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <GenericErrorMessage></GenericErrorMessage>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="member" Type="Member" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </FrameworkManagedOperationDirective>-->
+
+    <!-- Update member -->
+    <FrameworkManagedOperationDirective Name="UpdateMember" Authorized="false">
+      <InterceptorAssembly ReuseForFile="true">
+        <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+        <InterceptorTypeName>AmericanEagle.SDK.Interceptors.UpdateMemberInterceptor</InterceptorTypeName>
+      </InterceptorAssembly>
+      <MemberLoadDirectives ExceptionIfNotFound="true" ExceptionIfFound="false">
+        <LoadDirective Method="UseInterceptor" ValuePath=""/>
+      </MemberLoadDirectives>
+      <AttributeSetCreateDirectives>
+      	<AttributeSetUpdate Name="MemberDetails" FindMethod="First" CreateIfNotFound="false"/>
+        <AttributeSetUpdate Name="VirtualCard" FindMethod="Attribute" FindValue="LoyaltyIdNumber" CreateIfNotFound="true"/>
+        <AttributeSetUpdate Name="TxnHeader" FindMethod="Attribute" FindValue="TxnHeaderId" CreateIfNotFound="true"/>
+      </AttributeSetCreateDirectives>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <GenericErrorMessage></GenericErrorMessage>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="member" Type="Member" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </FrameworkManagedOperationDirective>
+	  	
+    <!-- Authenticate Member -->
+    <APIOperationDirective Name="AuthenticateMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.AuthenticateMember</ProviderType>
+        <ProviderAssemlyPath/>        
+		<Interceptor ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </Interceptor>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="IdentityType" Type="String" IsRequired="true" StringLength="50" />
+          <Parm Name="Identity" Type="String" IsRequired="true" StringLength="255" />
+          <Parm Name="Password" Type="String" IsRequired="true" StringLength="255" />
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Authenticated" Type="Boolean" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Retrieve an existing member -->
+    <APIOperationDirective Name="GetMembers" Authorized="false">
+      <!--<EndPointRestriction>
+        <Allow></Allow>
+        <Deny></Deny>
+      </EndPointRestriction>-->
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetMembers</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>          
+          <Parm Name="" Value=""/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+          <LoadAttributeSet>VirtualCard/TxnHeader</LoadAttributeSet>
+        </AttributeSetsToLoad>
+        <!--<MemberResponseHelper ReuseForFile="true">
+          <InterceptorAssemlyName>SAPIMemberResponseHelper</InterceptorAssemlyName>
+          <InterceptorTypeName>SAPIMemberResponseHelper.MyMemberResponseHelper</InterceptorTypeName>
+          <InterceptorParms>
+            <Parm Name="MyParm" Value="Hello World"/>
+          </InterceptorParms>
+        </MemberResponseHelper>-->
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberSearchType" Type="String" IsArray="true" IsRequired="true"/>
+          <Parm Name="SearchValue" Type="String" IsArray="true" IsRequired="true"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member" IsArray="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Retrieve existing members -->
+    <APIOperationDirective Name="GetMembersExt" Authorized="false">
+      <!--<EndPointRestriction>
+        <Allow></Allow>
+        <Deny></Deny>
+      </EndPointRestriction>-->
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetMembersExt</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>
+          <Parm Name="MaxNumberOfResults" Value="100"/>
+          <Parm Name="StoreProcName" Value="MemberUtility.FindMember"/>          
+          <Parm Name="LoyaltyID" Value="String"/>
+          <Parm Name="FirstName" Value="String"/>
+          <Parm Name="LastName" Value="String"/>
+          <Parm Name="Email" Value="String"/>
+          <Parm Name="NonMember" Value="Boolean"/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+          <LoadAttributeSet>VirtualCard/TxnHeader</LoadAttributeSet>
+        </AttributeSetsToLoad>
+        <!--<MemberResponseHelper ReuseForFile="true">
+          <InterceptorAssemlyName>SAPIMemberResponseHelper</InterceptorAssemlyName>
+          <InterceptorTypeName>SAPIMemberResponseHelper.MyMemberResponseHelper</InterceptorTypeName>
+          <InterceptorParms>
+            <Parm Name="MyParm" Value="Hello World"/>
+          </InterceptorParms>
+        </MemberResponseHelper>-->
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberSearchParms" Type="Struct" IsArray="true" IsRequired="true">
+            <Parm Name="ParmName" Type="String" IsRequired="true"/>
+            <Parm Name="ParmValue" Type="String" IsRequired="true"/>
+          </Parm>          
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+          <Parm Name="member" Type="Member" IsArray="true"/>          
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Member Social Handles -->
+    <APIOperationDirective Name="AssociateMemberSocialHandles" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.AssociateMemberSocialHandles</ProviderType>
+        <ProviderAssemlyPath/>
+        <Interceptor ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </Interceptor>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="MemberSocialHandle" Type="Struct" IsArray="true" IsRequired="true">
+            <Parm Name="ProviderType" Type="String" IsRequired="true" StringLength="15"/>
+            <Parm Name="ProviderUID" Type="String" IsRequired="true" StringLength="800"/>
+          </Parm>          
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetMemberSocialHandles" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetMemberSocialHandles</ProviderType>
+        <ProviderAssemlyPath/>
+        <Interceptor ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </Interceptor>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>          
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberSocialHandle" Type="Struct" IsArray="true" IsRequired="true">
+            <Parm Name="ProviderType" Type="String" IsRequired="true" StringLength="15"/>
+            <Parm Name="ProviderUID" Type="String" IsRequired="true" StringLength="800"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Activate a member -->
+    <APIOperationDirective Name="ActivateMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ActivateMember</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>        
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired="false" StringLength="255"/>
+          <Parm Name="ActivateInactiveCards" Type="Boolean" IsRequired ="false"/>
+        </OperationInput>        
+      </OperationMetadata>
+      <OnSuccess Asynchronous="true">
+        <!--<OnSuccessEvent EventName="EvaluateTier"/>-->
+        <OnSuccessInterceptor ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </OnSuccessInterceptor>
+      </OnSuccess>
+    </APIOperationDirective>
+
+    <!-- Deactivate Member -->
+    <APIOperationDirective Name="DeactivateMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.DeactivateMember</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired ="false" StringLength="255"/>
+          <Parm Name="DeactivateActiveCards" Type="Boolean" IsRequired ="false"/>
+          <Parm Name="ExpirePoints" Type="Boolean" IsRequired ="false"/>
+          <Parm Name="CancelTiers" Type="Boolean" IsRequired ="false"/>
+          <Parm Name="CancelRewards" Type="Boolean" IsRequired ="false"/>
+          <Parm Name="CancelPromotions" Type="Boolean" IsRequired ="false"/>
+          <Parm Name="CancelBonuses" Type="Boolean" IsRequired ="false"/>
+          <Parm Name="CancelCoupons" Type="Boolean" IsRequired ="false"/>
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Terminate Member -->
+    <APIOperationDirective Name="TerminateMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.TerminateMember</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired="true" StringLength="255"/>
+        </OperationInput>        
+      </OperationMetadata>      
+    </APIOperationDirective>
+
+    <!-- Lockdown Member -->
+    <APIOperationDirective Name="LockdownMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.LockdownMember</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UpdateMemberStatusReason" Type="String" IsRequired="false" StringLength="255"/>
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Convert Non-Member -->
+    <APIOperationDirective Name="ConvertToMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ConvertToMember</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>          
+        </OperationInput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Merge two members -->
+    <APIOperationDirective Name="MergeMembers" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.MergeMembers</ProviderType>
+        <ProviderAssemlyPath/>
+        <Interceptor ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </Interceptor>
+      </FunctionProvider>
+      <OperationResponse>
+        <AttributeSetsToLoad>
+          <LoadAttributeSet>MemberDetails</LoadAttributeSet>
+        </AttributeSetsToLoad>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity1" Type="String" IsRequired="true"/>          
+          <Parm Name="MemberIdentity2" Type="String" IsRequired="true"/>          
+          <Parm Name="LoyaltyEvent" Type="String" StringLength="150" IsRequired="true"/>
+          <Parm Name="LoyaltyCurrency" Type="String" StringLength="150" IsRequired="true"/>
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+          <Parm Name="MemberMergeOptions" Type="Struct" IsArray="false" IsRequired="false">
+            <Parm Name="MemberProfile_Name" Type="Boolean"/>
+            <Parm Name="MemberProfile_MailingAddress" Type="Boolean"/>            
+            <Parm Name="MemberProfile_PrimaryPhoneNumber" Type="Boolean"/>
+            <Parm Name="PointBalance" Type="Boolean"/>
+            <Parm Name="MemberRewards" Type="Boolean"/>
+            <Parm Name="MemberTiers" Type="Boolean"/>            
+            <Parm Name="MemberCoupons" Type="Boolean"/>
+            <Parm Name="MemberBonuses" Type="Boolean"/>
+            <Parm Name="MemberPromotions" Type="Boolean"/>
+            <Parm Name="VirtualCards" Type="Boolean"/>
+            <Parm Name="FromPrimaryIsNewPrimaryVirtualCard" Type="Boolean"/>                        
+          </Parm>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member" IsArray="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Activate Card -->
+    <APIOperationDirective Name="ActivateCard" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ActivateCard</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="false" StringLength="255"/>
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Deactivate Card -->
+    <APIOperationDirective Name="DeactivateCard" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.DeactivateCard</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="false" StringLength="255"/>
+        </OperationInput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Cancel Card -->
+    <APIOperationDirective Name="CancelCard" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.CancelCard</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="false" StringLength="255"/>
+          <Parm Name="DeactivateMember" Type="Boolean" IsRequired="false"/>
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Replace Card -->
+    <APIOperationDirective Name="ReplaceCard" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ReplaceCard</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="ReplacementCardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="TransferPoints" Type="Boolean" IsRequired="false"/>          
+          <Parm Name="EffectiveDate" Type="Date" IsRequired="false"/>                    
+          <Parm Name="UpdateCardStatusReason" Type="String" IsRequired="false" StringLength="255"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member" IsArray="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Transfer Card -->
+    <APIOperationDirective Name="TransferCard" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.TransferCard</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>          
+          <Parm Name="MakeCardPrimary" Type="Boolean" IsRequired="false"/>
+          <Parm Name="DeactivateMember" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="member" Type="Member" IsArray="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Change expiration date -->
+    <APIOperationDirective Name="ChangeCardExpirationDate" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ChangeCardExpirationDate</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="NewExpirationDate" Type="Date" IsRequired="true"/>          
+        </OperationInput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Program Information -->
+    <APIOperationDirective Name="GetLoyaltyCurrencyNames" Authorized="false">
+      <!--<EndPointRestriction>
+        <Allow>PCTY7013.brierley.com</Allow>
+        <Deny>localhost</Deny>
+      </EndPointRestriction>-->
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.ProgramInfo.GetLoyaltyCurrencyNames</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationOutput LogParameters="true">
+          <Parm Name="CurrencyName" Type="String" IsArray="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetLoyaltyCurrencies" Authorized="false">
+      <!--<EndPointRestriction>
+        <Allow></Allow>
+        <Deny>10.4.5.*</Deny>
+      </EndPointRestriction>-->
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.ProgramInfo.GetLoyaltyCurrencies</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationOutput LogParameters="false">
+          <Parm Name="LoyaltyCurrency" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="Name" Type="String" IsRequired="true" IsArray="false" StringLength="150"/>
+            <Parm Name="Description" Type="String" IsRequired="false" IsArray="false" StringLength="150"/>
+            <Parm Name="ConsumptionPriority" Type="Long" IsRequired="false" IsArray="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetLoyaltyEventNames" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.ProgramInfo.GetLoyaltyEventNames</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationOutput>
+          <Parm Name="EventName" Type="String" IsArray="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetLoyaltyEvents" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.ProgramInfo.GetLoyaltyEvents</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationOutput>
+          <Parm Name="LoyaltyEvent" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="Name" Type="String" IsRequired="true" IsArray="false" StringLength="150"/>
+            <Parm Name="Description" Type="String" IsRequired="false" IsArray="false" StringLength="500"/>
+            <Parm Name="DefaultPoints" Type="Decimal" IsRequired="false" IsArray="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetTierNames" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.ProgramInfo.GetTierNames</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationOutput>
+          <Parm Name="TierName" Type="String" IsArray="true"/>
+        </OperationOutput>
+      </OperationMetadata>     
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetTiers" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.ProgramInfo.GetTiers</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationOutput>
+          <Parm Name="TierDef" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="Name" Type="String" IsRequired="true" IsArray="false" StringLength="50"/>
+            <Parm Name="DisplayText" Type="String" IsRequired="false" StringLength="100"/>
+            <Parm Name="Description" Type="String" IsRequired="false" StringLength="500"/>
+            <Parm Name="EntryPoints" Type="Decimal" IsRequired="false"/>
+            <Parm Name="ExitPoints" Type="Decimal" IsRequired="false"/>
+            <Parm Name="PointTypeNames" Type="String" IsRequired="false" StringLength="2000"/>
+            <Parm Name="PointEventNames" Type="String" IsRequired="false" StringLength="2000"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Get Account Summary -->
+    <APIOperationDirective Name="GetAccountSummary" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountSummary</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput LogParameters="false">
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CurrencyBalance" Type="Decimal" IsRequired="true"/>
+          <Parm Name="MemberStatus" Type="String" IsRequired="true"/>
+          <Parm Name="MemberAddDate" Type="Date" IsRequired="true"/>
+          <Parm Name="CurrentTierName" Type="String" IsRequired="false"/>
+          <Parm Name="CurrentTierExpirationDate" Type="Date" IsRequired="false"/>
+          <Parm Name="CurrencyToNextTier" Type="Decimal" IsRequired="false"/>
+          <Parm Name="CurrencyToNextReward" Type="Decimal" IsRequired="false"/>
+          <Parm Name="LastActivityDate" Type="Date" IsRequired="false"/>
+        </OperationOutput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Add Loyalty Event -->
+    <APIOperationDirective Name="AwardLoyaltyCurrency" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.AwardLoyaltyCurrency</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>
+          <Parm Name="AllowNegativePoints" Value="true"/>
+          <Parm Name="AllowFractionalPoints" Value="true"/>
+          <Parm Name="RoundPointsToNextWholeNumber" Value="true"/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CardID" Type="String" IsRequired="true" StringLength="255"/>
+          <Parm Name="LoyaltyEvent" Type="String" IsRequired="true" StringLength="150"/>
+          <Parm Name="LoyaltyCurrency" Type="String" IsRequired="true" StringLength="150"/>
+          <Parm Name="CurrencyAmount" Type="Decimal" IsRequired="false"/>
+          <Parm Name="TransactionDate" Type="Date" IsRequired="false"/>
+          <Parm Name="ExpirationDate" Type="Date" IsRequired="true"/>
+          <Parm Name="Note" Type="String" IsRequired="false" StringLength="500"/>
+          <Parm Name="ChangedBy" Type="String" IsRequired="false" StringLength="50"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CurrencyBalance" Type="Decimal" IsRequired="true"/>
+          <Parm Name="CurrencyToNextTier" Type="Decimal" IsRequired="false"/>
+        </OperationOutput>       
+      </OperationMetadata>
+      <OnSuccess Asynchronous="false">
+        <OnSuccessEvent EventName="EvaluateTier"/>
+      </OnSuccess>
+    </APIOperationDirective>
+
+    <!-- Account Activity Related Methods -->
+    <APIOperationDirective Name="GetAccountActivityCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountActivityCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>          
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetAccountActivitySummary" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountActivitySummary</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>
+          <!--<Parm Name="OrphanTxnTypesFilter" Value="Credit;Debit"/>-->
+          <Parm Name="OrphanTxnTypesFilter" Value=""/>
+          <Parm Name="OrphanPointTypesFilter" Value=""/>
+          <Parm Name="OrphanPointEventsFilter" Value=""/>
+          <Parm Name="RetrieveExpiredTransactions" Value="false"/>
+          <Parm Name="ExtendedHeaderFields" Value="TxnEmployeeId;TxnCreditsUsed;TxnChannel"/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="GetPointsHistory" Type="Boolean" IsRequired="false"/>
+          <Parm Name="GetOtherPointsHistory" Type="Boolean" IsRequired="false"/>          
+          <Parm Name="SummaryStartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="SummaryBatchSize" Type="Integer" IsRequired="false"/>
+          <Parm Name="OtherStartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="OtherBatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="AccountActivitySummary" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="TxnHeaderId" Type="String" IsRequired="true"/>
+            <Parm Name="TxnDate" Type="Date" IsRequired="false"/>
+            <Parm Name="TxnNumber" Type="String" IsRequired="false"/>
+            <Parm Name="TxnRegisterNumber" Type="String" IsRequired="false"/>
+            <Parm Name="TxnStoreInfo" Type="Struct" IsRequired="false">
+              <Parm Name="StoreName" Type="String" IsRequired="false"/>
+              <Parm Name="StoreNumber" Type="String" IsRequired="false"/>
+              <Parm Name="City" Type="String" IsRequired="false"/>
+              <Parm Name="State" Type="String" IsRequired="false"/>
+            </Parm>            
+            <Parm Name="TxnAmount" Type="Decimal" IsRequired="false"/>
+            <Parm Name="TxnChannel" Type="String" IsRequired="false"/>
+            <Parm Name="PointsHistory" IsRequired="false" Type="Struct" IsArray ="true">
+              <Parm Name="CurrencyAmount" Type="Decimal" IsRequired="true"/>
+              <Parm Name="PointTxnType" Type="String" IsRequired="true"/>
+              <Parm Name="LoyaltyEvent" Type="String" IsRequired="true"/>
+              <Parm Name="LoyaltyCurrency" Type="String" IsRequired="true"/>
+              <Parm Name="TxnDate" Type="Date" IsRequired="true"/>
+              <Parm Name="OwnerType" Type="String" IsRequired="false"/>
+              <Parm Name="OwnerId" Type="Long" IsRequired="false"/>
+              <Parm Name="RowKey" Type="Long" IsRequired="false"/>
+              <Parm Name="PromoCode" Type="String" IsRequired="false"/>
+              <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+              <Parm Name="Notes" Type="String" IsRequired="false" StringLength="500"/>
+            </Parm>
+            <Parm Name="AdditionalAttributes" Type="Struct" IsArray="true" IsRequired="false">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+          <Parm Name="OtherPointsHistory" IsRequired="false" Type="Struct" IsArray ="true">
+            <Parm Name="CurrencyAmount" Type="Decimal" IsRequired="true"/>
+            <Parm Name="PointTxnType" Type="String" IsRequired="true"/>
+            <Parm Name="LoyaltyEvent" Type="String" IsRequired="true"/>
+            <Parm Name="LoyaltyCurrency" Type="String" IsRequired="true"/>
+            <Parm Name="TxnDate" Type="Date" IsRequired="true"/>
+            <Parm Name="OwnerType" Type="String" IsRequired="false"/>
+            <Parm Name="OwnerId" Type="Long" IsRequired="false"/>
+            <Parm Name="RowKey" Type="Long" IsRequired="false"/>
+            <Parm Name="PromoCode" Type="String" IsRequired="false"/>
+            <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Notes" Type="String" IsRequired="false" StringLength="500"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetAccountActivityDetails" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetAccountActivityDetails</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>          
+          <Parm Name="RetrieveExpiredTransactions" Value="true"/>
+          <Parm Name="ExtendedHeaderFields" Value="TxnHeaderId;TxnDetailId;DtlRetailAmount"/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="TxnHeaderId" Type="String" IsRequired="true"/>
+          <Parm Name="GetPointsHistory" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="AccountActivityDetails" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="ItemDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Quantity" Type="Integer" IsRequired="false"/>
+            <Parm Name="SaleAmount" Type="Decimal" IsRequired="true"/>            
+            <Parm Name="ClassDescription" Type="String" IsRequired="false"/>
+            <Parm Name="ClassCode" Type="String" IsRequired="false"/>            
+            <Parm Name="PointsHistory" IsRequired="false" Type="Struct" IsArray ="true">
+              <Parm Name="CurrencyAmount" Type="Decimal" IsRequired="true"/>
+              <Parm Name="PointTxnType" Type="String" IsRequired="true"/>
+              <Parm Name="LoyaltyEvent" Type="String" IsRequired="true"/>
+              <Parm Name="LoyaltyCurrency" Type="String" IsRequired="true"/>
+              <Parm Name="TxnDate" Type="Date" IsRequired="true"/>
+              <Parm Name="OwnerType" Type="String" IsRequired="false"/>
+              <Parm Name="OwnerId" Type="Long" IsRequired="false"/>
+              <Parm Name="RowKey" Type="Long" IsRequired="false"/>
+              <Parm Name="PromoCode" Type="String" IsRequired="false"/>
+              <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+              <Parm Name="Notes" Type="String" IsRequired="false" StringLength="500"/>
+            </Parm>
+            <Parm Name="AdditionalAttributes" Type="Struct" IsArray="true" IsRequired="false">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetLoyaltyCurrencyBalance" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetLoyaltyCurrencyBalance</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="CardIDs" Type="String" IsRequired="false" StringLength="255" IsArray="true"/>
+          <Parm Name="LoyaltyCurrencyNames" Type="String" IsRequired="false" IsArray="true" StringLength="150"/>
+          <Parm Name="LoyaltyEventNames" Type="String" IsRequired="false" IsArray="true" StringLength="150"/>          
+          <Parm Name="ActivityStartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="ActivityEndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="PointAwardStartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="PointAwardEndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="AwardedBy" Type="String" IsRequired="false" StringLength="50"/>
+          <Parm Name="Location" Type="String" IsRequired="false" StringLength="50"/>
+          <Parm Name="OwnerType" Type="String" IsRequired="false" StringLength="50"/>
+          <Parm Name="OwnerId" Type="Long" IsRequired="false"/>
+          <Parm Name="RowKeys" Type="Long" IsRequired="false" IsArray="true"/>
+          <Parm Name="EarnedPointsOnly" IsRequired="false" Type="Boolean"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CurrencyBalance" Type="Decimal" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetLoyaltyCurrencyTransactionCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetLoyaltyCurrencyTransactionCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="CardID" Type="String" IsRequired="false" StringLength="255"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="LoyaltyCurrencyNames" Type="String" IsRequired="false" IsArray="true" StringLength="150"/>
+          <Parm Name="LoyaltyEventNames" Type="String" IsRequired="false" IsArray="true" StringLength="150"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetLoyaltyCurrencyTransactions" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetLoyaltyCurrencyTransactions</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>
+          <Parm Name="RetrieveExpiredTransactions" Value="true"/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="CardID" Type="String" IsRequired="false" StringLength="255"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="LoyaltyCurrencyNames" Type="String" IsRequired="false" IsArray="true" StringLength="150"/>
+          <Parm Name="LoyaltyEventNames" Type="String" IsRequired="false" IsArray="true" StringLength="150"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="PointsHistory" IsRequired="false" Type="Struct" IsArray ="true">
+            <Parm Name="CurrencyAmount" Type="Decimal" IsRequired="true"/>
+            <Parm Name="PointTxnType" Type="String" IsRequired="true"/>
+            <Parm Name="LoyaltyEvent" Type="String" IsRequired="true"/>
+            <Parm Name="LoyaltyCurrency" Type="String" IsRequired="true"/>
+            <Parm Name="TxnDate" Type="Date" IsRequired="true"/>
+            <Parm Name="OwnerType" Type="String" IsRequired="false"/>
+            <Parm Name="OwnerId" Type="Long" IsRequired="false"/>
+            <Parm Name="RowKey" Type="Long" IsRequired="false"/>
+            <Parm Name="PromoCode" Type="String" IsRequired="false"/>
+            <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Notes" Type="String" IsRequired="false" StringLength="500"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Add Member Reward -->
+    <APIOperationDirective Name="AddMemberRewards" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.AddMemberRewards</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>          
+          <Parm Name="TestReward3" Value="MMSRewardTest"/>          
+          <Parm Name="CategoryName" Value="RuleName"/>
+          <Parm Name="AllRewards" Value="Reward Catalog Checkout"/>          
+        </FunctionProviderParms>
+        <Interceptor ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </Interceptor>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="CardID" Type="String" IsRequired="false" StringLength="255"/>
+          <Parm Name="FirstName" Type="String" StringLength="50" IsRequired="false"/>
+          <Parm Name="LastName" Type="String" StringLength="50" IsRequired="false"/>
+          <Parm Name="EmailAddress" Type="String" StringLength="100" IsRequired="false"/>
+          <Parm Name="AddressLineOne" Type="String" StringLength="100" IsRequired="false"/>
+          <Parm Name="AddressLineTwo" Type="String" StringLength="100" IsRequired="false"/>
+          <Parm Name="AddressLineThree" Type="String" StringLength="100" IsRequired="false"/>
+          <Parm Name="AddressLineFour" Type="String" StringLength="100" IsRequired="false"/>
+          <Parm Name="City" Type="String" StringLength="50" IsRequired="false"/>
+          <Parm Name="StateOrProvince" Type="String" StringLength="50" IsRequired="false"/>
+          <Parm Name="ZipOrPostalCode" Type="String" StringLength="25" IsRequired="false"/>
+          <Parm Name="County" Type="String" StringLength="50" IsRequired="false"/>
+          <Parm Name="Country" Type="String" StringLength="50" IsRequired="false"/>
+          <Parm Name="Channel" Type="String" StringLength="100" IsRequired="false"/>
+          <Parm Name="ChangedBy" Type="String" StringLength="50" IsRequired="false"/>
+          <Parm Name="RewardOrderInfo" Type="Struct" IsRequired="true" IsArray="true">
+            <Parm Name="RewardName" Type="String" StringLength="300" IsRequired="false"/>
+            <Parm Name="TypeCode" Type="String" StringLength="50" IsRequired="false"/>
+            <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+            <Parm Name="CertificateNumber" Type="String" StringLength="50" IsRequired="false"/>
+            <Parm Name="VariantPartNumber" Type="String" StringLength="100" IsRequired="false"/>
+          </Parm>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CurrencyBalance" Type="Decimal" IsRequired="true"/> 
+          <Parm Name="MemberRewardID" Type="Long" IsRequired="false"/> <!-- Returned if the order has only one reward or fulfillment type was not third party-->                 
+          <Parm Name="OrderNumber" Type="String" IsRequired="false"/> <!-- Returned if it is physical fulfillment  -->
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+
+    <APIOperationDirective Name="GetMemberRewardSummaryById" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetMemberRewardSummaryById</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberRewardId" Type="Long" IsRequired="true"/>          
+          <Parm Name="Language" Type="String" StringLength="20" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberRewardSummary" Type="Struct" IsRequired="true" IsArray="false">
+            <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+            <Parm Name="PointsConsumed" Type="Decimal" IsRequired="false"/>
+            <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+            <Parm Name="AvailableBalance" Type="Decimal" IsRequired="false"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+            <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RewardName" Type="String" IsRequired="false"/>
+            <Parm Name="CategoryName" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LongDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LegalText" Type="String" IsRequired="false"/>
+            <Parm Name="SmallImageFile" Type="String" IsRequired="false"/>
+            <Parm Name="LargeImageFile" Type="String" IsRequired="false"/>
+          </Parm>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetMemberRewardSummaryByCert" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetMemberRewardSummaryByCert</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CertNumber" Type="String" IsRequired="true" StringLength="50"/>
+          <Parm Name="Language" Type="String" StringLength="20" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberRewardSummary" Type="Struct" IsRequired="true" IsArray="false">
+            <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+            <Parm Name="PointsConsumed" Type="Decimal" IsRequired="false"/>
+            <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+            <Parm Name="AvailableBalance" Type="Decimal" IsRequired="false"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+            <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RewardName" Type="String" IsRequired="false"/>
+            <Parm Name="CategoryName" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LongDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LegalText" Type="String" IsRequired="false"/>
+            <Parm Name="SmallImageFile" Type="String" IsRequired="false"/>
+            <Parm Name="LargeImageFile" Type="String" IsRequired="false"/>
+          </Parm>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- This method returns a list of member rewards given an order number -->
+    <APIOperationDirective Name="GetMemberRewardsByOrderNumber" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetMemberRewardsByOrderNumber</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="OrderNumber" Type="String" IsRequired="true"/>
+          <Parm Name="IsFPOrder" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberRewardOrder" Type="Struct" IsArray="false">
+            <Parm Name="OrderNumber" Type="String" IsRequired="false"/>
+            <Parm Name="Source" Type="String" IsRequired="false"/>
+            <Parm Name="Channel" Type="String" IsRequired="false"/>
+            <Parm Name="ChangedBy" Type="String" IsRequired="false"/>
+            <Parm Name="FirstName" Type="String" IsRequired="false"/>
+            <Parm Name="LastName" Type="String" IsRequired="false"/>
+            <Parm Name="EmailAddress" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineOne" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineTwo" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineThree" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineFour" Type="String" IsRequired="false"/>
+            <Parm Name="City" Type="String" IsRequired="false"/>
+            <Parm Name="StateOrProvince" Type="String" IsRequired="false"/>
+            <Parm Name="ZipOrPostalCode" Type="String" IsRequired="false"/>
+            <Parm Name="County" Type="String" IsRequired="false"/>
+            <Parm Name="Country" Type="String" IsRequired="false"/>            
+            <Parm Name="MemberRewardInfo" Type="Struct" IsRequired="true" IsArray="true">
+              <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+              <Parm Name="RewardDefID" Type="Long" IsRequired="true"/>
+              <Parm Name="FPOrderNumber" Type="String" IsRequired="false"/>
+              <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+              <Parm Name="AvailableBalance" Type="Decimal" IsRequired="false"/>
+              <Parm Name="DateIssued" Type="Date" IsRequired="false"/>
+              <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+              <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+              <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+              <Parm Name="OrderStatus" Type="String" IsRequired="false"/>
+              <Parm Name="TrackingUrl" Type="String" IsRequired="false"/>
+              <Parm Name="TrackingNumber" Type="String" IsRequired="false"/>              
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+        
+    
+    <!-- Update Member Reward -->
+    <APIOperationDirective Name="IsMemberRewardRedeemed" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.IsMemberRewardRedeemed</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>          
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Redeemed" Type="Boolean" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Cancel Member Reward -->
+    <APIOperationDirective Name="CancelMemberReward" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.CancelMemberReward</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CurrencyBalance" Type="Decimal" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Cancel Member Reward Order -->
+    <APIOperationDirective Name="CancelMemberRewardOrder" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.CancelMemberRewardOrder</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="OrderNumber" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CurrencyBalance" Type="Decimal" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Return Member Reward Item -->
+    <APIOperationDirective Name="ReturnMemberRewardOrder" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.ReturnMemberRewardOrder</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="OrderNumber" Type="String" IsRequired="true"/>
+          <Parm Name="IsFPOrder" Type="Boolean" IsRequired="false"/>
+          <!--<Parm Name="PartNumber" Type="String" IsRequired="false"/>-->
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Get all the shipping addresses used by this member -->
+    <APIOperationDirective Name="GetAllRewardOrderShippingAddresses" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetAllRewardOrderShippingAddresses</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="ShippingAddress" Type="Struct" IsArray="true">
+            <Parm Name="AddressLineOne" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineTwo" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineThree" Type="String" IsRequired="false"/>
+            <Parm Name="AddressLineFour" Type="String" IsRequired="false"/>
+            <Parm Name="City" Type="String" IsRequired="false"/>
+            <Parm Name="StateOrProvince" Type="String" IsRequired="false"/>
+            <Parm Name="ZipOrPostalCode" Type="String" IsRequired="false"/>
+            <Parm Name="County" Type="String" IsRequired="false"/>
+            <Parm Name="Country" Type="String" IsRequired="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Category Related Methods -->
+    <APIOperationDirective Name="GetRewardCategories" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetRewardCategories</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CategoryId" Type="Long" IsRequired="false"/>
+          <Parm Name="VisibleInLN" Type="Boolean" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="RewardCategory" Type="Struct" IsRequired="true" IsArray="true">
+            <Parm Name="CategoryId" Type="Long" IsRequired="true"/>
+            <Parm Name="CategoryName" Type="String" IsRequired="true"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Get Reward Catalog Count -->
+    <APIOperationDirective Name="GetRewardCatalogCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetRewardCatalogCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="ActiveOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="Tier" Type="String" IsRequired="false" StringLength="50"/>
+          <Parm Name="CategoryId" Type="Long" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>          
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Get Reward Catalog -->
+    <APIOperationDirective Name="GetRewardCatalog" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetRewardCatalog</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="ActiveOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="Tier" Type="String" IsRequired="false" StringLength="50"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="CategoryId" Type="Long" IsRequired="false"/>
+          <Parm Name="ReturnRewardCategory" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+		  <Parm Name="CurrencyToEarnLow" Type="Decimal" IsRequired="false"/>
+		  <Parm Name="CurrencyToEarnHigh" Type="Decimal" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="RewardCatalogSummary" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+            <Parm Name="RewardName" Type="String" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="CategoryId" Type="Long" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="CatalogStartDate" Type="Date" IsRequired="false"/>
+            <Parm Name="CatalogEndDate" Type="Date" IsRequired="false"/>
+            <Parm Name="CurrencyToEarn" Type="Decimal" IsRequired="false"/>
+            <Parm Name="SmallImageFile" Type="String" IsRequired="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Get Reward Catalog Item-->
+    <APIOperationDirective Name="GetRewardCatalogItem" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Rewards.GetRewardCatalogItem</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+          <Parm Name="Language" Type="String" StringLength="20" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="RewardCatalogItem" Type="Struct" IsRequired="true" IsArray="false">
+            <Parm Name="RewardID" Type="Long" IsRequired="true"/>
+            <Parm Name="RewardName" Type="String" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LongDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LegalText" Type="String" IsRequired="false"/>
+            <Parm Name="CurrencyToEarn" Type="Decimal" IsRequired="false"/>
+            <Parm Name="SmallImageFile" Type="String" IsRequired="false"/>
+            <Parm Name="LargeImageFile" Type="String" IsRequired="false"/>
+            <Parm Name="CatalogStartDate" Type="Date" IsRequired="false"/>
+            <Parm Name="CatalogEndDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Active" Type="Boolean" IsRequired="false"/>
+            <Parm Name="LogoFileName" Type="String" IsRequired="false"/>
+            <Parm Name="Product" Type="Struct" IsRequired="false">
+              <Parm Name="ProductID" Type="Long" IsRequired="true"/>
+              <Parm Name="CategoryName" Type="String" IsRequired="true"/>
+              <Parm Name="ProductName" Type="String" IsRequired="true"/>
+              <Parm Name="BrandName" Type="String" IsRequired="false"/>
+              <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+              <Parm Name="LongDescription" Type="String" IsRequired="false"/>
+              <Parm Name="Quantity" Type="Integer" IsRequired="false"/>
+              <Parm Name="PartNumber" Type="String" IsRequired="false"/>
+              <Parm Name="ProductVariant" Type="Struct" IsArray="true" IsRequired="false">
+                <Parm Name="ProductVariantID" Type="Long" IsRequired="true"/>
+                <Parm Name="Description" Type="String" IsRequired="true"/>
+                <Parm Name="PartNumber" Type="String" IsRequired="false"/>
+                <Parm Name="Quantity" Type="Integer" IsRequired="false"/>
+                <Parm Name="VariantOrder" Type="Integer" IsRequired="false"/>
+              </Parm>
+            </Parm>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Customer Messages -->    
+    <APIOperationDirective Name="GetMessageDefinitionCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Messages.GetMessageDefinitionCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="ActiveOnly" Type="Boolean" IsRequired="false"/>          
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetMessageDefinitions" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Messages.GetMessageDefinitions</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>                    
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="Active" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MessageDefinition" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>            
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="Content" Type="String" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetMessageDefinition" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Messages.GetMessageDefinition</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MessageDefId" Type="Long" IsRequired="true"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>          
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>          
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MessageDefinition" Type="Struct" IsRequired="true" IsArray="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="Content" Type="String" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetMemberMessages" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Messages.GetMemberMessages</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>          
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberMessage" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="MessageDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Content" Type="String" IsRequired="false"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Coupon Related -->
+    <APIOperationDirective Name="GetCouponDefinitionCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.GetCouponDefinitionCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="ActiveOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetCouponDefinitions" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.GetCouponDefinitions</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false" StringLength="10"/>
+          <Parm Name="Active" Type="Boolean" IsRequired="false"/>          
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CouponDefinition" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="CategoryId" Type="Long" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="LogoFileName" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="UsesAllowed" Type="Long" IsRequired="true"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>            
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+        
+    <APIOperationDirective Name="GetCouponDefinition" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.GetCouponDefinition</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CouponDefId" Type="Long" IsRequired="true"/>
+          <Parm Name="Channel" IsRequired="false" Type="String"/>
+          <Parm Name="Language" IsRequired="false" Type="String"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CouponDefinition" Type="Struct" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="CategoryId" Type="Long" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="LogoFileName" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="UsesAllowed" Type="Long" IsRequired="true"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetMemberCoupons" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.GetMemberCoupons</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberCoupon" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CouponDefId" Type="Long" IsRequired="true"/>            
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="CertNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="TimesUsed" Type="Long" IsRequired="true"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="true"/>
+            <Parm Name="DateRedeemed" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Status" Type="String" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetMemberCouponById" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.GetMemberCouponById</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="Id" Type="Long" IsRequired="true"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberCoupon" Type="Struct" IsArray="false" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CouponDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="CertNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="TimesUsed" Type="Long" IsRequired="true"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="true"/>
+            <Parm Name="DateRedeemed" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Status" Type="String" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetMemberCouponByCertNmbr" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.GetMemberCouponByCertNmbr</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CertNmbr" Type="String" IsRequired="true" StringLength="50"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberCoupon" Type="Struct" IsArray="false" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CouponDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="CertNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="TimesUsed" Type="Long" IsRequired="true"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="true"/>
+            <Parm Name="DateRedeemed" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Status" Type="String" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="RedeemMemberCouponById" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.RedeemMemberCouponById</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberCouponId" Type="Long" IsRequired="true"/>
+          <Parm Name="Channel" IsRequired="false" Type="String"/>
+          <Parm Name="Language" IsRequired="false" Type="String"/>
+          <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+          <Parm Name="TimesUsed" Type="Integer" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="NumberOfUsesLeft" Type="Integer" IsRequired="true"/>
+          <Parm Name="CouponDefinition" Type="Struct" IsRequired="false">
+            <Parm Name="Id" IsRequired="true" Type="Long"/>
+            <Parm Name="Name" IsRequired="true" Type="String"/>
+            <Parm Name="CategoryId" IsRequired="false" Type="Long"/>
+            <Parm Name="TypeCode" IsRequired="false" Type="String"/>
+            <Parm Name="LogoFileName" IsRequired="false" Type="String"/>
+            <Parm Name="ShortDescription" IsRequired="false" Type="String"/>
+            <Parm Name="Description" IsRequired="false" Type="String"/>
+            <Parm Name="StartDate" IsRequired="true" Type="Date"/>
+            <Parm Name="ExpiryDate" IsRequired="false" Type="Date"/>
+            <Parm Name="UsesAllowed" IsRequired="false" Type="Long"/>
+            <Parm Name="DisplayOrder" IsRequired="false" Type="Integer"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="RedeemMemberCouponByCertNmbr" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.RedeemMemberCouponByCertNmbr</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CertNmbr" Type="String" IsRequired="true"/>
+          <Parm Name="Channel" IsRequired="false" Type="String"/>
+          <Parm Name="Language" IsRequired="false" Type="String"/>
+          <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+          <Parm Name="TimesUsed" Type="Integer" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="NumberOfUsesLeft" Type="Integer" IsRequired="true"/>
+          <Parm Name="CouponDefinition" Type="Struct" IsRequired="false">
+            <Parm Name="Id" IsRequired="true" Type="Long"/>
+            <Parm Name="Name" IsRequired="true" Type="String"/>
+            <Parm Name="CategoryId" IsRequired="false" Type="Long"/>
+            <Parm Name="TypeCode" IsRequired="false" Type="String"/>
+            <Parm Name="LogoFileName" IsRequired="false" Type="String"/>
+            <Parm Name="ShortDescription" IsRequired="false" Type="String"/>
+            <Parm Name="Description" IsRequired="false" Type="String"/>
+            <Parm Name="StartDate" IsRequired="true" Type="Date"/>
+            <Parm Name="ExpiryDate" IsRequired="false" Type="Date"/>
+            <Parm Name="UsesAllowed" IsRequired="false" Type="Long"/>
+            <Parm Name="DisplayOrder" IsRequired="false" Type="Integer"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="UnredeemMemberCouponById" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.UnredeemMemberCouponById</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberCouponId" Type="Long" IsRequired="true"/>
+        </OperationInput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="UnredeemMemberCouponByCertNmbr" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Coupons.UnredeemMemberCouponByCertNmbr</ProviderType>
+        <ProviderAssemlyPath/>        
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="CertNmbr" Type="String" IsRequired="true"/>          
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Bonuses Related -->
+    <APIOperationDirective Name="GetBonusDefinitionCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Bonuses.GetBonusDefinitionCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="ActiveOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetBonusDefinitions" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Bonuses.GetBonusDefinitions</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false" StringLength="10"/>
+          <Parm Name="Active" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="BonusDefinition" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="CategoryId" Type="Long" IsRequired="true"/>
+            <Parm Name="LogoImageHero" Type="String" IsRequired="false"/>
+            <Parm Name="LogoImageWeb" Type="String" IsRequired="false"/>
+            <Parm Name="LogoImageMobile" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="Headline" Type="String" IsRequired="false"/>
+            <Parm Name="FinishedHtml" Type="String" IsRequired="false"/>
+            <Parm Name="QuotaMetHtml" Type="String" IsRequired="false"/>
+            <Parm Name="HtmlContent" Type="String" IsRequired="false"/>
+            <Parm Name="CurrencyAmount" Type="Decimal" IsRequired="false"/>
+            <Parm Name="SurveyText" Type="String" IsRequired="false"/>
+            <Parm Name="SurveyId" Type="Long" IsRequired="false" />
+            <Parm Name="SurveyName" Type="String" IsRequired="false"/>
+            <Parm Name="ReferralLabel" Type="String" IsRequired="false"/>
+            <Parm Name="MovieUrl" Type="String" IsRequired="false"/>
+            <Parm Name="ActionCompletePage" Type="String" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetBonusDefinition" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Bonuses.GetBonusDefinition</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="BonusDefId" Type="Long" IsRequired="true"/>
+          <Parm Name="Channel" IsRequired="false" Type="String"/>
+          <Parm Name="Language" IsRequired="false" Type="String"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="BonusDefinition" Type="Struct" IsRequired="false" IsArray="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="CategoryId" Type="Long" IsRequired="true"/>
+            <Parm Name="LogoImageHero" Type="String" IsRequired="false"/>
+            <Parm Name="LogoImageWeb" Type="String" IsRequired="false"/>
+            <Parm Name="LogoImageMobile" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="Headline" Type="String" IsRequired="false"/>
+            <Parm Name="FinishedHtml" Type="String" IsRequired="false"/>
+            <Parm Name="QuotaMetHtml" Type="String" IsRequired="false"/>
+            <Parm Name="HtmlContent" Type="String" IsRequired="false"/>
+            <Parm Name="CurrencyAmount" Type="Decimal" IsRequired="false"/>
+            <Parm Name="SurveyText" Type="String" IsRequired="false"/>
+            <Parm Name="SurveyId" Type="Long" IsRequired="false" />
+            <Parm Name="SurveyName" Type="String" IsRequired="false"/>
+            <Parm Name="ReferralLabel" Type="String" IsRequired="false"/>
+            <Parm Name="MovieUrl" Type="String" IsRequired="false"/>
+            <Parm Name="ActionCompletePage" Type="String" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetMemberBonuses" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Bonuses.GetMemberBonuses</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberBonus" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="BonusDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="HtmlContent" Type="String" IsRequired="false"/>
+            <Parm Name="TimesClicked" Type="Long" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+        
+    <!-- This API returnes the entire wallet with one request -->
+    <APIOperationDirective Name="GetMemberWallet" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.GetMemberWallet</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="ReturnRewards" Type="Boolean" IsRequired="false"/>          
+          <Parm Name="ReturnCoupons" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnPromotions" Type="Boolean" IsRequired="false"/>
+          <Parm Name="CategoryId" Type="Long" IsRequired="false"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+          <Parm Name="UnRedeemedOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="UnexpiredOnly" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnContentAttributes" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnPromotionDefinition" Type="Boolean" IsRequired="false"/>
+          <Parm Name="Language" Type="String" IsRequired="false"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberRewardSummary" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="MemberRewardID" Type="Long" IsRequired="true"/>
+            <Parm Name="PointsConsumed" Type="Decimal" IsRequired="false"/>
+            <Parm Name="CertificateNumber" Type="String" IsRequired="false"/>
+            <Parm Name="AvailableBalance" Type="Decimal" IsRequired="false"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpirationDate" Type="Date" IsRequired="false"/>
+            <Parm Name="FulfillmentDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RedemptionDate" Type="Date" IsRequired="false"/>
+            <Parm Name="RewardName" Type="String" IsRequired="false"/>
+            <Parm Name="CategoryName" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LongDescription" Type="String" IsRequired="false"/>
+            <Parm Name="LegalText" Type="String" IsRequired="false"/>
+            <Parm Name="SmallImageFile" Type="String" IsRequired="false"/>
+            <Parm Name="LargeImageFile" Type="String" IsRequired="false"/>
+          </Parm>
+          <!--<Parm Name="MemberBonus" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="BonusDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="HtmlContent" Type="String" IsRequired="false"/>
+            <Parm Name="TimesClicked" Type="Long" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+          </Parm>-->
+          <Parm Name="MemberCoupon" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CouponDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="CertNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="TimesUsed" Type="Long" IsRequired="true"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="true"/>
+            <Parm Name="DateRedeemed" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Status" Type="String" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+          <Parm Name="MemberPromotion" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CertificateNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="PromotionDefinition" Type="Struct" IsRequired="false" IsArray="false">
+              <Parm Name="Id" Type="Long" IsRequired="true"/>
+              <Parm Name="Code" Type="String" IsRequired="true"/>
+              <Parm Name="Name" Type="String" IsRequired="true"/>
+              <Parm Name="Targeted" Type="Boolean" IsRequired="true"/>
+              <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+              <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+              <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+              <Parm Name="Description" Type="String" IsRequired="false"/>
+              <Parm Name="Content" Type="String" IsRequired="false"/>
+              <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+                <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+                <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+              </Parm>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Request Credit Search -->
+    <APIOperationDirective Name="RequestCreditTxnSearch" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.RequestCreditTxnSearch</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>
+          <Parm Name="ProcessIdExclusionList" Value="1,7"/>
+          <Parm Name="StoreTxnSearchFields" Value="TxnNumber,TxnDate,TxnRegisterNumber,TxnStoreNumber,TxnAmount"/>
+          <Parm Name="OnlineTxnSearchFields" Value="TxnNumber,TxnDate,TxnRegisterNumber,TxnStoreNumber,TxnAmount"/>
+          <Parm Name="AutoApplyCreditIfSingleResult" Value="true"/>
+          <Parm Name="HelperAssemblyName" Value=""/>
+          <Parm Name="HelperTypeName" Value=""/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="TxnType" Type="String" IsRequired="true" StringLength="15"/> 
+          <Parm Name="RequestCreditTxnSearchParameters" Type="Struct" IsRequired="true" IsArray="true">
+            <Parm Name="ParmName" Type="String" IsRequired="true"/>
+            <Parm Name="ParmValue" Type="String" IsRequired="true"/>
+          </Parm>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="false"/>
+          <Parm Name="CardID" Type="String" IsRequired="false"/>
+          <Parm Name="Note" Type="String" StringLength="512" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="TxnHistory" Type="Struct" IsArray="true" IsRequired="true">
+            <Parm Name="TxnHeaderId" Type="String" IsRequired="true"/>
+            <Parm Name="TxnNumber" Type="String" IsRequired="true"/>
+            <Parm Name="TxnDate" Type="Date" IsRequired="true"/>
+            <Parm Name="TxnRegisterNumber" Type="String" IsRequired="true"/>
+            <Parm Name="TxnAmount" Type="Decimal" IsRequired="true"/>
+            <Parm Name="TxnStoreNumber" Type="String" IsRequired="false"/>                        
+          </Parm>
+          <Parm Name="PointsEarned" Type="Decimal" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+      <OnSuccess Asynchronous="true">
+        <OnSuccessEvent EventName="EvaluateTier"/>
+      </OnSuccess>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="ApplyTxnCredit" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.ApplyTxnCredit</ProviderType>
+        <ProviderAssemlyPath/>
+        <FunctionProviderParms>
+          <Parm Name="HelperAssemblyName" Value=""/>
+          <Parm Name="HelperTypeName" Value=""/>
+        </FunctionProviderParms>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="CardID" Type="String" IsRequired="false"/>
+          <Parm Name="TxnHeaderId" Type="String" IsRequired="true"/>
+          <Parm Name="Note" Type="String" StringLength="512" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>          
+          <Parm Name="PointsEarned" Type="Decimal" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+      <OnSuccess Asynchronous="true">
+        <OnSuccessInterceptor ReuseForFile="true">
+          <InterceptorAssemlyName>My Assembly Name</InterceptorAssemlyName>
+          <InterceptorTypeName>My Type Name</InterceptorTypeName>
+        </OnSuccessInterceptor>
+      </OnSuccess>
+    </APIOperationDirective>
+    
+    <!-- Member Promotions -->
+    <APIOperationDirective Name="GetPromotionDefinitionsCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Promotions.GetPromotionDefinitionsCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="Active" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetPromotionDefinitions" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Promotions.GetPromotionDefinitions</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="Active" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ContentSearchAttributes" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="AttributeName" Type="String" IsRequired="true" StringLength="50"/>
+            <Parm Name="AttributeValue" Type="String" IsRequired="true" StringLength="256"/>
+          </Parm>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="PromotionDefinition" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Code" Type="String" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="Targeted" Type="Boolean" IsRequired="true"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+            <Parm Name="EndDate" Type="Date" IsRequired="false"/>            
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="Content" Type="String" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetPromotionDefinition" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Promotions.GetPromotionDefinition</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="PromotionDefId" Type="Long" IsRequired="false"/>
+          <Parm Name="PromotionCode" Type="String" IsRequired="false"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="PromotionDefinition" Type="Struct" IsRequired="false" IsArray="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="Code" Type="String" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="Targeted" Type="Boolean" IsRequired="true"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+            <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="Content" Type="String" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="AddMemberPromotion" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Promotions.AddMemberPromotion</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="PromotionCode" Type="String" IsRequired="true"/>
+          <Parm Name="CertificateNmbr" Type="String" IsRequired="false" StringLength="50"/>
+          <Parm Name="ReturnDefinition" Type="Boolean" IsRequired="false"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberPromotion" Type="Struct" IsArray="false" IsRequired="true">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CertificateNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="PromotionDefinition" Type="Struct" IsRequired="false" IsArray="false">
+              <Parm Name="Id" Type="Long" IsRequired="true"/>
+              <Parm Name="Code" Type="String" IsRequired="true"/>
+              <Parm Name="Name" Type="String" IsRequired="true"/>
+              <Parm Name="Targeted" Type="Boolean" IsRequired="true"/>
+              <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+              <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+              <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+              <Parm Name="Description" Type="String" IsRequired="false"/>
+              <Parm Name="Content" Type="String" IsRequired="false"/>
+              <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+                <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+                <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+              </Parm>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <APIOperationDirective Name="GetMemberPromotionsCount" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Promotions.GetMemberPromotionsCount</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="Count" Type="Integer" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <APIOperationDirective Name="GetMemberPromotions" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Promotions.GetMemberPromotions</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>          
+          <Parm Name="StartIndex" Type="Integer" IsRequired="false"/>
+          <Parm Name="BatchSize" Type="Integer" IsRequired="false"/>
+          <Parm Name="ReturnDefinition" Type="Boolean" IsRequired="false"/>
+          <Parm Name="Language" Type="String" IsRequired="false" StringLength="20"/>
+          <Parm Name="Channel" Type="String" IsRequired="false"/>
+          <Parm Name="ReturnAttributes" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="MemberPromotion" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CertificateNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="PromotionDefinition" Type="Struct" IsRequired="false" IsArray="false">
+              <Parm Name="Id" Type="Long" IsRequired="true"/>
+              <Parm Name="Code" Type="String" IsRequired="true"/>
+              <Parm Name="Name" Type="String" IsRequired="true"/>
+              <Parm Name="Targeted" Type="Boolean" IsRequired="true"/>
+              <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+              <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+              <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+              <Parm Name="Description" Type="String" IsRequired="false"/>
+              <Parm Name="Content" Type="String" IsRequired="false"/>
+              <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+                <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+                <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+              </Parm>
+            </Parm>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- Member Engagement Related -->
+    <APIOperationDirective Name="TriggerUserEvent" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Members.TriggerUserEvent</ProviderType>
+        <ProviderAssemlyPath/>                
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="EventName" Type="String" IsRequired="true"/>
+          <Parm Name="Channel" IsRequired="true" Type="String"/>
+          <Parm Name="Language" IsRequired="false" Type="String"/>
+          <Parm Name="ClientContext" Type="Struct" IsRequired="false" IsArray="true">
+            <Parm Name="ParmName" Type="String" IsRequired="true"/>
+            <Parm Name="ParmValue" Type="String" IsRequired="true"/>
+          </Parm>
+          <Parm Name="ReturnCoupons" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnAllCoupons" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnBonuses" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnAllBonuses" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnPromotions" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnAllPromotions" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnMessages" Type="Boolean" IsRequired="false"/>
+          <Parm Name="ReturnAllMessages" Type="Boolean" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CurrencyBalance" Type="Decimal" IsRequired="true"/>
+          <Parm Name="MemberStatus" Type="String" IsRequired="true"/>          
+          <Parm Name="CurrentTierName" Type="String" IsRequired="false"/>
+          <Parm Name="CurrentTierExpirationDate" Type="Date" IsRequired="false"/>
+          <Parm Name="CurrencyToNextTier" Type="Decimal" IsRequired="false"/>
+          <Parm Name="LastActivityDate" Type="Date" IsRequired="false"/>
+          <Parm Name="MemberCoupon" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CouponDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="TypeCode" Type="String" IsRequired="false"/>
+            <Parm Name="CertNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="ShortDescription" Type="String" IsRequired="false"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="TimesUsed" Type="Long" IsRequired="true"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="true"/>
+            <Parm Name="DateRedeemed" Type="Date" IsRequired="false"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+            <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+              <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+              <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+            </Parm>
+          </Parm>
+          <Parm Name="MemberBonus" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="BonusDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Name" Type="String" IsRequired="true"/>
+            <Parm Name="Description" Type="String" IsRequired="false"/>
+            <Parm Name="HtmlContent" Type="String" IsRequired="false"/>
+            <Parm Name="TimesClicked" Type="Long" IsRequired="true"/>            
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+          </Parm>
+          <Parm Name="MemberPromotion" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="CertificateNmbr" Type="String" IsRequired="false"/>
+            <Parm Name="PromotionDefinition" Type="Struct" IsRequired="false" IsArray="false">
+              <Parm Name="Id" Type="Long" IsRequired="true"/>
+              <Parm Name="Code" Type="String" IsRequired="true"/>
+              <Parm Name="Name" Type="String" IsRequired="true"/>
+              <Parm Name="Targeted" Type="Boolean" IsRequired="true"/>
+              <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+              <Parm Name="StartDate" Type="Date" IsRequired="true"/>
+              <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+              <Parm Name="Description" Type="String" IsRequired="false"/>
+              <Parm Name="Content" Type="String" IsRequired="false"/>
+              <Parm Name="ContentAttributes" IsArray="true" IsRequired="false" Type="Struct">
+                <Parm Name="AttributeName" Type="String" IsRequired="true"/>
+                <Parm Name="AttributeValue" Type="String" IsRequired="true"/>
+              </Parm>
+            </Parm>
+          </Parm>
+          <Parm Name="MemberMessage" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="Id" Type="Long" IsRequired="true"/>
+            <Parm Name="MessageDefId" Type="Long" IsRequired="true"/>
+            <Parm Name="Content" Type="String" IsRequired="false"/>
+            <Parm Name="DateIssued" Type="Date" IsRequired="true"/>
+            <Parm Name="ExpiryDate" Type="Date" IsRequired="false"/>
+            <Parm Name="DisplayOrder" Type="Integer" IsRequired="false"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+            
+    <!-- SendTriggeredEmail -->
+    <APIOperationDirective Name="SendTriggeredEmail" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.Emails.SendTriggeredEmail</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="false"/>
+          <Parm Name="EmailName" Type="String" StringLength="255" IsRequired="true"/>
+          <Parm Name="RecipientEmail" Type="String" IsRequired="false"/>
+          <Parm Name="Asynchronous" Type="Boolean" IsRequired="false"/>
+          <Parm Name="AdditionalFields" Type="Struct" IsArray="true" IsRequired="false">
+            <Parm Name="FieldName" Type="String" IsRequired="true"/>
+            <Parm Name="FieldValue" Type="String" IsRequired="true"/>
+          </Parm>
+        </OperationInput>        
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Begin - Customer Service Related Methods -->
+    <APIOperationDirective Name="CreateCSNote" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.CustomerService.CreateCSNote</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="Note" Type="String" StringLength="512" IsRequired="true"/>
+          <Parm Name="CreatedBy" Type="Long" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CSNoteID" Type="Long" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- Get all CSNotes for a member -->
+    <APIOperationDirective Name="GetCSNotes" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.CustomerService.GetCSNotes</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationInput>
+          <Parm Name="MemberIdentity" Type="String" IsRequired="true"/>
+          <Parm Name="StartDate" Type="Date" IsRequired="false"/>
+          <Parm Name="EndDate" Type="Date" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="CSNote" Type="Struct" IsArray="true">
+            <Parm Name="Note" Type="String"/>
+            <Parm Name="CreatedBy" Type="Long"/>
+            <Parm Name="CreateDate" Type="Date"/>
+          </Parm>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End - Customer Service Related Methods -->
+
+    <!-- General Information -->
+    <APIOperationDirective Name="GetServiceInfo" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>Brierley.LoyaltyWare.LWIntegrationSvc.OperationProviders.GetServiceInfo</ProviderType>
+        <ProviderAssemlyPath/>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata>
+        <OperationOutput>
+          <Parm Name="Organization" Type="String"/>
+          <Parm Name="Environment" Type="String"/>
+          <Parm Name="LoyaltyWareAssemblyVersion" Type="String"/>
+          <Parm Name="LoyaltyWareSchemaVersion" Type="String"/>
+          <Parm Name="CDISAssemblyVersion" Type="String"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    <!-- AERegister Member -->
+    <APIOperationDirective Name="AERegisterMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AERegisterMember</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="FirstName" Type="String" IsRequired="false"/>
+          <Parm Name="LastName" Type="String" IsRequired="false"/>
+          <Parm Name="Address1" Type="String" IsRequired="false"/>
+          <Parm Name="Address2" Type="String" IsRequired="false"/>
+          <Parm Name="City" Type="String" IsRequired="false"/>
+          <Parm Name="State" Type="String" IsRequired="false"/>
+          <Parm Name="PostalCode" Type="String" IsRequired="false"/>
+          <Parm Name="CountryCode" Type="String" IsRequired="false"/>
+          <Parm Name="BirthDate" Type="String" IsRequired="false"/>
+          <Parm Name="EmailAddress" Type="String" IsRequired="false"/>
+          <Parm Name="MobilePhone" Type="String" IsRequired="false"/>
+          <Parm Name="SMSOptIn" Type="Boolean" IsRequired="false"/>         
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="BaseBrand" Type="String" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+
+    <!-- AEAutoRegister for a member -->
+    <APIOperationDirective Name="AEAutoRegister" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEAutoRegister</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="FirstName" Type="String" IsRequired="false"/>
+          <Parm Name="LastName" Type="String" IsRequired="false"/>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="EmailAddress" Type="String" IsRequired="false"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="ResponseMessage" Type="String" IsRequired="true"/>
+          <Parm Name="ResponseCode" Type="Integer" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End -AEAutoRegister Method -->
+    <!-- AEValidate Member -->
+    <APIOperationDirective Name="AEValidateMember" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEValidateMember</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+	  <Parm Name="Loyaltynumber" Type="String" IsRequired="false"/>
+          <Parm Name="FirstName" Type="String" IsRequired="true"/>
+          <Parm Name="LastName" Type="String" IsRequired="true"/>
+          <Parm Name="Address1" Type="String" IsRequired="true"/>
+          <Parm Name="PostalCode" Type="String" IsRequired="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="false"/>
+          <Parm Name="GWversion" Type="String" IsRequired="false"/>
+          <Parm Name="IPcode" Type="String" IsRequired="false"/>
+          <Parm Name="TotalPoints" Type="String" IsRequired="false"/>
+          <Parm Name="Msg" Type="String" IsRequired="true"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    
+    
+    <!-- Start -AEAddEngagementActivity Method -->
+    <APIOperationDirective Name="AEAddEngagementActivity" Authorized="false">
+      <FunctionProvider>
+        <ProviderType>AmericanEagle.SDK.OperationProviders.AEAddEngagementActivity</ProviderType>
+        <ProviderAssemlyPath>AmericanEagle.SDK.dll</ProviderAssemlyPath>
+      </FunctionProvider>
+      <OperationResponse>
+      </OperationResponse>
+      <OperationMetadata StandardAPI="false">
+        <OperationInput>
+          <Parm Name="LoyaltyNumber" Type="String" IsRequired="true"/>
+          <Parm Name="EngagementType" Type="String" IsRequired="true"/>
+          <Parm Name="AdditionalFields" Type="String" IsRequired="false" IsArray="true"/>
+        </OperationInput>
+        <OperationOutput>
+          <Parm Name="TotalPoints" Type="String" IsRequired="false"/>
+        </OperationOutput>
+      </OperationMetadata>
+    </APIOperationDirective>
+    <!-- End AEAddEngagementActivity Method -->
+
+  </OperationProcessingDirectives>
+</IntegrationOperationDirectives>

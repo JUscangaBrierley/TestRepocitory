@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Daily File Points Send  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="AEPointsJobs.memberpointsdelta_connected ">
+      <InputParameters>
+        <Parm Name="p_Dummy" Type="String" Value="dummy" Required="false"/>
+        <Parm Name="p_ProcessDate" Type="Date" Value="{$arg=ProcessDate}" Required="true"/>
+		<!--<Parm Name="B_Name" Type="String" Value="DLY" Required="true"/> -->
+        <Parm Name="B_Name" Type="String" Value="{$arg=BatchName}" Required="true"/> 
+		<Parm Name="p_includetxns" Type="String" Value="{$arg=IncludeTxns}" Required="true"/> 		
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PreProcessor>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="D\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="MemberPointsRecords" RecordName="MemberPointsRecord">
+      <QueryString>
+select recordtype, customerkey, loyaltyidnumber, ipcode, totalpoints, pointstonextreward, availablepoints, pendingpoints, 
+       availablebracredits, pendingbracredits, totalbracredits, availablejeancredits, pendingjeancredits, totaljeancredits, 
+       netspendcurrentyear, netspendpreviousyear, netspendtocurrenttier, netspendtonexttier, netspendlifetime, pointcreditexpdate, 
+       memberrewardid, pointtxntype, pointeventid, basepoints, bonuspoints, bracredits, jeancredits, txndate, 
+       txnnumber, ordernumber, storenumber, registernumber
+ from AE_MEMBERPOINTSDELTA_CONNECTED ORDER BY LoyaltyIdnumber, RecordType
+      </QueryString>
+      <Fields>
+		<Field Name="RecordType" Type="String"  />
+		<Field Name="CustomerKey" Type="String"  />
+		<Field Name="LoyaltyIDNumber" Type="String"  />
+		<Field Name="IpCode" Type="String"  />
+		<Field Name="TotalPoints" Type="String"  />
+		<Field Name="PointstoNextReward" Type="String"  />
+		<Field Name="availablepoints" Type="String"  />
+		<Field Name="pendingpoints" Type="String"  />
+		<Field Name="availablebracredits" Type="String"  />
+		<Field Name="pendingbracredits" Type="String"  />
+		<Field Name="totalbracredits" Type="String"  />
+		<Field Name="availablejeancredits" Type="String"  />
+		<Field Name="pendingjeancredits" Type="String"  />
+		<Field Name="totaljeancredits" Type="String"  />
+		<Field Name="netspendcurrentyear" Type="String"  />
+		<Field Name="netspendpreviousyear" Type="String"  />
+		<Field Name="netspendtocurrenttier" Type="String"  />
+		<Field Name="netspendtonexttier" Type="String"  />
+		<Field Name="netspendlifetime" Type="String"  />
+		<Field Name="pointcreditexpdate" Type="String"  />
+		<Field Name="memberrewardid" Type="String"  />
+		<Field Name="pointtxntype" Type="String"  />
+		<Field Name="pointeventid" Type="String"  />
+		<Field Name="BasePoints" Type="String"  />
+		<Field Name="BonusPoints" Type="String"  />
+		<Field Name="BraCredits" Type="String"  />
+		<Field Name="JeanCredits" Type="String"  />
+		<Field Name="TXNDate" Type="String"  />
+		<Field Name="TXNNumber" Type="String"  />
+		<Field Name="OrderNumber" Type="String"  />
+		<Field Name="StoreNumber" Type="String" />
+		<Field Name="RegisterNumber" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="MemberPointsRecords" RecordName="MemberPointsRecord" FileName="AE_Points_{$date(format=MMddyyyyhhmmss)}.txt" DataInAttributes="false" Delimiter="|" OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles">
+      <FieldMap>
+		<Field Name="RecordType" Length="1" />
+		<Field Name="CustomerKey" Length="13" />
+		<Field Name="LoyaltyIDNumber" Length="14"  />
+		<Field Name="IpCode" Length="10"  />
+		<Field Name="TotalPoints" Length="10"  />
+		<Field Name="PointstoNextReward" Length="10"  />
+		<Field Name="availablepoints" Length="10"  />
+		<Field Name="pendingpoints" Length="10"  />
+		<Field Name="availablebracredits" Length="10"  />
+		<Field Name="pendingbracredits" Length="10"  />
+		<Field Name="totalbracredits" Length="10"  />
+		<Field Name="availablejeancredits" Length="10"  />
+		<Field Name="pendingjeancredits" Length="10"  />
+		<Field Name="totaljeancredits" Length="10"  />
+		<Field Name="netspendcurrentyear" Length="10"  />
+		<Field Name="netspendpreviousyear" Length="10"  />
+		<Field Name="netspendtocurrenttier" Length="10"  />
+		<Field Name="netspendtonexttier" Length="10"  />
+		<Field Name="netspendlifetime" Length="10"  />
+		<Field Name="pointcreditexpdate" Length="8"  />
+		<Field Name="memberrewardid" Length="14"  />
+		<Field Name="pointtxntype" Length="10"  />
+		<Field Name="pointeventid" Length="15"  />
+		<Field Name="BasePoints" Length="10"  />
+		<Field Name="BonusPoints" Length="10"  />
+		<Field Name="BraCredits" Length="10"  />
+		<Field Name="JeanCredits" Length="10"  />
+		<Field Name="TXNDate" Length="8"  />
+		<Field Name="TXNNumber" Length="6"  />
+		<Field Name="OrderNumber" Length="15"  />
+		<Field Name="StoreNumber" Length="5" />
+		<Field Name="RegisterNumber" Length="3" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+<!--
+  <PostProcessor>
+    <StoredProcTask Name="aejobs.UpdateLastAEMemberPointsSent">
+<InputParameters>
+	     <Parm Name="p_Dummy" Type="String" Value="dummy" Required="true"/>
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PostProcessor>
+ -->
+</DAPDirectives>

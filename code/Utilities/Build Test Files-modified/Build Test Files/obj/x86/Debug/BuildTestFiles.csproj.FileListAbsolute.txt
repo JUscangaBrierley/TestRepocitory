@@ -1,0 +1,49 @@
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\bin\Debug\BuildTestFiles.exe.config
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\bin\Debug\BuildTestFiles.exe
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\bin\Debug\BuildTestFiles.pdb
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\obj\x86\Debug\BuildTestFiles.csprojResolveAssemblyReference.cache
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.ResolveComReference.cache
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\obj\x86\Debug\BuildTestFiles.fMain.resources
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\obj\x86\Debug\BuildTestFiles.Properties.Resources.resources
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.GenerateResource.Cache
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\obj\x86\Debug\BuildTestFiles.exe
+C:\devroot\AmericanEagle\cline\Utilities\Build Test Files\obj\x86\Debug\BuildTestFiles.pdb
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\bin\Debug\BuildTestFiles.exe.config
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.ResolveComReference.cache
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\obj\x86\Debug\BuildTestFiles.exe
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\obj\x86\Debug\BuildTestFiles.pdb
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\bin\Debug\BuildTestFiles.exe
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\bin\Debug\BuildTestFiles.pdb
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\obj\x86\Debug\BuildTestFiles.fMain.resources
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\obj\x86\Debug\BuildTestFiles.Properties.Resources.resources
+C:\devroot\americaneagle\cline\Utilities\Build Test Files-new\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.GenerateResource.Cache
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.exe.config
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.ResolveComReference.cache
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.exe
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.pdb
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.exe
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.pdb
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csprojResolveAssemblyReference.cache
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.fMain.resources
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.Properties.Resources.resources
+C:\devroot\americaneagle\Trunk\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.GenerateResource.Cache
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.exe.config
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.ResolveComReference.cache
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.exe
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.pdb
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.exe
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.pdb
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csprojResolveAssemblyReference.cache
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.fMain.resources
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.Properties.Resources.resources
+D:\devroot\americaneagle\branches\NationalRollout\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.GenerateResource.Cache
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.exe.config
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.exe
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\bin\Debug\BuildTestFiles.pdb
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.ResolveComReference.cache
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.fMain.resources
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.Properties.Resources.resources
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.GenerateResource.cache
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.csproj.CoreCompileInputs.cache
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.exe
+D:\devroot\american\branches\bline\Utilities\Build Test Files-modified\Build Test Files\obj\x86\Debug\BuildTestFiles.pdb

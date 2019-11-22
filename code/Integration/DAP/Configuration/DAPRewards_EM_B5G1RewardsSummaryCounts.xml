@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO B5G1 Rewards EM Summary Counts DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Dummy\Stage1">
+    <SimpleDatabaseInput CollectionName="VendorEmailRewards" RecordName="VendorEmailReward">
+      <QueryString>
+Select 0 as rownumber
+        , CAST('LOYALTYIDNUMBER' as NVARCHAR2(100)) as  LOYALTYIDNUMBER
+        , CAST('JEAN' as NVARCHAR2(100)) as JEAN
+		,CAST('BRA' as NVARCHAR2(100)) as BRA
+		,CAST(' GRANDTOTAL' as NVARCHAR2(100)) as GRANDTOTAL
+from dual
+union
+        
+
+
+ SELECT 1 as rownumber, cast(loyaltyidnumber as nvarchar2(100)) 
+       , CASE 
+           WHEN SUM(Jean)  = 0 THEN 
+             cast ('' as nvarchar2(100))
+           ELSE cast(SUM(JEAN) as nvarchar2(80))
+         END                             AS Jean
+       , CASE 
+           WHEN SUM(Bra) = 0 THEN 
+             cast ('' as nvarchar2(100))
+           ELSE
+             cast(SUM(Bra) as nvarchar2(80))
+         END                             AS Bra
+       ,cast( SUM(GrandTotal) as nvarchar2(80))                AS "Grnd Total"
+FROM (       
+SELECT   loyaltyidnumber
+       , CASE 
+           WHEN NAME = 'B5G1 Jean Reward' THEN 
+             1
+           ELSE
+             0
+           END                             Jean
+       , CASE
+           WHEN NAME = 'B5G1 Bra Reward' THEN 
+             1
+           ELSE
+             0
+           END                             Bra
+       , 
+       1                                   GrandTotal 
+FROM (
+SELECT  vc.loyaltyidnumber loyaltyidnumber
+      , rd.name            NAME
+FROM   bp_ae.lw_rewardsdef    rd
+     , bp_ae.lw_memberrewards mr
+     , bp_ae.lw_virtualcard   vc
+     , bp_ae.ats_memberdetails md
+WHERE mr.dateissued BETWEEN TRUNC(SYSDATE) - 1 AND SYSDATE AND 
+      rd.id = mr.rewarddefid AND      
+      rd.name IN ('B5G1 Jean Reward','B5G1 Bra Reward') AND 
+      md.a_pendingemailverification = 0 AND 
+      vc.ipcode  = mr.memberid AND 
+      vc.isprimary = 1 AND 
+      md.a_ipcode = mr.memberid
+))
+GROUP BY LOYALTYIDNUMBER
+      </QueryString>
+      <Fields>
+		
+		<Field Name="LOYALTYIDNUMBER" Type="String" />
+		<Field Name="JEAN" Type="String" />
+		<Field Name="BRA" Type="String" />
+		<Field Name="GRANDTOTAL" Type="String" />
+		
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="VendorEmailRewards" RecordName="VendorEmailReward" FileName="AEORW_EM_B5G1Reward_SummaryCounts_{$date(format=yyyyMMddhhmmss)}.txt" DataInAttributes="false"  Delimiter="|" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+		<Field Name="LOYALTYIDNUMBER" Length="100" />
+		<Field Name="JEAN" Length="100" />
+		<Field Name="BRA" Length="100" />
+		<Field Name="GRANDTOTAL" Length="100" />
+	
+	
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

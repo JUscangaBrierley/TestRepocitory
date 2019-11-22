@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE_LOY Exception Report</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE_LOY Exception Report</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>    
+  </PreProcessor>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="e:\americaneagle\files\outbound\decrypted">
+    <SimpleDatabaseInput CollectionName="ExceptionRecords" RecordName="ExceptionRecord">
+      <QueryString>
+	   SELECT *
+       FROM BP_AE.AE_PROFILEUPDATES2_EXCEPTIONS E
+       WHERE E.CREATETIME &gt; NVL(
+      (SELECT to_date(cc.VALUE,'MM/dd/yyyy HH24:mi:ss')
+               FROM BP_AE.LW_CLIENTCONFIGURATION CC
+              WHERE CC.CKEY = 'LastProfileInProcessing'), SYSDATE)              
+      </QueryString>
+      <Fields>
+		<Field Name="CID" Type="String"  />
+		<Field Name="LOYALTYNUMBER" Type="String"  />
+		<Field Name="EXCEPTIONTYPE" Type="String"  />
+		<Field Name="FIELDNAME" Type="String"  />
+		<Field Name="VALUERECEIVED" Type="String"  />
+		<Field Name="ERRORCODE" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="ExceptionRecords" RecordName="ExceptionRecord" FileName="AD_LOY_EXCEPTION_{$date(format=MMddyy)}.txt" DataInAttributes="false" Delimiter="|" OutputFolder="e:\americaneagle\files\outbound\decrypted">
+      <FieldMap>
+		<Field Name="CID" Length="1" />
+		<Field Name="LOYALTYNUMBER" Length="13" />
+		<Field Name="EXCEPTIONTYPE" Length="50"  />
+		<Field Name="FIELDNAME" 	Length="50"  />
+		<Field Name="VALUERECEIVED" Length="255"  />
+		<Field Name="ERRORCODE" 	Length="100"  />		
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

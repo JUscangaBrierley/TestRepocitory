@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Bra Rewards  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="BraRewards" RecordName="BraReward">
+      <QueryString>
+        SELECT vc.ipcode AS IPCODE
+        FROM bp_ae.lw_pointtransaction pt
+        INNER JOIN bp_ae.lw_pointevent pe
+        ON pt.pointeventid = pe.pointeventid
+        INNER JOIN bp_ae.lw_pointtype p
+        ON pt.pointtypeid = p.pointtypeid
+        INNER JOIN bp_ae.lw_virtualcard vc
+        ON pt.vckey = vc.vckey
+        INNER JOIN bp_ae.ats_memberdetails md
+        ON vc.ipcode = md.a_ipcode
+        WHERE 1 = 1
+        AND ( ( (pe.name IN ('Bra Purchase - 1', 'Bra Purchase - 15'))
+        AND (pt.transactiondate &lt; (SYSDATE - 15)))
+              OR pe.name IN ('Bra Return'))
+         AND p.name IN ('Bra Points')
+         AND NVL (md.a_employeecode, 0) = 0
+         AND NVL (md.a_addressmailable, 0) = 1
+         AND pt.pointsconsumed = 0
+         AND pt.transactiontype &lt;&gt; 4
+        AND pt.expirationdate &gt; SYSDATE
+        GROUP BY vc.ipcode
+        HAVING SUM (pt.points) &gt;= 5
+      </QueryString>
+      <Fields>
+        <Field Name="IPCODE" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>  
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+     <TypeName>AmericanEagle.SDK.OutputProviders.BraRewards</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

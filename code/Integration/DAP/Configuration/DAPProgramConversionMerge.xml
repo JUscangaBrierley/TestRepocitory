@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>ProgramConversionMerge   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="PROGRAMCONVERSIONMERGE.LOAD_PROGRAMCONVERSIONMERGE">
+      <InputParameters>
+        <Parm Name="p_filename" Type="String" Value="{$arg=FileName}" Required="true"/>
+		<Parm Name="p_processdate" Type="String" Value="{$arg=ProcessDate}" Required="true"/>
+      </InputParameters>      
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="Merges" RecordName="Merge">
+      <QueryString>
+           select mrg.a_primarylid as primarylid,
+		          mrg.a_secondarylid  as secondarylid	   
+			from ats_programeconversionmerge mrg
+			where trunc(mrg.a_RequestedMergeDate) = trunc(SYSDATE)
+      </QueryString>
+      <Fields>
+        <Field Name="primarylid"   Type="String" />
+        <Field Name="secondarylid" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.ProgramConversionMerge</TypeName>
+      <AssemblyName>americaneagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

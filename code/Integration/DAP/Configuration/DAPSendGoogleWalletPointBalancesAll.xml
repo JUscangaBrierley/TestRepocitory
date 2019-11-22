@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>false</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>GoogleWallet Points Send All Members   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="GoogleWallet" RecordName="PointsUpdate">
+      <QueryString>
+        Select s.loyaltyidnumber as LoyaltyIdNumber,s.loyaltyipcode as IPcode,CAST(to_char(NVL(s.GWVersion,1)) as NVARCHAR2(100)) as GWVersion,s.TotalPoints AS TotalPoints
+        from(
+        Select t1.LoyaltyIdNumber as loyaltyidnumber,t2.loyaltyidnumber as loyaltyipcode,t1.ipcode as ipcode,t2.isprimary,
+        t2.gwversion as GWVersion ,t2.totalpoints AS TotalPoints,t1.issuedate,ROW_NUMBER()OVER(PARTITION BY t1.ipcode ORDER BY t1.issuedate desc)  rn
+        from(( 
+          SELECT vc.LoyaltyIdNumber as LoyaltyIdNumber,vc.ipcode as IPcode,vc.dateissued as issuedate
+          FROM bp_ae.lw_virtualcard vc
+          INNER JOIN bp_ae.ats_memberpointbalances pb ON vc.ipcode = pb.a_ipcode
+          ) t1 inner  join
+          ( select vc1.loyaltyidnumber,vc1.ipcode,vc1.isprimary,md1.a_gwobjver as GWVersion, pb1.a_totalpoints AS TotalPoints from bp_ae.lw_virtualcard vc1
+          INNER JOIN bp_ae.ats_memberdetails md1   on md1.a_ipcode = vc1.ipcode
+          inner join bp_ae.ats_memberpointbalances pb1 ON vc1.ipcode = pb1.a_ipcode
+          where vc1.isprimary = 1 and vc1.status = 1 and md1.A_GwLinked = 1
+          ) t2 on t1.ipcode = t2.ipcode )
+          ) s where s.rn  &lt; 11
+      </QueryString>
+      <Fields>
+        <Field Name="LoyaltyIdNumber" Type="String"  />
+        <Field Name="IPcode" Type="String"  />
+        <Field Name="GWVersion" Type="String"  />
+        <Field Name="TotalPoints" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.GoogleWalletPtsUpdate</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

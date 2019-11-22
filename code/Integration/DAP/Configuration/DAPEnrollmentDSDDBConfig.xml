@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Enrollment(DSD)  DAP Processor</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="stage_enrollment.stage_enroll">
+      <InputParameters>
+        <Parm Name="p_filename" Type="String" Value="{$arg=EnrollmentFileName}" Required="true"/>
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\DevRoot\AmericanEagle\LWTemp\DAP\Enrollment">
+    <SimpleDatabaseInput CollectionName="Members" RecordName="Member">
+      <QueryString>select birthdate, firstname, lastname, middlename, alternateid, emailaddress, primarypostalcode, addresslineone, addresslinetwo, city, stateorprovince, ziporpostalcode, country, addressmailable, homephone, mobilephone, smsoptindate, enrolldate, gender, membersource, languagepreference, cardtype, homestoreid, basebrand,primarycontact from lw_memberdetail_stage where stage_proc_id = 2</QueryString>
+      <Fields>
+        <Field Name="BirthDate" Type="String" />
+        <Field Name="FirstName" Type="String" />
+        <Field Name="LastName" Type="String" />
+        <Field Name="MiddleName" Type="String" />
+        <Field Name="AlternateID" Type="String" />
+        <Field Name="EmailAddress" Type="String" />
+        <Field Name="PrimaryPostalCode" Type="String" />
+        <Field Name="AddressLineOne" Type="String" />
+        <Field Name="AddressLineTwo" Type="String" />
+        <Field Name="City" Type="String" />
+        <Field Name="StateOrProvince" Type="String" />
+        <Field Name="ZipOrPostalCode" Type="String" />
+        <Field Name="Country" Type="String" />
+        <Field Name="AddressMailable" Type="Integer" />
+        <Field Name="HomePhone" Type="Integer" />
+        <Field Name="MobilePhone" Type="Integer" />
+        <Field Name="SMSOptInDate" Type="String" />
+        <Field Name="EnrollDate" Type="String" />
+        <Field Name="Gender" Type="String" />
+        <Field Name="MemberSource" Type="Integer"/>
+        <Field Name="LanguagePreference" Type="String" />
+        <Field Name="CardType" Type="String" />
+        <Field Name="HomeStoreId" Type="Integer" />
+        <Field Name="BaseBrand" Type="Integer" />
+		<Field Name="Primarycontact" Type="Integer" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Members" TargetAttributeSetType="Member" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\Enrollment\Stage2Out">
+    <Scripts>
+      <Script Name="GetCurrentDate" >
+        <Code>
+          <![CDATA[
+            return DateTime.Now.ToShortDateString(); 
+          ]]>
+        </Code>
+      </Script>
+      
+      <Script Name="ConvertMemberSource" InParmName="MemberSource"  >
+        <Code>
+          <![CDATA[
+                  return "1";
+          ]]>
+        </Code>
+      </Script>
+
+      <Script Name="ConvertGender" InParmName="Gender"  >
+        <Code>
+          <![CDATA[
+              if(Gender == "0" || Gender == "1" || Gender == "2")
+                  return Gender;
+              else
+                  return "0";
+          ]]>
+        </Code>
+      </Script>
+
+    </Scripts>
+
+
+    <FieldMap SourceField="Member/BirthDate">
+      <Populate TargetNode="Member/BirthDate"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/FirstName">
+      <Populate TargetNode="Member/FirstName"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/LastName">
+      <Populate TargetNode="Member/LastName" />
+    </FieldMap>
+    <FieldMap SourceField="Member/MiddleName">
+      <Populate TargetNode="Member/MiddleName" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AlternateID">
+      <Populate TargetNode="Member/VirtualCard/LoyaltyIdNumber" />
+    </FieldMap>
+    <FieldMap SourceField="Member/EmailAddress">
+      <Populate TargetNode="Member/MemberDetails/EmailAddress" />
+    </FieldMap>
+    <FieldMap SourceField="Member/HomePhone">
+      <Populate TargetNode="Member/PRIMARYPHONENUMBER" />
+    </FieldMap>
+    <FieldMap SourceField="Member/PrimaryPostalCode">
+      <Populate TargetNode="Member/PrimaryPostalCode" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AddressLineOne">
+      <Populate TargetNode="Member/MemberDetails/AddressLineOne" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AddressLineTwo">
+      <Populate TargetNode="Member/MemberDetails/AddressLineTwo" />
+    </FieldMap>
+    <FieldMap SourceField="Member/City">
+      <Populate TargetNode="Member/MemberDetails/City"  />
+    </FieldMap>
+    <FieldMap SourceField="Member/StateOrProvince">
+      <Populate TargetNode="Member/MemberDetails/StateOrProvince" />
+    </FieldMap>
+    <FieldMap SourceField="Member/ZipOrPostalCode">
+      <Populate TargetNode="Member/MemberDetails/ZipOrPostalCode"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/Country">
+      <Populate TargetNode="Member/MemberDetails/Country" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AddressMailable">
+      <Populate TargetNode="Member/MemberDetails/AddressMailable"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/HomePhone">
+      <Populate TargetNode="Member/MemberDetails/HomePhone" />
+    </FieldMap>
+    <FieldMap SourceField="Member/MobilePhone">
+      <Populate TargetNode="Member/MemberDetails/MobilePhone" />
+    </FieldMap>
+    <FieldMap SourceField="Member/SMSOptInDate">
+      <Populate TargetNode="Member/MemberDetails/SMSOptInDate" />
+    </FieldMap>
+	<FieldMap SourceField="Member/EnrollDate">
+      <Populate TargetNode="Member/MemberCreateDate" />
+    </FieldMap>
+    <FieldMap SourceField="Member/Gender">
+      <Populate TargetNode="Member/MemberDetails/Gender" UseScript="ConvertGender" />
+    </FieldMap>
+    <FieldMap SourceField="Member/MemberSource">
+      <Populate TargetNode="Member/MemberDetails/MemberSource" UseScript="ConvertMemberSource"  />
+    </FieldMap>
+    <FieldMap SourceField="Member/LanguagePreference">
+      <Populate TargetNode="Member/MemberDetails/LanguagePreference" />
+    </FieldMap>
+    <FieldMap SourceField="Member/HomeStoreId">
+      <Populate TargetNode="Member/MemberDetails/HomeStoreId" />
+    </FieldMap>
+    <FieldMap SourceField="Member/CardType">
+      <Populate TargetNode="Member/MemberDetails/CardType" />
+    </FieldMap>
+    <FieldMap SourceField="Member/BaseBrand">
+      <Populate TargetNode="Member/MemberDetails/BaseBrandId" />
+    </FieldMap>
+	<FieldMap SourceField="Member/EnrollDate">
+      <Populate TargetNode="Member/VirtualCard/DateIssued" />
+    </FieldMap>
+	<FieldMap SourceField="Member/EnrollDate">
+      <Populate TargetNode="Member/MemberDetails/Enrolldate" />
+    </FieldMap>
+	<FieldMap SourceField="Member/Primarycontact">
+      <Populate TargetNode="Member/MemberDetails/Primarycontact" />
+    </FieldMap>
+    <MissingField TargetNode="Member/changedBy" Value="Enrollment DAP" />
+  <!--  <MissingField TargetNode="Member/MemberCreateDate" UseScript="GetCurrentDate"/> -->
+
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>4</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.AmericanEagleEnrollmentInterceptor</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+          <MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="false">
+            <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber" />
+          </MemberLoadDirectives>
+          <AttributeSetCreateDirectives>
+            <AttributeSetUpdate CreateIfNotFound="true" Name="MemberDetails" FindMethod="First"/>
+          </AttributeSetCreateDirectives>
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+  <PostProcessor>
+    <StoredProcTask Name="stage_enrollment.Update_EnrollDate">
+	<!-- Upgrade changes-->
+	<InputParameters>	
+        <Parm Name="p_enrolltype" Type="String" Value="POS" Required="true"/>  
+      </InputParameters>
+	     <ReturnParameter>
+        <Parm Name=":retval" Type="String" Required="true"/>
+      </ReturnParameter>
+	  <!-- Upgrade changes-->
+    </StoredProcTask>
+  </PostProcessor>
+</DAPDirectives>

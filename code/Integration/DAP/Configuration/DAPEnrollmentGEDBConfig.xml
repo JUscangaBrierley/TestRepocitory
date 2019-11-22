@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Enrollment(GE)  DAP Processor</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="stage_enrollment.stage_enroll">
+      <InputParameters>
+        <Parm Name="p_filename" Type="String" Value="{$arg=EnrollmentFileName}" Required="true"/>
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\AmericanEagle\cline\LogFiles\debug\input">
+    <SimpleDatabaseInput CollectionName="Members" RecordName="Member">
+      <QueryString>select birthdate, firstname, lastname, middlename, alternateid, emailaddress, addresslineone, addresslinetwo, city, stateorprovince, ziporpostalcode, country, addressmailable, enrolldate, cardtype, homestoreid, basebrand, closedate, opendate, accountkey from lw_memberdetail_stage where stage_proc_id = 1</QueryString>
+      <Fields>
+        <Field Name="BirthDate" Type="String" />
+        <Field Name="FirstName" Type="String" />
+        <Field Name="LastName" Type="String" />
+        <Field Name="MiddleName" Type="String" />
+        <Field Name="AlternateID" Type="String" />
+        <Field Name="EmailAddress" Type="String" />
+        <Field Name="AddressLineOne" Type="String" />
+        <Field Name="AddressLineTwo" Type="String" />
+        <Field Name="City" Type="String" />
+        <Field Name="StateOrProvince" Type="String" />
+        <Field Name="ZipOrPostalCode" Type="String" />
+        <Field Name="Country" Type="String" />
+        <Field Name="AddressMailable" Type="Integer" />
+        <Field Name="EnrollDate" Type="String" />
+        <Field Name="CardType" Type="String" />
+        <Field Name="HomeStoreId" Type="Integer" />
+        <Field Name="BaseBrand" Type="String" />
+        <Field Name="CloseDate" Type="String" />
+        <Field Name="OpenDate" Type="String" />
+        <Field Name="AccountKey" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Members" TargetAttributeSetType="Member" DebugOutputPath="C:\devroot\AmericanEagle\cline\LogFiles\debug\output">
+    <Scripts>
+      <Script Name="GetCurrentDate" >
+        <Code>
+          <![CDATA[
+            return DateTime.Now.ToShortDateString(); 
+          ]]>
+        </Code>
+      </Script>
+      
+    </Scripts>
+
+
+    <FieldMap SourceField="Member/BirthDate">
+      <Populate TargetNode="Member/BirthDate"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/FirstName">
+      <Populate TargetNode="Member/FirstName"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/LastName">
+      <Populate TargetNode="Member/LastName" />
+    </FieldMap>
+    <FieldMap SourceField="Member/MiddleName">
+      <Populate TargetNode="Member/MiddleName" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AlternateID">
+      <Populate TargetNode="Member/AlternateID" />
+    </FieldMap>
+    <FieldMap SourceField="Member/EmailAddress">
+      <Populate TargetNode="Member/EmailAddress" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AddressLineOne">
+      <Populate TargetNode="Member/AddressLineOne" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AddressLineTwo">
+      <Populate TargetNode="Member/AddressLineTwo" />
+    </FieldMap>
+    <FieldMap SourceField="Member/City">
+      <Populate TargetNode="Member/City"  />
+    </FieldMap>
+    <FieldMap SourceField="Member/StateOrProvince">
+      <Populate TargetNode="Member/StateOrProvince" />
+    </FieldMap>
+    <FieldMap SourceField="Member/ZipOrPostalCode">
+      <Populate TargetNode="Member/ZipOrPostalCode" />
+    </FieldMap>
+    <FieldMap SourceField="Member/Country">
+      <Populate TargetNode="Member/Country" />
+    </FieldMap>
+    <FieldMap SourceField="Member/AddressMailable">
+      <Populate TargetNode="Member/AddressMailable" />
+    </FieldMap>
+    <FieldMap SourceField="Member/HomeStoreId">
+      <Populate TargetNode="Member/HomeStoreId" />
+    </FieldMap>
+    <FieldMap SourceField="Member/CardType">
+      <Populate TargetNode="Member/CardType" />
+    </FieldMap>
+    <FieldMap SourceField="Member/BaseBrand">
+      <Populate TargetNode="Member/BaseBrandId" />
+    </FieldMap>
+    <FieldMap SourceField="Member/EnrollDate">
+      <Populate TargetNode="Member/EnrollDate" />
+    </FieldMap>
+	<FieldMap SourceField="Member/OpenDate">
+      <Populate TargetNode="Member/CardOpendate" />
+    </FieldMap>
+	<FieldMap SourceField="Member/CloseDate">
+      <Populate TargetNode="Member/CardClosedate" />
+    </FieldMap>
+	<FieldMap SourceField="Member/AccountKey">
+      <Populate TargetNode="Member/AccountKey" />
+    </FieldMap>
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+     <TypeName>AmericanEagle.SDK.OutputProviders.CardHolderEnrollUpdate</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+  <PostProcessor>
+    <StoredProcTask Name="stage_enrollment.Update_LinkKey">
+	<!-- Upgrade changes-->
+    <ReturnParameter>
+       <Parm Name=":retval" Type="String" Required="true"/>
+    </ReturnParameter>
+	  <!-- Upgrade changes-->
+    </StoredProcTask>
+  </PostProcessor>
+</DAPDirectives>

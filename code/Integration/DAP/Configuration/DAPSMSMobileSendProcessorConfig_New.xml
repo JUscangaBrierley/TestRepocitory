@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE SMS Mobile Send DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="aejobs.CalculatePointBalances2">
+      <InputParameters>
+        <Parm Name="p_jobname" Type="String" Value="SMSMobileSend" Required="true"/>
+        <Parm Name="p_ProcessDate" Type="Date" Value="{$arg=ProcessDate}" Required="true"/>
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\MessageProcessing\SMSMobileSend\Stage1">
+    <SimpleDatabaseInput CollectionName="MemberEmails" RecordName="MemberEmail">
+          <QueryString>
+            SELECT      replace(md.a_oldcellnumber, '-', '') as OldCellNumber
+            ,replace(md.a_mobilephone, '-', '') as MobilePhone
+            ,to_char(lm.birthdate, 'mmddyyyy') as BirthDate
+            ,md.a_ziporpostalcode as ZipOrPostalCode
+            ,md.a_gender as Gender
+            ,md.a_languagepreference as LanguagePreference
+            ,pb.a_totalPoints as TotalPoints
+            ,pb.a_rewardlevel as RewardLevel
+            ,pb.a_pointstonextreward as PointsToNextReward
+            ,pb.a_startingpoints as StartingPoints
+            ,Case
+            When b.a_brandnumber is null Then '00'
+            When b.a_brandnumber &lt; 0 Then '00'
+            Else lpad(b.a_brandnumber, '2', '0')
+            END AS BaseLoyaltyBrand
+            ,vc.loyaltyidnumber as LoyaltyNumber
+	    ,NVL(md.a_extendedplaycode,0) as DollarRewards
+            FROM  lw_loyaltymember lm
+            Inner Join ats_memberdetails md On lm.ipcode = md.a_ipcode
+            inner join lw_virtualcard vc on lm.ipcode = vc.ipcode and vc.isprimary = 1
+            Left JOin ats_refbrand b on md.a_basebrandid = b.a_brandid
+            Left Join ats_memberpointbalances pb on lm.ipcode = pb.a_ipcode
+            WHERE  md.a_smsoptindate &gt; (select to_date(to_char(value), 'mm/dd/yyyy hh24:mi:ss')
+            from lw_clientconfiguration cc
+            where cc.ckey = 'LastSMSDateSent')
+            And lm.memberstatus = 1
+          </QueryString>
+          <Fields>
+            <Field Name="OldCellNumber" Type="String"  />
+            <Field Name="MobilePhone" Type="String" />
+            <Field Name="ZipOrPostalCode" Type="String" />
+            <Field Name="LanguagePreference" Type="String" />
+            <Field Name="BirthDate" Type="String" />
+            <Field Name="Gender" Type="String" />
+            <Field Name="TotalPoints" Type="String" />
+            <Field Name="RewardLevel" Type="String" />
+            <Field Name="PointsToNextReward" Type="String" />
+            <Field Name="StartingPoints" Type="String"  />
+            <Field Name="BaseLoyaltyBrand" Type="String" />
+            <Field Name="LoyaltyNumber" Type="String" />
+			<Field Name="DollarRewards" Type="String" />
+          </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="MemberEmails" FileName="AE_SMS_{$date(format=MMddyyyy_hhmmss)}.csv" DataInAttributes="false" Delimiter="," OutputFolder="E:\AmericanEagle\Files\Outbound" RecordName="MemberEmail">
+      <FieldMap>
+        <Field Name="OldCellNumber" Length="50"/>
+        <Field Name="MobilePhone" Length="50" />
+        <Field Name="ZipOrPostalCode" Length="50" />
+        <Field Name="LanguagePreference" Length="50" />
+        <Field Name="BirthDate" Length="50" />
+        <Field Name="Gender" Length="50" />
+        <Field Name="TotalPoints" Length="50" />
+        <Field Name="RewardLevel" Length="50"  />
+        <Field Name="PointsToNextReward" Length="50" />
+        <Field Name="StartingPoints" Length="50" />
+        <Field Name="BaseLoyaltyBrand" Length="50" />
+        <Field Name="LoyaltyNumber" Length="50" />
+		<Field Name="DollarRewards" Length="50" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

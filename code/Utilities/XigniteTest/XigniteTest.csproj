@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F1000FD7-3BB4-43A6-B011-A5E104F5C1F4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XigniteTest</RootNamespace>
+    <AssemblyName>XigniteTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\RemoteGlobalCurrencies\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Service References\RemoteGlobalCurrencies\xGlobalCurrencies.wsdl" />
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.Bar.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.ConvertHistoricalValueResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.ConvertRealTimeValueResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.Currencies.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.CurrencyChartBars.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.ForwardRate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetAllRealTimeRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetBarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetBarsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetBestCrossRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetBestCrossRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetChartBarsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetForwardRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetHistoricalRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetHistoricalRatesRangeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetHistoricalRatesRangesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetHistoricalRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetLatestCrossRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetLatestCrossRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetLatestHistoricalRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetLatestHistoricalRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetLondonHistoricalRatesRangeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetOfficialHistoricalRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetOfficialHistoricalRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetOfficialRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetOfficialRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetRealTimeRateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetRealTimeRatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetRealTimeRateTableResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetTickResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.GetTicksResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.HistoricalRate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.HistoricalRateBidAsk.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.ListActiveCurrenciesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.ListCurrenciesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.Rate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.RateConversion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.RateTable.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\XigniteTest.RemoteGlobalCurrencies.Tick.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RemoteGlobalCurrencies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RemoteGlobalCurrencies\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RemoteGlobalCurrencies\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RemoteGlobalCurrencies\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

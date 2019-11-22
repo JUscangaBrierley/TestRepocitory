@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D5E49986-BA4D-4B0B-9F3F-A3F563046EF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmericanEagle.SDK</RootNamespace>
+    <AssemblyName>AmericanEagle.SDK</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Brierley.Clients.AmericanEagle.DataModel">
+      <HintPath>..\..\ClientLibs\Brierley.Clients.AmericanEagle.DataModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.FrameWork">
+      <HintPath>..\..\CommonLibs\Brierley.FrameWork.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyNavigator">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyNavigator.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.DataAcquisition.Core">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.DataAcquisition.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.Logging.TraceListeners">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.Logging.TraceListeners.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.LWIntegration.Common">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.LWIntegration.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.LWIntegrationSvc">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.LWIntegrationSvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.LWLoggingService.Appender">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.LWLoggingService.Appender.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.RulesProcessor">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.RulesProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LWModules.MemberSearch">
+      <HintPath>..\..\CommonLibs\Brierley.LWModules.MemberSearch.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.WebFrameWork">
+      <HintPath>..\..\CommonLibs\Brierley.WebFrameWork.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke">
+      <HintPath>..\..\CommonLibs\DotNetNuke.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.HttpModules">
+      <HintPath>..\..\CommonLibs\DotNetNuke.HttpModules.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.Membership.DataProvider">
+      <HintPath>..\..\CommonLibs\DotNetNuke.Membership.DataProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.Provider.AspNetProvider">
+      <HintPath>..\..\CommonLibs\DotNetNuke.Provider.AspNetProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.WebUtility">
+      <HintPath>..\..\CommonLibs\DotNetNuke.WebUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\..\CommonLibs\DotNetOpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis">
+      <HintPath>..\..\CommonLibs\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth">
+      <HintPath>..\..\CommonLibs\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.Mvc4">
+      <HintPath>..\..\CommonLibs\Google.Apis.Auth.Mvc4.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices">
+      <HintPath>..\..\CommonLibs\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Authentication.OAuth2">
+      <HintPath>..\..\CommonLibs\Google.Apis.Authentication.OAuth2.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\CommonLibs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BScriptHelpers\ITxnHeaderHelper.cs" />
+    <Compile Include="BScriptHelpers\TxnFourPartKey.cs" />
+    <Compile Include="BScriptHelpers\TxnHeaderHelper.cs" />
+    <Compile Include="CSharpRules\CustomBraRule.cs" />
+    <Compile Include="ErrorMappers\AEErrorMapper.cs" />
+    <Compile Include="Global\AEEmail.cs" />
+    <Compile Include="Global\AEPointsUtilities.cs" />
+    <Compile Include="Global\AEPromo.cs" />
+    <Compile Include="Global\AppeasementLimits.cs" />
+    <Compile Include="Global\Definitions.cs" />
+    <Compile Include="Global\DropDownUtilities.cs" />
+    <Compile Include="Global\FileUtils.cs" />
+    <Compile Include="Global\IAEPointsUtilies.cs" />
+    <Compile Include="Global\LoyaltyCard.cs" />
+    <Compile Include="Global\LoyaltyTransaction.cs" />
+    <Compile Include="Global\Merge.cs" />
+    <Compile Include="Global\Payload.cs" />
+    <Compile Include="Global\StateValidation.cs" />
+    <Compile Include="Global\Utilities.cs" />
+    <Compile Include="Global\Utils.cs" />
+    <Compile Include="Global\WebUtilities.cs" />
+    <Compile Include="Global\WobCredentials.cs" />
+    <Compile Include="GridProviders\AccountGridProvider.cs" />
+    <Compile Include="GridProviders\LoyaltyCardsGridProvider.cs" />
+    <Compile Include="GridProviders\MemberLookupGridProvider.cs" />
+    <Compile Include="GridProviders\ReplaceCardProvider.cs" />
+    <Compile Include="Interceptors\AddMemberInterceptor.cs" />
+    <Compile Include="Interceptors\AddMemberToPromotion.cs" />
+    <Compile Include="Interceptors\AmericanEagleInboundInterceptorBase.cs" />
+    <Compile Include="Interceptors\AmericanEagleTLogInterceptor.cs" />
+    <Compile Include="Interceptors\AmericanEagleUpdateProfileInterceptor.cs" />
+    <Compile Include="Interceptors\MemberSearchParmValidator.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Interceptors\OptoutDollarRewards.cs" />
+    <Compile Include="Interceptors\ProfileInAccountKeyInterceptor.cs" />
+    <Compile Include="Interceptors\ProfileInMergeMemberInterceptor.cs" />
+    <Compile Include="Interceptors\ProfileInNewEnrollmentInterceptor.cs" />
+    <Compile Include="Interceptors\ProfileInUpdateInterceptor.cs" />
+    <Compile Include="Interceptors\SendRequestCreditEmailInterceptor.cs" />
+    <Compile Include="Interceptors\SendRequestCreditExpiredEmailInterceptor.cs" />
+    <Compile Include="Interceptors\TerminateMember.cs" />
+    <Compile Include="Interceptors\TestEmailInterceptor.cs" />
+    <Compile Include="Interceptors\UnlinkMember.cs" />
+    <Compile Include="Interceptors\UpdateProfile.cs" />
+    <Compile Include="Interceptors\UpdateMemberInterceptor.cs" />
+    <Compile Include="OperationProviders\AEGetTentativePoints.cs" />
+    <Compile Include="OperationProviders\AEConnectedGetAccountActivity.cs" />
+    <Compile Include="OperationProviders\GetAccountActivity.cs" />
+    <Compile Include="OperationProviders\GetPOSAccountActivity.cs" />
+    <Compile Include="OperationProviders\RequestPointOnline.cs" />
+    <Compile Include="OperationProviders\RequestPointStore.cs" />
+    <Compile Include="OutputProviders\AdHocRewards.cs" />
+    <Compile Include="OutputProviders\AEOConnectedRewardCertIn.cs" />
+    <Compile Include="OutputProviders\AEOConnectedRewardFulfillment.cs" />
+    <Compile Include="OutputProviders\B5G1Fulfillment.cs" />
+    <Compile Include="OutputProviders\BonusLoader.cs" />
+    <Compile Include="OutputProviders\BraFulfillment.cs" />
+    <Compile Include="OutputProviders\BraResetEmployee.cs" />
+    <Compile Include="OutputProviders\BraRewards.cs" />
+    <Compile Include="OutputProviders\AgentAppeasementReport.cs" />
+    <Compile Include="OutputProviders\%2410RewardFullfillment.cs" />
+    <Compile Include="OutputProviders\LoadConversionRate.cs" />
+    <Compile Include="OutputProviders\List20OffReward.cs" />
+    <Compile Include="OutputProviders\MemberAppeasementReport.cs" />
+    <Compile Include="OutputProviders\DAPProfileUpdateMerge.cs" />
+    <Compile Include="OutputProviders\MemberStatusUpdate.cs" />
+    <Compile Include="OutputProviders\RewardDefCrossReference .cs" />
+    <Compile Include="OutputProviders\RunTransactionRulesDAP.cs" />
+    <Compile Include="OutputProviders\StackedFulfillment.cs" />
+    <Compile Include="OutputProviders\TierNotification.cs" />
+    <Compile Include="OutputProviders\TierUpgrade.cs" />
+    <Compile Include="OutputProviders\LateEnrollmentTxn.cs" />
+    <Compile Include="OutputProviders\RewardFullfillment.cs" />
+    <Compile Include="OutputProviders\TlogAudit.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\RemoteGlobalCurrencies\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Version.cs">
+      <Link>Version.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="InputProviders\" />
+    <Folder Include="ResponseHelpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.Bar1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.ConvertHistoricalValueResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.ConvertRealTimeValueResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.Currencies1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.CurrencyChartBars1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.ForwardRate1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetAllRealTimeRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetBarResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetBarsResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetBestCrossRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetBestCrossRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetChartBarsResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetForwardRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetHistoricalRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetHistoricalRatesRangeResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetHistoricalRatesRangesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetHistoricalRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetLatestCrossRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetLatestCrossRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetLatestHistoricalRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetLatestHistoricalRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetLondonHistoricalRatesRangeResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetOfficialHistoricalRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetOfficialHistoricalRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetOfficialRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetOfficialRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetRealTimeRateResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetRealTimeRatesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetRealTimeRateTableResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetTickResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.GetTicksResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.HistoricalRate1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.HistoricalRateBidAsk1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.ListActiveCurrenciesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.ListCurrenciesResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.Rate1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.RateConversion1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.RateTable1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\AmericanEagle.SDK.RemoteGlobalCurrencies.Tick1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RemoteGlobalCurrencies\xGlobalCurrencies.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RemoteGlobalCurrencies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RemoteGlobalCurrencies\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RemoteGlobalCurrencies\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RemoteGlobalCurrencies\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ClientDevUtilities\Brierley.ClientDevUtilities\Brierley.ClientDevUtilities.csproj">
+      <Project>{6f2b8acd-37ae-4f4a-a456-e213c40d9071}</Project>
+      <Name>Brierley.ClientDevUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)AmericanEagle.SDK.dll" "$(SolutionDir)ClientLibs"
+copy "$(TargetDir)AmericanEagle.SDK.pdb" "$(SolutionDir)ClientLibs"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

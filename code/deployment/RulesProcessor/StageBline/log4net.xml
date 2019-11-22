@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log4net xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <appender name="logfile" type="log4net.Appender.RollingFileAppender" xdt:Locator="Match(name)">
+    <file value="E:\AmericanEagleBline\Logs\AEO_LWRulesProcessor.log" xdt:Transform="Replace"/>
+  </appender>
+  <appender name="xmllogfile" type="log4net.Appender.RollingFileAppender" xdt:Locator="Match(name)">
+    <file value="E:\AmericanEagleBline\Logs\LWRulesProcessor.xml" xdt:Transform="Replace"/> 
+  </appender>
+</log4net>

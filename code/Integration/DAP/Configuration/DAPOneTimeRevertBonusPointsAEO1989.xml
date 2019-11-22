@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Revert Bonus Points AEO-1989 DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="OneTimeScripts.RevertBonusPoints_AEO1989">
+      <InputParameters>
+	   <Parm Name="p_ProcessDate1" Type="String" Value="{$arg=ProcessDate1}" Required="true"/>
+	   <Parm Name="p_ProcessDate2" Type="String" Value="{$arg=ProcessDate2}" Required="true"/>
+	   <Parm Name="p_TxnDate1" Type="String" Value="{$arg=TxnDate1}" Required="true"/>
+	   <Parm Name="p_TxnDate2" Type="String" Value="{$arg=TxnDate2}" Required="true"/>
+      </InputParameters>
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->	
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Dummy\Stage1">
+    <SimpleDatabaseInput CollectionName="DummyList" RecordName="DummyRecord">
+      <QueryString>
+        SELECT SYSDATE as "DummyRecord"
+		FROM DUAL
+      </QueryString>
+      <Fields>
+        <Field Name="DummyRecord" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="DummyList" RecordName="DummyRecord" FileName="DUMMY.txt" DataInAttributes="false" Delimiter="," OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="DummyRecord"  Length="50"/>
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>We &lt;3 Mobile Campaign File Creation DAP Process</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\americaneagle\Trunk\LogFiles">
+    <SimpleDatabaseInput CollectionName="MobileAppCampaign" RecordName="MobileAppMembers">
+      <QueryString>
+		Select 0 as rownumber
+		, CAST( 'SPRING 2017: We &lt;3 Mobile App' as NVARCHAR2(100)) as LOYALTYIDNUMBER
+		, CAST('' as NVARCHAR2(100)) as POINTS
+		from dual
+		union
+		select rownumber, LoyaltyIdNumber, Points from
+		(SELECT 1 as rownumber
+			 , CAST( mm.loyaltyid as NVARCHAR2(100)) as LoyaltyIdNumber
+			, CAST( mm.points as NVARCHAR2(80)) as Points
+		FROM
+			bp_ae.x$_aeo947_mobile_members mm
+			where 1=1
+			and mm.issued = 0
+			and nvl(mm.points,0) != 0) 
+      </QueryString>
+      <Fields>
+        <Field Name="LOYALTYIDNUMBER" Type="String"  />
+		<Field Name="POINTS" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+ <!--  <MessageTransformationMap SourceCollectionName="PilotEmailCampaign" TargetAttributeSetType="Global">
+    <FieldMap SourceField="Global/LoyaltyIdNumber">
+      <Populate TargetNode="Global/LoyaltyIdNumber"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/EmailAddress">
+      <Populate TargetNode="Global/EmailAddress"/>
+    </FieldMap>
+  </MessageTransformationMap> -->
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="MobileAppCampaign" RecordName="MobileAppMembers" FileName="AE_Bonus_WeLoveMobile_{$date(format=yyyyMMddhhmmss)}.csv" DataInAttributes="false"  Delimiter="," OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+		<Field Name="LOYALTYIDNUMBER" Length="100" />
+		<Field Name="POINTS" Length="100"  />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

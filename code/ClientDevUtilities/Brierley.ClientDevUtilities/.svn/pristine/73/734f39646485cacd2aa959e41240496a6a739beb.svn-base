@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{666A3C4B-4920-425D-A585-B801F1F6C740}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brierley.LoyaltyWare.LWMobileGateway</RootNamespace>
+    <AssemblyName>Brierley.LoyaltyWare.LWMobileGateway</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ChilkatDotNet4, Version=9.1.0.0, Culture=neutral, PublicKeyToken=eb5fc1fc52ef09bd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\ChilkatDotNet4.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVN\LoyaltyWare 4.6\lw4.6.1\CommonLibs\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="MobileGateway.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authentication\WcfAuthenticationToken.cs" />
+    <Compile Include="Authorization\AuthInterceptorBase.cs" />
+    <Compile Include="Authorization\IAuthorizationnterceptor.cs" />
+    <Compile Include="Authorization\LoyaltyWareInterceptor.cs" />
+    <Compile Include="Authorization\OAuthInterceptor.cs" />
+    <Compile Include="DomainModel\MGAccountActivitySummaryResponse.cs" />
+    <Compile Include="DomainModel\MGAuthenticateMember.cs" />
+    <Compile Include="DomainModel\MGBonusDef.cs" />
+    <Compile Include="DomainModel\MGMemberBonus.cs" />
+    <Compile Include="DomainModel\MGStoreInfo.cs" />
+    <Compile Include="DomainModel\MGPointsHistory.cs" />
+    <Compile Include="DomainModel\MGAccountActivityDetails.cs" />
+    <Compile Include="DomainModel\MGAccountActivitySummary.cs" />
+    <Compile Include="DomainModel\MGCheckinResponse.cs" />
+    <Compile Include="DomainModel\MGClientEntity.cs" />
+    <Compile Include="DomainModel\MGClientEntityAttribute.cs" />
+    <Compile Include="DomainModel\MGPreCheckinResponse.cs" />
+    <Compile Include="DomainModel\MGRewardCategory.cs" />
+    <Compile Include="DomainModel\MGLocation.cs" />
+    <Compile Include="DomainModel\MGRewardDefinition.cs" />
+    <Compile Include="DomainModel\MGStoreDef.cs" />
+    <Compile Include="DomainModel\MGSurveyResponse.cs" />
+    <Compile Include="DomainModel\MGSurveyState.cs" />
+    <Compile Include="DomainModel\MGSurvey.cs" />
+    <Compile Include="DomainModel\MGSurveyComponent.cs" />
+    <Compile Include="DomainModel\MGSurveyMatrixQuestion.cs" />
+    <Compile Include="DomainModel\MGSurveyMessage.cs" />
+    <Compile Include="DomainModel\MGSurveyPage.cs" />
+    <Compile Include="DomainModel\MGSurveySimpleQuestion.cs" />
+    <Compile Include="DomainModel\MGTriggerUserEvent.cs" />
+    <Compile Include="DomainModel\MGClientContext.cs" />
+    <Compile Include="DomainModel\MGCouponDef.cs" />
+    <Compile Include="DomainModel\MGMemberMessage.cs" />
+    <Compile Include="DomainModel\MGMessageDef.cs" />
+    <Compile Include="DomainModel\MGAccountSummary.cs" />
+    <Compile Include="DomainModel\MGMemberReward.cs" />
+    <Compile Include="DomainModel\MGContentAttribute.cs" />
+    <Compile Include="DomainModel\MGLoyaltyCard.cs" />
+    <Compile Include="DomainModel\MGMember.cs" />
+    <Compile Include="DomainModel\MGMemberCoupon.cs" />
+    <Compile Include="DomainModel\PasswordResetOptions.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="OperationProviders\Bonuses\BonusAction.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetBonusDefinition.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetBonusDefinitionCount.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetBonusDefinitions.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetMemberBonusCount.cs" />
+    <Compile Include="OperationProviders\Bonuses\GetMemberBonuses.cs" />
+    <Compile Include="OperationProviders\Bonuses\ReferralCompleted.cs" />
+    <Compile Include="OperationProviders\Bonuses\RemoveBonus.cs" />
+    <Compile Include="OperationProviders\Members\AddLoyaltyCard.cs" />
+    <Compile Include="OperationProviders\CheckIn\CheckIn.cs" />
+    <Compile Include="OperationProviders\CheckIn\CheckInUtils.cs" />
+    <Compile Include="OperationProviders\CheckIn\CheckInBase.cs" />
+    <Compile Include="OperationProviders\CheckIn\PreCheckIn.cs" />
+    <Compile Include="OperationProviders\Content\GetTextBlock.cs" />
+    <Compile Include="OperationProviders\Coupons\GetCouponDefinitionCount.cs" />
+    <Compile Include="OperationProviders\Coupons\GetCouponDefinitions.cs" />
+    <Compile Include="OperationProviders\Coupons\RedeemMemberCouponById.cs" />
+    <Compile Include="OperationProviders\Coupons\GetMemberCoupons.cs" />
+    <Compile Include="OperationProviders\IAPIOperation.cs" />
+    <Compile Include="IMobileGateway.cs" />
+    <Compile Include="MobileGatewayDirectives.cs" />
+    <Compile Include="MobileGatewayImpl.cs" />
+    <Compile Include="MobileGateway.svc.cs">
+      <DependentUpon>MobileGateway.svc</DependentUpon>
+    </Compile>
+    <Compile Include="OperationProviders\Members\AssociateSocialHandle.cs" />
+    <Compile Include="OperationProviders\Members\AuthenticateMember.cs" />
+    <Compile Include="OperationProviders\Members\AuthenticateMemberBySocialHandle.cs" />
+    <Compile Include="OperationProviders\Members\ChangePassword.cs" />
+    <Compile Include="OperationProviders\Members\ConfirmPasswordReset.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountActivitySummary.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountActivityCount.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountActivityDetails.cs" />
+    <Compile Include="OperationProviders\Members\InitiatePasswordReset.cs" />
+    <Compile Include="OperationProviders\Members\SetLoyaltyCardAsPrimary.cs" />
+    <Compile Include="OperationProviders\Members\UpdateMember.cs" />
+    <Compile Include="OperationProviders\Members\CreateMember.cs" />
+    <Compile Include="OperationProviders\Members\Logout.cs" />
+    <Compile Include="OperationProviders\Members\GetAccountSummary.cs" />
+    <Compile Include="OperationProviders\Members\GetLoyaltyCard.cs" />
+    <Compile Include="OperationProviders\Members\GetPrimaryLoyaltyCard.cs" />
+    <Compile Include="OperationProviders\Members\GetLoyaltyCardBalance.cs" />
+    <Compile Include="OperationProviders\Members\GetLoyaltyCards.cs" />
+    <Compile Include="OperationProviders\Members\GetMember.cs" />
+    <Compile Include="DomainModel\MGMemberUtils.cs" />
+    <Compile Include="OperationProviders\Members\TriggerUserEvent.cs" />
+    <Compile Include="OperationProviders\Messages\GetMemberMessages.cs" />
+    <Compile Include="OperationProviders\Messages\GetMessageDefinitions.cs" />
+    <Compile Include="OperationProviders\Messages\GetMessageDefinitionCount.cs" />
+    <Compile Include="DomainModel\MGAttributeSetContainerUtility.cs" />
+    <Compile Include="OperationProviders\Messages\SetMessageStatus.cs" />
+    <Compile Include="OperationProviders\MGRealtimeContentUtil.cs" />
+    <Compile Include="OperationProviders\Notification\RegisterForPushNotification.cs" />
+    <Compile Include="OperationProviders\OperationProviderBase.cs" />
+    <Compile Include="OperationProviders\Passbook\GetCouponPass.cs" />
+    <Compile Include="OperationProviders\Passbook\GetLoyaltyCardPass.cs" />
+    <Compile Include="OperationProviders\Passbook\GetPassFromMTouch.cs" />
+    <Compile Include="OperationProviders\Passbook\MGPassbookUtil.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewardByCert.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewardById.cs" />
+    <Compile Include="OperationProviders\Rewards\RedeemMemberReward.cs" />
+    <Compile Include="OperationProviders\Rewards\GetRewardCatalog.cs" />
+    <Compile Include="OperationProviders\Rewards\GetRewardCatalogCount.cs" />
+    <Compile Include="OperationProviders\Rewards\GetRewardCategories.cs" />
+    <Compile Include="OperationProviders\Rewards\GetMemberRewards.cs" />
+    <Compile Include="OperationProviders\Rewards\IsMemberRewardRedeemed.cs" />
+    <Compile Include="OperationProviders\SocialOperationProvider.cs" />
+    <Compile Include="OperationProviders\Stores\SaveTop10Stores.cs" />
+    <Compile Include="OperationProviders\Stores\GetTop10Stores.cs" />
+    <Compile Include="OperationProviders\Stores\GetNearbyStores.cs" />
+    <Compile Include="OperationProviders\Stores\GetAllStores.cs" />
+    <Compile Include="OperationProviders\Surveys\PostSurveyResponse.cs" />
+    <Compile Include="OperationProviders\Surveys\GetGeneralSurveys.cs" />
+    <Compile Include="OperationProviders\Surveys\GetNextSurveyState.cs" />
+    <Compile Include="OperationProviders\Surveys\GetProfileSurveys.cs" />
+    <Compile Include="OperationProviders\Surveys\MGSurveyManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Brierley.FrameWork\Brierley.FrameWork.csproj">
+      <Project>{78F0F5BD-ECDC-4CC1-A3F4-F916A2276B30}</Project>
+      <Name>Brierley.FrameWork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Brierley.WebFrameWork\Brierley.WebFrameWork.csproj">
+      <Project>{74c5e17a-e964-49ca-88c3-6e4163b6a77b}</Project>
+      <Name>Brierley.WebFrameWork</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LWMobileGatewayConfig.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

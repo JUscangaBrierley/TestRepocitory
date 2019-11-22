@@ -1,0 +1,176 @@
+<SmartAssemblyProject ProjectId="{86823400-c0f4-4c2e-8b3c-ce693bfd85f0}" Version="2.0">
+    <MainAssemblyFileName>.\obj\Release\Brierley.FrameWork.dll</MainAssemblyFileName>
+    <Configuration Name="Release">
+        <ApplicationName />
+        <Destination DestinationFileName=".\bin\Release\Brierley.FrameWork.dll" />
+        <Assemblies>
+            <Assembly AssemblyName="Spring.Data.NHibernate32, Culture=neutral, PublicKeyToken=65e474d141e25e07">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="NHibernate, Culture=neutral, PublicKeyToken=aa95f207798dfdb4">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Iesi.Collections, Culture=neutral, PublicKeyToken=aa95f207798dfdb4">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Antlr3.Runtime, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="log4net, Culture=neutral, PublicKeyToken=1b44e1d426115821">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Spring.Aop, Culture=neutral, PublicKeyToken=65e474d141e25e07">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Spring.Core, Culture=neutral, PublicKeyToken=65e474d141e25e07">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Common.Logging, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Spring.Data, Culture=neutral, PublicKeyToken=65e474d141e25e07">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.EnterpriseLibrary.Logging, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.EnterpriseLibrary.Common, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.ObjectBuilder2, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="NVelocity, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.EnterpriseLibrary.Caching, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="ICSharpCode.SharpZipLib, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="HibernatingRhinos.Profiler.Appender, Culture=neutral, PublicKeyToken=0774796e73ebf640">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Brierley.FrameWork, Culture=neutral, PublicKeyToken=f2e291d4566ee7dc">
+                <Merging>
+                    <ResourcesCompression Compress="0" />
+                    <MemberRefsProxy />
+                    <Pruning Prune="0">
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation Obfuscate="1">
+                        <Exclusion />
+                    </Obfuscation>
+                    <ControlFlow Obfuscate="1" />
+                    <ResourcesPruning />
+                </Merging>
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.Unity, Culture=neutral, PublicKeyToken=31bf3856ad364e35" NotAvailable="1">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="ChilkatDotNet2, Culture=neutral, PublicKeyToken=eb5fc1fc52ef09bd" HintPath="..\..\CommonLibs\32bit\ChilkatDotNet2.dll">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="ChilkatDotNet4, Culture=neutral, PublicKeyToken=eb5fc1fc52ef09bd">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.ServiceLocation, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Microsoft.Practices.Unity.Interception, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="HibernatingRhinos.Profiler.Appender.v4.0, Culture=neutral, PublicKeyToken=0774796e73ebf640">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Newtonsoft.Json, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="SmartAssembly.StringsEncoding, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
+                <Merging>
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                </Merging>
+            </Assembly>
+            <Assembly AssemblyName="Spring.Data, Culture=neutral, PublicKeyToken=774082718e2bef21">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Spring.Core, Culture=neutral, PublicKeyToken=774082718e2bef21">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Spring.Aop, Culture=neutral, PublicKeyToken=774082718e2bef21">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="log4net, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Spring.Data.NHibernate33, Culture=neutral, PublicKeyToken=774082718e2bef21">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="itextsharp, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="AWSSDK, Culture=neutral, PublicKeyToken=9f476d3089b52be3">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="Facebook, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de">
+                <Merging />
+                <Embedding />
+            </Assembly>
+            <Assembly AssemblyName="LinqToTwitter, Culture=neutral, PublicKeyToken=957107be965c25d9">
+                <Embedding />
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="System.Web.Mvc, Culture=neutral, PublicKeyToken=31bf3856ad364e35" NotAvailable="1">
+                <Merging />
+            </Assembly>
+        </Assemblies>
+        <Options>
+            <Obfuscation FieldsNameMangling="1" NameMangling="1" />
+            <ExceptionReporting Template="res:{SmartExceptions}.1033.dll" />
+            <StrongNameSigning KeyFileName=".\loyaltyware.snk" Sign="1" />
+            <OtherProtections SuppressIldasm="1" />
+            <StringsEncoding Encode="1" />
+            <OtherOptimizations SealClasses="1" />
+            <Debugging CreatePDB="1" ObfuscateDocumentsURL="1" />
+            <FeatureUsageReporting />
+        </Options>
+    </Configuration>
+</SmartAssemblyProject>

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+	<Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE DAP-Sept AutoReward Promo Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  
+  <!-- Configuration parameters for message acquisition -->	
+  <InputProvider MessageProcessingScheme="Batch" DebugOutputPath="E:\AmericanEagle\Logs">
+    <SimpleDatabaseInput CollectionName="TransactionInfos" RecordName="TransactionInfo">
+ <QueryString>
+ <![CDATA[
+select a_rowkey as RowKey, loyaltyidnumber as LoyaltyIdNumber from (
+Select AP.a_rowkey, AP.loyaltyidnumber, AP.a_txndate FROM
+ (
+    select distinct th.a_rowkey, vc.loyaltyidnumber, th.a_txndate
+    from bp_ae.ats_txnheader th
+         inner join bp_ae.lw_virtualcard vc    on vc.vckey = th.a_vckey
+         inner join bp_ae.lw_loyaltymember lm  on lm.ipcode = vc.ipcode
+         inner join bp_Ae.Ats_Memberdetails md on md.a_ipcode = vc.ipcode
+         inner join bp_Ae.Lw_Storedef sd       on sd.storeid = th.a_txnstoreid
+         inner join bp_ae.lw_virtualcard vc    on vc.vckey = th.a_vckey
+         left join bp_ae.ats_txndetailitem di  on di.a_parentrowkey = th.a_rowkey
+    where th.a_txndate >= to_date('09/14/2019', 'mm/dd/yyyy')
+      and th.a_txndate < to_date('12/15/2019', 'mm/dd/yyyy')
+      and sd.country in ('PRI', 'USA', 'CAN')
+      and (th.a_excludepointaccrual is null or th.a_excludepointaccrual = 0)
+      and th.a_ordernumber = '0'
+      and lm.memberstatus = 1
+      and (md.a_memberstatuscode is null or md.a_memberstatuscode = 0)
+      and di.a_dtlclasscode <> '9911'
+      and di.a_excludequalifiedpurchase = 0
+      and (
+          (
+             di.a_dtltypeid = 1 and 
+             di.a_txndate < to_date('09/16/2019', 'mm/dd/yyyy') and 
+             di.a_dtlsaleamount > 0.01       
+          )
+      ) 
+  )AP
+  LEFT JOIN
+  (
+    Select distinct vc.loyaltyidnumber
+    from(
+    select Distinct pt.vckey from bp_Ae.Lw_Pointtransaction pt
+      inner join bp_ae.lw_pointevent pe on pt.pointeventid = pe.pointeventid
+      where pe.name = 'September 2019 Auto Reward for Shopping'
+      and pt.transactiontype = 1
+    ) b inner join bp_ae.lw_virtualcard vc on vc.vckey= b.vckey
+  ) PI ON PI.loyaltyidnumber = AP.loyaltyidnumber
+  WHERE PI.loyaltyidnumber IS NULL
+ 
+UNION ALL
+
+
+Select AR.a_rowkey, AR.loyaltyidnumber, AR.a_txndate FROM
+ (
+    select distinct th.a_rowkey, vc.loyaltyidnumber, th.a_txndate
+    from bp_ae.ats_txnheader th
+         inner join bp_ae.lw_virtualcard vc    on vc.vckey = th.a_vckey
+         inner join bp_ae.lw_loyaltymember lm  on lm.ipcode = vc.ipcode
+         inner join bp_Ae.Ats_Memberdetails md on md.a_ipcode = vc.ipcode
+         inner join bp_Ae.Lw_Storedef sd       on sd.storeid = th.a_txnstoreid
+         inner join bp_ae.lw_virtualcard vc    on vc.vckey = th.a_vckey
+         left join bp_ae.ats_txndetailitem di  on di.a_parentrowkey = th.a_rowkey
+    where th.a_txndate >= to_date('09/14/2019', 'mm/dd/yyyy')
+      and th.a_txndate < to_date('12/15/2019', 'mm/dd/yyyy')
+      and sd.country in ('PRI', 'USA', 'CAN')
+      and (th.a_excludepointaccrual is null or th.a_excludepointaccrual = 0)
+      and th.a_ordernumber = '0'
+      and lm.memberstatus = 1
+      and (md.a_memberstatuscode is null or md.a_memberstatuscode = 0)
+      and di.a_dtlclasscode <> '9911'
+      and di.a_excludequalifiedpurchase = 0
+      and (
+          (
+             di.a_dtltypeid = 2 
+             and di.a_txnoriginaltxndate >= to_date('09/14/2019', 'mm/dd/yyyy') 
+             and di.a_txnoriginaltxndate < to_date('09/16/2019', 'mm/dd/yyyy') 
+             and di.a_dtlsaleamount < -0.01 
+             and di.a_txnoriginalordernumber='0'
+          )
+      ) 
+  )AR
+  LEFT JOIN
+  (
+    Select distinct vc.loyaltyidnumber
+    from(
+    select Distinct pt.vckey from bp_Ae.Lw_Pointtransaction pt
+      inner join bp_ae.lw_pointevent pe on pt.pointeventid = pe.pointeventid
+      where pe.name = 'September 2019 Auto Reward for Shopping'
+      and pt.transactiontype = 2
+    ) b inner join bp_ae.lw_virtualcard vc on vc.vckey= b.vckey
+  ) RI ON RI.loyaltyidnumber = AR.loyaltyidnumber
+  WHERE RI.loyaltyidnumber IS NULL
+  order by a_txndate  
+  ) c
+  ]]>
+ </QueryString>
+      <Fields>
+			<Field Name="RowKey" Type="String" />
+			<Field Name="LoyaltyIdNumber" Type="String" />
+      </Fields>
+	   </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <CustomOutput>
+      <TypeName>AmericanEagle.SDK.OutputProviders.RunTransactionRulesDAP</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+	   <Parameters>
+         <Parameter Name="Threads" Value="1"/>
+        <Parameter Name="Rules" Value="September 2019 Auto Reward for Shopping"/>
+		</Parameters>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

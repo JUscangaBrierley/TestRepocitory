@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>Development</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat>
+    <ThreadPoolSize>1</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Rules Processor - (Development) DoublePointsOnBra_10262011</Subject>
+    </EmailInformation>    
+  </RuleEngineConfig>
+  
+  <!--<MemberRule DirectiveName="ExpressRewards">
+    <PointsBasedMemberRetriever RetrievalRange="1-100" RetrievalBatchSize="50">      
+      <LoyaltyCurrencies>
+        <LoyaltyCurrency>BasePoints</LoyaltyCurrency>
+        <LoyaltyCurrency>BonusPoints</LoyaltyCurrency>
+      </LoyaltyCurrencies>
+      <LoyaltyEvents>
+        <LoyaltyEvent>Purchases</LoyaltyEvent>
+        <LoyaltyEvent>Event</LoyaltyEvent>
+      </LoyaltyEvents>
+      <Criteria>
+        <Method>EarnedBalance</Method>
+        <Predicate>Gt</Predicate>
+        <Value>10</Value>
+      </Criteria>      
+    </PointsBasedMemberRetriever>
+    <RulesToInvoke>
+      
+    </RulesToInvoke>
+  </MemberRule>-->
+  <!--<MemberRule DirectiveName="BackToSchoolPromotion">
+    <RangeBasedMemberRetriever RetrievalRange="1-200" RetrievalBatchSize="100"/>
+    <RulesToInvoke>
+      <Rule RuleName="AwardPoint123"/>
+    </RulesToInvoke>
+  </MemberRule>-->
+
+  <!--<MemberRule DirectiveName="BackToSchoolPromotion">
+    <CriteriaBasedMemberRetriever RetrievalRange="1-50" RetrievalBatchSize="40">
+      <Criteria>
+        <Component>
+          <Attribute>IpCode</Attribute>
+          <Predicate>Gt</Predicate>
+          <Value>59000</Value>          
+        </Component>
+        <AndOr>AND</AndOr>
+        <Component>
+          <Attribute>MemberStatus</Attribute>
+          <Predicate>Eq</Predicate>
+          <Value>Active</Value>
+        </Component>
+      </Criteria>
+    </CriteriaBasedMemberRetriever>
+    <RulesToInvoke>
+      <Rule RuleName="IssueBonusPoints"/>
+      <Rule RuleName="SendWelcomeEmail"/>
+    </RulesToInvoke>
+  </MemberRule>-->
+  
+  
+  
+  <!--<MemberRule DirectiveName="">
+    <CustomMemberRetriever>
+      <TypeName></TypeName>
+      <AssemblyName></AssemblyName>
+      <Parameters>
+        <Parameter Name="" Value=""/>        
+      </Parameters>
+    </CustomMemberRetriever>
+    <RulesToInvoke>
+      <Rule RuleName=""/>
+    </RulesToInvoke>
+  </MemberRule>-->
+  
+  <!--<VirtualCardRule DirectiveName="SomeName">
+    <CustomRetriever>
+      <TypeName></TypeName>
+      <AssemblyName></AssemblyName>
+      <Parameters>
+        <Parameter Name="" Value=""/>
+      </Parameters>
+    </CustomRetriever>
+    <RulesToInvoke>
+      <Rule RuleName=""/>
+    </RulesToInvoke>
+  </VirtualCardRule>-->
+
+  <!--<AttributeSetRule DirectiveName="RR" AttributeSetName="TxnHeader">
+    <CustomAttributeSetRetriever>      
+      <TypeName></TypeName>
+      <AssemblyName></AssemblyName>
+      <Parameters>
+        <Parameter Name="" Value=""/>
+      </Parameters>
+    </CustomAttributeSetRetriever>
+    <RulesToInvoke>
+      
+    </RulesToInvoke>
+  </AttributeSetRule>-->
+  
+  <AttributeSetRule DirectiveName="DoublePointsOnBra_10262011" AttributeSetName="TxnHeader">    
+    <CriteriaBasedAttributeSetRetriever RetrievalRange="1-*" RetrievalBatchSize="100">
+      <Scripts>
+        <Script Name="GetStartDate">
+          <Code>
+            <![CDATA[ 
+              //return DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd"); 
+              return DateTime.Parse("10/30/2011").ToString("yyyy-MM-dd");
+            ]]>
+          </Code>
+        </Script>
+        <Script Name="GetEndDate">
+          <Code>
+            <![CDATA[ 
+              //return DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd"); 
+              //return DateTime.Now.ToString("yyyy-MM-dd");
+              return DateTime.Parse("11/10/2011").ToString("yyyy-MM-dd");
+            ]]>
+          </Code>
+        </Script>
+      </Scripts>
+      <Criteria>
+        <Component IsDate="true">
+          <Attribute>TxnDate</Attribute>
+          <Predicate>Gt</Predicate>
+          <Value>
+            <UseScript>GetStartDate</UseScript>
+          </Value>
+        </Component>
+        <AndOr>AND</AndOr>
+        <Component IsDate="true">          
+          <Attribute>TxnDate</Attribute>
+          <Predicate>Le</Predicate>
+          <Value>
+            <UseScript>GetEndDate</UseScript>
+          </Value>
+        </Component>
+        <AndOr>AND</AndOr>
+        <Component>          
+          <Attribute>TxnTypeId</Attribute>
+          <Predicate>Ge</Predicate>
+          <Value>
+            <UseValue>1</UseValue>
+          </Value>
+        </Component>
+        <AndOr>AND</AndOr>
+        <Component>
+          <Attribute>TxnTypeId</Attribute>
+          <Predicate>Le</Predicate>
+          <Value>
+            <UseValue>2</UseValue>
+          </Value>
+        </Component>
+      </Criteria>
+      <OrderBy Attribute="CreateDate" OrderType="Ascending"/>      
+    </CriteriaBasedAttributeSetRetriever>
+    <RulesToInvoke>
+      <Rule RuleName="Double Points on Bra 10/26 to 11/22 - Manual" TargetPath="Member/VirtualCard/TxnHeader"/>
+      <!--<Rule RuleName="Rule Processor Tester" TargetPath="Member/VirtualCard/TxnHeader"/>
+      <Rule RuleName="DetailRule" TargetPath="Member/VirtualCard/TxnHeader/TxnDetailItem"/>-->
+      <!--<CSharpClass TypeName="RulesClassLibrary.RewardsReminder" AssemblyName="RulesClassLibrary" TargetPath="Member/MemberDetails" ReuseClass="true"/>-->
+    </RulesToInvoke>
+  </AttributeSetRule>
+  
+</RulesDirectives>

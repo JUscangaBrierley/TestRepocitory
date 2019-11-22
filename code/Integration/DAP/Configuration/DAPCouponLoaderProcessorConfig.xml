@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Coupon Loader  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\AmericanEagle\Files">
+    <FlatFileInput>
+      <CollectionRoot Name="Coupons" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Coupon" Structure="Delimited" Delimiter="," TagName="">
+          <Fields>
+            <RecordField Name="RowID" Type="String" />
+            <RecordField Name="CouponNumber" Type="String" />            
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Coupons" TargetAttributeSetType="Global" DebugOutputPath="e:\AmericanEagl\Stage2">
+    <FieldMap SourceField="Coupon/CouponNumber">
+      <Populate TargetNode="Reference Data/RewardBarCodes/BarCode"/>
+    </FieldMap>
+    <MissingField TargetNode="Reference Data/RewardBarCodes/TypeCode" UseMacro="{$arg=ReasonCode}"/>
+    <MissingField TargetNode="Reference Data/RewardBarCodes/EffectiveStartDate" UseMacro="{$arg=EffectiveDate}"/>
+    <MissingField TargetNode="Reference Data/RewardBarCodes/EffectiveEndDate" UseMacro="{$arg=EffectiveEndDate}"/>
+  </MessageTransformationMap>  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>3</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName></InterceptorAssemlyName>
+          <InterceptorTypeName></InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+          <AttributeSetCreateDirectives>
+            <AttributeSetUpdate CreateIfNotFound="true" Name="RewardBarCodes" FindValue="BarCode" FindMethod="Attribute"/>
+          </AttributeSetCreateDirectives>
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+</DAPDirectives>

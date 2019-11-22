@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action" xml:space="preserve">
+    <value>Editar Configuración</value>
+  </data>
+  <data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;P&gt;Un módulo MemberProfile&lt;/P&gt;</value>
+  </data>
+  <data name="DefaultContent.Text" xml:space="preserve">
+    <value>Aquí hay algunos contenidos de la muestra</value>
+  </data>
+  <data name="UpdateComplete.Text" xml:space="preserve">
+    <value>Su perfil ha sido actualizado.</value>
+  </data>
+  <data name="RegistrationComplete.Text" xml:space="preserve">
+    <value>Registro completar.  ¡Muchas gracias!</value>
+  </data>
+  <data name="EmailConstraintViolation.Text" xml:space="preserve">
+    <value>Lo sentimos, que el correo electrónico ya está en uso. Por favor, introduzca otra dirección de correo electrónico</value>
+  </data>
+  <data name="UsernameConstraintViolation.Text" xml:space="preserve">
+    <value>Lo sentimos, ese usuario ya está en uso. Por favor, introduzca un nombre de usuario diferente</value>
+  </data>
+  <data name="VirtualCardValidationError_1.Text" xml:space="preserve">
+    <value>Ese número de la tarjeta no parece ser una tarjeta de platino válida. Por favor, compruebe el número de la tarjeta / el tipo de tarjeta y vuelva a intentarlo.</value>
+  </data>
+  <data name="VirtualCardValidationError_2.Text" xml:space="preserve">
+    <value>Lo sentimos, esa carta ha sido prohibido en el sistema, porque sabemos que no es un número real. Sea más creativo la próxima vez.</value>
+  </data>
+  <data name="VirtualCardValidationError_3.Text" xml:space="preserve">
+    <value>Lo sentimos, ya te has registrado demasiadas tarjetas. Limpie su cartera, poner su vida en orden y salir de vez en cuando, ¿ok?</value>
+  </data>
+  <data name="VirtualCardValidationError_99.Text" xml:space="preserve">
+    <value>Parece que ya has registrado tu cuenta, así que estoy aprovechando esta oportunidad para probar un nuevo mensaje de error.</value>
+  </data>
+  <data name="HtmlBlock_CFAccountSummary.Text" xml:space="preserve">
+    <value>&lt;h2 id="Title"&gt;Información miembro&lt;/h2&gt;
+&lt;table style="width:100%;"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Nombre:&lt;/strong&gt; ##member.FirstName####member.LastName## &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Estado:&lt;/strong&gt; ##member.MemberStatus## &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Fecha de inscripción:&lt;/strong&gt; ##AttrValue('MemberDetails','EnrollDate', 0)##&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Fecha Entro por última vez:&lt;/strong&gt; ##member.LastActivityDate##&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt; Nivel: &lt;/strong&gt; ##GetCurrentTierProperty('DisplayText')##&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt; &lt;strong&gt; LoyaltyId Número: &lt;/strong&gt; ##GetActiveLoyaltyId## &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt; &lt;strong&gt; dirección de correo electrónico principal: &lt;/strong&gt; ##member.PrimaryEmailAddress## &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Dirección Línea 1: &lt;/strong&gt; ##AttrValue('MemberDetails','AddressLineOne',0)##&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt; Dirección Línea 2: &lt;/strong&gt; ##AttrValue('MemberDetails','AddressLineTwo',0)##&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt; &lt;strong&gt; Ciudad: &lt;/strong&gt; ##AttrValue('MemberDetails','City',0)##&lt;/td&gt;
+    &lt;td&gt; &lt;strong&gt; Estado: &lt;/strong&gt; ##AttrValue('MemberDetails','StateOrProvince',0)##&lt;/td&gt;
+    &lt;td&gt; &lt;strong&gt; Código Postal: &lt;/strong&gt; ##AttrValue('MemberDetails','ZipOrPostalCode',0)##&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 id="Title"&gt;Resumen Puntos&lt;/h2&gt;
+&lt;table style="width:100%;"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Saldo actual: &lt;/strong&gt; ##GetPoints('1/1/1900','12/31/2100')##&lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Puntos detransacción: &lt;/strong&gt; ##GetPointsByEvent('PurchaseActivity','1/1/1900','12/31/2100')## &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Puntos compromiso: &lt;/strong&gt; ##GetPointsByEvent('EngagementActivity','1/1/1900','12/31/2100')## &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Puntos apaciguamiento: &lt;/strong&gt; ##GetPointsByEvent('AppeasementActivity','1/1/1900','12/31/2100')## &lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;&lt;strong&gt;Puntos Para Siguiente Nivel: &lt;/strong&gt; ##GetPointsToNextTier## &lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;&lt;strong&gt;Puntos a la recompensa siguiente: &lt;/strong&gt; ##GetPointsToNextReward##&lt;/td&gt;
+   &lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration1.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Información Básica&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration2.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Predeterminado tarjeta de fidelidad&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration3.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Dirección&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration4.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Información de Contacto&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration5.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Credenciales de Acceso&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration6.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Optar En/Fuera&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberSummary.Text" xml:space="preserve">
+    <value>&lt;h2 id="Title"&gt;Información miembro&lt;/h2&gt;
+&lt;table style="width:100%;"&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt; Nombre: &lt;/strong&gt; ##member.FirstName## ##member.LastName## &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt; Estado: &lt;/strong&gt; ##member.MemberStatus## &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Fecha de inscripción: &lt;/strong&gt; ##AttrValue('MemberDetails','EnrollDate',0)##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Fecha Entro por última vez: &lt;/strong&gt; ##member.LastActivityDate##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt; Nivel: &lt;/ strong&gt; ##GetCurrentTierProperty('DisplayText')##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt; dirección de correo electrónico principal: &lt;/strong&gt; ##member.PrimaryEmailAddress##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt; Saldo actual: &lt;/strong&gt; ##GetPoints('1/1/1900','12/31/2100')##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile1.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Información Básica&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile2.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Dirección&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile3.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Información de Contacto&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile4.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Optar En/Fuera&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="btnNext.Text" xml:space="preserve">
+    <value>Próximo&gt;</value>
+  </data>
+  <data name="btnReset.Text" xml:space="preserve">
+    <value>Reajustar</value>
+  </data>
+  <data name="btnSave.Text" xml:space="preserve">
+    <value>Ahorrar</value>
+  </data>
+  <data name="btnSubmit.Text" xml:space="preserve">
+    <value>Presentar</value>
+  </data>
+  <data name="btnUpdate.Text" xml:space="preserve">
+    <value>Ahorrar</value>
+  </data>
+  <data name="MobilePhoneCountryCodeNotSelected.Text" xml:space="preserve">
+    <value>Por favor, seleccione un código de país al habilitar SMS</value>
+  </data>
+  <data name="MobilePhoneCountryCodeNotSmsEnabled.Text" xml:space="preserve">
+    <value>SMS no puede ser enviado al teléfono móvil Código de país seleccionado y por favor eliminar la selección de SMS Opt-In para continuar con el registro</value>
+  </data>
+  <data name="MobilePhoneEmpty.Text" xml:space="preserve">
+    <value>Por favor, introduzca un número de teléfono móvil al habilitar SMS</value>
+  </data>
+  <data name="AccountStatusInvalid.Text" xml:space="preserve">
+    <value>Cannot update member account status. The account status {0} is not valid.</value>
+  </data>
+  <data name="AssemblyLoadFailed.Text" xml:space="preserve">
+    <value>Failed to load instance of</value>
+  </data>
+  <data name="FailedDisplayType.Text" xml:space="preserve">
+    <value>Failed to determine display type for attribute</value>
+  </data>
+  <data name="InvalidDisplayTypeAccountStatus.Text" xml:space="preserve">
+    <value>Failed to determine display type for account status. Invalid display type</value>
+  </data>
+  <data name="LoyaltyCardExistsMember.Text" xml:space="preserve">
+    <value>Loyalty card id {0} already exists on the member.</value>
+  </data>
+  <data name="LoyaltyCardExistsOtherMember.Text" xml:space="preserve">
+    <value>Loyalty card id {0} already exists on another member.</value>
+  </data>
+  <data name="NoCurrentMember.Text" xml:space="preserve">
+    <value>No member is currently selected</value>
+  </data>
+  <data name="NoEmailConfigured.Text" xml:space="preserve">
+    <value>Reset password email not sent. No email is configured.</value>
+  </data>
+  <data name="OnlyCSPortalMessage.Text" xml:space="preserve">
+    <value>This functionality is only valid in a customer service portal</value>
+  </data>
+  <data name="ResetPasswordSuccess.Text" xml:space="preserve">
+    <value>Reset password email was sent successfully.</value>
+  </data>
+  <data name="UpdateProfileFailed.Text" xml:space="preserve">
+    <value>Cannot update profile. No member has been set.</value>
+  </data>
+  <data name="UsernameNotFound.Text" xml:space="preserve">
+    <value>No username could be found.</value>
+  </data>
+  <data name="VCAssemblyFailed.Text" xml:space="preserve">
+    <value>Failed to load assembly for Virtual Card validation:</value>
+  </data>
+  <data name="VCValidationFailed.Text" xml:space="preserve">
+    <value>Virtual card validation failed.</value>
+  </data>
+  <data name="VCValidationFailedLocatingResource.Text" xml:space="preserve">
+    <value>Virtual Card validation failed. Unable to locate resource entry for message.</value>
+  </data>
+  <data name="PageName_CFMemberRegistration" xml:space="preserve">
+    <value>Member Registration</value>
+  </data>
+  <data name="PageName_CFUpdateProfile" xml:space="preserve">
+    <value>Update Profile</value>
+  </data>
+  <data name="PageName_CSAccountActivity" xml:space="preserve">
+    <value>Account Activity</value>
+  </data>
+  <data name="PageName_CSAccountSummary" xml:space="preserve">
+    <value>Account Summary</value>
+  </data>
+  <data name="PageName_CSMemberRegistration" xml:space="preserve">
+    <value>Member Registration</value>
+  </data>
+  <data name="PageName_CSUpdateProfile" xml:space="preserve">
+    <value>Update Profile</value>
+  </data>
+</root>

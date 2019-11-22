@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AgentAlreadyExists.Text" xml:space="preserve">
+    <value>このユーザ名は既に使用されています。</value>
+  </data>
+  <data name="AgentSaveSuccessful.Text" xml:space="preserve">
+    <value>CSエージェントの設定は正常に保存されました。</value>
+  </data>
+  <data name="ApplicationException.Text" xml:space="preserve">
+    <value>予期せぬエラーが発生しました。ブラウザーの戻るボタンをクリックして再度試してください。エラーが引き続き発生する場合は、サポートセンターまでお問合せください。</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>TRANSLATION MISING -- Cancel</value>
+  </data>
+  <data name="btnNewAgent.Text" xml:space="preserve">
+    <value>新規ユーザ作成</value>
+  </data>
+  <data name="btnNewRole.Text" xml:space="preserve">
+    <value>新規ユーザ権限追加</value>
+  </data>
+  <data name="btnSave.Text" xml:space="preserve">
+    <value>TRANSLATION MISING -- Save</value>
+  </data>
+  <data name="btnSearch.Text" xml:space="preserve">
+    <value>サーチ</value>
+  </data>
+  <data name="CannotDeleteRole.Text" xml:space="preserve">
+    <value>この権限は既存ユーザに割り当てられているため、削除に失敗しました。</value>
+  </data>
+  <data name="grdCSUserAdministrationCharLengthError.Text" xml:space="preserve">
+    <value>文字数の上限値: {0}を超えています。</value>
+  </data>
+  <data name="CommandChangePassword.Text" xml:space="preserve">
+    <value>パスワードを変更する</value>
+  </data>
+  <data name="DescriptionLength.Text" xml:space="preserve">
+    <value>255字以上の入力はできません。</value>
+  </data>
+  <data name="ExpireBeyondError.Text" xml:space="preserve">
+    <value>過去に使用したパスワードを再度使用することはできません。</value>
+  </data>
+  <data name="grdCSRoles-AssociatedFunctions.Text" xml:space="preserve">
+    <value>権限</value>
+  </data>
+  <data name="grdCSRoles-Description.Text" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="grdCSRoles-Id.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="grdCSRoles-Name.Text" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="grdCSRoles-PointAwardLimit.Text" xml:space="preserve">
+    <value>ポイント付与上限</value>
+  </data>
+  <data name="grdCSUserAdministration-AgentNumber.Text" xml:space="preserve">
+    <value>エージェント番号</value>
+  </data>
+  <data name="grdCSUserAdministration-EmailAddress.Text" xml:space="preserve">
+    <value>Eメールアドレス</value>
+  </data>
+  <data name="grdCSUserAdministration-Extension.Text" xml:space="preserve">
+    <value>内線番号</value>
+  </data>
+  <data name="grdCSUserAdministration-FirstName.Text" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="grdCSUserAdministration-GroupId.Text" xml:space="preserve">
+    <value>グループID</value>
+  </data>
+  <data name="grdCSUserAdministration-Id.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="grdCSUserAdministration-LastName.Text" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="grdCSUserAdministration-Password.Text" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="grdCSUserAdministration-PasswordChangeRequired.Text" xml:space="preserve">
+    <value>パスワード変更を求める</value>
+  </data>
+  <data name="grdCSUserAdministration-PasswordExpireDate.Text" xml:space="preserve">
+    <value>パスワード有効期限</value>
+  </data>
+  <data name="grdCSUserAdministration-PhoneNumber.Text" xml:space="preserve">
+    <value>電話番号</value>
+  </data>
+  <data name="grdCSUserAdministration-RoleId.Text" xml:space="preserve">
+    <value>ロール</value>
+  </data>
+  <data name="grdCSUserAdministration-Status.Text" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="grdCSUserAdministration-Username.Text" xml:space="preserve">
+    <value>ユーザー名</value>
+  </data>
+  <data name="grdCSUserAdministrationInvalidEmailError.Text" xml:space="preserve">
+    <value>メールアドレスに誤りがあります。</value>
+  </data>
+  <data name="lblConfirmPassword.Text" xml:space="preserve">
+    <value>TRANSLATION MISING -- Confirm Password:</value>
+  </data>
+  <data name="lblGridActions.Text" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="lblGridDelete.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="lblGridDeleteConfirm.Text" xml:space="preserve">
+    <value>この行を本当に削除しますか？</value>
+  </data>
+  <data name="lblGridEdit.Text" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="lblGridInsert.Text" xml:space="preserve">
+    <value>行挿入</value>
+  </data>
+  <data name="lblGridSelect.Text" xml:space="preserve">
+    <value>選択</value>
+  </data>
+  <data name="lblNewPassword.Text" xml:space="preserve">
+    <value>TRANSLATION MISING -- New Password:</value>
+  </data>
+  <data name="AgentViewTitle.Text" xml:space="preserve">
+    <value>CSエージェント管理</value>
+  </data>
+  <data name="tabAgents.Text" xml:space="preserve">
+    <value>エージェント</value>
+  </data>
+  <data name="tabAgents.Tooltip" xml:space="preserve">
+    <value>CSエージェント</value>
+  </data>
+  <data name="tabRoles.Text" xml:space="preserve">
+    <value>ユーザ権限</value>
+  </data>
+  <data name="tabRoles.Tooltip" xml:space="preserve">
+    <value>CSユーザ権限</value>
+  </data>
+  <data name="lblSearch.Text" xml:space="preserve">
+    <value>検索:</value>
+  </data>
+  <data name="NoCurrentAgent.Text" xml:space="preserve">
+    <value>指定されたCSAgentが見つかりませんでした。（ PortalId : {0}, UserId : {1}）</value>
+  </data>
+  <data name="grdCSUserAdministrationNumberLengthError.Text" xml:space="preserve">
+    <value>{0} 桁から {1}桁までの整数を入力してください。</value>
+  </data>
+  <data name="optEmailAddress.Text" xml:space="preserve">
+    <value>電子メールアドレス</value>
+  </data>
+  <data name="optName.Text" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="optPhoneNumber.Text" xml:space="preserve">
+    <value>電話番号</value>
+  </data>
+  <data name="optRole.Text" xml:space="preserve">
+    <value>役割</value>
+  </data>
+  <data name="optSelectSearchCriteria.Text" xml:space="preserve">
+    <value>検索条件を選択してください。</value>
+  </data>
+  <data name="optStatus.Text" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="optUsername.Text" xml:space="preserve">
+    <value>ユーザー名</value>
+  </data>
+  <data name="PasswordChangeSuccess.Text" xml:space="preserve">
+    <value>パスワードは正常に更新されました。</value>
+  </data>
+  <data name="PasswordsDoNotMatch.Text" xml:space="preserve">
+    <value>TRANSLATION MISING -- New Password and Confirm Password must match.</value>
+  </data>
+  <data name="PhoneInvalidChar.Text" xml:space="preserve">
+    <value>電話番号に誤りが有ります。</value>
+  </data>
+  <data name="PleaseEnterA.Text" xml:space="preserve">
+    <value>次の項目は入力必須です、入力してください：</value>
+  </data>
+  <data name="PleaseEnterAn.Text" xml:space="preserve">
+    <value>次の項目は入力必須です、入力してください：</value>
+  </data>
+  <data name="PropertySearchMessage.Text" xml:space="preserve">
+    <value>検索プロパティを選択してください。</value>
+  </data>
+  <data name="grdCSRolesProvideFunction.Text" xml:space="preserve">
+    <value>このユーザ権限で使用する機能を1つ以上選択してください。</value>
+  </data>
+  <data name="grdCSRolesProvideRoleName.Text" xml:space="preserve">
+    <value>ユーザ権限の名称を入力してください。</value>
+  </data>
+  <data name="reqConfirmPassword.Text" xml:space="preserve">
+    <value>パスワードを確認してください。</value>
+  </data>
+  <data name="grdCSUserAdministrationreqEntryError.Text" xml:space="preserve">
+    <value>次の項目は入力必須です、入力してください：</value>
+  </data>
+  <data name="reqNewPassword.Text" xml:space="preserve">
+    <value>TRANSLATION MISING -- Please enter a New Password</value>
+  </data>
+  <data name="reqPassword.Text" xml:space="preserve">
+    <value>パスワードを入力してください。</value>
+  </data>
+  <data name="RoldNameUsed.Text" xml:space="preserve">
+    <value>指定されたユーザ権限名は既に使用されています。</value>
+  </data>
+  <data name="RoleViewTitle.Text" xml:space="preserve">
+    <value>ユーザ権限管理</value>
+  </data>
+  <data name="grdCSUserAdministrationValidDateError.Text" xml:space="preserve">
+    <value>日付を入力してください。</value>
+  </data>
+  <data name="grdCSRolesValidNumberError.Text" xml:space="preserve">
+    <value>0 から 2,147,483,647 までの数値を入力してください。</value>
+  </data>
+  <data name="vldConfirmPassword.Text" xml:space="preserve">
+    <value>パスワードは200文字以内で設定してください。</value>
+  </data>
+  <data name="vldNewPassword.Text" xml:space="preserve">
+    <value>新しいパスワードは200文字以内で設定してください。</value>
+  </data>
+  <data name="csRoleAllowPointAward.Text" xml:space="preserve">
+    <value>マイル調整・外部アプリコード再発行権限</value>
+  </data>
+  <data name="csRoleChangeAccountStatus.Text" xml:space="preserve">
+    <value>ユーザステータス変更権限</value>
+  </data>
+  <data name="csRoleSearchMember.Text" xml:space="preserve">
+    <value>会員検索閲覧権限</value>
+  </data>
+  <data name="csRoleUpdateAccount.Text" xml:space="preserve">
+    <value>ユーザ情報変更権限</value>
+  </data>
+  <data name="csRoleUserAdministration.Text" xml:space="preserve">
+    <value>ユーザ管理権限</value>
+  </data>
+  <data name="csRoleViewMemberProfile.Text" xml:space="preserve">
+    <value>会員情報閲覧権限</value>
+  </data>
+  <data name="csRoleViewRewardHistory.Text" xml:space="preserve">
+    <value>特典獲得履歴閲覧権限</value>
+  </data>
+  <data name="csRoleViewTransactionHistory.Text" xml:space="preserve">
+    <value>マイル取得履歴閲覧権限</value>
+  </data>
+</root>

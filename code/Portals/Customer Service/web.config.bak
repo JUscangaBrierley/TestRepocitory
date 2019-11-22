@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<configuration>
+	<configSections>
+		<section name="cachingConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.CacheManagerSettings, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" requirePermission="true" />
+		<section name="rewriter" requirePermission="false" type="Brierley.WebFrameWork.Portal.UrlRewriter.ConfigurationSection, Brierley.WebFrameWork.Portal.UrlRewriter"/>
+		<section name="springLogging" type="System.Configuration.NameValueSectionHandler" />
+		<section name="databaseSettings" type="System.Configuration.NameValueSectionHandler" />
+		<section name="dataCacheClient" type="Microsoft.ApplicationServer.Caching.DataCacheClientSection, Microsoft.ApplicationServer.Caching.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+         <section name="appFabricCaching" type="Brierley.FrameWork.Data.Cache.AppFabric.Config.AppFabricCachingSection, Brierley.FrameWork, Version=4.4.0.0, Culture=neutral, PublicKeyToken=f2e291d4566ee7dc"/>
+	</configSections>
+
+  <cachingConfiguration defaultCacheManager="AttributeSetMetaDataById">
+    <cacheManagers>
+      <add name="AttributeSetMetaDataById" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="AttributeSetMetaDataByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="RuleTriggerByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="RuleTriggerByAttSet" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="RuleTriggerByObjectName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="PointTypeByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="PointEventByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="TierDefByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="RewardDefByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="RewardAttributeDefByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="ValidatorTriggerByAttribute" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="CustomBScriptFunctionList" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="CustomBScriptFunctionByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="ClientConfigurationByKey" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="LanguageDefList" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="ChannelDefList" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="1000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+	  <add name="ContactStatusList" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <!-- These caching managers should be only defined for Member Portal -->
+      <add name="DocumentById" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="TemplateById" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="TextBlockById" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="ContentElementById" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="ContentElementByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="ContentAttributeById" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="GlobalAttributesList" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="GlobalAttributeByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="BatchByName" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="BatchElementsList" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+      <add name="BatchGlobalsList" type="Microsoft.Practices.EnterpriseLibrary.Caching.CacheManager, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" expirationPollFrequencyInSeconds="60" maximumElementsInCacheBeforeScavenging="10000" numberToRemoveWhenScavenging="10" backingStoreName="Null Storage" />
+    </cacheManagers>
+    <backingStores>
+      <add encryptionProviderName="" type="Microsoft.Practices.EnterpriseLibrary.Caching.BackingStoreImplementations.NullBackingStore, Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" name="Null Storage" />
+    </backingStores>
+  </cachingConfiguration>
+  <dataCacheClient>
+    <hosts>
+      <host name="pcty7604.brierley.com" cachePort="22233" />
+    </hosts>
+  </dataCacheClient>
+  <appFabricCaching>
+    <regions>
+      <add name="ClientConfigurationByKey" enabled="true" timeToLive="60" />
+      <!-- minutes -->
+      <add name="AttributeSetMetaDataById" enabled="true" timeToLive="60" />
+      <add name="AttributeSetMetaDataByName" enabled="true" timeToLive="60" />
+      <add name="RuleTriggerByName" enabled="true" timeToLive="60" />
+      <add name="RuleTriggerByAttSet" enabled="true" timeToLive="60" />
+      <add name="RuleTriggerByObjectName" enabled="true" timeToLive="60" />
+      <add name="PointTypeByName" enabled="true" timeToLive="60" />
+      <add name="PointEventByName" enabled="true" timeToLive="60" />
+      <add name="TierDefByName" enabled="true" timeToLive="60" />
+      <add name="RewardDefByName" enabled="true" timeToLive="60" />
+      <add name="ContentAttributeDefByName" enabled="true" timeToLive="60" />
+      <add name="ValidatorTriggerByAttribute" enabled="true" timeToLive="60" />
+      <add name="CustomBScriptFunctionByName" enabled="true" timeToLive="60" />
+      <add name="CustomBScriptFunctionList" enabled="true" timeToLive="60" />
+      <add name="LanguageDefList" enabled="true" timeToLive="60" />
+      <add name="ChannelDefList" enabled="true" timeToLive="60" />
+      <add name="ContactStatusList" enabled="true" timeToLive="60" />
+      <!-- RFE referral cookie expiration, in minutes -->
+      <add key="LWRfeIdentifierExpiration" value="43200"/>
+    </regions>
+  </appFabricCaching>
+  
+	<appSettings>
+		<add key="LWHibernateProfiler" value="false" />
+		<add key="LWHibernateProfilerCaptureFile" value="D:\LOGS\CSPortal-NHProf.nhprof"/>
+		<add key="LWAuditLoggingEnabled" value="false" />
+		<add key="LW_CacheExpirationInterval" value="3600" /> <!-- Cache expiration interval in seconds -->
+		<add key="PortalName" value="AmericanEagleCSPortal"/>
+		<add key="LWOrganization" value="AmericanEagle"/>
+		<add key="LWEnvironment" value="DevelopmentCLine"/>
+		<add key="LWConfig" value="D:\devroot\americaneagle\branches\NationalRollout\LWConfig"/>
+		<add key="LWAssemblyPath" value="D:\devroot\americaneagle\branches\NationalRollout\ClientLibs;D:\devroot\mericaneagle\branches\NationalRollout\Portals\Customer Service\bin"/>
+		<add key="LWContentRootURL" value="http://localhost:3435/content"/>
+		<add key="LWContentRootURL" value="||ContentRootUrl||"/>
+		<add key="CacheManagerType" value="EntLibCache" />    <!-- AppFabricCache|EntLibCache -->
+		<add key="MessageMapAssembly" value="AmericanEagle.SDK.dll"/>
+		<add key="MessageMapClass" value="AmericanEagle.SDK.ErrorMappers.AEErrorMapper"/>
+		<add key="DisableHibernateCache " value="true" />
+		<!--<add key="LWContentRootPath" value="||path||\content"/>
+		<add key="MessageMapClass" value="||Message Mapper Class - remove this line if not in use||"/>
+		<add key="MessageMapAssembly" value="||Message Mapper Assembly - remove this line if not in use||"/>-->
+
+		<!--<add key="LWPasswordExpiryDisabled" value="true"/>-->
+		<!--<add key="LWMemberAccountLockDisabled" value="true"/>-->
+		<!--<add key="LWPasswordStrengthValidationEnabled" value="false"/>-->
+		<!--<add key="LWPasswordStrengthValidator" value="{Clients.Namespace.MergeMemberPostProcessor}{SAPIPostProcessors}"/>-->
+		<!--<add key="LWPasswordStrengthValidator" value="{PasswordValidatorProj.PasswordValidator}{PasswordValidatorProj}"/>-->
+		<!--<add key="LWPasswordStrengthValidator" value="{PasswordValidator.MyPasswordValidator}{PasswordValidator}"/>-->
+		<!-- <add key="DisablePasswordHashing" value="true"/> -->
+
+	</appSettings>
+   <springLogging>
+	    <add key="loggingLevel" value="All" />
+  	</springLogging>
+	<system.web>
+		<customErrors mode="On" defaultRedirect="error.html"/>
+		<sessionState timeout="31" />
+		<compilation debug="true" targetFramework="4.5"/>
+		<httpModules>
+			<add name="UrlRewriter" type="Brierley.WebFrameWork.Portal.UrlRewriter, Brierley.WebFrameWork"/>
+		</httpModules>
+		<authentication mode="Forms">
+			<forms loginUrl="~/Login.aspx" timeout="30" name="PortalAuth" />
+		</authentication>
+		<pages  enableEventValidation="false" controlRenderingCompatibilityVersion="4.0"/>
+	</system.web>
+	<system.webServer>
+		<modules runAllManagedModulesForAllRequests="true">
+			<add name="UrlRewriter" type="Brierley.WebFrameWork.Portal.UrlRewriter"/>
+		</modules>
+		<validation validateIntegratedModeConfiguration="false"/>
+	</system.webServer>
+<system.serviceModel>
+		<serviceHostingEnvironment aspNetCompatibilityEnabled="true"/>
+	</system.serviceModel>
+</configuration>

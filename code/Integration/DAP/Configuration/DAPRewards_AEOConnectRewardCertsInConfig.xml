@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Rewards DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagleCline\Data\WeeklyFeed\Stage1">
+    <FlatFileInput>
+      <CollectionRoot Name="MemberRewards" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Global" Structure="Delimited" Delimiter="|" TagName="">
+          <Fields>
+            <RecordField Name="MemberRewardID" Type="String" />
+            <RecordField Name="AuthCode" Type="String" />
+            <RecordField Name="SucCode" Type="String" />
+            <RecordField Name="CampaignExpirationDate" Type="String" />
+			<RecordField Name="StartDate" Type="String" />
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="MemberRewards" TargetAttributeSetType="Global" DebugOutputPath="D:\devroot\americaneagle\branches\NationalRollout\LogFiles">
+    <FieldMap SourceField="Global/MemberRewardID">
+      <Populate TargetNode="Global/MemberRewardID" />
+    </FieldMap>
+    <FieldMap SourceField="Global/AuthCode">
+      <Populate TargetNode="Global/AuthCode" />
+    </FieldMap>
+    <FieldMap SourceField="Global/SucCode">
+      <Populate TargetNode="Global/SucCode" />
+    </FieldMap>
+    <FieldMap SourceField="Global/CampaignExpirationDate">
+      <Populate TargetNode="Global/CampaignExpirationDate" />
+    </FieldMap>
+	<FieldMap SourceField="Global/StartDate">
+	  <Populate TargetNode="Global/StartDate" />
+	</FieldMap>
+    <!-- <MissingField TargetNode="Member/RewardFileName" UseMacro="{$arg=RewardFileName}"/> -->
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput>
+      <TypeName>AmericanEagle.SDK.OutputProviders.AEOConnectedRewardCertIn</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

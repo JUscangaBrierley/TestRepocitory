@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Bonus Loader  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\MessageProcessing\BonusLoader\Stage1">
+    <FlatFileInput>
+      <CollectionRoot Name="MemberBonus" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Global" Structure="Delimited" Delimiter="," TagName="">
+          <Fields>
+            <RecordField Name="LoyaltyNumber" Type="String" />
+            <RecordField Name="Points" Type="String" />            
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="MemberBonus" TargetAttributeSetType="Global" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\MessageProcessing\BonusLoader\Stage2">
+    <FieldMap SourceField="Global/LoyaltyNumber">
+      <Populate TargetNode="Global/LoyaltyNumber"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/Points">
+      <Populate TargetNode="Global/Points"/>
+    </FieldMap>
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+     <TypeName>AmericanEagle.SDK.OutputProviders.BonusLoader</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

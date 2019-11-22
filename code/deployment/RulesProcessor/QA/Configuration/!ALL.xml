@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+   <RuleEngineConfig>
+    <Environment xdt:Transform="Replace">QA</Environment>
+  </RuleEngineConfig>
+</RulesDirectives>

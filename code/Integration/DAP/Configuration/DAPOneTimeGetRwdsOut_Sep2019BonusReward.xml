@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>  
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Rewards Out DAP Processor 5 Dollar Bonus Reward</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+  </PreProcessor>
+  
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\LogFiles">
+    <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
+      <QueryString>
+         <![CDATA[ 
+		select cast ('MemberRewardID|Customer_NBR|Loyalty_Number|RewardType|IssueDate' as varchar(100) ) as line1 from dual
+        union all
+        select cast (r.id || '|' ||
+              vc.linkkey ||'|' ||
+              vc.loyaltyidnumber ||'|' ||
+              '13'||'|'||
+              to_char(sysdate,'YYYYMMDD' ) as varchar2(100)) 
+              /*to_char(r.dateissued,'YYYYMMDD') as varchar2(100))*/
+              AS line1
+        from  bp_ae.lw_memberrewards r
+        inner join bp_ae.lw_virtualcard vc          on vc.ipcode = r.memberid
+        inner join bp_ae.lw_loyaltymember lm        on lm.ipcode = vc.ipcode
+        inner join bp_ae.lw_rewardsdef rd           on rd.id     = r.rewarddefid
+        where r.certificatenmbr is null               
+          and nvl(vc.isprimary, 0) = 1
+          and rd.name in ('$5 Reward')
+		 ]]>
+      </QueryString>
+      <Fields>
+        <Field Name="line1"  Type="String"  />      
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="Rewards" RecordName="Reward" FileName="AEO_Out_Rewards_{$date(format=yyyyMMdd)}.txt" DataInAttributes="false"  Delimiter="" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="line1" Justification="Left" Length="100" />                
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>       
+  </PostProcessor>
+</DAPDirectives>

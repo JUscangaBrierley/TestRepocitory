@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Vendor Email Error Load DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\americaneagle\cline\LogFiles">
+    <FlatFileInput>
+      <CollectionRoot Name="EmailValidations" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Global" Structure="Delimited" Delimiter="|" TagName="">
+          <Fields>
+            <RecordField Name="Loyalty_Number"  Type="String" />
+			      <RecordField Name="Email_Address"  Type="String" />
+			      <RecordField Name="EID" Type="String" />			
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="EmailValidations" TargetAttributeSetType="Global" DebugOutputPath="C:\devroot\americaneagle\cline\LogFiles">
+    <FieldMap SourceField="Global/Loyalty_Number">
+      <Populate TargetNode="Global/Loyalty_Number"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/Email_Address">
+      <Populate TargetNode="Global/Email_Address"/>
+    </FieldMap>
+    <FieldMap SourceField="Global/EID">
+      <Populate TargetNode="Global/EID"/>
+    </FieldMap>
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider CheckForChangedValues="true">
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.VendorEmailValidation</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

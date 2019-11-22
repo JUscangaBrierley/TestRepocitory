@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Early Rewards Import Send  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="MemberRewards" RecordName="MemberReward">
+      <QueryString>
+        SELECT
+        fl.a_loyaltynumber as LoyaltyNumber,
+        case fl.a_isunderage
+        When 1 Then cast('' as NVARCHAR2(50))
+        Else
+        UPPER(fl.a_firstname)
+        End as FirstName,
+        UPPER(fl.a_lastname) as LastName,
+        UPPER(fl.a_addresslineone) as Line1,
+        UPPER(fl.a_addresslinetwo) as Line2,
+        UPPER(fl.a_city) as City,
+        UPPER(substr(fl.a_stateorprovince, 1, 2)) as State,
+        fl.a_ziporpostalcode as PostalCode,
+        fl.a_country as Country,
+        Case instr(fl.a_rewarddescription, '%')
+        When 0 Then 'ER00' || lpad(REPLACE(fl.a_rewarddescription, '$', ''), '3', '0')
+        Else 'MR00' || lpad(REPLACE(fl.a_rewarddescription, '%', ''), 3, '0')
+        END as RewardLevel,
+        case
+        when fl.a_isunderage = 1 then 'Y'
+        else 'N'
+        end as UnderAge,
+        Case
+        When fl.a_extendedplaycode = 2 Then 0
+        When fl.a_extendedplaycode = 3 Then 0
+        Else fl.a_extendedplaycode
+        End as HighTier,
+        fl.a_languagepreference as LanguagePreference,
+        case
+        when fl.a_addressmailable = 0 then 'N'
+        when fl.a_addressmailable = 1 then 'Y'
+        when fl.a_addressmailable = 2 then 'N'
+        else 'N'
+        end as StatusMailable,
+        fl.a_purchasedaebrand as AEBrand,
+        fl.a_purchasedaeriebrand as AerieBrand,
+        fl.a_purchasedkidsbrand as KidsBrand      
+        FROM    bp_ae.ATS_EARLYREWARDFULFILLMENT fl
+        INNER JOIN bp_ae.lw_memberrewards mr on fl.a_memberrewardid = mr.id
+		
+      </QueryString>
+      <Fields>
+      
+        <Field Name="LoyaltyNumber" Type="String" />
+        <Field Name="FirstName" Type="String" />
+        <Field Name="LastName" Type="String" />
+        <Field Name="Line1" Type="String" />
+        <Field Name="Line2" Type="String" />
+        <Field Name="City" Type="String" />
+        <Field Name="State" Type="String" />
+        <Field Name="PostalCode" Type="String" />
+        <Field Name="Country" Type="String" />
+        <Field Name="RewardLevel" Type="String" />
+        <Field Name="UnderAge" Type="String" />
+        <Field Name="HighTier" Type="String" />
+        <Field Name="LanguagePreference" Type="String" />
+        <Field Name="StatusMailable" Type="String" />
+        <Field Name="AEBrand" Type="String" />
+        <Field Name="AerieBrand" Type="String" />
+        <Field Name="KidsBrand" Type="String" />
+       
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <FixedRecordFileOutput CollectionName="MemberRewards" FileName="Qxx_yyyy_Reward_Import.txt" Justification="Left" OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles" RecordName="MemberReward">
+      <FieldMap>
+        
+        <Field Name="LoyaltyNumber" Justification="Left" Length="14" />
+        <Field Name="FirstName" Justification="Left" Length="30" />
+        <Field Name="LastName" Justification="Left" Length="30" />
+        <Field Name="Line1" Justification="Left" Length="40" />
+        <Field Name="Line2" Justification="Left" Length="40" />
+        <Field Name="City" Justification="Left" Length="30" />
+        <Field Name="State" Justification="Left" Length="2" />
+        <Field Name="PostalCode" Justification="Left" Length="10" />
+        <Field Name="Country" Justification="Left" Length="25" />
+        <Field Name="RewardLevel" Justification="Left" Length="10" />
+        <Field Name="UnderAge" Justification="Left" Length="1" />
+        <Field Name="HighTier" Justification="Left" Length="1" />
+        <Field Name="LanguagePreference" Justification="Left" Length="1" />
+        <Field Name="StatusMailable" Justification="Left" Length="1" />
+        <Field Name="AEBrand" Justification="Left" Length="1" />
+        <Field Name="AerieBrand" Justification="Left" Length="1" />
+        <Field Name="KidsBrand" Justification="Left" Length="1" />
+        
+      </FieldMap>
+    </FixedRecordFileOutput>
+  </OutputProvider>
+</DAPDirectives>

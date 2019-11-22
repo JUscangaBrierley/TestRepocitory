@@ -1,0 +1,13 @@
+solution-file: AmericanEagle.Solution.sln
+open-cover-filters:
+  - '+[AmericanEagle.*]* -[AmericanEagle.Tests]* -[AmericanEagle.IntegrationTests]*'
+  - '-[AmericanEagle.SDK]*Sample*'
+  - '-[AmericanEagle.SDK]*ErrorMapper*'
+  - '-[AmericanEagle.bScript]*Sample*'
+  - '+[Brierley.AEModules.*]*'
+sdk-assembly: AmericanEagle.SDK.dll
+artifact-prefix: AEO
+sonar-server: http://sonarqube.brierley.com:9000
+project-key: AEO
+project-name: AmericanEagleOutfitters
+sonar-branch: integration

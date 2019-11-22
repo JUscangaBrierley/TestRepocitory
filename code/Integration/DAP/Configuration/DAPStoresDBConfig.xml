@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>Stores</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Store DAP Processor</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <PreProcessor>
+    <StoredProcTask Name="stage_storefile.stage_store">
+      <InputParameters>
+        <Parm Name="p_filename" Type="String" Value="{$arg=StoreFileName}" Required="true"/>
+      </InputParameters>
+      <ReturnParameter>
+        <Parm Name=":B1" Type="Integer" Required="true"/>
+        <ParmAction Action="SetGlobal" Name="jobnumber"/>
+      </ReturnParameter>
+    </StoredProcTask>
+  </PreProcessor>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\DevRoot\AmericanEagle\LWTemp\DAP\Store">
+    <SimpleDatabaseInput CollectionName="Stores" RecordName="Store">
+      <QueryString>Select StoreName,BrandName,AddressLineOne,AddressLineTwo,City,StateOrProvince,ZipOrPostalCode,Country,Region,District,StoreNumber,-1 as PhoneNumber from LW_STOREDEF_STAGE </QueryString>
+          <Fields>
+            <Field Name="StoreName" Type="String"  />
+            <Field Name="BrandName" Type="String" />
+            <Field Name="AddressLineOne" Type="String" />
+            <Field Name="AddressLineTwo" Type="String"  />
+            <Field Name="City" Type="String" />
+            <Field Name="StateOrProvince" Type="String" />
+            <Field Name="ZipOrPostalCode" Type="String" />
+            <Field Name="Country" Type="String" />
+            <Field Name="Region" Type="String" />
+            <Field Name="District" Type="String"  />
+            <Field Name="StoreNumber" Type="String" />
+			<Field Name="PhoneNumber" Type="String" />
+         </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>10</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <FrameworkReferenceData>
+          <StoreLoadDirective CreateIfNotExisting="true" StoreLoadMethod="StoreNumber" SanitizeAddress="false"></StoreLoadDirective>
+        </FrameworkReferenceData>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+</DAPDirectives>

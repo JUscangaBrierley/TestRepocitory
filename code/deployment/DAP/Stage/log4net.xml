@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log4net xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <appender name="logfile" type="log4net.Appender.RollingFileAppender" xdt:Locator="Match(name)">
+    <file value="E:\AmericanEagle\Logs\AEO_DAPConsoleProcessor.log" xdt:Transform="Replace"/>
+  </appender>
+
+  <appender name="xmllogfile" type="log4net.Appender.RollingFileAppender" xdt:Locator="Match(name)">
+    <file value="E:\AmericanEagle\Logs\DAPConsoleProcessor.xml" xdt:Transform="Replace"/> 
+  </appender>
+
+  <root>
+    <level value="ERROR" xdt:Transform="Replace"/>
+  </root>
+</log4net>

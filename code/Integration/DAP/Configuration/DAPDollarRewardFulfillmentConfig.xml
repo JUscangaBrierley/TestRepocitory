@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat>MMddyyyy</DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Dollar Reward FUlfillment   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\AmericanEagle\Files\Dummy1">
+    <FlatFileInput>
+      <CollectionRoot Name="DollarRewards" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="DollarReward" Structure="Delimited" Delimiter="|" TagName="">
+          <Fields>
+            <RecordField Name="LOY_ID" Type="String" />
+            <RecordField Name="OFFER" Type="String" />
+            <RecordField Name="AUTH_CD" Type="String" />
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="DollarRewards" TargetAttributeSetType="Global" DebugOutputPath="E:\AmericanEagle\Files\Dummy">
+    <FieldMap SourceField="DollarReward/LOY_ID">
+      <Populate TargetNode="Global/LOY_ID"/>
+    </FieldMap>
+    <FieldMap SourceField="DollarReward/OFFER">
+      <Populate TargetNode="Global/OFFER"/>
+    </FieldMap>
+    <FieldMap SourceField="DollarReward/AUTH_CD">
+      <Populate TargetNode="Global/AUTH_CD"/>
+    </FieldMap>
+    <MissingField TargetNode="Global/ExceptionRecordsFileName" UseMacro="{$arg=ExceptionRecordsFileName}"/>
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <!-- Configuration for Dispatcher messages over threads -->
+    <DispatcherConfiguration>
+      <ThreadPoolSize>1</ThreadPoolSize>
+      <RequestsPerThread></RequestsPerThread>
+      <SerializeMembers>false</SerializeMembers>
+    </DispatcherConfiguration>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.DollarRewardFulfillment</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

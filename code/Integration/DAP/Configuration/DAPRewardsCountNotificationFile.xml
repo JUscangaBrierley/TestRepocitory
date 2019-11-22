@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>    
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\AmericanEagle\LogFiles">
+    <SimpleDatabaseInput CollectionName="WeeklyRewardsNotification" RecordName="WeeklyRewardsNotification">
+      <QueryString>
+	    <![CDATA[
+			SELECT HtmlPrefix || Text || HTMLSufix as TextRow FROM (
+				SELECT 	CASE WHEN TypeOfRow = 'Detail' THEN '        '
+							 WHEN TypeOfRow = 'GroupTotal' THEN '    <b>'
+							 ELSE '<b><i>' END HtmlPrefix,
+						RwdDescription || ' - ' || Rwdcount AS Text,
+						CASE WHEN TypeOfRow = 'Detail' THEN '<br>'
+							 WHEN TypeOfRow = 'GroupTotal' THEN '</b><br><br>'
+							 ELSE '</i></b><br>' END HtmlSufix
+				FROM(       
+					SELECT 	RwdGroup,
+							CASE WHEN RwdDescription IS NOT NULL THEN RwdDescription
+								 WHEN RwdDescription IS NULL AND RwdGroup IS NOT NULL THEN RwdGroup ||' Off Totals'
+								 ELSE 'Total Records' 
+							END RwdDescription,
+							NVL(SUM(RwdCount),0) as RwdCount,
+							CASE WHEN RwdDescription IS NOT NULL THEN 'Detail'
+								 WHEN RwdDescription IS NULL AND RwdGroup IS NOT NULL THEN 'GroupTotal'
+								 ELSE 'RecordsTotal' 
+							END TypeOfRow
+					FROM (
+						SELECT  CASE WHEN RwDef.RwdGroup IS NOT NULL THEN RwDef.RwdGroup ELSE 'Undefined' END RwdGroup, 
+							CASE WHEN RwDef.RwdDescription IS NOT NULL THEN RwDef.RwdDescription ELSE 'Undefined Reward Type '|| To_char(RwCount.Rwdtype) END RwdDescription, 
+							CASE WHEN RwCount.Rwdtype IS NOT NULL THEN RwCount.Rwdtype ELSE RwDef.RwdType END Rwdtype, 
+							RwCount.Rwdcount
+						FROM 
+						(
+							SELECT	ca.attributevalue as Rwdtype, count(*) AS RwdCount
+							FROM bp_ae.lw_memberrewards r
+								 INNER JOIN bp_ae.lw_virtualcard vc          on vc.ipcode = r.memberid
+								 INNER JOIN bp_ae.lw_loyaltymember lm        on lm.ipcode = vc.ipcode
+								 INNER JOIN bp_ae.lw_rewardsdef rd           on rd.id     = r.rewarddefid
+								 INNER JOIN bp_ae.lw_contentattribute ca     on ca.refid  = rd.id
+								 INNER JOIN bp_ae.lw_contentattributedef cad on cad.id    = ca.contentattributedefid
+							WHERE cad.name = 'RewType' AND ca.attributevalue is not null
+								  AND r.dateissued >= To_Date(']]>{$arg=RewardsProcessStartDate}<![CDATA[','MM/DD/YYYY HH24:mi:ss')
+								  /*(SELECT to_date(
+												   (SELECT nvl(to_char(cc.value),to_char(sysdate,'MM/DD/YYYY HH24:mi:ss')) FROM BP_AE.LW_CLIENTCONFIGURATION CC WHERE LOWER(CC.CKEY) = 'lastrewarddate')
+												   ,'MM/DD/YYYY HH24:mi:ss'
+												 )
+									 FROM dual)*/
+							  AND NVL(vc.isprimary, 0) = 1
+							GROUP BY ca.attributevalue
+						) RwCount
+						Full Join 
+						(
+							SELECT 	SUBSTR(t.str, 1, INSTR(t.str, ':')-1) AS RwdGroup,
+									SUBSTR(SUBSTR(t.str, INSTR(t.str, ':')+1), 1, INSTR(SUBSTR(t.str, INSTR(t.str, ':')+1), ':')-1) AS RwdDescription,
+									SUBSTR(SUBSTR(t.str, INSTR(t.str, ':')+1), INSTR(SUBSTR(t.str, INSTR(t.str, ':')+1), ':')+1) AS RwdType
+							FROM (
+								SELECT 	trim(
+											regexp_substr(
+												(select to_char(cc.value) from bp_ae.lw_clientconfiguration cc where cc.ckey = 'NotificationRewardsDef')
+												, '[^;]+'
+												,1
+												,LEVEL
+											 )
+										) str
+								FROM dual
+									CONNECT BY instr(
+										(select to_char(cc.value) from bp_ae.lw_clientconfiguration cc where cc.ckey = 'NotificationRewardsDef')
+										, ';', 1, LEVEL - 1
+									) > 0  
+							) t
+						) RwDef on RwDef.RwdType = RwCount.Rwdtype 
+					) GROUP BY GROUPING SETS(RwdGroup, (RwdGroup,RwdDescription), ())
+				)
+			)
+		]]>
+      </QueryString>
+      <Fields>
+        <Field Name="TextRow" Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="WeeklyRewardsNotification" RecordName="WeeklyRewardsNotification" FileName="AEO_RewardsNotification_{$date(format=MMddyyyy)}.txt" DataInAttributes="false" Delimiter="" OutputFolder="E:\AmericanEagleDevelopmentBline\Files\Outbound">
+      <FieldMap>
+        <Field Name="TextRow"  Length="500"/>
+	</FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

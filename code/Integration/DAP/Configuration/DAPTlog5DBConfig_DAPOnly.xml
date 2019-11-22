@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+	  <Subject>AE Tlog5  DAP Processor</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Batch" DebugOutputPath="E:\devroot\Loyaltyware\Data\TLOG\Stage1Out">
+    <StagedTlogDatabaseInput MemberRetrievalRange="0-*"
+                             MemberRetrievalBatchSize="200" ProcessRewards="true" 
+                             StagingDetailTable="LW_TXNDETAIL_STAGE5" StageDetailLoadMethod="LoyaltyIdNumber"
+                             StagingTenderTable="LW_TXNTENDER_STAGE5" ProcessTenders="true"
+                             StagingDiscountTable="LW_TXNDETAILDISCOUNT_STAGE5" ProcessDiscounts="true"
+			     StagingRewardsTable="LW_TXNREWARDREDEEM_STAGE5" ProcessRewardRedemptions="true"
+				 CheckProcessId="true">
+      <TlogMessageProducer>
+        <TypeName>Brierley.LoyaltyWare.DataAcquisition.Core.Input.DbProvider.StagedTlogMessageHelper</TypeName>
+        <AssemblyName>Brierley.LoyaltyWare.DataAcquisition.Core.dll</AssemblyName>
+        <Parameters>
+          <Parameter Name="DataInAttributes" Value="true" />          
+        </Parameters>
+      </TlogMessageProducer>
+      <DetailFields>
+        <Field Name="RowKey" Type="Long" Required="true"/>
+        <Field Name="IpCode" Type="Long" Required="false" SpecialType="Header"/>
+        <Field Name="VcKey" Type="Long" Required="true"/>
+        <Field Name="ProcessId" Type="Integer" Required="true"/>
+        <Field Name="TxnHeaderId" Type="String" Required="true" SpecialType="HeaderDetail"/>
+        <Field Name="TxnDetailId" Type="String" Required="true" SpecialType="Detail"/>
+		    <Field Name="BrandId" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="FileID" Type="Integer" Required="false"/>
+		    <Field Name="FileLineItem" Type="Integer" Required="false"/>
+		    <Field Name="CardId" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="CreditCardId" Type="Long" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnLoyaltyId" Type="String" Required="true" SpecialType="Header"/>
+		    <Field Name="TxnMaskId" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnNumber" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnDate" Type="Date" Required="false" SpecialType="HeaderDetail"/>
+		    <Field Name="TxnDateModified" Type="Date" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnRegisterNumber" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnStoreId" Type="Integer" Required="true" SpecialType="HeaderDetail"/>
+		    <Field Name="StoreNumber" Type="Integer" Required="true" SpecialType="HeaderDetail"/>
+		    <Field Name="TxnTypeId" Type="String" Required="true" SpecialType="Header"/>
+		    <Field Name="TxnCreditsUsed" Type="Integer" Required="True" SpecialType="Header"/>
+		    <Field Name="ShipDate" Type="Date" Required="false" SpecialType="Header"/>
+		    <Field Name="OrderNumber" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnAmount" Type="Double" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnQualPurchaseAmt" Type="Integer" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnDiscountAmount" Type="Double" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnEmailAddress" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnPhoneNumber" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnEmployeeId" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnChannelId" Type="String" Required="false" SpecialType="Header"/>
+		    <Field Name="TxnOriginalTxnRowKey" Type="Integer" Required="false" SpecialType="Header"/>
+		    <Field Name="DtlItemLineNbr" Type="Integer" Required="true" SpecialType="Detail"/>
+		    <Field Name="DtlProductId" Type="Integer" Required="true" SpecialType="Detail"/>
+		    <Field Name="DtlTypeId" Type="Integer" Required="true" SpecialType="Detail"/>
+		    <Field Name="DtlActionId" Type="Integer" Required="false" SpecialType="Detail"/>
+		    <Field Name="DtlRetailAmount" Type="Double" Required="false" SpecialType="Detail"/>
+		    <Field Name="DtlSaleAmount" Type="Double" Required="true" SpecialType="Detail"/>
+		    <Field Name="DtlQuantity" Type="Integer" Required="false" SpecialType="Detail"/>
+		    <Field Name="DtlDiscountAmount" Type="Double" Required="false" SpecialType="Detail"/>
+		    <Field Name="DtlClearanceItem" Type="Integer" Required="true" SpecialType="Detail"/>
+		    <Field Name="DtlDateModified" Type="Date" Required="false" SpecialType="Detail"/>
+		    <Field Name="DtlClassCode" Type="String" Required="false" SpecialType="Detail"/>
+		    <Field Name="ReconcileStatus" Type="Integer" Required="false"/>
+      </DetailFields>
+      <TenderFields>
+        <Field Name="RowKey" Type="Integer" Required="true"/>
+    		<Field Name="ProcessId" Type="Integer" Required="true"/>
+        <Field Name="FileID" Type="Integer" Required="false"/>
+		    <Field Name="TxnHeaderId" Type="String" Required="true"/>
+        <Field Name="TxnTenderId" Type="String" Required="true"/>
+        <Field Name="IpCode" Type="Long" Required="true"/>
+        <Field Name="StoreId" Type="Integer" Required="true"/>
+        <Field Name="TxnDate" Type="Date" Required="true"/>
+        <Field Name="TenderType" Type="Integer" Required="true"/>
+        <Field Name="TenderAmount" Type="Double" Required="true"/>
+        <Field Name="TenderCurrency" Type="String" Required="false"/>
+      </TenderFields>
+      <DiscountFields>
+        <Field Name="RowKey" Type="Integer" Required="true"/>
+        <Field Name="IpCode" Type="Long" Required="true"/>
+        <Field Name="ProcessId" Type="Integer" Required="true"/>
+        <Field Name="FileID" Type="Integer" Required="false"/>
+        <Field Name="TxnHeaderId" Type="String" Required="true"/>
+		    <Field Name="TxnDetailId" Type="String" Required="true"/>
+        <Field Name="TxnDiscountId" Type="String" Required="true"/>
+        <Field Name="TxnDate" Type="Date" Required="true"/>
+        <Field Name="OfferCode" Type="String" Required="false"/>
+      </DiscountFields>
+      <RewardsFields>
+        <Field Name="RowKey" Type="Integer" Required="true"/>
+        <Field Name="IpCode" Type="Long" Required="true"/>
+        <Field Name="ProcessId" Type="Integer" Required="true"/>
+        <Field Name="FileID" Type="Integer" Required="false"/>
+        <Field Name="TxnHeaderId" Type="String" Required="true"/>
+        <Field Name="TxnDate" Type="String" Required="true"/>
+        <Field Name="CertificateCode" Type="String" Required="true"/>
+        <Field Name="ProgramId" Type="String" Required="true"/>
+      </RewardsFields>
+    </StagedTlogDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>3</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+        <!--<SerializationPolicy>MemberKey</SerializationPolicy>
+        <SerializationMethod LookupMethod="IpCode" ValuePath="Member/IpCode"/>-->
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.AmericanEagleTLogInterceptor</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+          <MemberLoadDirectives ExceptionIfNotFound="true" ExceptionIfFound="false">
+            <LoadDirective Method="IpCode" ValuePath="Member/IpCode"/>
+            <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber"/>
+          </MemberLoadDirectives>
+          <AttributeSetCreateDirectives>
+            <AttributeSetUpdate Name="VirtualCard" FindMethod="Attribute" FindValue="LoyaltyIdNumber" CreateIfNotFound="false"/>            
+          </AttributeSetCreateDirectives>
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+</DAPDirectives>

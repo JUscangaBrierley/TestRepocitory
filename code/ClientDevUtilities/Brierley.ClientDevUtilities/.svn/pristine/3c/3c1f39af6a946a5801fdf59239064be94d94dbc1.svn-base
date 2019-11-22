@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F2B8ACD-37AE-4F4A-A456-E213C40D9071}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brierley.ClientDevUtilities</RootNamespace>
+    <AssemblyName>Brierley.ClientDevUtilities</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Brierley.FrameWork">
+      <HintPath>..\..\CommonLibs\Brierley.FrameWork.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.DataAcquisition.Core">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.DataAcquisition.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.LWIntegrationSvc">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.LWIntegrationSvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Brierley.LoyaltyWare.LWMobileGateway">
+      <HintPath>..\..\CommonLibs\Brierley.LoyaltyWare.LWMobileGateway.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\ContentAttributeExtensions.cs" />
+    <Compile Include="Data\DBConvert.cs" />
+    <Compile Include="Data\PetaPocoExtensions.cs" />
+    <Compile Include="Global\DateTimeUtility.cs" />
+    <Compile Include="Global\StringExtensions.cs" />
+    <Compile Include="LWExtend\FrameWork\Brierley.FrameWork\Data\ILWExtendLoyaltyDataService.cs" />
+    <Compile Include="LWExtend\FrameWork\Brierley.FrameWork\Data\LoyaltyDataService.cs" />
+    <Compile Include="LWExtend\FrameWork\Brierley.FrameWork\Rules\ILWExtendTierUtil.cs" />
+    <Compile Include="LWExtend\FrameWork\Brierley.FrameWork\Rules\TierUtil.cs" />
+    <Compile Include="LWExtend\LWIntegrationSvc\Brierley.LoyaltyWare.LWMobileGateway\DomainModel\MGMemberReward.cs" />
+    <Compile Include="LWExtend\LWIntegrationSvc\Brierley.LoyaltyWare.LWMobileGateway\OperationProviders\Members\GetAccountSummary.cs" />
+    <Compile Include="LWExtend\LWIntegrationSvc\Brierley.LoyaltyWare.LWMobileGateway\OperationProviders\Rewards\GetMemberRewards.cs" />
+    <Compile Include="LWExtend\LWIntegrationSvc\Brierley.LoyaltyWare.LWMobileGateway\OperationProviders\Rewards\GetMemberRewardsRequest.cs" />
+    <Compile Include="LWGateway\Common\IResourceUtils.cs" />
+    <Compile Include="LWGateway\Common\ResourceUtils.cs" />
+    <Compile Include="LWGateway\ContentService.cs" />
+    <Compile Include="LWGateway\DataAccess\ClientConfigurationDao.cs" />
+    <Compile Include="LWGateway\DataAccess\ContactHistoryDao.cs" />
+    <Compile Include="LWGateway\DataAccess\IClientConfigurationDao.cs" />
+    <Compile Include="LWGateway\DataAccess\IContactHistoryDao.cs" />
+    <Compile Include="LWGateway\DataAccess\IDaoBase.cs" />
+    <Compile Include="LWGateway\DataAccess\ILWEventDao.cs" />
+    <Compile Include="LWGateway\DataAccess\IMemberDao.cs" />
+    <Compile Include="LWGateway\DataAccess\IPointTransactionDao.cs" />
+    <Compile Include="LWGateway\DataAccess\LWEventDao.cs" />
+    <Compile Include="LWGateway\DataAccess\MemberDao.cs" />
+    <Compile Include="LWGateway\DataAccess\PointTransactionDao.cs" />
+    <Compile Include="LWGateway\DataService.cs" />
+    <Compile Include="LWGateway\DataServiceUtil.cs" />
+    <Compile Include="LWGateway\EmailService.cs" />
+    <Compile Include="LWGateway\IContentService.cs" />
+    <Compile Include="LWGateway\IDataService.cs" />
+    <Compile Include="LWGateway\IDataServiceUtil.cs" />
+    <Compile Include="LWGateway\IEmailService.cs" />
+    <Compile Include="LWGateway\ILanguageChannelUtil.cs" />
+    <Compile Include="LWGateway\ILoyaltyDataService.cs" />
+    <Compile Include="LWGateway\ILWDataServiceUtil.cs" />
+    <Compile Include="LWGateway\IServiceBase.cs" />
+    <Compile Include="LWGateway\ISurveyManager.cs" />
+    <Compile Include="LWGateway\ITriggeredEmailFactory.cs" />
+    <Compile Include="LWGateway\LanguageChannelUtil.cs" />
+    <Compile Include="LWGateway\LoyaltyDataService.cs" />
+    <Compile Include="LWGateway\LWDataServiceUtil.cs" />
+    <Compile Include="LWGateway\Messaging\IMessagingBus.cs" />
+    <Compile Include="LWGateway\Messaging\MessagingBus.cs" />
+    <Compile Include="LWGateway\PetaPocoGateway\Database.cs" />
+    <Compile Include="LWGateway\PetaPocoGateway\IDatabase.cs" />
+    <Compile Include="LWGateway\SurveyManager.cs" />
+    <Compile Include="LWGateway\TriggeredEmailFactory.cs" />
+    <Compile Include="MessageQueue\MessageQueueNativeUtility.cs" />
+    <Compile Include="MessageQueue\MessageQueueUtility.cs" />
+    <Compile Include="Net\CataboomUtility.cs" />
+    <Compile Include="Net\ICataboomUtility.cs" />
+    <Compile Include="Net\QueryStringBuilder.cs" />
+    <Compile Include="OperationProvider\CDISOperationProviderBase.cs" />
+    <Compile Include="OperationProvider\MGOperationProviderBase.cs" />
+    <Compile Include="OutputProvider\MoveMessagesOutputProvider.cs" />
+    <Compile Include="OutputProvider\RetryFailedMessagesOutputProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\ContextUtility.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)Brierley.ClientDevUtilities.dll" "$(SolutionDir)ClientLibs"
+copy "$(TargetDir)Brierley.ClientDevUtilities.pdb" "$(SolutionDir)ClientLibs"
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

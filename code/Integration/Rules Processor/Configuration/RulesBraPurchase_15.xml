@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>Development</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat>
+    <ThreadPoolSize>3</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Rules Processor - (Development) Bra Rewards - 15</Subject>
+    </EmailInformation>    
+  </RuleEngineConfig>
+
+  <MemberRule DirectiveName="AERewards">
+    <PointsBasedMemberRetriever RetrievalRange="1-*" RetrievalBatchSize="100">
+      <LoyaltyCurrencies>
+        <LoyaltyCurrency>Bra Points</LoyaltyCurrency>
+      </LoyaltyCurrencies>
+      <LoyaltyEvents>
+        <LoyaltyEvent>Bra Purchase - 15</LoyaltyEvent>
+        <LoyaltyEvent>Bra Return</LoyaltyEvent>
+      </LoyaltyEvents>
+      <Criteria>
+        <Method>PointBalance</Method>
+        <Predicate>Ge</Predicate>
+        <Value>5</Value>
+      </Criteria>
+    </PointsBasedMemberRetriever>
+    <RulesToInvoke>
+      <Rule RuleName="Bra Reward - 15" TargetPath="Member"/>
+      <CSharpClass AssemblyName="AmericanEagle.SDK.dll" TypeName="AmericanEagle.SDK.CSharpRules.CustomBraRule" ReuseClass="true" TargetPath="Member" />
+    </RulesToInvoke>
+  </MemberRule>
+
+  
+
+  
+</RulesDirectives>

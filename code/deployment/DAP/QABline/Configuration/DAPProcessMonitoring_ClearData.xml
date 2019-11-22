@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+ <OutputProvider>
+	<DelimetedFileOutput OutputFolder="E:\AmericanEagleBline\Logs" xdt:Transform="SetAttributes(OutputFolder)"/>
+ </OutputProvider>
+</DAPDirectives>

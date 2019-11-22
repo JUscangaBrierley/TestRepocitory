@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>Add MemberPromotions</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="">    
+    <SimpleDatabaseInput CollectionName="Members" RecordName="Member">
+      <QueryString>
+        select * from bp_ae.stage_lwmemberpromotion
+      </QueryString>
+      <Fields>
+        <Field Name="MEMBERID" Type="String" />
+        <Field Name="CODE" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Members" TargetAttributeSetType="Member" DebugOutputPath="">
+    <FieldMap SourceField="Member/MEMBERID" >
+      <Populate TargetNode="Member/IPCODE"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/CODE" >
+      <Populate TargetNode="Member/CODE" CreateNewNode="true"/>
+    </FieldMap>    
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>3</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.AddMemberToPromotion</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+          <MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="true">
+            <LoadDirective Method="IpCode" ValuePath="Member/IPCODE" />
+          </MemberLoadDirectives>
+          <AttributeSetCreateDirectives>            
+            <AttributeSetUpdate CreateIfNotFound="false" Name="VirtualCard" FindMethod="First"/>
+          </AttributeSetCreateDirectives>
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+  
+  <!-- 
+  <PostProcessor>
+    <StoredProcTask Name="DAPPROCESS.DAPPOSTPROCESS">
+      <InputParameters>
+        <Parm Name="FEEDNAME" Type="String" Value="MEMBER_PROMO"/>
+      </InputParameters>
+    </StoredProcTask>
+  </PostProcessor>
+  -->
+</DAPDirectives>

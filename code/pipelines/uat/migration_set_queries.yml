@@ -1,0 +1,153 @@
+# notes:
+#
+# a column returning a BLOB will fail, instead try returning a hash value:
+# select RAWTOHEX(dbms_crypto.hash(assembly, 1)) from lw_remoteassembly
+#
+# Do NOT put a semicolon at the end of the query, it will cause the parser to fail.
+#
+# CLOBS will be returned and diffed, but the output may prove cumbersome to read.
+# you may want to use a hash instead to identify if differences exist.
+#
+#
+attribute_set:
+  file_name: attribute_set.html
+  label: attribute_set
+  query: |
+    select a.attributesetname,
+         p.attributesetname parentattributesetname,
+         a.alias,
+         a.categorycode,
+         a.description,
+         a.displaytext,
+         a.editablefromcampaign,
+         a.editablefromprogram,
+         a.typecode
+    from lw_attributeset a
+    left join lw_attributeset p on a.parentattributesetcode = p.attributesetcode
+         order by a.attributesetname
+attribute_attribute_set:
+  file_name: attribute_attribute_set.html
+  label: attribute_attribute_set
+  query: |
+    select s.attributesetname,
+         a.attributename,
+         a.alias,
+         a.canbeupdated,
+         a.datatypecode,
+         a.defaultvalues,
+         a.description,
+         a.displaytext,
+         a.encryptiontype,
+         a.ismigrationtext,
+         a.isrequired,
+         a.issortable,
+         a.isunique,
+         a.maxlength,
+         a.minlength,
+         a.statuscode,
+         a.visibleingrid
+    from lw_attribute a
+    join lw_attributeset s on a.attributesetcode = s.attributesetcode
+    order by s.attributesetname, a.attributename
+rule_triggers:
+  file_name: rule_triggers.html
+  label: rule_triggers
+  query: |
+    SELECT a.attributesetname,
+           rt.sequence,
+           rt.invocationtype,
+           RAWTOHEX(dbms_crypto.hash(NVL(rt.conditionalexpression, 'null'), 1)) conditionalexpressionhash,
+           --RAWTOHEX(dbms_crypto.hash(NVL(rt.ruleinstance, 'null'), 1)) ruleinstancehash,
+           rt.canqueue,
+           rt.isconfigured,
+           rt.rulename,
+           rt.promotioncode,
+           to_char(rt.startdate,'yyyymmddhh24miss') as startdate,
+           to_char(rt.enddate,'yyyymmddhh24miss') as enddate,
+           rt.targeted,
+           rt.continueonerror,
+           rt.alwaysrun,
+           rt.logexecution,
+           rt.owningobject
+      FROM lw_ruletriggers rt
+      LEFT JOIN lw_attributeset a ON a.attributesetcode = rt.attributesetcode
+     ORDER BY rt.rulename
+rewards_def_product:
+  file_name: rewards_def_product.html
+  label: rewards_def_product
+  query: |
+    SELECT rd.certificatetypecode,
+           rd.name,
+           rd.howmanypointstoearn,
+           rd.pointtype,
+           rd.pointevent,
+           p.name,
+           rd.threshhold,
+           rd.smallimagefile,
+           rd.largeimagefile,
+           to_char(rd.catalogstartdate,'yyyymmddhh24miss') as catalogstartdate,
+           to_char(rd.catalogenddate,'yyyymmddhh24miss') as catalogenddate,
+           rd.active,
+           rd.fulfillmentproviderid,
+           rd.redeemtimelimit,
+           rd.pushnotificationid
+      FROM lw_rewardsdef rd
+      LEFT JOIN lw_product p ON rd.productid = p.id
+      ORDER BY rd.name
+language_channel_content:
+  file_name: language_channel_content.html
+  label: language_channel_content
+  query: |
+    SELECT p.code,
+           p.name,
+           p.promotiondescription,
+           p.enrollmentsupporttype,
+           p.folderid,
+           to_char(p.startdate,'yyyymmddhh24miss') as startdate,
+           to_char(p.enddate,'yyyymmddhh24miss') as enddate,
+           p.displayorder,
+           p.targeted,
+           lcc.langchantype,
+           lcc.languageculture,
+           lcc.channel,
+           lcc.name,
+           RAWTOHEX(dbms_crypto.hash(NVL(lcc.content, 'null'), 1)) contenthash
+      FROM lw_promotion p
+      LEFT JOIN lw_langchancontent lcc ON p.id = lcc.refid
+     WHERE lcc.langchantype = 'Promotion'
+     order by p.code, lcc.name
+remote_assembly:
+  file_name: remote_assembly.html
+  label: remote_assembly
+  query: |
+    SELECT ra.assemblyname,
+           ra.assemblyfilename,
+           RAWTOHEX(dbms_crypto.hash(ra.assembly, 1)) assemblyhash
+      FROM lw_remoteassembly ra 
+     ORDER BY ra.assemblyfilename
+content_attribute_def:
+  file_name: content_attribute_def.html
+  label: content_attribute_def
+  query: |
+    SELECT cd.name,
+           cd.contenttypes,
+           cd.datatype,
+           cd.defaultvalues,
+           cd.visibleingrid,
+           ca.contenttype,
+           pr.name as productname,
+           rd.name as rewardname,
+           md.name as messagename,
+           coud.name as couponname,
+           bd.name as bonusname,
+           p.name as promotionname,
+           ca.attributevalue
+      FROM lw_contentattributedef cd
+      LEFT JOIN lw_contentattribute ca ON cd.id = ca.contentattributedefid
+      LEFT JOIN lw_product pr ON pr.id = ca.refid
+      LEFT JOIN lw_rewardsdef rd ON rd.id = ca.refid
+      LEFT JOIN lw_messagedef md ON md.id = ca.refid
+      LEFT JOIN lw_coupondef coud ON coud.id = ca.refid
+      LEFT JOIN lw_bonusdef bd ON bd.id = ca.refid
+      LEFT JOIN lw_promotion p ON p.id = ca.refid
+     ORDER BY cd.name, ca.contenttype, pr.name, rd.name, md.name, coud.name, bd.name, p.name, ca.attributevalue

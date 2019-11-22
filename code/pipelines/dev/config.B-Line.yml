@@ -1,0 +1,28 @@
+deploymentType: RemoteAgent
+credentialsId: brierley-jenkins
+organization: AmericanEagle
+environment: QABLine
+navigatorInstanceId: aeo
+deployRemoteAssemblyMode: NugetBatchProject
+projects:
+  LWIntgrService:
+    websiteName: qa-apiaerewards-bline.brierley.com
+    targetHosts:
+    - Cy2qawbs07.brierley.com
+  CustomerServicePortal:
+    websiteName: qa-csaerewards-bline.brierley.com
+    targetHosts:
+    - Cy2qawbs07.brierley.com
+    skipSkinDirectory: true
+  DAP:
+    deployPath: E:\AmericanEagleBline\Processors\DAP
+    targetHosts:
+    - cy2qaapp04.brierley.com
+  FileCountUtility:
+    deployPath: E:\AmericanEagleBline\Utilities\FileCountUtility
+    targetHosts:
+    - cy2qaapp04.brierley.com
+  RulesProcessor:
+    deployPath: E:\AmericanEagleBline\Processors\RulesProcessor
+    targetHosts:
+    - cy2qaapp04.brierley.com

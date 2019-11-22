@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Welcome email-reminder   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="C:\devroot\americaneagle\cline\LogFiles">
+    <SimpleDatabaseInput CollectionName="MemberEmails" RecordName="MemberEmail">
+      <QueryString>
+        Select 0 as rownumber
+        , CAST('DELIVERY_CHANNEL' as NVARCHAR2(100)) as DELIVERY_CHANNEL
+        , CAST('CUSTOMER_NBR' as NVARCHAR2(80)) as CUSTOMER_NBR
+        , CAST('LOYALTY_NUMBER' as NVARCHAR2(100)) as LOYALTY_NUMBER
+        , CAST('EMAIL' as NVARCHAR2(150)) as EMAIL
+        , CAST('MOBILE_NUMBER' as NVARCHAR2(100)) as MOBILE_NUMBER
+        , CAST('FNAME' as NVARCHAR2(100)) as FNAME
+        , CAST('LNAME' as NVARCHAR2(100)) as LNAME
+        , CAST('ADDRESS1' as NVARCHAR2(100)) as ADDRESS1
+        , CAST('ADDRESS2' as NVARCHAR2(100)) as ADDRESS2
+        , CAST('CITY' as NVARCHAR2(100)) as CITY
+        , CAST('STATE' as NVARCHAR2(100)) as STATE
+        , CAST('ZIP' as NVARCHAR2(100)) as ZIP
+        , CAST('COUNTRY' as NVARCHAR2(100)) as COUNTRY
+        , CAST('AUTH_CD' as NVARCHAR2(100)) as DIGIT_REWARDS_CODE
+        , CAST('SUC_CD' as NVARCHAR2(100)) as DIGIT_REWARD_CODE
+        , CAST('CAMPAIGN_TYPE' as NVARCHAR2(100)) as REWARD_TYPE
+        , CAST('CAMPAIGN_EXP_DATE' as NVARCHAR2(100)) as REWARD_EXP_DATE
+        , CAST('EID' as NVARCHAR2(100)) as EID
+        , CAST('CAMPAIGN_ID' as NVARCHAR2(100)) as CAMPAIGN_ID
+        , CAST('LANGUAGE_PREFERENCE' as NVARCHAR2(100)) as LANGUAGE_PREFERENCE
+        , CAST('GENDER' as NVARCHAR2(100)) as GENDER
+        , CAST('BIRTHDATE' as NVARCHAR2(100)) as BIRTHDATE
+        , CAST('STORE_LOYALTY' as NVARCHAR2(80)) as STORE_LOYALTY
+        , CAST('TIER_STATUS' as NVARCHAR2(100)) as TIER_STATUS
+        , CAST('POINTS_BALANCE' as NVARCHAR2(80)) as POINTS_BALANCE
+        , CAST('POINTS_NEEDED_FOR_NEXT_REWARD' as NVARCHAR2(80)) as POINTS_NEEDED_FOR_NEXT_REWARD
+        , CAST('NUMBER_OF_BRAS_PURCHASED' as NVARCHAR2(80)) as NUMBER_OF_BRAS_PURCHASED
+        , CAST('CREDITS_TO_NEXT_FREE_BRA' as NVARCHAR2(80)) as CREDITS_TO_NEXT_FREE_BRA
+        , CAST('NUMBER_OF_JEANS_PURCHASED' as NVARCHAR2(80)) as NUMBER_OF_JEANS_PURCHASED
+        , CAST('CREDITS_TO_NEXT_FREE_JEAN' as NVARCHAR2(80)) as CREDITS_TO_NEXT_FREE_JEAN
+        , CAST('NUMBER_OF_ACTIVE_5_OFF_REWARD' as NVARCHAR2(100)) as NUMBER_OF_ACTIVE_5_OFF_REWARD
+        , CAST('NUMBER_OF_ACTIVE_FREE_JEANS_REWARD' as NVARCHAR2(100)) as NUMBER_ACTIVE_FREE_JEANS
+        , CAST('NUMBER_OF_ACTIVE_FREE_BRA_REWARD' as NVARCHAR2(100)) as NUMBER_ACTIVE_FREE_BRA
+        , CAST('COMMUNICATION_ID' as NVARCHAR2(100)) as COMMUNICATION_ID
+        , CAST('COMM_PLAN_ID' as NVARCHAR2(100)) as COMM_PLAN_ID
+        , CAST('COLLATERAL_ID' as NVARCHAR2(100)) as COLLATERAL_ID
+        , CAST('PACKAGE_ID' as NVARCHAR2(100)) as PACKAGE_ID
+        , CAST('STEP_ID' as NVARCHAR2(100)) as STEP_ID
+        , CAST('MESSAGE_ID' as NVARCHAR2(100)) as MESSAGE_ID
+        , CAST('SEG_ID' as NVARCHAR2(100)) as SEG_ID
+        , CAST('SEG_NM' as NVARCHAR2(100)) as SEG_NM
+        , CAST('AAP_FLAG' as NVARCHAR2(100)) as AAP_FLAG
+        , CAST('CARD_TYPE' as NVARCHAR2(100)) as CARD_TYPE
+        , CAST('RUN_ID' as NVARCHAR2(100)) as RUN_ID
+        , CAST('LEAD_KEY_ID' as NVARCHAR2(100)) as LEAD_KEY_ID
+        , CAST('SITE_URL' as NVARCHAR2(100)) as SITE_URL
+        , CAST('ENABLE_PASSBOOK_PASS' as NVARCHAR2(100)) as ENABLE_PASSBOOK_PASS
+        , CAST('TIMESTAMP' as NVARCHAR2(100)) as TIMESTAMP
+        From Dual
+        Union
+		select a_Rownumber,
+       Channel,
+       Customer_Nbr,
+       Loyalty_Number,
+       Email,
+       Mobile_Number,
+       Fname,
+       Lname,
+       Address1,
+       Address2,
+       City,
+       State,
+       Zip,
+       Country,
+       Auth_Cd,
+       Suc_Cd,
+       Campaign_Type,
+       Campaign_Exp_Date,
+       EID,
+       Campaign_Id,
+       Language_Preference,
+       Gender,
+       Birthdate,
+       Store_Loyalty,
+       Tier_Status,
+       Points_Balance,
+       Points_Needed_For_Next_Reward,
+       Number_Of_Bras_Purchased,
+       Credits_To_Next_Free_Bra,
+       Number_Of_Jeans_Purchased,
+       Credits_To_Next_Free_Jean,
+       NUMBER_OF_ACTIVE_5_OFF_REWARD,
+       NUMBER_ACTIVE_FREE_JEANS,
+       NUMBER_ACTIVE_FREE_BRA,
+       Communication_Id,
+       Comm_Plan_Id,
+       Collateral_Id,
+       Package_Id,
+       Step_Id,
+       Message_Id,
+       Seg_Id,
+       Seg_Nm,
+       Aap_Flag,
+       Card_Type,
+       Run_Id,
+       Lead_Key_Id,
+       Site_Url,
+       Enable_Passbook_Pass,
+       TIMESTAMP from (
+        SELECT 1 AS a_Rownumber,                 
+                            CAST(1 AS NVARCHAR2(100))
+                      AS Channel,
+                      CAST(Vc.Linkkey AS NVARCHAR2(80)) AS Customer_Nbr,
+                      CAST(Vc.Loyaltyidnumber AS NVARCHAR2(100)) AS Loyalty_Number,
+                      CAST(Md.a_Emailaddress AS NVARCHAR2(150)) AS Email,
+                      Regexp_Replace(CAST(Md.a_Mobilephone AS NVARCHAR2(100)),
+                                     '[^[:digit:]]',
+                                     NULL) AS Mobile_Number,
+                      CAST(Lm.Firstname AS NVARCHAR2(100)) AS Fname,
+                      CAST(Lm.Lastname AS NVARCHAR2(100)) AS Lname,
+                      CAST(Md.a_Addresslineone AS NVARCHAR2(100)) AS Address1,
+                      CAST(Md.a_Addresslinetwo AS NVARCHAR2(100)) AS Address2,
+                      CAST(Md.a_City AS NVARCHAR2(100)) AS City,
+                      CAST(Md.a_Stateorprovince AS NVARCHAR2(100)) AS State,
+                      CAST(REPLACE(Md.a_Ziporpostalcode, '-') AS NVARCHAR2(100)) AS Zip,
+                      CAST(Md.a_Country AS NVARCHAR2(100)) AS Country,
+                      CAST('' AS NVARCHAR2(100)) AS Auth_Cd,
+                      CAST('' AS NVARCHAR2(100)) AS Suc_Cd,
+                      CAST('' AS NVARCHAR2(100)) AS Campaign_Type,
+                      CAST('' AS NVARCHAR2(100)) AS Campaign_Exp_Date,
+                      case when (nvl(Md.a_Cardtype,0) not in (1,2,3) and nvl(md.a_pendingemailverification,1) = 0) then cast('284610' AS NVARCHAR2(100)) 
+     when (nvl(Md.a_Cardtype,0) not in (1,2,3) and nvl(md.a_pendingemailverification,1) = 1) then  cast('284572' AS NVARCHAR2(100)) 
+     when (nvl(Md.a_Cardtype,0)  in (1,2,3)and nvl(md.a_pendingemailverification,1) = 0 )then cast('284592' AS NVARCHAR2(100))  
+     when (nvl(Md.a_Cardtype,0)  in (1,2,3)and nvl(md.a_pendingemailverification,1) = 1) then cast('284533' AS NVARCHAR2(100))  end as EID,
+                      CAST('' AS NVARCHAR2(100)) AS Campaign_Id,
+                      CASE
+                           WHEN Md.a_Languagepreference IS NULL THEN
+                            CAST(0 AS NVARCHAR2(100))
+                           ELSE
+                            CAST(Md.a_Languagepreference AS NVARCHAR2(100))
+                      END AS Language_Preference,
+                      CAST(To_Char(Nvl(Md.a_Gender, '0')) AS NVARCHAR2(100)) AS Gender,
+                      CAST(To_Char(Lm.Birthdate, 'DD-MON-YYYY') AS
+                           NVARCHAR2(100)) AS Birthdate,
+                      CAST(To_Char(Md.a_Homestoreid) AS NVARCHAR2(80)) AS Store_Loyalty,
+                      (SELECT CASE
+                                   WHEN t.Tiername = 'Blue' THEN
+                                    CAST(1 AS NVARCHAR2(100))
+                                   WHEN t.Tiername = 'Silver' THEN
+                                    CAST(2 AS NVARCHAR2(100))
+                                   WHEN t.Tiername = 'Gold' THEN
+                                    CAST(3 AS NVARCHAR2(100))
+                                   WHEN t.Tiername = 'Select' THEN
+                                    CAST(4 AS NVARCHAR2(100))
+                              END
+                       FROM   Bp_Ae.Lw_Membertiers Mt
+                       INNER  JOIN Bp_Ae.Lw_Tiers t
+                       ON     Mt.Tierid = t.Tierid
+                       WHERE  1 = 1
+                              AND Mt.Memberid = Vc.Ipcode
+                              AND SYSDATE BETWEEN Mt.Fromdate AND Mt.Todate
+                              AND Rownum = 1
+                              AND 1 = 1) AS Tier_Status,
+                      CAST(p.a_Totalpoints AS NVARCHAR2(80)) AS Points_Balance,
+                      CAST(p.a_Pointstonextreward AS NVARCHAR2(80)) AS Points_Needed_For_Next_Reward,
+                      CAST(p.a_Bracurrentpurchased AS NVARCHAR2(80)) AS Number_Of_Bras_Purchased,
+                      CAST(0 AS NVARCHAR2(80)) AS Credits_To_Next_Free_Bra,
+                      CAST(p.a_Jeansrollingbalance AS NVARCHAR2(80)) AS Number_Of_Jeans_Purchased,
+                      CAST(0 AS NVARCHAR2(80)) AS Credits_To_Next_Free_Jean,
+                      CAST(Rew.Number_Of_Active_5_Off_Reward AS NVARCHAR2(80)) as NUMBER_OF_ACTIVE_5_OFF_REWARD,
+                      CAST(Rew.Number_Of_Jeans_Reward as NVARCHAR2(80)) AS NUMBER_ACTIVE_FREE_JEANS,
+                      CAST(Rew.Number_Of_Bra_Reward AS NVARCHAR2(80))  AS NUMBER_ACTIVE_FREE_BRA ,
+                      CAST('' AS NVARCHAR2(100)) AS Communication_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Comm_Plan_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Collateral_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Package_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Step_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Message_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Seg_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Seg_Nm,
+                      case 
+                        when lm.memberstatus = 1 then  CAST('1' AS NVARCHAR2(80)) 
+                          when lm.memberstatus = 6 then  CAST('2' AS NVARCHAR2(80)) 
+                            when lm.memberstatus = 3 then  CAST('3' AS NVARCHAR2(80)) 
+                              when lm.memberstatus = 7 then  CAST('4' AS NVARCHAR2(80)) 
+                                when lm.memberstatus = 4 then  CAST('5' AS NVARCHAR2(80))
+                                 when (nvl(Md.a_Pendingemailverification,1) = 1 AND NVL(Md.a_Pendingcellverification,1) = 1
+                                   and lm.memberstatus not in (1,6,3,7,4))
+                                     then  CAST('4' AS NVARCHAR2(80)) 
+                                end AS Aap_Flag, 
+                      CAST(Md.a_Cardtype AS NVARCHAR2(80)) AS Card_Type,
+                      CAST('' AS NVARCHAR2(100)) AS Run_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Lead_Key_Id,
+                      CAST('' AS NVARCHAR2(100)) AS Site_Url,
+                      CAST('' AS NVARCHAR2(100)) AS Enable_Passbook_Pass,
+                      CAST('' AS NVARCHAR2(100)) AS TIMESTAMP,
+               ROW_NUMBER() OVER(PARTITION BY upper(md.a_emailaddress) ORDER BY nvl(md.a_pendingemailverification,1) asc,lm.membercreatedate desc) rn
+
+               FROM   Bp_Ae.Lw_Loyaltymember Lm
+               INNER  JOIN Bp_Ae.Lw_Virtualcard Vc
+               ON     Lm.Ipcode = Vc.Ipcode
+                      AND Vc.Isprimary = 1
+               INNER  JOIN Bp_Ae.Ats_Memberdetails Md
+               ON     Lm.Ipcode = Md.a_Ipcode
+               LEFT   JOIN Bp_Ae.Ats_Memberpointbalances p
+               ON     Vc.Ipcode = p.a_Ipcode
+               LEFT   JOIN (SELECT Mr.Memberid,
+                                   SUM(CASE
+                                            WHEN r.Name = 'AEO Rewards $5 Reward' THEN
+                                             1
+                                            ELSE
+                                             0
+                                       END) AS Number_Of_Active_5_Off_Reward,
+                                   SUM(CASE
+                                            WHEN r.Name = 'B5G1 Jean Reward' THEN
+                                             1
+                                            ELSE
+                                             0
+                                       END) AS Number_Of_Jeans_Reward,
+                                   SUM(CASE
+                                            WHEN r.Name = 'B5G1 Bra Reward' THEN
+                                             1
+                                            ELSE
+                                             0
+                                       END) AS Number_Of_Bra_Reward
+                            FROM   Bp_Ae.Lw_Memberrewards Mr,
+                                   Bp_Ae.Lw_Rewardsdef    r
+                            WHERE  1 = 1
+                                   AND Mr.Rewarddefid = r.Id
+                                   AND
+                                   r.Name IN ('AEO Rewards $5 Reward',
+                                              'B5G1 Jean Reward',
+                                              'B5G1 Bra Reward')
+                                  AND (Mr.Redemptiondate IS NULL or mr.redemptiondate &gt; sysdate)
+                                   AND (Mr.Expiration &gt; SYSDATE or mr.expiration is null)
+                                    and nvl(mr.fpcancellationnumber ,0) = 0
+                                   AND 1 = 1
+                            GROUP  BY Mr.Memberid) Rew
+               ON     Rew.Memberid = Lm.Ipcode
+               WHERE  1 = 1                                     
+                      AND lm.memberstatus &lt;&gt;  3      
+                      AND MD.A_EMAILADDRESS IS NOT NULL 
+                      and (( md.a_extendedplaycode = 1 AND (lm.membercreatedate = trunc(sysdate - 2)))
+        OR  (md.a_extendedplaycode = 3 AND (md.a_programchangedate = trunc(sysdate - 2))))
+		AND NVL(MD.A_EMPLOYEECODE, 0)  &lt;&gt;  1   and nvl(md.a_isunderage,0) = 0 and md.a_emailaddress &lt;&gt; '0' )  t1 where t1.rn = 1
+      </QueryString>
+      <Fields>
+		<Field Name="DELIVERY_CHANNEL" Type="String" />
+		<Field Name="CUSTOMER_NBR" Type="String" />
+		<Field Name="LOYALTY_NUMBER" Type="String" />
+		<Field Name="email" Type="String" />
+		<Field Name="MOBILE_NUMBER" Type="String" />
+		<Field Name="FNAME" Type="String" />
+		<Field Name="LNAME" Type="String" />
+		<Field Name="ADDRESS1" Type="String" />
+		<Field Name="ADDRESS2" Type="String" />
+		<Field Name="CITY" Type="String" />
+		<Field Name="STATE" Type="String" />
+		<Field Name="ZIP" Type="String" />
+		<Field Name="COUNTRY" Type="String" />
+		<Field Name="DIGIT_REWARDS_CODE" Type="String" />
+		<Field Name="DIGIT_REWARD_CODE" Type="String" />
+		<Field Name="REWARD_TYPE" Type="String" />
+		<Field Name="REWARD_EXP_DATE" Type="String" />
+		<Field Name="EID" Type="String" />
+		<Field Name="CAMPAIGN_ID" Type="String" />
+		<Field Name="LANGUAGE_PREFERENCE" Type="String" />
+		<Field Name="GENDER" Type="String" />
+		<Field Name="BIRTHDATE" Type="String" />
+		<Field Name="STORE_LOYALTY" Type="String" />
+		<Field Name="TIER_STATUS" Type="String" />
+		<Field Name="POINTS_BALANCE" Type="String" />
+		<Field Name="POINTS_NEEDED_FOR_NEXT_REWARD" Type="String" />
+		<Field Name="NUMBER_OF_BRAS_PURCHASED" Type="String" />
+		<Field Name="CREDITS_TO_NEXT_FREE_BRA" Type="String" />
+		<Field Name="NUMBER_OF_JEANS_PURCHASED" Type="String" />
+		<Field Name="CREDITS_TO_NEXT_FREE_JEAN" Type="String" />
+		<Field Name="NUMBER_OF_ACTIVE_5_OFF_REWARD" Type="String" />
+		<Field Name="NUMBER_ACTIVE_FREE_JEANS" Type="String" />
+		<Field Name="NUMBER_ACTIVE_FREE_BRA" Type="String" />
+		<Field Name="COMMUNICATION_ID" Type="String" />
+		<Field Name="COMM_PLAN_ID" Type="String" />
+		<Field Name="COLLATERAL_ID" Type="String" />
+		<Field Name="PACKAGE_ID" Type="String" />
+		<Field Name="STEP_ID" Type="String" />
+		<Field Name="MESSAGE_ID" Type="String" />
+		<Field Name="SEG_ID" Type="String" />
+		<Field Name="SEG_NM" Type="String" />
+		<Field Name="AAP_FLAG" Type="String" />
+		<Field Name="CARD_TYPE" Type="String" />
+		<Field Name="RUN_ID" Type="String" />
+		<Field Name="LEAD_KEY_ID" Type="String" />
+		<Field Name="SITE_URL" Type="String" />
+		<Field Name="ENABLE_PASSBOOK_PASS" Type="String" />
+		<Field Name="TIMESTAMP" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="MemberEmails" RecordName="MemberEmail" FileName="AEORW_EM_Welcome_{$date(format=yyyyMMddhhmmss)}.txt" DataInAttributes="false"  Delimiter="|" OutputFolder="E:\americaneagle\Files\Outbound">
+      <FieldMap>
+		<Field Name="DELIVERY_CHANNEL" Length="100" />
+		<Field Name="CUSTOMER_NBR" Length="100" />
+		<Field Name="LOYALTY_NUMBER" Length="100" />
+		<Field Name="email" Length="100" />
+		<Field Name="MOBILE_NUMBER" Length="100" />
+		<Field Name="FNAME" Length="100" />
+		<Field Name="LNAME" Length="100" />
+		<Field Name="ADDRESS1" Length="100" />
+		<Field Name="ADDRESS2" Length="100" />
+		<Field Name="CITY" Length="100" />
+		<Field Name="STATE" Length="100" />
+		<Field Name="ZIP" Length="100" />
+		<Field Name="COUNTRY" Length="100" />
+		<Field Name="DIGIT_REWARDS_CODE" Length="100" />
+		<Field Name="DIGIT_REWARD_CODE" Length="100" />
+		<Field Name="REWARD_TYPE" Length="100" />
+		<Field Name="REWARD_EXP_DATE" Length="100" />
+		<Field Name="EID" Length="100" />
+		<Field Name="CAMPAIGN_ID" Length="100" />
+		<Field Name="LANGUAGE_PREFERENCE" Length="100" />
+		<Field Name="GENDER" Length="100" />
+		<Field Name="BIRTHDATE" Length="100" />
+		<Field Name="STORE_LOYALTY" Length="100" />
+		<Field Name="TIER_STATUS" Length="100" />
+		<Field Name="POINTS_BALANCE" Length="100" />
+		<Field Name="POINTS_NEEDED_FOR_NEXT_REWARD" Length="100" />
+		<Field Name="NUMBER_OF_BRAS_PURCHASED" Length="100" />
+		<Field Name="CREDITS_TO_NEXT_FREE_BRA" Length="100" />
+		<Field Name="NUMBER_OF_JEANS_PURCHASED" Length="100" />
+		<Field Name="CREDITS_TO_NEXT_FREE_JEAN" Length="100" />
+		<Field Name="NUMBER_OF_ACTIVE_5_OFF_REWARD" Length="100" />
+		<Field Name="NUMBER_ACTIVE_FREE_JEANS" Length="100" />
+		<Field Name="NUMBER_ACTIVE_FREE_BRA" Length="100" />
+		<Field Name="COMMUNICATION_ID" Length="100" />
+		<Field Name="COMM_PLAN_ID" Length="100" />
+		<Field Name="COLLATERAL_ID" Length="100" />
+		<Field Name="PACKAGE_ID" Length="100" />
+		<Field Name="STEP_ID" Length="100" />
+		<Field Name="MESSAGE_ID" Length="100" />
+		<Field Name="SEG_ID" Length="100" />
+		<Field Name="SEG_NM" Length="100" />
+		<Field Name="AAP_FLAG" Length="100" />
+		<Field Name="CARD_TYPE" Length="100" />
+		<Field Name="RUN_ID" Length="100" />
+		<Field Name="LEAD_KEY_ID" Length="100" />
+		<Field Name="SITE_URL" Length="100" />
+		<Field Name="ENABLE_PASSBOOK_PASS" Length="100" />
+		<Field Name="TIMESTAMP" Length="100" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  
+</DAPDirectives>

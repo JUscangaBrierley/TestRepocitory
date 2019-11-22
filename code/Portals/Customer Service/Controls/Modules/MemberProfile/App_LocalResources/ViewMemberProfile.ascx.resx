@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContent.Action" xml:space="preserve">
+    <value>Edit Configuration</value>
+  </data>
+  <data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;P&gt;A MemberProfile module&lt;/P&gt;</value>
+  </data>
+  <data name="DefaultContent.Text" xml:space="preserve">
+    <value>Here is some sample content</value>
+  </data>
+  <data name="UpdateComplete.Text" xml:space="preserve">
+    <value>Your profile has been updated.</value>
+  </data>
+  <data name="RegistrationComplete.Text" xml:space="preserve">
+    <value>Registration complete. Thanks!</value>
+  </data>
+  <data name="EmailConstraintViolation.Text" xml:space="preserve">
+    <value>Sorry, that email is already in use. Please enter another email address</value>
+  </data>
+  <data name="UsernameConstraintViolation.Text" xml:space="preserve">
+    <value>Sorry, that UserName is already in use. Please enter a different username</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="btnNext.Text" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="btnReset.Text" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="btnSave.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="btnSubmit.Text" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration1.Text" xml:space="preserve">
+    <value>&lt;p&gt;Thanks for becoming a loyalty member.  For being a loyalty member, you will receive special rewards, bonuses and coupons.&lt;/p&gt;
+&lt;/br&gt;
+&lt;h3&gt;Basic Info&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration2.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Address&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberSummary.Text" xml:space="preserve">
+    <value>&lt;h2 id="Title"&gt;Member Info&lt;/h2&gt;&lt;table style="width:100%;"&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;strong&gt;Name:&lt;/strong&gt; ##member.FirstName##&amp;nbsp;##member.LastName##&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;strong&gt;Status: &lt;/strong&gt;##member.MemberStatus##&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Enrollment Date:&lt;/strong&gt; ##AttrValue('MemberDetails', 'EnrollDate', 0)##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Last Activity Date:&lt;/strong&gt; ##member.LastActivityDate##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Tier:&lt;/strong&gt; ##GetCurrentTierProperty('DisplayText')##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Primary Email Address:&lt;/strong&gt; ##member.PrimaryEmailAddress##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Current Balance:&lt;/strong&gt; ##GetPoints('1/1/1900','12/31/2100')##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/table&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile1.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Basic Info&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile2.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Address&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile3.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Contact Info&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFUpdateProfile4.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Opt In/Out&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration3.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Contact Info&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration4.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Login Credentials&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration5.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Communication Preferences&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="btnUpdate.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration0.Text" xml:space="preserve">
+    <value>&lt;h1&gt;Join Our Loyalty Program&lt;/h1&gt;</value>
+  </data>
+  <data name="HtmlBlock_CFMemberRegistration6.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Loyalty Card&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="MobilePhoneCountryCodeNotSelected.Text" xml:space="preserve">
+    <value>Please select a country code when opting in to Sms</value>
+  </data>
+  <data name="MobilePhoneCountryCodeNotSmsEnabled.Text" xml:space="preserve">
+    <value>Sms cannot be sent to the selected Mobile Phone Country Code and please unselect SMS Opt-In to continue with registration</value>
+  </data>
+  <data name="MobilePhoneEmpty.Text" xml:space="preserve">
+    <value>Please enter a mobile phone number when opting in to Sms</value>
+  </data>
+  <data name="AccountStatusInvalid.Text" xml:space="preserve">
+    <value>Cannot update member account status. The account status {0} is not valid.</value>
+  </data>
+  <data name="AssemblyLoadFailed.Text" xml:space="preserve">
+    <value>Failed to load instance of</value>
+  </data>
+  <data name="FailedDisplayType.Text" xml:space="preserve">
+    <value>Failed to determine display type for attribute</value>
+  </data>
+  <data name="InvalidDisplayTypeAccountStatus.Text" xml:space="preserve">
+    <value>Failed to determine display type for account status. Invalid display type</value>
+  </data>
+  <data name="LoyaltyCardExistsMember.Text" xml:space="preserve">
+    <value>Loyalty card id {0} already exists on the member.</value>
+  </data>
+  <data name="LoyaltyCardExistsOtherMember.Text" xml:space="preserve">
+    <value>Loyalty card id {0} already exists on another member.</value>
+  </data>
+  <data name="NoCurrentMember.Text" xml:space="preserve">
+    <value>No member is currently selected</value>
+  </data>
+  <data name="NoEmailConfigured.Text" xml:space="preserve">
+    <value>Reset password email not sent. No email is configured.</value>
+  </data>
+  <data name="OnlyCSPortalMessage.Text" xml:space="preserve">
+    <value>This functionality is only valid in a customer service portal</value>
+  </data>
+  <data name="ResetPasswordSuccess.Text" xml:space="preserve">
+    <value>Reset password email was sent successfully.</value>
+  </data>
+  <data name="UpdateProfileFailed.Text" xml:space="preserve">
+    <value>Cannot update profile. No member has been set.</value>
+  </data>
+  <data name="UsernameNotFound.Text" xml:space="preserve">
+    <value>No username could be found.</value>
+  </data>
+  <data name="VCAssemblyFailed.Text" xml:space="preserve">
+    <value>Failed to load assembly for Virtual Card validation:</value>
+  </data>
+  <data name="VCValidationFailed.Text" xml:space="preserve">
+    <value>Virtual card validation failed.</value>
+  </data>
+  <data name="VCValidationFailedLocatingResource.Text" xml:space="preserve">
+    <value>Virtual Card validation failed. Unable to locate resource entry for message.</value>
+  </data>
+  <data name="ModuleTitle.Text" xml:space="preserve">
+    <value>Account Summary</value>
+  </data>
+  <data name="AccountSummaryDefault_CS.Text" xml:space="preserve">
+    <value>&lt;h2 id="Title"&gt;Member Info&lt;/h2&gt;&lt;table style="width:100%;"&gt;
+                    &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;Name:&lt;/strong&gt; ##member.FirstName##&amp;nbsp;##member.LastName##&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+     &lt;td&gt;&lt;strong&gt;Status: &lt;/strong&gt;##member.MemberStatus##&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Enrollment Date:&lt;/strong&gt; ##AttrValue('MemberDetails', 'EnrollDate', 0)##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Last Activity Date:&lt;/strong&gt; ##member.LastActivityDate##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Tier:&lt;/strong&gt; ##GetCurrentTierProperty('DisplayText')##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;LoyaltyId Number:&lt;/strong&gt; ##GetActiveLoyaltyId##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Primary Email Address:&lt;/strong&gt; ##member.PrimaryEmailAddress##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Address Line 1:&lt;/strong&gt; ##AttrValue('MemberDetails', 'AddressLineOne', 0)##
+    &lt;/td&gt;
+    &lt;td&gt;
+       &lt;strong&gt;Address Line 2:&lt;/strong&gt; ##AttrValue('MemberDetails', 'AddressLineTwo', 0)##
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;City:&lt;/strong&gt; ##AttrValue('MemberDetails', 'City', 0)##
+    &lt;/td&gt;
+    &lt;td&gt;
+       &lt;strong&gt;State:&lt;/strong&gt; ##REFATTRVALUEBYROWKEY('RefStateOrProvince', AttrValue('MemberDetails', 'StateOrProvince', 0), 'StateOrProvinceName')##
+    &lt;/td&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Zip Code:&lt;/strong&gt; ##AttrValue('MemberDetails', 'ZipOrPostalCode', 0)##
+  &lt;/tr&gt;
+&lt;/table&gt;&lt;h2 id="Title"&gt;Points Summary&lt;/h2&gt;&lt;table style="width:100%;"&gt;
+                    &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Current Balance:&lt;/strong&gt; ##GetPoints('1/1/1900','12/31/2100')##
+    &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Transaction Points:&lt;/strong&gt; ##GetPointsByEvent('PurchaseActivity','1/1/1900','12/31/2100')##
+    &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Engagement Points:&lt;/strong&gt; ##GetPointsByEvent('EngagementActivity','1/1/1900','12/31/2100')##
+    &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;strong&gt;Appeasement Points:&lt;/strong&gt; ##GetPointsByEvent('AppeasementActivity','1/1/1900','12/31/2100')##
+    &lt;/td&gt;
+   &lt;/tr&gt;  
+   &lt;tr&gt;
+     &lt;td&gt;
+       &lt;strong&gt;Points To Next Tier:&lt;/strong&gt; ##GetPointsToNextTier##
+     &lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;
+       &lt;strong&gt;Points To Next Reward:&lt;/strong&gt; ##GetPointsToNextReward##
+     &lt;/td&gt;
+   &lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="AddressLineOne.Text" xml:space="preserve">
+    <value>Address Line 1</value>
+  </data>
+  <data name="AddressLineTwo.Text" xml:space="preserve">
+    <value>Address Line 2</value>
+  </data>
+  <data name="CardType.Text" xml:space="preserve">
+    <value>Card Type</value>
+  </data>
+  <data name="City.Text" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Country.Text" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="DirectMailOptIn.Text" xml:space="preserve">
+    <value>Direct Mail Opt In</value>
+  </data>
+  <data name="EmailAddress.Text" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="EmailOptIn.Text" xml:space="preserve">
+    <value>Email Opt In</value>
+  </data>
+  <data name="FirstName.Text" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Gender.Text" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="HomePhone.Text" xml:space="preserve">
+    <value>Home Phone</value>
+  </data>
+  <data name="LastName.Text" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="LoyaltyIDNumber.Text" xml:space="preserve">
+    <value>Loyalty ID Number</value>
+  </data>
+  <data name="MiddleName.Text" xml:space="preserve">
+    <value>Middle Name</value>
+  </data>
+  <data name="MobilePhone.Text" xml:space="preserve">
+    <value>Mobile Phone</value>
+  </data>
+  <data name="Password.Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordRequiredViolation.Text" xml:space="preserve">
+    <value>Please enter a password</value>
+  </data>
+  <data name="SmsOptIn.Text" xml:space="preserve">
+    <value>SMS Opt In</value>
+  </data>
+  <data name="StateOrProvince.Text" xml:space="preserve">
+    <value>StateOrProvince</value>
+  </data>
+  <data name="Username.Text" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="WorkPhone.Text" xml:space="preserve">
+    <value>Work Phone</value>
+  </data>
+  <data name="ZipOrPostalCode.Text" xml:space="preserve">
+    <value>Zip or Postal Code</value>
+  </data>
+  <data name="ResetPasswordButton.Text" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="PageName_CFMemberRegistration" xml:space="preserve">
+    <value>Member Registration</value>
+  </data>
+  <data name="PageName_CFUpdateProfile" xml:space="preserve">
+    <value>Update Profile</value>
+  </data>
+  <data name="PageName_CSAccountActivity" xml:space="preserve">
+    <value>Account Activity</value>
+  </data>
+  <data name="PageName_CSAccountSummary" xml:space="preserve">
+    <value>Account Summary</value>
+  </data>
+  <data name="PageName_CSMemberRegistration" xml:space="preserve">
+    <value>Member Registration</value>
+  </data>
+  <data name="PageName_CSUpdateProfile" xml:space="preserve">
+    <value>Update Profile</value>
+  </data>
+  <data name="BirthDate.Text" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="MemberSummaryDefault_CS.Text" xml:space="preserve">
+    <value>&lt;h2 id="Title"&gt;Member Info&lt;/h2&gt;&lt;table style="width:100%;"&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;strong&gt;Name:&lt;/strong&gt; ##member.FirstName##&amp;nbsp;##member.LastName##&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;strong&gt;Status: &lt;/strong&gt;##member.MemberStatus##&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Enrollment Date:&lt;/strong&gt; ##AttrValue('MemberDetails', 'EnrollDate', 0)##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Last Activity Date:&lt;/strong&gt; ##member.LastActivityDate##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Tier:&lt;/strong&gt; ##GetCurrentTierProperty('DisplayText')##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Primary Email Address:&lt;/strong&gt; ##member.PrimaryEmailAddress##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;
+                            &lt;strong&gt;Current Balance:&lt;/strong&gt; ##GetPoints('1/1/1900','12/31/2100')##
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/table&gt;</value>
+  </data>
+  <data name="HtmlBlock_CSMemberRegistration0.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Basic Info&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CSMemberRegistration1.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Loyalty Card&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CSMemberRegistration2.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Address&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CSMemberRegistration3.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Contact Info&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CSMemberRegistration4.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Login Credentials&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CSMemberRegistration5.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Opt In/Out&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+  <data name="HtmlBlock_CSMemberRegistration6.Text" xml:space="preserve">
+    <value>&lt;h3&gt;Password Management&lt;/h3&gt;&lt;hr/&gt;</value>
+  </data>
+</root>

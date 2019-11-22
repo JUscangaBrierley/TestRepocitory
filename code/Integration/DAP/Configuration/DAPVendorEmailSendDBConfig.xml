@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Vendor Email Send  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="MemberEmails" RecordName="MemberEmail">
+      <QueryString>
+        Select 0 as rownummber
+        ,CAST('EmailAddress' as NVARCHAR2(150)) as EmailAddress
+        ,CAST('CurrentBalance' as NVARCHAR2(100)) as CurrentBalance
+        ,CAST('RewardLevel' as NVARCHAR2(100)) as RewardLevel
+        ,CAST('CreditsToNextLevel' as NVARCHAR2(100)) as CreditsToNextLevel
+        ,CAST('StartingBalance' as NVARCHAR2(100)) as StartingBalance
+        ,CAST('EarnedBasicCredits' as NVARCHAR2(100)) as EarnedBasicCredits
+        ,CAST('EarnedBonusCredits' as NVARCHAR2(100)) as EarnedBonusCredits
+        ,CAST('EarnedAECCBonusCredits' as NVARCHAR2(100)) as EarnedAECCBonusCredits
+        ,CAST('FirstName' as NVARCHAR2(100)) as FirstName
+        ,CAST('LastName' as NVARCHAR2(100)) as LastName
+        ,CAST('Address1' as NVARCHAR2(100)) as Address1
+        ,CAST('Address2' as NVARCHAR2(100)) as Address2
+        ,CAST('City' as NVARCHAR2(100)) as City
+        ,CAST('State' as NVARCHAR2(100)) as State
+        ,CAST('PostalCode' as NVARCHAR2(100)) as PostalCode
+        ,CAST('ExtendedPlay' as NVARCHAR2(100)) as ExtendedPlay
+        ,CAST('LoyaltyID' as NVARCHAR2(100)) as LoyaltyID
+        ,CAST('LanguagePreference' as NVARCHAR2(100)) as LanguagePreference
+        ,CAST('Brand_AE' as NVARCHAR2(100)) as Brand_AE
+        ,CAST('Brand_Aerie' as NVARCHAR2(100)) as Brand_Aerie
+        ,CAST('Brand_77Kids' as NVARCHAR2(100)) as Brand_77Kids
+        ,CAST('BaseLoyaltyBrand' as NVARCHAR2(100)) as BaseLoyaltyBrand
+        ,CAST('CurrentPurchased' as NVARCHAR2(100)) as CurrentPurchased
+        ,CAST('CurrentFreeEarned' as NVARCHAR2(100)) as CurrentFreeEarned
+        ,CAST('TotalFreeMailed' as NVARCHAR2(100)) as TotalFreeMailed
+        ,CAST('LastFreeMailed' as NVARCHAR2(100)) as LastFreeMailed
+        ,CAST('LastPurchaseDate' as NVARCHAR2(100)) as LastPurchaseDate
+        ,CAST('PriorBalance' as NVARCHAR2(100)) as PriorBalance
+        ,CAST('CurrentEmployee' as NVARCHAR2(100)) as CurrentEmployee
+        ,CAST('Gender' as NVARCHAR2(100)) as Gender
+        ,CAST('DateOfBirth' as NVARCHAR2(100)) as Birthdate
+        ,CAST('BrasPurchasedLast12Months' as NVARCHAR2(100)) as BraRollingBalance
+        ,CAST('BrasPurchasedLifetime' as NVARCHAR2(100)) as BraLifeTimeBalance
+        ,CAST('DateFirstBraPurchased' as NVARCHAR2(100)) as BraFirstPurchaseDate
+        ,CAST('JeansPurchasedLast12Months' as NVARCHAR2(100)) as JeanRollingBalance
+        ,CAST('JeansPurchasedLifetime' as NVARCHAR2(100)) as JeanLifeTimeBalance
+        ,CAST('DateFirstJeanPurchased' as NVARCHAR2(100)) as JeanFirstPurchaseDate
+        ,CAST('LastStoreNumberForBraPurchase' as NVARCHAR2(100)) as  LastBraStoreNumber
+		,CAST('LastDateOfBraPurchase' as NVARCHAR2(100)) as  LastBraPurchaseDate
+        ,CAST('LastPointsfromPurchase' as NVARCHAR2(100)) as  LastPurchasePoints
+	
+        From Dual
+        UNION
+        SELECT rownum as rownumber
+        ,CAST(md.a_emailaddress as NVARCHAR2(150))
+       
+        ,CASE
+        WHEN NVL(pb.a_basepoints, 0) + NVL(pb.a_bonuspoints, 0) &lt; 0 then CAST(0 as NVARCHAR2(100))
+        WHEN NVL(pb.a_basepoints, 0) + NVL(pb.a_bonuspoints, 0) &gt;= 0 then CAST(to_char(NVL(NVL(pb.a_basepoints, 0) + NVL(pb.a_bonuspoints, 0), 0)) as NVARCHAR2(100))
+        END
+        ,CAST(pb.a_rewardlevel as NVARCHAR2(100))
+        ,CAST(to_char(nvl(pb.a_pointstonextreward,0)) as NVARCHAR2(100)) --AEO-975
+        ,CAST(to_char(NVL(pb.a_startingpoints, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_basepoints, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_bonuspoints, 0)) as NVARCHAR2(100))
+        ,CAST(0 as NVARCHAR2(100))
+        ,CAST(lm.firstname as NVARCHAR2(100))
+        ,CAST(lm.lastname as NVARCHAR2(100))
+        ,CAST(md.a_addresslineone as NVARCHAR2(100))
+        ,CAST(md.a_addresslinetwo as NVARCHAR2(100))
+        ,CAST(md.a_city as NVARCHAR2(100))
+        ,CAST(md.a_stateorprovince as NVARCHAR2(100))
+        ,CAST(md.a_ziporpostalcode as NVARCHAR2(100))
+        ,CASE
+        WHEN AE_ISINPILOT(md.a_extendedplaycode) &lt;&gt; 1  then CAST(0 as NVARCHAR2(100))
+        WHEN AE_ISINPILOT(md.a_extendedplaycode) = 1  then CAST(1 as NVARCHAR2(100))
+        END
+        ,CAST(vc.loyaltyidnumber as NVARCHAR2(100))
+        ,CASE
+        WHEN md.a_languagepreference is NULL THEN CAST(0 as NVARCHAR2(100))
+        ELSE CAST(md.a_languagepreference as NVARCHAR2(100))
+        END
+        ,CAST(to_char(NVL(pb.a_brandae, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_brandaerie, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_brandkids, 0)) as NVARCHAR2(100))
+        ,Case
+        When rb.a_brandnumber = 20  Then CAST(to_char(rb.a_brandnumber) as NVARCHAR2(100))
+        Else CAST('00' as NVARCHAR2(100))
+        End
+        ,CAST(to_char(NVL(pb.a_bracurrentpurchased, 0)) as NVARCHAR2(80))
+        ,CAST(to_char(NVL((nvl(count(cert.a_ipcode),0) * pb.a_braemployeemultiplier * pb.a_bramailablemultiplier), 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_bratotalfreemailed, 0)) as NVARCHAR2(100))
+        ,CASE
+        WHEN pb.a_bralastfreemailed = To_Date('1/1/1900','mm/dd/yyyy') Then CAST('' as NVARCHAR2(100))
+        ELSE CAST(to_char(pb.a_bralastfreemailed, 'mmddyyyy') as NVARCHAR2(100))
+        END As LastFreeMailed
+        ,CASE
+        WHEN lm.lastactivitydate = To_Date('1/1/1900','mm/dd/yyyy') Then CAST('' as NVARCHAR2(100))
+        ELSE CAST(to_char(lm.lastactivitydate, 'mmddyyyy') as NVARCHAR2(100))
+        END As LastPurchaseDate
+        ,CASE
+        WHEN pb.a_previoustotalpoints is NULL Then CAST(0 as NVARCHAR2(100))
+        WHEN pb.a_previoustotalpoints &gt; 0 Then CAST(to_char(pb.a_previoustotalpoints) as NVARCHAR2(100))
+        ELSE CAST(0 as NVARCHAR2(100))
+        END
+        ,CAST(to_char(NVL(md.a_employeecode, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(md.a_gender, '')) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(lm.birthdate, ''), 'mmddyyyy') as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_brarollingbalance, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_bralifetimebalance, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(md.a_brafirstpurchasedate, ''), 'mmddyyyy') as NVARCHAR2(100))
+        ,CAST(to_char(NVL(pb.a_jeansrollingbalance, 0)) as NVARCHAR2(80))
+        ,CAST(to_char(NVL(pb.a_jeanslifetimebalance, 0)) as NVARCHAR2(100))
+        ,CAST(to_char(NVL(md.a_jeansfirstpurchasedate, ''), 'mmddyyyy') as NVARCHAR2(100))
+        ,CAST(to_char(NVL(md.a_LastBraStoreNumber, 0)) as NVARCHAR2(100))
+		,CAST(to_char(NVL(md.a_LastBraPurchaseDate, ''), 'mmddyyyy') as NVARCHAR2(100))
+        ,CAST(to_char(NVL(md.a_LastPurchasePoints, 0)) as NVARCHAR2(100))
+      
+        From  lw_loyaltymember lm
+        Left Join ats_memberpointbalances pb on lm.ipcode = pb.a_ipcode
+        Left Join ats_memberdetails md on lm.ipcode = md.a_ipcode
+        Left Join lw_virtualcard vc on lm.ipcode = vc.ipcode And vc.isprimary = 1
+        Left Join ats_refbrand rb on md.a_basebrandid = rb.a_brandid
+        Left Join ats_memberbrapromocerthistory cert on pb.a_ipcode = cert.a_ipcode AND cert.a_Isfulfilled = 0 AND cert.a_Isdeleted = 0
+        Left Join ats_memberbrapromosummary summ on lm.ipcode = summ.a_ipcode
+        Where 1=1
+        And lm.lastactivitydate &gt; add_months(sysdate, -12)
+        And md.a_emailoptin = 1
+        And md.a_emailaddress Is Not Null
+        AND (add_months(sysdate,-156) - 1) &gt; lm.birthdate
+        AND lm.firstname is not null
+        AND lm.memberstatus = 1
+        Group By
+        rownum
+        ,md.a_emailaddress
+        ,pb.a_totalpoints
+        ,pb.a_rewardlevel
+        ,pb.a_pointstonextreward
+        ,pb.a_startingpoints
+        ,pb.a_basepoints
+        ,pb.a_bonuspoints
+        ,0
+        ,lm.firstname
+        ,lm.lastname
+        ,md.a_addresslineone
+        ,md.a_addresslinetwo
+        ,md.a_city
+        ,md.a_stateorprovince
+        ,md.a_ziporpostalcode
+        ,md.a_extendedplaycode
+        ,vc.loyaltyidnumber
+        ,md.a_languagepreference
+        ,pb.a_brandae
+        ,pb.a_brandaerie
+        ,pb.a_brandkids
+        ,rb.a_brandnumber
+        ,pb.a_bracurrentpurchased
+        ,pb.a_bratotalfreemailed
+        ,pb.a_bralastfreemailed
+        ,lm.lastactivitydate
+        ,pb.a_previoustotalpoints
+        ,md.a_employeecode
+        ,pb.a_braemployeemultiplier
+        ,pb.a_bramailablemultiplier
+        ,md.a_gender
+        ,lm.birthdate
+        ,pb.a_brarollingbalance
+        ,pb.a_bralifetimebalance
+        ,md.a_brafirstpurchasedate
+        ,pb.a_jeansrollingbalance
+        ,pb.a_jeanslifetimebalance
+        ,md.a_jeansfirstpurchasedate
+        ,md.a_LastBraStoreNumber
+		,md.a_LastBraPurchaseDate
+        ,md.a_LastPurchasePoints     
+        
+
+      </QueryString>
+      <Fields>
+        <Field Name="EmailAddress" Type="String"  />
+        <Field Name="CurrentBalance" Type="String" />
+        <Field Name="RewardLevel" Type="String" />
+        <Field Name="CreditsToNextLevel" Type="String" />
+        <Field Name="StartingBalance" Type="String" />
+        <Field Name="EarnedBasicCredits" Type="String" />
+        <Field Name="EarnedBonusCredits" Type="String" />
+        <Field Name="EarnedAECCBonusCredits" Type="String" />
+        <Field Name="FirstName" Type="String"  />
+        <Field Name="LastName" Type="String" />
+        <Field Name="Address1" Type="String" />
+        <Field Name="Address2" Type="String" />
+        <Field Name="City" Type="String" />
+        <Field Name="State" Type="String" />
+        <Field Name="PostalCode" Type="String"  />
+        <Field Name="ExtendedPlay" Type="String" />
+        <Field Name="LoyaltyID" Type="String" />
+        <Field Name="LanguagePreference" Type="String" />
+        <Field Name="Brand_AE" Type="String" />
+        <Field Name="Brand_Aerie" Type="String" />
+        <Field Name="Brand_77Kids" Type="String" />
+        <Field Name="BaseLoyaltyBrand" Type="String" />
+        <Field Name="CurrentPurchased" Type="String" />
+        <Field Name="CurrentFreeEarned" Type="String" />
+        <Field Name="TotalFreeMailed" Type="String" />
+        <Field Name="LastFreeMailed" Type="String" />
+        <Field Name="LastPurchaseDate" Type="String" />
+        <Field Name="PriorBalance" Type="String" />
+        <Field Name="CurrentEmployee" Type="String" />
+        <Field Name="Gender" Type="String" />
+        <Field Name="Birthdate" Type="String" />
+        <Field Name="BraRollingBalance" Type="String" />
+        <Field Name="BraLifeTimeBalance" Type="String" />
+        <Field Name="BraFirstPurchaseDate" Type="String" />
+        <Field Name="JeanRollingBalance" Type="String" />
+        <Field Name="JeanLifeTimeBalance" Type="String" />
+        <Field Name="JeanFirstPurchaseDate" Type="String" />
+        <Field Name="LastBraStoreNumber" Type="String" />
+		    <Field Name="LastBraPurchaseDate" Type="String" />
+        <Field Name="LastPurchasePoints" Type="String" />
+        <!-- AEO-503 Begin
+		    <Field Name="StoreLastJeansPurchased" Type="String" />
+        <Field Name="LastJeansPurchaseDate" Type="String" />
+             AEO-503 end-->
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="MemberEmails" RecordName="MemberEmail" FileName="AE_CREDITFILE_{$date(format=yyyyMMdd)}.txt" DataInAttributes="false" Delimiter="|" OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles">
+      <FieldMap>
+        <Field Name="EmailAddress" Length="100"  />
+        <Field Name="CurrentBalance" Length="100" />
+        <Field Name="RewardLevel" Length="100" />
+        <Field Name="CreditsToNextLevel" Length="100" />
+        <Field Name="StartingBalance" Length="100" />
+        <Field Name="EarnedBasicCredits" Length="100" />
+        <Field Name="EarnedBonusCredits" Length="100" />
+        <Field Name="EarnedAECCBonusCredits" Length="100" />
+        <Field Name="FirstName" Length="100"  />
+        <Field Name="LastName" Length="100" />
+        <Field Name="Address1" Length="100" />
+        <Field Name="Address2" Length="100" />
+        <Field Name="City" Length="100" />
+        <Field Name="State" Length="100" />
+        <Field Name="PostalCode" Length="100"  />
+        <Field Name="ExtendedPlay" Length="100" />
+        <Field Name="LoyaltyID" Length="100" />
+        <Field Name="LanguagePreference" Length="100" />
+        <Field Name="Brand_AE" Length="100" />
+        <Field Name="Brand_Aerie" Length="100" />
+        <Field Name="Brand_77Kids" Length="100" />
+        <Field Name="BaseLoyaltyBrand" Length="100" />
+        <Field Name="CurrentPurchased" Length="100" />
+        <Field Name="CurrentFreeEarned" Length="100" />
+        <Field Name="TotalFreeMailed" Length="100" />
+        <Field Name="LastFreeMailed" Length="100" />
+        <Field Name="LastPurchaseDate" Length="100" />
+        <Field Name="PriorBalance" Length="100" />
+        <Field Name="CurrentEmployee" Length="100" />
+        <Field Name="Gender"  Length="100" />
+        <Field Name="Birthdate"  Length="100" />
+        <Field Name="BraRollingBalance"  Length="100" />
+        <Field Name="BraLifeTimeBalance"  Length="100" />
+        <Field Name="BraFirstPurchaseDate"  Length="100" />
+        <Field Name="JeanRollingBalance"  Length="100" />
+        <Field Name="JeanLifeTimeBalance"  Length="100" />
+        <Field Name="JeanFirstPurchaseDate"  Length="100" />
+        <Field Name="LastBraStoreNumber"  Length="100" />
+		<Field Name="LastBraPurchaseDate"  Length="100" />
+        <Field Name="LastPurchasePoints"  Length="100" />
+        <!--
+		   <Field Name="StoreLastJeansPurchased"  Length="10"  />
+        <Field Name="LastJeansPurchaseDate"  Length="11"  />
+        -->
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

@@ -1,0 +1,1239 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Brierley.LoyaltyNavigator</name>
+    </assembly>
+    <members>
+        <member name="M:Brierley.LoyaltyNavigator.Controls.Bonus.BonusJob.Run(System.String)">
+            <summary>
+            Executes the job.  This operation expects the set id to be in the parms.  
+            This job is running in a separate thread by the schedule manager.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Controls.Bonus.BonusJob.RequestAbort">
+            <summary>
+            Sends an abort request to the job.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Controls.Bonus.BonusJob.GetReport">
+            <summary>
+            Retrieves the text of the report for the job.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Controls.Bonus.BonusJob.FinalizeJob(Brierley.FrameWork.Common.ScheduleJobStatus)">
+            <summary>
+            Send message to LN to refresh its cache.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.IDataMigrationHelper.SuggestObjectsToMigrate(Brierley.LoyaltyNavigator.ChangedObjectCriteria,System.Object)">
+            <summary>
+            This function returns groups of objects that it thinks should be moved based on the provided
+            criteria.  The list may contain dependent objects as well - each type in its own group.  
+            For example, moving an email
+            may mean that the template that that email is based on should be moved as well.
+            </summary>
+            <param name="criteria"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.IDataMigrationHelper.RefreshObjectsToMigrate(Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup)">
+            <summary>
+            Many times, there are hidden dependent groups.  These groups need to be refreshed if the parent
+            group is changed.  For example, A workflow generates hidden groups for steps and transitions.
+            If certain workflows are removed from list of workflows to be migrated, then their dependent
+            steps and transitions have to be removed as well.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.IDataMigrationHelper.MigrateObjects(Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet,Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup)">
+            <summary>
+            This method moves all the objects that are marked in this group to be moved.  It recursively 
+            moves all its child groups as well.
+            </summary>
+            <param name="groupToMove"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.IDataMigrationHelper.RollbackObjects(Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet,Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup)">
+            <summary>
+            This method will rollback the objects that are marked in this group.  It will recursively rollback 
+            all its groups as well.
+            </summary>
+            <param name="set"></param>
+            <param name="groupToRollback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.DataMigrationHelperBase.CreateDataMigrationJob(Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet)">
+            <summary>
+            Start a data migration job with the scheduler.
+            </summary>
+            <param name="set">the migration set</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.DataMigrationHelperBase.RollbackDataMigrationJob(Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet)">
+            <summary>
+            Creates a job with the scheduler that will rollback a data migration set. 
+            </summary>
+            <param name="set">the migration set</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.DataMigrationJob.Run(System.String)">
+            <summary>
+            Executes the job.  This operation expects the set id to be in the parms.  
+            This job is running in a separate thread by the schedule manager.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.DataMigrationJob.RequestAbort">
+            <summary>
+            Sends an abort request to the job.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.DataMigrationJob.GetReport">
+            <summary>
+            Retrieves the text of the report for the job.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataMigration.DataMigrationJob.FinalizeJob(Brierley.FrameWork.Common.ScheduleJobStatus)">
+            <summary>
+            Send message to LN to refresh its cache.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.ContentManagement.ContentUtil.ReplaceImageHost(System.String,System.String)">
+            <summary>
+            Replaces IMG src tag URL host name
+            </summary>
+            <param name="ContentText">Text of content with IMG tags</param>
+            <returns>Text with SRC URLs replaced</returns>
+            <remarks>
+            Example:
+            ImageHost = "images.client.com"
+            IMG SRC="http://loyaltynavigator.brierley.com/Content/spacer.gif"
+            Becomes:
+            IMG SRC="http"//images.client.com/Content/spacer.gif
+            </remarks>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.ContentManagement.Controls.BatchesGridControl">
+            <summary>
+            Manage batches within the content library.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.ContentManagement.Controls.ContentAreaControl.DisplayMode">
+            <summary>
+            Sets DisplayMode
+            </summary>
+            <see cref="T:Brierley.LoyaltyNavigator.ContentManagement.Controls.ContentAreaControl.ContentAreaDisplayMode"/>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.ContentManagement.Controls.ContentAreaControl.ContentAreaDisplayMode">
+            <summary>
+            EditHtml, EditText: Display link reading "click here to modify..."
+            LivePreviewHtml, LivePreviewText:  Display placeholder loading panel along with link to edit which appears when the
+            									user's mouse hovers over the element. Live preview content will be rendered via
+            									AJAX callback and handled outside of this control.
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.ContentManagement.Controls.ContentTypeControl">
+            <summary>
+            Manage structured content types within the content library.
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.ContentManagement.Controls.DynamicContentArea">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.ContentManagement.Controls.DynamicContentCollection.Item(System.Int32)">
+            <summary>
+            Indexer property for the collection that returns and sets an item
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.ContentManagement.Controls.ImageBrowserControl">
+            <summary>
+            Manage images within the content library.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.ContentManagement.Controls.ImageBrowserControl.LoadComponent">
+            <summary>
+            Load the child controls on Page_Load.
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.ContentManagement.Controls.TextBlockGridControl">
+            <summary>
+            Manage text blocks within the content library.
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.ContentManagement.DocumentContent">
+            <summary>
+            Represents the managed content of a Document
+            </summary>
+            <remarks>
+             Contains ContentAreas and ContentElements of a Document instance.
+            _areaElements is a collection of Elements stored in a ContentArea: _areaElement["AreaName"][index][ContentElementDocument]
+            </remarks>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.ContentManagement.DocumentContent.#ctor(Brierley.FrameWork.Data.DomainModel.Document,Brierley.FrameWork.Data.ILWContentService)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="document">Document containing content to retrieve</param>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataModel.DataAccess.LNSchemaVersionDAO">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.Id">
+            <summary>
+            Gets or sets the ID for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.DisplayName">
+            <summary>
+            Gets or sets the DisplayName for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.GroupId">
+            <summary>
+            Gets or sets the GroupId for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.SourceId">
+            <summary>
+            Gets or sets the SourceId for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.DestinationId">
+            <summary>
+            Gets or sets the DestinationId for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.ItemOrder">
+            <summary>
+            Gets or sets the ItemOrder for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.Status">
+            <summary>
+            Gets or sets the Status for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.StatusDate">
+            <summary>
+            Gets or sets the StatusDate for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.StatusReason">
+            <summary>
+            Gets or sets the StatusReason for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationItem.Action">
+            <summary>
+            Gets or sets the Action for the current DataMigrationItem
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.Id">
+            <summary>
+            Gets or sets the ID for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.ParentId">
+            <summary>
+            Gets or sets the ID for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.SetId">
+            <summary>
+            Gets or sets the SetId for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.Name">
+            <summary>
+            Gets or sets the Name for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.UpdateOrder">
+            <summary>
+            Gets or sets the UpdateOrder for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.ItemType">
+            <summary>
+            Gets or sets the ItemType for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.Status">
+            <summary>
+            Gets or sets the Status for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.StatusDate">
+            <summary>
+            Gets or sets the StatusDate for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.Checkable">
+            <summary>
+            Gets or sets the Checkable for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationGroup.Visible">
+            <summary>
+            Gets or sets the Visible for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.Id">
+            <summary>
+            Gets or sets the ID for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.Name">
+            <summary>
+            Gets or sets the Name for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.RunNumber">
+            <summary>
+            Gets or sets the last RunNumber of the set
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.Description">
+            <summary>
+            Gets or sets the Description for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.FolderId">
+            <summary>
+            Gets or sets the folder id for the current DataMigrationSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.UpdateOption">
+            <summary>
+            Gets or sets the UpdateOption for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.ChangedCriteria">
+            <summary>
+            Gets or sets the ChangedCriteria for the current DataManagementGroup
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.ChangedSince">
+            <summary>
+            Gets or sets the ChangedSince for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.ObjectTypes">
+            <summary>
+            Gets or sets the ObjectTypes for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.Status">
+            <summary>
+            Gets or sets the Status for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.StatusDate">
+            <summary>
+            Gets or sets the StatusDate for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.SourceEnvironmentId">
+            <summary>
+            Gets or sets the SourceEnvironmentId for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.TargetEnvironmentId">
+            <summary>
+            Gets or sets the TargetEnvironmentId for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.InitiatedBy">
+            <summary>
+            Gets or sets the InitiatedBy for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.InitiatedOn">
+            <summary>
+            Gets or sets the InitiatedOn for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.ApprovedBy">
+            <summary>
+            Gets or sets the ApprovedBy for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.ApprovedOn">
+            <summary>
+            Gets or sets the ApprovedOn for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.IsRunManually">
+            <summary>
+            Gets or sets the IsRunManually for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.ScheduleDate">
+            <summary>
+            Gets or sets the ScheduleDate for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.FinishDate">
+            <summary>
+            Gets or sets the FinishDate for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.Notes">
+            <summary>
+            Gets or sets the Notes for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.NotificationEmails">
+            <summary>
+            Gets or sets the NotificationEmails for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.JobId">
+            <summary>
+            Gets or sets the JobId for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.Scope">
+            <summary>
+            Gets or sets the Scope for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.DataMigrationSet.Archived">
+            <summary>
+            Gets or sets the Archived for the current DataManagementSet
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel">
+            <summary>
+            POCO for ClientDataModel. This class is autogenerated
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel.#ctor">
+            <summary>
+            Initializes a new instance of the ClientDataModel class
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel.EnvironmentId">
+            <summary>
+            Gets or sets the EnvironmentId for the current ClientDataModel
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel.AssemblyName">
+            <summary>
+            Gets or sets the AssemblyName for the current ClientDataModel
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel.AssemblyFileName">
+            <summary>
+            Gets or sets the AssemblyFileName for the current ClientDataModel
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel.AssemblyVersion">
+            <summary>
+            Gets or sets the AssemblyVersion for the current ClientDataModel
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel.Assembly">
+            <summary>
+            Gets or sets the Assembly for the current ClientDataModel
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.ClientDataModel.LastUpdateDate">
+            <summary>
+            Gets or sets the LastUpdateDate for the current ClientDataModel
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment">
+            <summary>
+            POCO for Environment. This class is autogenerated
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.#ctor">
+            <summary>
+            Initializes a new instance of the Environment class
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.#ctor(System.String,System.String,System.Int64,System.String,System.String,System.String,System.String,Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization)">
+            <summary>
+            Initializes a new instance of the Environment class
+            </summary>
+            <param name="environmentName"></param>
+            <param name="environmentDescription"></param>
+            <param name="enviroLevel"></param>
+            <param name="keystorePass"></param>
+            <param name="keystore"></param>
+            <param name="parent"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.#ctor(System.String,System.String,System.Int64,System.String,System.String,System.String,System.String,System.String,System.String,Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization)">
+            <summary>
+            Initializes a new instance of the Environment class
+            </summary>
+            <param name="environmentName"></param>
+            <param name="environmentDescription"></param>
+            <param name="enviroLevel"></param>
+            <param name="keystorePass"></param>
+            <param name="keystore"></param>
+            <param name="symmetricIV"></param>
+            <param name="symmetricKey"></param>
+            <param name="parent"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.#ctor(System.String)">
+            <summary>
+            Minimal constructor for class Environment
+            </summary>
+            <param name="environmentName">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.EnvironmentName"/> value</param>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.EnvironmentID">
+            <summary>
+            Gets or sets the EnvironmentID for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.EnvironmentName">
+            <summary>
+            Gets or sets the EnvironmentName for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.EnvironmentDescription">
+            <summary>
+            Gets or sets the EnvironmentDescription for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.EnviroLevel">
+            <summary>
+            Gets or sets the EnviroLevel for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.KeystorePass">
+            <summary>
+            Gets or sets the KeystorePass for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.Keystore">
+            <summary>
+            Gets or sets the Keystore for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.DBConfig">
+            <summary>
+            Gets or sets the DBConfig for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.FWConfig">
+            <summary>
+            Gets or sets the FWConfig for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.SymmetricIV">
+            <summary>
+            Gets or sets the SymmetricIV for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.SymmetricKey">
+            <summary>
+            Gets or sets the SymmetricKey for the current Environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Environment.Parent">
+            <summary>
+            Gets or sets the Parent for the current Environment
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator">
+            <summary>
+            POCO for IDGenerator. This class is autogenerated
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the IDGenerator class
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.#ctor(System.String,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Initializes a new instance of the IDGenerator class
+            </summary>
+            <param name="objectName">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.ObjectName"/> value</param>
+            <param name="seedValue">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.SeedValue"/> value</param>
+            <param name="incrValue">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.IncrValue"/> value</param>
+            <param name="prevValue">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.PrevValue"/> value</param>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.ObjectName">
+            <summary>
+            Gets or sets the ObjectName for the current IDGenerator
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.SeedValue">
+            <summary>
+            Gets or sets the SeedValue for the current IDGenerator
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.IncrValue">
+            <summary>
+            Gets or sets the IncrValue for the current IDGenerator
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.IDGenerator.PrevValue">
+            <summary>
+            Gets or sets the PrevValue for the current IDGenerator
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser">
+            <summary>
+            POCO for LNUser.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.#ctor">
+            <summary>
+            Initializes a new instance of the LNUser class
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.UserID">
+            <summary>
+            Gets or sets the LNUserID for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.UserName">
+            <summary>
+            Gets or sets the UserName for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.FirstName">
+            <summary>
+            Gets or sets the FirstName for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.LastName">
+            <summary>
+            Gets or sets the LastName for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.Password">
+            <summary>
+            Gets or sets the Password for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.Salt">
+            <summary>
+            Gets or sets the Salt for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.PhoneNumber">
+            <summary>
+            Gets or sets the PhoneNumber for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.EmailAddress">
+            <summary>
+            Gets or sets the EmailAddress for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.OrganizationID">
+            <summary>
+            Gets or sets the OrganizationID for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.Enabled">
+            <summary>
+            Gets or sets the Enabled for the current LNUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNUser.AssignedRoles">
+            <summary>
+            Gets or sets the UserRoles for the current LNUser
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization">
+            <summary>
+            POCO for Organization. This class is autogenerated
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.#ctor">
+            <summary>
+            Initializes a new instance of the Organization class
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.#ctor(System.Int64,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Organization class
+            </summary>
+            <param name="organizationID">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationID"/> value</param>
+            <param name="organizationName">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationName"/> value</param>
+            <param name="organizationDescription">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationDescription"/> value</param>
+            <param name="primaryContact">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.PrimaryContact"/> value</param>
+            <param name="contactPhone">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.ContactPhone"/> value</param>
+            <param name="contactEmail">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.ContactEmail"/> value</param>
+            <param name="applications">Initial <see cref="!:Organization.Applications"/> value</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.#ctor(System.Int64,System.String)">
+            <summary>
+            Minimal constructor for class Organization
+            </summary>
+            <param name="organizationID">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationID"/> value</param>
+            <param name="organizationName">Initial <see cref="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationName"/> value</param>
+            <param name="applications">Initial <see cref="!:Organization.Applications"/> value</param>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationID">
+            <summary>
+            Gets or sets the OrganizationID for the current Organization
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationName">
+            <summary>
+            Gets or sets the OrganizationName for the current Organization
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.OrganizationDescription">
+            <summary>
+            Gets or sets the OrganizationDescription for the current Organization
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.PrimaryContact">
+            <summary>
+            Gets or sets the PrimaryContact for the current Organization
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.ContactPhone">
+            <summary>
+            Gets or sets the ContactPhone for the current Organization
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.ContactEmail">
+            <summary>
+            Gets or sets the ContactEmail for the current Organization
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Organization.Environments">
+            <summary>
+            Gets or sets the Applications for the current Organization
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataModel.DomainModel.Permission">
+            <summary>
+            A permission for a user.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.Permission.#ctor">
+            <summary>
+            Initializes a new instance of the Permission class
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Permission.ID">
+            <summary>
+            Gets or sets the ID for the current Permission
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Permission.EnvironmentID">
+            <summary>
+            Gets or sets the EnvironmentID for the current Permission
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Permission.Environment">
+            <summary>
+            Gets or sets the Environment for the current Permission
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Permission.User">
+            <summary>
+            Gets or sets the UserRole for the current Permission
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.Permission.Scope">
+            <summary>
+            Gets or sets the Scope for the current Permission
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNSchemaVersion.#ctor">
+            <summary>
+            Initializes a new instance of the Version class
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNSchemaVersion.Id">
+            <summary>
+            Gets or sets the Id for the Version
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNSchemaVersion.VersionNumber">
+            <summary>
+            Gets or sets the VersionNumber for the Version
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNSchemaVersion.AppliedBy">
+            <summary>
+            Gets or sets the AppliedBy for the Version
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.DataModel.DomainModel.LNSchemaVersion.DateApplied">
+            <summary>
+            Gets or sets the DateApplied for the Version
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.LNDataModelService.GetDataMigrationEmails(System.Int64)">
+            <summary>
+            Get all users that have read/write access for migrations in this environment
+            </summary>
+            <param name="targetEnvID"></param>
+            <returns></returns>        
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.DataModel.LNDataModelService.GetDataMigrationEmails(System.Int64,System.String[])">
+            <summary>
+            Get all users that have read/write access for migrations in this environment
+            for the specified sub roles.
+            </summary>
+            <param name="targetEnvID"></param>
+            <returns></returns>        
+        </member>
+        <member name="E:Brierley.LoyaltyNavigator.Email.Controls.LiveListGrid.LiveListGridProvider.UploadLiveListClicked">
+            <summary>
+            Event fired when the "Upload Live List" button is clicked.
+            </summary>
+        </member>
+        <member name="E:Brierley.LoyaltyNavigator.Email.Controls.ResendsGrid.ResendsGridProvider.ResendAllClicked">
+            <summary>
+            Event fired when the "Upload Live List" button is clicked.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Email.Controls.TemplatesControl.InitializeComponent">
+            <summary>
+            Perform initialization of component at Page_Load.  No view state is available at this time.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Email.Controls.TemplatesControl.LoadComponent">
+            <summary>
+            When this method is called, the view state is available.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Email.Controls.TemplatesControl.FieldsGrid_GridActionClicked(System.Object,Brierley.WebFrameWork.Controls.Grid.GridActionClickedArg)">
+            <summary>
+            This method handles events on the fields grid.  These events include the custom actions as 
+            well as the AddNew event.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.DataMigrationSetScopeEnum">
+            <summary>
+            Flags for the data migration scope
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.LNBasePage.GetFormattedLocalResource(System.String,System.String,System.String,System.String[])">
+            <summary>
+            Get a formatted local resource and apply string.Format.  If the resource value has format
+            tags, then pass null for argument fmt.  Otherwise, provide the fmt argument and the resource
+            value will be used to replace tag "{0}".
+            </summary>
+            <param name="resourceName">name of the resource</param>
+            <param name="fmt">optional format string for string.Format()</param>
+            <param name="arguments">variable number of arguments for string.Format()</param>
+            <returns></returns>
+        </member>
+        <member name="F:Brierley.LoyaltyNavigator.LNWebsite.LNSkinArea.AreaTypes.Html">
+            <summary>
+            A block of html - no controls to process, just replace any tokens and output the html
+            </summary>
+        </member>
+        <member name="F:Brierley.LoyaltyNavigator.LNWebsite.LNSkinArea.AreaTypes.Content">
+            <summary>
+            content area for modules (i.e., header, nav, content, footer etc.)
+            </summary>
+        </member>
+        <member name="F:Brierley.LoyaltyNavigator.LNWebsite.LNSkinArea.AreaTypes.FormBegin">
+            <summary>
+            begin tag for the asp.net form
+            </summary>
+        </member>
+        <member name="F:Brierley.LoyaltyNavigator.LNWebsite.LNSkinArea.AreaTypes.FormEnd">
+            <summary>
+            end tag for asp.net form
+            </summary>
+        </member>
+        <member name="F:Brierley.LoyaltyNavigator.LNWebsite.LNSkinArea.AreaTypes.Username">
+            <summary>
+            label showing the current logged in user
+            </summary>
+        </member>
+        <member name="F:Brierley.LoyaltyNavigator.LNWebsite.LNSkinArea.AreaTypes.Logout">
+            <summary>
+            logout button
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauRestService">
+            <summary>
+            Simple class to access the Tableau rest service via HttpClient and return data. The Tableau rest service can only be used for administrative
+            functions (e.g. adding users or querying sites), but not for viewing reports (hence the need for the trusted authentication).
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauRestService.GetResource(System.String,System.Boolean)">
+            <summary>  
+            Get an xml resource file.
+            </summary>  
+            <param name="xmlResource">Xml resource path. For example users.xml</param>  
+            <param name="retryLogin">Retry login if result is unauthorized. Default is true</param>  
+            <returns>XML Linq element for further queries</returns>  
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauRestService.Login">
+            <summary>  
+            Login task. Logs in http client and sets session cookie.
+            </summary>  
+            <returns></returns>  
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauRestService.PostLogin(System.String,System.String)">
+            <summary>  
+            Post login information  
+            </summary>  
+            <param name="encryptedPassword">Password encrypted via TableauRestService.EncryptPassword</param>  
+            <param name="authenticityToken">Token retrieved from auth.xml</param>  
+            <returns></returns>  
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauRestService.EncryptPassword(System.String,System.String,System.String)">
+            <summary>  
+            Encrypts password using RSA algorithm with public key (modulus and exponent)  
+            </summary>  
+            <param name="modulus"></param>  
+            <param name="exponent"></param>  
+            <param name="password"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauRestService.Dispose">
+            <summary>  
+            Dispose http client  
+            </summary>  
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauRestService.ToByteArrayBE(System.Numerics.BigInteger)">
+            <summary>  
+            Converts BigInteger to Big-endian byte array  
+            </summary>  
+            <param name="b"></param>  
+            <returns></returns>  
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauTrustedAuth">
+            <summary>
+            Simple class to facilitate trusted authentication with Tableau. Trusted authentication is necessary to view reports.
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauTrustedAuth.GetTicket">
+            <summary>
+            Gets a trusted authentication ticket. Tickets are only valid for a single use and must be used within 3 minutes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauTrustedAuth.GetTicketedURLs(System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.String)">
+            <summary>
+            Used to simplify the process of iterating over lists of urls across various sites
+            </summary>
+            <param name="sourceURLs">Dictionary of sites (key) and URLs (values)</param>
+            <param name="failoverURL">URL to be returned should the ticket come back as invalid (-1)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauTrustedAuth.GetTicketedURL(System.String,System.Boolean,System.String)">
+            <summary>
+            Modifies a given URL to include ticket information.
+            </summary>
+            <param name="sourceURL">Report URL</param>
+            <param name="isRelative">True if the URL begins after the domain (e.g. /views/workbookV1/QuarterlyReport)</param>
+            <param name="failoverURL">URL to be returned should the ticket come back as invalid (-1)</param>
+            <returns></returns>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.LNWebsite.Tableau.TableauTrustedAuth.Site">
+            <summary>
+            Stores the value of the site for purposes of redirecting to the correct trusted authentication resource
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Workflow.BookmarkFormBase.GetFormDataDefinition(System.Collections.Generic.List{Brierley.FrameWork.Interfaces.MpaProperty})">
+            <summary>
+            This is currently not being used.  For forms, data is defined in the user interface for that step.
+            </summary>
+            <param name="properties"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.LNWebsite.Workflow.WorkflowDashboardControl">
+            <summary>
+            JIRA ISSUE      DEVELOPER       DATE        COMMENTS
+            LW-469          RTW             9/8/2014    Converted the control from a LWWebControl to a CompositControl to deal with page lifetime and page event issues that are
+            LW-468                                      inherient to the LWWebControl.
+            LW-470
+            LW-480
+            LW-491
+            </summary>
+        </member>
+        <member name="F:Brierley.LoyaltyNavigator.LNWebsite.Workflow.WorkflowDashboardControl.StatusPanel">
+            <summary>
+            JIRA ISSUE      DEVELOPER       DATE        COMMENTS
+            LW-469          RTW             9/8/2014    Converted the control from a LWWebControl to a CompositControl to deal with page lifetime and page event issues that are
+            LW-468                                      inherient to the LWWebControl.
+            LW-470
+            LW-480
+            LW-491
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Workflow.WorkflowDashboardControl.CreateChildControls">
+            <summary>
+            JIRA ISSUE      DEVELOPER       DATE        COMMENTS
+            LW-469          RTW             9/8/2014    Converted the control from a LWWebControl to a CompositControl to deal with page lifetime and page event issues that are
+            LW-468                                      inherient to the LWWebControl.
+            LW-470
+            LW-480
+            LW-491
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Workflow.WorkflowDashboardControl.bookmarksGridProvider_DashboardBookmarksWindowClosed(System.Object,System.EventArgs)">
+            <summary>
+            JIRA ISSUE      DEVELOPER       DATE        COMMENTS
+            LW-469          RTW             9/8/2014    Converted the control from a LWWebControl to a CompositControl to deal with page lifetime and page event issues that are
+            LW-468                                      inherient to the LWWebControl.
+            LW-470
+            LW-480
+            LW-491
+            </summary>
+            //protected override void OnInit(EventArgs e)
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Workflow.WorkflowDashboardControl.DisplayStepActivities">
+            <summary>
+            JIRA ISSUE      DEVELOPER       DATE        COMMENTS
+            LW-469          RTW             9/8/2014    Converted the control from a LWWebControl to a CompositControl to deal with page lifetime and page event issues that are
+            LW-468                                      inherient to the LWWebControl.
+            LW-470
+            LW-480
+            LW-491
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.LNWebsite.Workflow.WorkflowToXaml.CreateEscalationTree(Brierley.FrameWork.Data.DomainModel.WFStep,System.String,System.String,System.Nullable{System.TimeSpan},System.Int32,System.Boolean)">
+            JIRA ID      Developer       Date        Comments
+            LW-448       RTW             8/25/2014   To allow the user to control whether the bookmark completes
+                                                     after the last escalation has expired or allow it to remain
+                                                     active awaiting human interaction.
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.Create">
+            <summary>
+            Create a new user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.GetByID(System.Int64)">
+            <summary>
+            Get a user by its internal ID (primary key)
+            </summary>
+            <param name="ID">internal ID</param>
+            <returns>the JanusUser or null if not found</returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.GetByName(System.String)">
+            <summary>
+            Get a user by its user name
+            </summary>
+            <param name="UserName">user name, e.g., "juser"</param>
+            <returns>the JanusUser or null if not found</returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.GetAll">
+            <summary>
+            Gets a list containing all of the users
+            </summary>
+            <returns>a list of all of the JanusUsers</returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.GetAll(System.Int64)">
+            <summary>
+            Gets a list containing all users in a given organization
+            </summary>
+            <param name="orgId">the internal ID (primary key) for the organization</param>
+            <returns>a list of all of the JanusUsers in the organization</returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.IsValidPassword(System.String)">
+            <summary>
+            Does the given password match the one for the user
+            </summary>
+            <param name="cleartextPassword">the password</param>
+            <returns>true if pasword is valid, else false</returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.SetPassword(System.String)">
+            <summary>
+            Set the password for this user
+            </summary>
+            <param name="cleartextPassword"></param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.HasRole(System.String)">
+            <summary>
+            Does the user have the given role?
+            </summary>
+            <param name="roleName">the role name</param>
+            <returns>true if has the role, otherwise false</returns>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.AddRole(System.String)">
+            <summary>
+            Add the given role to this user
+            </summary>
+            <param name="roleName">the role name</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.RemoveRole(System.String)">
+            <summary>
+            Remove the given role from this user
+            </summary>
+            <param name="roleName">the role name</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.RemoveRole(Brierley.LoyaltyNavigator.Management.LNRole)">
+            <summary>
+            Remove the given role from this user
+            </summary>
+            <param name="role">the role</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.RemoveRole(System.Collections.Generic.List{Brierley.LoyaltyNavigator.Management.LNRole})">
+            <summary>
+            Remove the given roles from this user
+            </summary>
+            <param name="roles">the list of roles</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.Save">
+            <summary>
+            Save this user to the database
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.JanusUser.Delete">
+            <summary>
+            Delete this user from the database
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.LNClassLoaderUtil.LoyaltyNavigator_OnAssemblyLoading(System.String)">
+            <summary>
+            Handler for Brierley.FrameWork.Common.ClassLoaderUtil's OnAssemblyLoading event
+            </summary>
+            <param name="assemblyName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.LNMgmtUtil.Version">
+            <summary>
+            Get the version in the Brierley.LoyaltyNavigator.dll
+            </summary>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.Management.OrganizationCollection">
+            <summary>
+            A shallow collection of all defined Organizations.  Applications are loaded on-demand
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.OrganizationCollection.GetAssignedOrganizations(Brierley.LoyaltyNavigator.Management.JanusUser)">
+            <summary>
+            Populate collection based on security permissions
+            </summary>
+            <param name="user">JanusUser for whom permissions are set</param>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.SecurityManager.IsAllowed(System.String)">
+            <summary>
+            This method determines the top level visibility for this user for Applicationmaster dashboard
+            </summary>
+            <param name="roleName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.Management.SiteState">
+            <summary>
+            The SiteState class is a helper class used by Loyalty Navigator. It wraps the Organization/Application/Environment state settings
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.Management.SiteState.Remove(System.String)">
+            <summary>
+            Removes a SiteState setting from the HTTPContext
+            </summary>
+            <param name="statename"></param>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.CurrentLNUserName">
+            <summary>
+            Gets current logged in LN user or "unknown" if it cannot be determined.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.CurrentUser">
+            <summary>
+            The current Janus Loyalty Navigator User
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.CurrentUserRoles">
+            <summary>
+            The list of roles for CurrentUser
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.LWContentRootPath">
+            <summary>
+            The path to the root of the content.  This is specified in web.config by the app setting
+            "LWContentRootPath", which is an absolute or relative (e.g., ~/) path.  The default if
+            not specified is "~/Content".  The directory is created if it does not exist.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.LWContentRootURL">
+            <summary>
+            The URL to the root of the content.  This is specified in web.config by the app setting
+            "LWContentRootURL".  An exception is thrown if this is not specified.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ImagePath">
+            <summary>
+            The path to the image root for the currently active environment.  This will be a directory below
+            the LWContentRootPath appended with the name MyOrg_MyApp where MyOrg is the currently active organization
+            and MyApp is the currently active application.  The org and app names will have any spaces removed.
+            The path will be created if it does not exist.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ImageURL">
+            <summary>
+            The URL to the image root for the currently active environment.  This will be an URL relative
+            to the LWContentRootURL appended with the name MyOrg/MyApp where MyOrg is the currently active organization
+            and MyApp is the currently active application.  The org and app names will have any spaces removed.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ActiveOrganization">
+            <summary>
+            The current active organization
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ActiveEnvironment">
+            <summary>
+            The current active environment
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ActiveOrgID">
+            <summary>
+            The Active Organization Id
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ActiveOrgName">
+            <summary>
+            The active organization's name
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ActiveEnvironmentID">
+            <summary>
+            The active environment Id.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ActiveExtensionID">
+            <summary>
+            The active Application Extension
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.ActiveMember">
+            <summary>
+            The Active Member ???
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.Management.SiteState.EnvironmentChanged">
+            <summary>
+            True when the ActiveEnvironmentID has changed since the last time ActiveEnvironmentID or
+            EnvironmentChanged was read
+            </summary>
+        </member>
+        <member name="M:Brierley.LoyaltyNavigator.ProgramConfiguration.ProductsAndRewardsControl.PnlMain_TabStripClicked(System.String,System.ComponentModel.CancelEventArgs)">
+            
+            
+        </member>
+        <member name="T:Brierley.LoyaltyNavigator.resources.JavaScriptResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.resources.JavaScriptResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Brierley.LoyaltyNavigator.resources.JavaScriptResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

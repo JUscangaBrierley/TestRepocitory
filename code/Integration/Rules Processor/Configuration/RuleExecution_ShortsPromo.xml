@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBLine</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat> 
+    <ThreadPoolSize>1</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>noreply@brierley.com</SenderEmail>
+      <SenderDisplayName>AE Rules Processor</SenderDisplayName>
+	  <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Shorts Promo Processor</Subject>
+    </EmailInformation>    
+  </RuleEngineConfig>
+  <AttributeSetRule AttributeSetName="TxnHeader" DirectiveName="RerunTransactions">
+    <QueryBasedAttributeSetRetriever  
+      RetrievalRange="0-*" 
+      RetrievalBatchSize="1000" 
+      KeyName="a_RowKey"
+    >
+      <QueryString>
+        select a_rowkey from ( 
+            Select distinct(thAudience.headerrowkey) as a_rowkey,(
+                 select SUM(td.a_dtlquantity) from bp_ae.ats_txndetailitem td
+                 where 1=1
+                 and td.a_txnheaderid = thAudience.orgtxnheaderid
+                 and td.a_dtltypeid = 1
+                 and td.a_dtlclearanceitem = 0
+                 and td.a_excludequalifiedpurchase &lt;&gt; 1
+                 and td.a_dtlclasscode in
+                 (
+                     SELECT t.Column_Value AS Classcode
+                     FROM TABLE(Stringtotable((select cc.value from bp_ae.lw_clientconfiguration cc where cc.ckey='BonusPointsShortsJune2019'),';')) t
+                 )
+            ) AS OrgQaItems,
+            (
+                 select SUM(tdr.a_dtlquantity) from bp_ae.ats_txndetailitem tdr
+                 where 1=1
+                 and tdr.a_txnheaderid = thAudience.rettxnheaderid
+                 and tdr.a_dtltypeid = 2
+                 and tdr.a_dtlclearanceitem = 0
+                 and tdr.a_excludequalifiedpurchase &lt;&gt; 1
+                 and tdr.a_dtlclasscode in
+                 (
+                     SELECT t1.Column_Value AS Classcode
+                     FROM TABLE(Stringtotable((select cc.value from bp_ae.lw_clientconfiguration cc where cc.ckey='BonusPointsShortsJune2019'),';')) t1
+                 )
+            ) curQaItems
+            From(
+               select
+               distinct (dh.txnheaderid) as rettxnheaderid, orght.a_txnheaderid as orgtxnheaderid, vc.ipcode,ht.a_rowkey as headerrowkey
+               from bp_ae.stage_txndetailheader dh
+               inner join bp_Ae.Ats_Txnheader ht on ht.a_txnheaderid = dh.txnheaderid
+               inner join bp_ae.ats_txndetailitem dt on dt.a_txnheaderid = dh.txnheaderid
+               inner join bp_ae.lw_virtualcard vc on vc.vckey = dh.vckey
+               inner join bp_Ae.Ats_Txnheader orght on orght.a_txnnumber = dt.a_txnoriginaltxnnumber and orght.a_ordernumber = dt.a_txnoriginalordernumber
+               and dt.a_txnoriginalstoreid = orght.a_txnstoreid     and orght.a_txndate = dt.a_txnoriginaltxndate
+               inner join bp_ae.lw_pointtransaction pt on pt.rowkey = orght.a_rowkey
+               inner join bp_ae.lw_pointevent pe on pe.pointeventid = pt.pointeventid
+               inner join bp_ae.lw_memberpromotion mp on mp.memberid = vc.ipcode and mp.code='shortsbonus_june_2019' --Verify if Member belong to the list
+               where 1=1
+               and ht.a_excludepointaccrual &lt;&gt; 1 -- return txns that do not have an exclude flag set
+               and pe.name = 'June 2019 Shorts Bonus' and pt.points > 0 --org txn had the promo purchase points issued
+            ) thAudience
+        ) where curQaItems=OrgQaItems
+      </QueryString>
+    </QueryBasedAttributeSetRetriever>
+    <RulesToInvoke>
+      <Rule RuleName="June 2019 Shorts Bonus - Return" TargetPath="Member/VirtualCard/TxnHeader"/>            
+    </RulesToInvoke>
+  </AttributeSetRule >
+</RulesDirectives> 

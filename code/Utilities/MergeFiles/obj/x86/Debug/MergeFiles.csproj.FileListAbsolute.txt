@@ -1,0 +1,6 @@
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\MergeFiles\bin\Debug\MergeFiles.exe.config
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\MergeFiles\bin\Debug\MergeFiles.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\MergeFiles\bin\Debug\MergeFiles.pdb
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\MergeFiles\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\MergeFiles\obj\x86\Debug\MergeFiles.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\MergeFiles\obj\x86\Debug\MergeFiles.pdb

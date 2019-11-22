@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log4net>
+  <!-- Valid log levels: OFF, FATAL, ALL, WARN, INFO, DEBUG, ALL -->
+
+  <!-- log file appender -->
+  <appender name="logfile" type="log4net.Appender.RollingFileAppender">
+    <file value="D:\devroot\americaneagle\workspace\LogFiles\LWRulesProcessor.log"/>    
+    <appendToFile value="true"/>
+    <maximumFileSize value="10MB"/>
+    <maxSizeRollBackups value="10"/>
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date [%thread] %-5level [%logger] - %message%newline" />
+    </layout>
+  </appender>
+
+  <appender name="xmllogfile" type="log4net.Appender.RollingFileAppender">
+    <file value="D:\devroot\americaneagle\workspace\LogFiles\LWRulesProcessor.xml"/>
+    <appendToFile value="true"/>
+    <rollingStyle value="Composite" />
+    <datePattern value="yyyyMMdd" />
+    <maximumFileSize value="10MB"/>
+    <maxSizeRollBackups value="10"/>
+    <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
+      <locationinfo value="true"/>
+    </layout>
+  </appender>
+  
+  <!-- event log appender - filtered for ALL only -->
+  <appender name="eventlog" type="log4net.Appender.EventLogAppender" >
+    <applicationName value="B+P LoyaltyWare LoyaltyNavigator" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="[%thread] [%logger] - %message%newline" />
+    </layout>
+    <mapping>
+      <level value="ALL" />
+      <eventLogEntryType value="Error" />
+    </mapping>
+    <!--<evaluator type="log4net.Core.LevelEvaluator">
+      <threshold value="ALL"/>
+    </evaluator>-->
+    <filter type="log4net.Filter.LevelRangeFilter">
+      <levelMin value="ERROR" />
+      <acceptOnMatch value="true" />
+    </filter>
+    <filter type="log4net.Filter.DenyAllFilter" />
+  </appender>
+
+  
+	<appender name="RulesLog" type="Brierley.FrameWork.Common.Logging.LWDatabaseAppender,Brierley.FrameWork">
+		<filter type="log4net.Filter.LoggerMatchFilter">
+		  <loggerToMatch value="RuleExecutionLogger" />
+		  <acceptOnMatch value="true" />
+		</filter>
+		<connectionType value="Oracle.ManagedDataAccess.Client.OracleConnection,Oracle.ManagedDataAccess, Version=4.121.2.0" />
+		<bufferSize value="0" />
+		<commandText value="INSERT INTO LW_RULEEXECUTIONLOG (Id, rulename, memberid, executionstatus, executionmode, ownertype, ownerid, rowkey, skipreason, detail, createdate, updatedate) 
+							VALUES (hibernate_sequence.nextval, :rulename, :memberid, :executionstatus, :executionmode, :ownertype, :ownerid, :rowkey, :skipreason, :detail, sysdate, sysdate)" /> 
+		<parameter> 
+		  <parameterName value=":rulename" /> 
+		  <dbType value="String" /> 
+		  <size value="50" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="RuleName" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":memberId" /> 
+		  <dbType value="Int64" /> 
+		  <size value="18" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="MemberId" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":executionstatus" /> 
+		  <dbType value="String" /> 
+		  <size value="255" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="ExecutionStatus" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":executionmode" /> 
+		  <dbType value="String" /> 
+		  <size value="255" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="ExecutionMode" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":ownertype" /> 
+		  <dbType value="Int64" /> 
+		  <size value="18" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="OwnerType" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":ownerid" /> 
+		  <dbType value="Int64" /> 
+		  <size value="18" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="OwnerId" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":rowkey" /> 
+		  <dbType value="Int64" /> 
+		  <size value="18" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="RowKey" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":skipreason" /> 
+		  <dbType value="String" /> 
+		  <size value="50" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="SkipReason" /> 
+		  </layout> 
+		</parameter>
+		<parameter> 
+		  <parameterName value=":detail" /> 
+		  <dbType value="String" /> 
+		  <size value="150" /> 
+		  <layout type="log4net.Layout.RawPropertyLayout"> 
+			<key value="Detail" /> 
+		  </layout> 
+		</parameter>
+	</appender>
+  
+  <!-- This is the default log level for all loggers (should be INFO) -->
+  <root>
+    <level value="ERROR"/>
+	    <appender-ref ref="logfile"/>
+    <!--<appender-ref ref="xmllogfile"/>
+    <appender-ref ref="eventlog"/> -->
+  </root>
+
+
+  <!-- The log levels for individual loggers can be set below, which will override the default level -->
+  <!-- LoyaltyWare -->
+
+  <!--<logger name="LoyaltyWareFramework">
+    <level value="DEBUG"/>    
+  </logger>
+    
+  <logger name="LWRulesProcessor">
+    <level value="DEBUG"/>
+  </logger>-->
+  
+  <logger name="RuleExecutionLogger">
+		<level value="ERROR"/>
+		<appender-ref ref="RulesLog"/>
+	</logger>
+  
+</log4net>

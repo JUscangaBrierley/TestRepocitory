@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log4net xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <appender name="logfile" type="log4net.Appender.RollingFileAppender" xdt:Locator="Match(name)">
+    <file value="E:\LogFiles\AmericanEagle\qa-apiaerewards-bline\AEO_LWIntegrationService.log" xdt:Transform="Replace"/>
+  </appender>
+</log4net>

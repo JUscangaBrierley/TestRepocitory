@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+	<Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>New Enrrolment ProfileIn Process</Subject>
+    </EmailInformation>
+    <!--<DoNotProcess>true</DoNotProcess>-->
+  </DAPConfiguration>
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="">
+    <SimpleDatabaseInput CollectionName="Members" RecordName="Member">
+      <QueryString>
+		SELECT -2 as IPCODE,
+					seq_rowkey.nextval    rowkey,
+					a_vckey               vckey,
+					a_vckey               parentrowkey,
+					a_accountkey          accountkey,
+					createdate            createdate,
+					updatedate            updatedate
+					FROM (
+					select distinct p.accountkey AS a_accountkey,
+					vc.vckey     AS a_vckey,
+					SYSDATE      AS createdate,
+					SYSDATE      AS updatedate
+					from stage_profilein p,
+					lw_virtualcard vc
+					where vc.loyaltyidnumber = p.loyaltyidnumber AND
+					accountkey is not null and
+					not exists
+					(select null
+					from ats_synchronyaccountkey a
+					where a_accountkey = p.accountkey and
+					a.a_vckey = p.vckey)
+					) 
+      </QueryString>
+      <Fields>
+		<Field Name="IPCODE" Type="Integer" />
+        <Field Name="ROWKEY" Type="Integer" />
+        <Field Name="VCKEY" Type="String" />
+		<Field Name="PARENTROWKEY" Type="Integer" />
+		<Field Name="ACCOUNTKEY" Type="String" />
+		<Field Name="CREATEDATE" Type="Date" />
+		<Field Name="UPDATEDATE" Type="Date" />
+		
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="Members" TargetAttributeSetType="Member" DebugOutputPath="">
+	
+	<FieldMap SourceField="Member/IPCODE" >
+      <Populate TargetNode="Member/IPCODE"/>
+    </FieldMap>
+	
+	<FieldMap SourceField="Member/ROWKEY" >
+      <Populate TargetNode="Member/ROWKEY"/>
+    </FieldMap>
+
+    <FieldMap SourceField="Member/VCKEY" >
+      <Populate TargetNode="Member/VCKEY" />
+    </FieldMap>
+    <FieldMap SourceField="Member/PARENTROWKEY" >
+      <Populate TargetNode="Member/PARENTROWKEY"/>
+    </FieldMap> 
+	
+	<FieldMap SourceField="Member/FIRSTNAME">
+		<Populate TargetNode="Member/FIRSTNAME"/>
+	</FieldMap>
+	<FieldMap SourceField="Member/ACCOUNTKEY">
+		<Populate TargetNode="Member/ACCOUNTKEY"/>
+	</FieldMap>
+
+	<FieldMap SourceField="Member/CREATEDATE" >
+      <Populate TargetNode="Member/CREATEDATE"/>
+    </FieldMap> 
+	<FieldMap SourceField="Member/UPDATEDATE" >
+      <Populate TargetNode="Member/UPDATEDATE"/>
+    </FieldMap>  
+	
+	
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <FrameworkOutput>
+      <!-- Configuration for Dispatcher messages over threads -->
+      <DispatcherConfiguration>
+        <ThreadPoolSize>3</ThreadPoolSize>
+        <RequestsPerThread></RequestsPerThread>
+        <SerializeMembers>false</SerializeMembers>
+      </DispatcherConfiguration>
+      <!-- Final processing directives -->
+      <FrameworkBoundMessageProcessingDirectives>
+        <InterceptorAssembly ReuseForFile="true">
+          <InterceptorAssemlyName>AmericanEagle.SDK.dll</InterceptorAssemlyName>
+          <InterceptorTypeName>AmericanEagle.SDK.Interceptors.ProfileInAccountKeyInterceptor</InterceptorTypeName>
+        </InterceptorAssembly>
+        <ClientDataModel>
+			<MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="false" > <!-- HandleMemberNotFoundInInterceptor="false" --> 
+		        <!-- <LoadDirective Method="UseInterceptor" ValuePath="" /> -->
+				<!-- <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber" /> -->
+				<LoadDirective Method="IpCode" ValuePath="Member/IPCODE" />
+			</MemberLoadDirectives>
+
+        </ClientDataModel>
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+  </OutputProvider>
+
+  
+  <!-- PostProcessor -->
+  
+</DAPDirectives>

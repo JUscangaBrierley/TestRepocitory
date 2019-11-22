@@ -1,0 +1,7 @@
+<AddMember>
+  <parameter>
+    <object IpCode="0" MemberCreateDate="0001-01-01T00:00:00.000" MemberCloseDate="" MemberStatus="" BirthDate="1990-01-01T00:00:00.000" FirstName="sony" LastName="john" MiddleName="" NamePrefix="" NameSuffix="" AlternateId="0" MobileDeviceType="" Username="" Password="" PrimaryEmailAddress="sjohn@brierley.com" PrimaryPhoneNumber="" PrimaryPostalCode="" LastActivityDate="" IsEmployee="False" ChangedBy="">
+      <MemberDetails AITUpdate="True" CardType="" ChangedBy="" PassValidation="False" EmailAddress="sjohn@brierley.com" BaseBrandID="0" City="plano" StateOrProvince="tx" ZipOrPostalCode="75024" County="dallas" Country="USA" AddressMailable="False" HomePhone="" MobilePhone="" WorkPhone="" SecondaryEmailAddress="" MemberStatusCode="" DirectMailOptInDate="" EmailOptInDate="" SMSOptInDate="" EnrollDate="" Gender="" MemberSource="" LanguagePreference="" SecurityQuestion="" SecurityAnswer="" OldEmailAddress="" HomeStoreID="" HasEmailBonusCredit="False" IsUnderAge="False" EmployeeCode="" SMSOptIn="False" DirectMailOptIn="False" EmailOptIn="False" HHKey="" OldCellNumber="" ExtendedPlayCode="" EmailAddressMailable="False" AddressLineOne="333 main st" AddressLineTwo="" AddressLineThree="" AddressLineFour="" BraFirstPurchaseDate="" JeansFirstPurchaseDate="" HasGWBonusCredit="" GwLinked="" LastBraStoreNumber="" GwObjVer="" LastPurchasePoints="" LastBraPurchaseDate="" />
+    </object>
+  </parameter>
+</AddMember>

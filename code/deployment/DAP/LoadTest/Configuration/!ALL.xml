@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <DAPConfiguration>
+    <Environment xdt:Transform="Replace">LoadTest</Environment>
+  </DAPConfiguration>
+  <OutputProvider>
+    <DelimetedFileOutput OutputFolder="E:\AmericanEagle\Files\Outbound" xdt:Transform="SetAttributes(OutputFolder)" />
+    <FixedRecordFileOutput OutputFolder="E:\AmericanEagle\Files\Outbound" xdt:Transform="SetAttributes(OutputFolder)" />
+  </OutputProvider>
+</DAPDirectives>

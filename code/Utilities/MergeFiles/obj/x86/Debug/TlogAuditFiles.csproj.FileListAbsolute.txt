@@ -1,0 +1,6 @@
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\TlogAuditFiles\TlogAuditFiles\bin\Debug\TlogAuditFiles.exe.config
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\TlogAuditFiles\TlogAuditFiles\bin\Debug\TlogAuditFiles.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\TlogAuditFiles\TlogAuditFiles\bin\Debug\TlogAuditFiles.pdb
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\TlogAuditFiles\TlogAuditFiles\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\TlogAuditFiles\TlogAuditFiles\obj\x86\Debug\TlogAuditFiles.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\TlogAuditFiles\TlogAuditFiles\obj\x86\Debug\TlogAuditFiles.pdb

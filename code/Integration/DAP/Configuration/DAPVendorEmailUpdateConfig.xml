@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE Vendor Email Update DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\VendorEmailUpdate\Stage1">
+    <FlatFileInput>
+      <CollectionRoot Name="VendorEmailUpdate" Structure="Delimited" Delimiter="NL" TagName="">
+        <Record Name="Member" Structure="FixedLength" Delimiter="" TagName="">
+          <Fields>
+            <RecordField Name="CustomerNumber" Length="13" Justification="Left" Type="String" />
+            <RecordField Name="OldEmailAddress" Length="50" Justification="Left" Type="String" />
+            <RecordField Name="Filler1" Length="50" Justification="Left" Type="String" />
+            <RecordField Name="NewEmailAddress" Length="50" Justification="Left" Type="String" />
+            <RecordField Name="Filler2" Length="50" Justification="Left" Type="String" />
+            <RecordField Name="LastUpdateDate" Length="10" Justification="Left" Type="String" />
+            <RecordField Name="LoyaltyNumber" Length="50" Justification="Left" Type="String" />           
+          </Fields>
+        </Record>
+      </CollectionRoot>
+    </FlatFileInput>
+  </InputProvider>
+  <!-- Configuration for message transformation -->
+  <MessageTransformationMap SourceCollectionName="VendorEmailUpdate" TargetAttributeSetType="Member" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\VendorEmailUpdate\Stage2">
+   
+    <Scripts> 
+	<Script Name="GetChangebyData"  InParmName="LastUpdateDate" >
+        <Code>
+          <![CDATA[
+            return "Vendor Email Update: " + LastUpdateDate ; 
+          ]]>
+        </Code>
+      </Script>
+  <!--      
+      <Script Name="TrimLoyaltynumber" InParmName="LoyaltyNumber">
+        <Code>
+          <![CDATA[
+          return LoyaltyNumber.trim();   	              
+     	              ]]>
+        </Code>
+      </Script>
+     -->  
+    </Scripts>
+   
+    <FieldMap SourceField="Member/CustomerNumber">
+      <Populate TargetNode="Member/MemberDetails/HHKey"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/LoyaltyNumber">
+      <!--UseScript="TrimLoyaltynumber"-->  
+      <Populate TargetNode="Member/VirtualCard/LoyaltyIdNumber"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/NewEmailAddress">
+      <Populate TargetNode="Member/MemberDetails/EmailAddress"/>
+    </FieldMap>
+    <FieldMap SourceField="Member/LastUpdateDate">
+      <!--
+      <Populate TargetNode="Member/MemberDetails/UpdateDate"/>
+      -->
+      <Populate TargetNode="Member/MemberDetails/ChangedBy" UseScript="GetChangebyData" />
+    </FieldMap>
+    <!--
+    <MissingField TargetNode="Member/MemberDetails/ChangedBy" Value="VendorEmailUpdate"/>
+    -->
+  </MessageTransformationMap>
+  <!-- Output Provider -->
+  <OutputProvider CheckForChangedValues="true">
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.VendorEmailUpdate</TypeName>
+      <AssemblyName>AmericanEagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+    <!--
+    
+        -->
+        <ClientDataModel>
+          <MemberLoadDirectives ExceptionIfFound="false" ExceptionIfNotFound="false">
+            <LoadDirective Method="LoyaltyIdNumber" ValuePath="Member/VirtualCard/LoyaltyIdNumber" />
+          </MemberLoadDirectives>
+          <AttributeSetCreateDirectives>
+            <AttributeSetUpdate CreateIfNotFound="true" Name="MemberDetails" FindMethod="First"/>
+            <AttributeSetUpdate CreateIfNotFound="true" Name="VirtualCard" FindMethod="Attribute" FindValue="LoyaltyIdNumber"/>
+          </AttributeSetCreateDirectives>
+        </ClientDataModel>
+    <!--
+      </FrameworkBoundMessageProcessingDirectives>
+    </FrameworkOutput>
+    -->
+  </OutputProvider>
+</DAPDirectives>

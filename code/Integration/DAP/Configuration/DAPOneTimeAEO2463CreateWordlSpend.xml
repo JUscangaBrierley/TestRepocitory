@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>  
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE World Spend One Time Leading Zeros   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+  </PreProcessor>
+  
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\AITProfileUpdateSend">
+    <SimpleDatabaseInput CollectionName="WSLines" RecordName="WSLines">
+      <QueryString>
+        SELECT 'Loyalty Number|Account Key|Transaction Date|Net World Spend|Exception Reason|File Name' AS line 
+        FROM dual 
+        UNION ALL
+        SELECT w.line
+        FROM(  
+        SELECT DISTINCT w.accountkey, w.loyaltynumber ||'|' || 
+                w.accountkey ||'|'|| 
+                w.startdate ||'|'|| 
+                --SUBSTR(w.filename,24,8) ||'|'||
+                w.networldsales ||'|'||
+                w.exceptionmsg ||'|'||
+                w.filename
+                AS line
+            FROM (SELECT Row_Number() OVER(PARTITION BY u.accountkey, u.startdate, u.enddate, u.networldsales ORDER BY u.accountkey, u.startdate, u.enddate, u.networldsales DESC) r,
+                        u.loyaltynumber,
+                        u.accountkey,
+                        u.startdate,
+                        u.enddate,
+                        u.networldsales,
+                        u.exceptionmsg,
+                        u.filename
+                FROM bp_ae.err_tlog08_worldspend u
+                WHERE lower(u.exceptionmsg) like '%account key match failed%'
+                    AND INSTR(upper(u.exceptionmsg), 'WARNING') = 0
+                ORDER BY u.accountkey, u.startdate, u.enddate, u.networldsales) w
+        WHERE w.r = 1
+        ) w         
+        JOIN
+        (
+                SELECT DISTINCT K.a_accountkey
+                FROM bp_ae.x$_aeo2371 B JOIN BP_AE.ats_synchronyaccountkey K
+                ON B.A_ROWKEY = K.A_ROWKEY   
+
+        )AK
+        ON w.accountkey = AK.a_accountkey
+      </QueryString>
+      <Fields>
+        <Field Name="line"  Type="String"  />      
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="WSLines" RecordName="WSLines" FileName="AE_Net_World_Visa_Txns_Exceptions_{$date(format=yyyyMMdd)}.txt" DataInAttributes="false"  Delimiter="" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="line" Justification="Left" Length="100" />                
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>       
+  </PostProcessor>
+</DAPDirectives>

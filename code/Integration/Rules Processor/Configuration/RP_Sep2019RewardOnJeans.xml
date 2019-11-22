@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RulesDirectives xmlns="http://brierley.com/LWRulesProcessorConfig.xsd">
+
+  <RuleEngineConfig>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DateConversionFormat>yyyy-MM-dd</DateConversionFormat> 
+    <ThreadPoolSize>1</ThreadPoolSize>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE Rule Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>September 2019 Bonus Reward On Jeans</Subject>
+    </EmailInformation>    
+  </RuleEngineConfig>
+  <MemberRule DirectiveName="AERewards">
+    <QueryBasedMemberRetriever 
+      RetrievalRange="0-*" 
+      RetrievalBatchSize="1000" 
+      KeyName="IpCode"
+    >
+      <QueryString>
+		<![CDATA[
+        SELECT audience.IPCODE, 0 as POINTS, nvl(audience.cardtype,0) as CARDTYPE, null as TIERLEVEL
+        FROM(
+              SELECT qaitems.ipcode, md.a_cardtype as cardtype, COUNT(CASE WHEN rd.name = '$5 Reward' THEN 1 END) RewardsIssued
+              FROM
+              (                  
+                  SELECT qpitems.ipcode--, PurchasedItems, ReturnedItems
+                  FROM (
+                       SELECT ipcode, COUNT(*) AS PurchasedItems FROM (
+                            --Qualified Item Purchased
+                            SELECT vc.ipcode, th.a_rowkey as th_rowkey, td.a_rowkey as td_rowkey, th.a_ordernumber, th.a_txnnumber, th.a_txndate, th.a_txnstoreid
+                            FROM   bp_ae.ats_txnheader th
+                            INNER JOIN bp_ae.ats_txndetailitem td on th.a_rowkey = td.a_parentrowkey
+                            INNER JOIN bp_ae.lw_storedef s on th.a_txnstoreid = s.storeid
+                            INNER JOIN bp_ae.lw_virtualcard vc on vc.vckey = th.a_vckey
+                            INNER JOIN bp_ae.lw_loyaltymember lm on lm.ipcode = vc.ipcode
+                            INNER JOIN (
+                                  SELECT mp.memberid FROM bp_ae.lw_memberpromotion mp WHERE mp.code = 'Jeans_September_2019'
+                                  ) mp on mp.memberid=vc.ipcode
+                            INNER JOIN (
+                                  SELECT jeanClassCode  FROM(
+                                      SELECT  trim(regexp_substr( (select to_char(cc.value) from bp_ae.lw_clientconfiguration cc where cc.ckey = 'JeansPromoClassCodes'), '[^;]+',1,LEVEL)) jeanClassCode
+                                      FROM    dual 
+                                      CONNECT BY instr( (select to_char(cc.value) from bp_ae.lw_clientconfiguration cc where cc.ckey = 'JeansPromoClassCodes'), ';', 1, LEVEL - 1) > 0 
+                                  ) WHERE jeanClassCode is not null
+                                ) jeanscc ON jeanscc.jeanClassCode = td.a_Dtlclasscode
+                            WHERE th.a_txndate >= TO_DATE('09/25/2019','MM/DD/YYYY') and  th.a_txndate < TO_DATE('09/28/2019','MM/DD/YYYY')
+                                  AND lm.memberstatus = 1
+                                  AND td.a_dtlclearanceitem <> 1
+                                  AND td.a_excludequalifiedpurchase <> 1
+                                  AND td.a_dtlsaleamount > 0.01
+                                  AND s.country in ('USA','CAN','PRI')
+                                  AND s.brandname <> 2
+                                  AND th.a_excludepointaccrual <> 1
+                                  AND td.a_dtltypeid = 1
+                                  AND th.a_txndate < trunc(TO_DATE(']]>{$arg=CurrentDate}<![CDATA[','MM/DD/YYYY')) -14
+                         ) GROUP BY ipcode
+                  ) qpitems
+                  LEFT JOIN (
+                       SELECT ipcode, COUNT(*) AS ReturnedItems FROM (
+                            SELECT ovc.ipcode, td.a_rowkey, td.a_txnoriginalordernumber, td.a_txnoriginaltxnnumber, td.a_txnoriginaltxndate, td.a_txnoriginalstoreid
+                            FROM  bp_ae.ats_txndetailitem td
+                            INNER JOIN bp_ae.ats_txnheader oth on (
+                                  oth.a_ordernumber = td.a_txnoriginalordernumber AND 
+                                  oth.a_txnnumber =   td.a_txnoriginaltxnnumber AND
+                                  oth.a_txndate =     td.a_txnoriginaltxndate AND
+                                  oth.a_txnstoreid =  td.a_txnoriginalstoreid 
+                            )
+                            INNER JOIN bp_ae.lw_storedef s on td.a_txnoriginalstoreid = s.storeid
+                            INNER JOIN bp_ae.lw_virtualcard ovc on ovc.vckey = oth.a_vckey
+                            INNER JOIN (
+                                  SELECT mp.memberid FROM bp_ae.lw_memberpromotion mp WHERE mp.code = 'Jeans_September_2019'
+                                  ) mp on mp.memberid=ovc.ipcode
+                            INNER JOIN (
+                                  SELECT jeanClassCode  FROM(
+                                      SELECT  trim(regexp_substr( (select to_char(cc.value) from bp_ae.lw_clientconfiguration cc where cc.ckey = 'JeansPromoClassCodes'), '[^;]+',1,LEVEL)) jeanClassCode
+                                      FROM    dual 
+                                      CONNECT BY instr( (select to_char(cc.value) from bp_ae.lw_clientconfiguration cc where cc.ckey = 'JeansPromoClassCodes'), ';', 1, LEVEL - 1) > 0 
+                                  ) WHERE jeanClassCode is not null
+                                ) jeanscc ON jeanscc.jeanClassCode = td.a_Dtlclasscode
+                            WHERE td.a_txndate >= TO_DATE('09/25/2019','MM/DD/YYYY')
+                                  AND td.a_Txnoriginaltxndate >= TO_DATE('09/25/2019','MM/DD/YYYY')
+                                  AND td.a_Txnoriginaltxndate < TO_DATE('09/28/2019','MM/DD/YYYY')
+                                  AND td.a_dtlclearanceitem <> 1
+                                  AND td.a_excludequalifiedpurchase <> 1
+                                  AND ABS(td.a_dtlsaleamount) > 0.01
+                                  AND s.country in ('USA','CAN','PRI')
+                                  AND s.brandname <> 2
+                                  AND td.a_dtltypeid = 2
+                       ) GROUP BY ipcode
+                  ) qritems ON (
+                    qpitems.ipcode = qritems.ipcode
+                  )
+                  WHERE qpitems.PurchasedItems > nvl(qritems.ReturnedItems,0)
+              ) qaitems
+              INNER JOIN bp_ae.ats_memberdetails md on md.a_ipcode=qaitems.ipcode
+              LEFT  JOIN  bp_ae.lw_memberrewards mr  on mr.memberid=qaitems.ipcode
+              LEFT  JOIN  bp_ae.lw_rewardsdef rd on rd.id = mr.rewarddefid
+              WHERE 1=1
+                    AND  INSTR(md.a_emailaddress,'@')>0 
+                    AND (md.a_memberstatuscode IS NULL)
+              HAVING COUNT(CASE WHEN rd.name = '$5 Reward' THEN 1 END) = 0
+              GROUP BY qaitems.ipcode, md.a_cardtype
+        ) audience]]>
+      </QueryString>
+    </QueryBasedMemberRetriever>
+    <RulesToInvoke>
+      <Rule RuleName="September 2019 Reward on Jeans" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+	  <Rule RuleName="" TargetPath="Member"/>
+  </RulesToInvoke>
+  </MemberRule>
+</RulesDirectives>

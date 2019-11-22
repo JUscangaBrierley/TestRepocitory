@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>  
+ <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Bulk Bonus Loader Exception Report Output</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <PreProcessor>
+  </PreProcessor>
+  
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\americaneagle\files\outbound\decrypted">
+    <SimpleDatabaseInput CollectionName="ExceptionRecords" RecordName="ExceptionRecord">
+      <QueryString>
+        select CAST('REC_NUM|Loyalty_Number|Points|PointType|PointEvent' AS NVARCHAR2(999)) AS line1 from dual
+        union all
+        select line1 FROM (
+            select  b.filerownum || '|' ||
+                    vc.loyaltyidnumber ||'|' ||
+                    b.points ||'|' ||
+                    pt.name ||'|' ||
+                    pe.name AS line1
+            FROM (
+                SELECT vckey, pointeventid, counter 
+                FROM(
+                    SELECT DISTINCT hbp.vckey, hbp.pointeventid, COUNT(*) AS counter
+                    FROM bp_ae.AE_HISTORY_BONUSPOINTS hbp
+                    WHERE (
+                            ({$arg=LoadID} IS NULL AND hbp.loadid = (
+                                SELECT load_id FROM(
+                                    Select load_id FROM nova_loads n
+                                    WHERE n.feed_name ='FEED_BULK_BONUS' AND n.processing_state='PROCESSING'
+                                )WHERE ROWNUM=1
+                            ) 
+                        )
+                        OR ( {$arg=LoadID} IS NOT NULL AND hbp.loadid = {$arg=LoadID} )   
+                    )
+                    AND hbp.transactiontype=1
+                    GROUP BY hbp.vckey, hbp.pointeventid
+                )
+                WHERE counter>1 
+            ) f
+            JOIN bp_ae.AE_HISTORY_BONUSPOINTS b ON (f.vckey=b.vckey AND f.pointeventid=b.pointeventid)
+            JOIN bp_ae.lw_virtualcard vc ON (b.vckey=vc.vckey)
+            JOIN bp_ae.lw_pointevent pe ON (b.pointeventid=pe.pointeventid)
+            JOIN bp_ae.lw_pointtype pt ON (b.pointtypeid=pt.pointtypeid)
+            WHERE (
+                ( {$arg=LoadID} IS NULL AND 
+                    b.loadid = (
+                        SELECT load_id FROM(
+                            Select load_id FROM nova_loads n
+                            WHERE n.feed_name ='FEED_BULK_BONUS' AND n.processing_state='PROCESSING'
+                        )WHERE ROWNUM=1
+                    ) 
+                )
+                OR ({$arg=LoadID} IS NOT NULL AND b.loadid = {$arg=LoadID} )
+            ) AND b.transactiontype=1
+            ORDER BY b.filerownum
+        )
+      </QueryString>
+      <Fields>
+        <Field Name="line1"  Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="ExceptionRecords" RecordName="ExceptionRecord" FileName="AE_Bonus_Loy_Exception_{$date(format=MMddyyyy)}_{$arg=FileTypeName}.txt" DataInAttributes="false"  Delimiter="|" OutputFolder="E:\AmericanEagle\Files\Outbound">
+      <FieldMap>
+        <Field Name="line1" Length="1000" />
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+  <PostProcessor>       
+  </PostProcessor>
+</DAPDirectives>

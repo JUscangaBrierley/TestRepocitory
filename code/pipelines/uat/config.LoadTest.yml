@@ -1,0 +1,33 @@
+deploymentType: NetworkShare
+credentialsId: brierley-jenkinsuat
+artifactShare: '\\cy2cdeploy01.brierley.com\Builds'
+artifactPath: AmericanEagle\A-Line
+organization: AmericanEagle
+environment: LoadTest
+navigatorUrl: https://aeoadmin.brierleyweb.net/
+schedulerUrl: net.tcp://cypwbs303.brierleyweb.com:9543/LWJobScheduler
+navigatorInstanceId: aeo
+deployRemoteAssemblyMode: NugetBatchProject
+confluenceDeploymentReportId: 975339737
+projects:
+  LWIntgrService:
+    websiteName: lt-apiaerewards.brierley.com
+    deployPath: E$\wwwroot\lt-apiaerewards
+    targetHosts:
+    - tylwbs108.brierley.com
+    - tylwbs109.brierley.com
+  CustomerServicePortal:
+    websiteName: lt-csaerewards.brierley.com
+    deployPath: E$\wwwroot\lt-csaerewards
+    targetHosts:
+    - cy2lwbs25.brierley.com
+    - cy2lwbs26.brierley.com
+    skipSkinDirectory: true
+  DAP:
+    deployPath: E$\AmericanEagle\Processors\DAP
+    targetHosts:
+    - cy2lapp01.brierley.com
+  RulesProcessor:
+    deployPath: E$\AmericanEagle\Processors\RulesProcessor
+    targetHosts:
+    - cy2lapp01.brierley.com

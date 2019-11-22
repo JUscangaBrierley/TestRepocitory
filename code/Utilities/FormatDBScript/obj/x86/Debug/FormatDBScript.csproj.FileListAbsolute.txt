@@ -1,0 +1,9 @@
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\bin\Debug\FormatDBScript.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\bin\Debug\FormatDBScript.pdb
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\obj\x86\Debug\FormatDBScript.Form1.resources
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\obj\x86\Debug\FormatDBScript.Properties.Resources.resources
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\obj\x86\Debug\FormatDBScript.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatDBScript\obj\x86\Debug\FormatDBScript.pdb

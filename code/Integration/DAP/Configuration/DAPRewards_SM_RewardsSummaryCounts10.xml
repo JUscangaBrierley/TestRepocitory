@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AEO Rewards SM Summary Counts(QA) DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Dummy\Stage1">
+    <SimpleDatabaseInput CollectionName="VendorSMRewards" RecordName="VendorSMReward">
+      <QueryString>
+	  Select 0 as rownumber
+        , CAST('LOYALTYIDNUMBER' as NVARCHAR2(100)) as  LOYALTYIDNUMBER
+        , CAST('Count of SUC_CD' as NVARCHAR2(100)) as Count_of_SUC_CD
+from dual
+union
+          select 1 as rownumber,cast(vc.loyaltyidnumber as nvarchar2(100)) , cast(count(mr.certificatenmbr)  as nvarchar2(80))
+ from bp_ae.lw_memberrewards mr
+ inner join bp_ae.lw_rewardsdef rd on mr.rewarddefid = rd.id
+ inner join bp_ae.lw_virtualcard vc on mr.memberid = vc.ipcode and vc.isprimary = 1
+ inner join bp_ae.ats_memberdetails md on mr.memberid = md.a_ipcode
+ Where 1=1
+ and mr.dateissued BETWEEN trunc(SYSDATE) - 1 AND SYSDATE
+ and md.a_pendingcellverification = 0
+ and rd.name in ('AEO Rewards $10 Reward')
+ group by vc.loyaltyidnumber
+ 
+
+      </QueryString>
+      <Fields>
+		
+		<Field Name="LOYALTYIDNUMBER" Type="String" />
+		
+		<Field Name="Count_of_SUC_CD" Type="String" />
+		
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <DelimetedFileOutput CollectionName="VendorSMRewards" RecordName="VendorSMReward" FileName="AEORW_SM_10Reward_SummaryCounts_{$date(format=yyyyMMddhhmmss)}.txt" DataInAttributes="false"  Delimiter="|" OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles">
+      <FieldMap>
+		<Field Name="LOYALTYIDNUMBER" Length="100" />
+		<Field Name="Count_of_SUC_CD" Length="100" />
+	
+      </FieldMap>
+    </DelimetedFileOutput>
+  </OutputProvider>
+</DAPDirectives>

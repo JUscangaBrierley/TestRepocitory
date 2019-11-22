@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>MemberAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE DM Bra Rewards  DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\WeeklyFeed\Stage1">
+    <SimpleDatabaseInput CollectionName="BraRewards" RecordName="BraReward">
+      <QueryString>
+        SELECT vc.ipcode AS IPCODE, 'Bra' as type
+        FROM bp_ae.lw_pointtransaction pt 
+    INNER JOIN bp_ae.lw_pointevent pe ON pt.pointeventid = pe.pointeventid
+        INNER JOIN bp_ae.lw_pointtype p ON pt.pointtypeid = p.pointtypeid
+        INNER JOIN bp_ae.lw_virtualcard vc ON pt.vckey = vc.vckey
+        INNER JOIN bp_ae.ats_memberdetails md ON vc.ipcode = md.a_ipcode
+    INNER JOIN bp_ae.lw_loyaltymember lm on vc.ipcode = lm.ipcode -- AEO-646
+        WHERE 1 = 1
+        AND ( ( (pe.name IN ('Bra Purchase - 1', 'Bra Purchase - 15', 'B5G1 Bra Purchase', 'Bra Credit','Bra AECC Bonus Credit','Returned Bra Reward Points'))
+        AND (pt.transactiondate &lt; trunc(SYSDATE - 14)))
+       OR pe.name IN ('Bra Return'))
+        AND p.name IN ('Bra Points')
+        --AND NVL (md.a_employeecode, 0) = 0		AEO-816
+        AND NVL (md.a_addressmailable, 0) = 1
+        AND pt.pointsconsumed = 0
+      AND nvl(lm.memberstatus,3) = 1 -- AEO-646
+        AND pt.transactiontype &lt;&gt; 4
+        AND pt.expirationdate &gt; SYSDATE
+        AND AE_ISINPILOT(md.a_extendedplaycode) = 1 -- AEO-Point Conversion
+    AND (nvl(md.a_pendingcellverification,1) = 1 
+       AND (md.a_cardtype = 1 OR md.a_cardtype = 2 OR md.a_cardtype = 3)
+       AND (nvl(length(md.a_emailaddress),0) &lt; 1) --AEO-913
+       )
+        GROUP BY vc.ipcode
+        HAVING SUM (pt.points) &gt;= 5
+        union
+        SELECT vc.ipcode AS IPCODE, 'Jean' as type
+        FROM bp_ae.lw_pointtransaction pt
+        INNER JOIN bp_ae.lw_pointevent pe ON pt.pointeventid = pe.pointeventid
+        INNER JOIN bp_ae.lw_pointtype p ON pt.pointtypeid = p.pointtypeid
+        INNER JOIN bp_ae.lw_virtualcard vc ON pt.vckey = vc.vckey
+        INNER JOIN bp_ae.ats_memberdetails md ON vc.ipcode = md.a_ipcode
+    INNER JOIN bp_ae.lw_loyaltymember lm on vc.ipcode = lm.ipcode -- AEO-646
+        WHERE 1 = 1
+        AND ( ( (pe.name IN ('Jean Purchase', 'B5G1 Jean Purchase', 'Jeans Credit','Jean AECC Bonus Credit','Returned Jean Reward Points'))
+        AND (pt.transactiondate &lt; trunc(SYSDATE - 14)))
+        OR pe.name IN ('Jean Return'))
+        AND p.name IN ('Jean Points')
+        --AND NVL (md.a_employeecode, 0) = 0		AEO-816
+        AND NVL (md.a_addressmailable, 0) = 1
+        AND pt.pointsconsumed = 0
+    AND nvl(lm.memberstatus,3) = 1 -- AEO-646
+        AND pt.transactiontype &lt;&gt; 4
+        AND pt.expirationdate &gt; SYSDATE
+    AND pt.transactiondate &gt; to_date('9/30/2015 11:59:59PM', 'mm/dd/yyyy hh:mi:ssPM')
+        AND AE_ISINPILOT(md.a_extendedplaycode) = 1 -- AEO-Point Conversion
+    AND (nvl(md.a_pendingcellverification,1) = 1 
+       AND (md.a_cardtype = 1 OR md.a_cardtype = 2 OR md.a_cardtype = 3)
+       AND (nvl(length(md.a_emailaddress),0) &lt; 1) --AEO-913
+      )
+        GROUP BY vc.ipcode
+        HAVING SUM (pt.points) &gt;= 5
+      </QueryString>
+      <Fields>
+        <Field Name="IPCODE" Type="String" />
+        <Field Name="type" Type="String" />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output Provider -->
+  <OutputProvider>
+    <CustomOutput >
+      <TypeName>AmericanEagle.SDK.OutputProviders.B5G1_DMFulfillment</TypeName>
+      <AssemblyName>americaneagle.SDK.dll</AssemblyName>
+    </CustomOutput>
+  </OutputProvider>
+</DAPDirectives>

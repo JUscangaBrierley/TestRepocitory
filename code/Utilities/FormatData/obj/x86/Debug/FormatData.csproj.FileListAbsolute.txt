@@ -1,0 +1,9 @@
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\bin\Debug\FormatData.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\bin\Debug\FormatData.pdb
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\obj\x86\Debug\FormatData.Form1.resources
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\obj\x86\Debug\FormatData.Properties.Resources.resources
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\obj\x86\Debug\FormatData.exe
+C:\DevRoot\AmericanEagle\AmericanEagle.Trunk\Win32\Utilities\FormatData\obj\x86\Debug\FormatData.pdb

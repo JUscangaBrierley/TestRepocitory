@@ -1,0 +1,13 @@
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Brierley.Clients.AE.TlogCounter.exe.config
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Brierley.Clients.AE.TlogCounter.exe
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Brierley.Clients.AE.TlogCounter.pdb
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\obj\x86\Debug\Brierley.Clients.AE.TlogCounter.exe
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\obj\x86\Debug\Brierley.Clients.AE.TlogCounter.pdb
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\devroot\AmericanEagle\AmericanEagle.Trunk\Integration\Custom\TlogCounter\Brierley.Clients.AE.TlogCounter\Brierley.Clients.AE.TlogCounter\bin\Debug\Microsoft.Practices.Unity.dll

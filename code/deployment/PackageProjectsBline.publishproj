@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_SolutionPath>C:\_Processor\_SolutionPath</_SolutionPath>
+    <_ClientLibsPath>$(_SolutionPath)\ClientLibs</_ClientLibsPath>
+    <_DeployPath>$(MSBuildProjectDirectory)\bin</_DeployPath>
+    <_QAEnvironment>QABline</_QAEnvironment>
+    <_QAPath>C:\_Processor\_QAPath</_QAPath>
+    <_ProjectName>_ProjectName</_ProjectName>
+    <_ZipFileName>ZipFileName.zip</_ZipFileName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- for VS2010 we need to use 10.5 but for VS2012+ we should use VisualStudioVersion -->
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)' =='' and '$(VisualStudioVersion)' == 10.0 ">10.5</WebPublishTargetsVersion>
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)'=='' ">$(VisualStudioVersion)</WebPublishTargetsVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(WebPublishTargetsVersion)</VSToolsPath>
+    <_WebPublishTargetsPath Condition=" '$(_WebPublishTargetsPath)'=='' ">$(VSToolsPath)</_WebPublishTargetsPath>
+  </PropertyGroup>
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(_WebPublishTargetsPath)\Web\Microsoft.Web.Publishing.Tasks.dll"/>
+  <ItemGroup>
+    <_Projects Include="LWIntgrService">
+      <_BaseProgramPath>$(_SolutionPath)\Integration\Services\LWIntgrService</_BaseProgramPath>
+      <_ClientLibDestinationPath>bin</_ClientLibDestinationPath>
+    </_Projects>
+    <_Projects Include="CustomerServicePortal">
+      <_BaseProgramPath>$(_SolutionPath)\Portals\Customer Service</_BaseProgramPath>
+      <_ClientLibDestinationPath>bin</_ClientLibDestinationPath>
+    </_Projects>
+    <_Projects Include="DAP">
+      <_BaseProgramPath>$(_SolutionPath)\Integration\DAP</_BaseProgramPath>
+    </_Projects>
+    <_Projects Include="FileCountUtility">
+      <_BaseProgramPath>$(_SolutionPath)\Utilities\FileCountUtility\bin\Release</_BaseProgramPath>
+	  <_SkipClientLibCopy>true</_SkipClientLibCopy>
+    </_Projects>
+	<_Projects Include="RulesProcessor">
+      <_BaseProgramPath>$(_SolutionPath)\Integration\Rules Processor</_BaseProgramPath>
+    </_Projects>
+    <_ClientLibFiles Include="$(_ClientLibsPath)\*.dll;$(_ClientLibsPath)\*.pdb" />
+    <_Environments Include="QA;QACline;Stage;StageBline;StageCline;LoadTest;Production" />
+  </ItemGroup>
+  <Target Name="DeployProject" Outputs="%(_Projects.Identity)">
+    <PropertyGroup>
+      <_ProjectName>%(_Projects.Identity)</_ProjectName>
+      <_ProjectPath>%(_Projects._BaseProgramPath)</_ProjectPath>
+      <_ClientLibDestinationPath>%(_Projects._ClientLibDestinationPath)</_ClientLibDestinationPath>
+      <_SkipClientLibCopy>%(_Projects._SkipClientLibCopy)</_SkipClientLibCopy>
+      <_QAPath>$(_DeployPath)\$(_QAEnvironment)\%(_Projects.Identity)</_QAPath>
+      <_TransformPath>%(_Projects.Identity)\$(_QAEnvironment)</_TransformPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <_ProjectFiles Include="$(_ProjectPath)\**\*.*" Exclude="$(_ProjectPath)\**\.svn\**" />
+      <_TransformFiles Include="$(_TransformPath)\**\*.*" Exclude="$(_TransformPath)\**\.svn\**;$(_TransformPath)\**\!ALL.xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_ProjectFiles)" DestinationFolder="$(_QAPath)\%(RecursiveDir)"/>
+    <Copy SourceFiles="%(_ClientLibFiles.Identity)" DestinationFolder="$(_QAPath)\$(_ClientLibDestinationPath)" Condition="'$(_SkipClientLibCopy)' != 'true' and '$(_SkipClientLibCopy)' != 'True'"/>
+    <ItemGroup>
+      <_SpecialTransformSourceFiles Include="$(_QAPath)\**\*.xml" Exclude="$(_QAPath)\**\.svn\**"/>
+    </ItemGroup>
+    <TransformXml Source="%(_SpecialTransformSourceFiles.Identity)" Transform="$(_TransformPath)\%(_SpecialTransformSourceFiles.RecursiveDir)!ALL.xml" Destination="%(_SpecialTransformSourceFiles.Identity)" Condition="Exists('$(_TransformPath)\%(_SpecialTransformSourceFiles.RecursiveDir)!ALL.xml')"/>
+    <TransformXml Source="$(_QAPath)\%(RecursiveDir)%(Filename)%(Extension)" Transform="%(_TransformFiles.Identity)" Destination="$(_QAPath)\%(RecursiveDir)%(Filename)%(Extension)"/>
+    <MSBuild Targets="DeployUpper" Properties="_QAPath=$(_QAPath);_ProjectName=$(_ProjectName)" Projects="$(MSBuildProjectFile)"/>
+  </Target>
+  <Target Name="DeployUpper" Outputs="%(_Environments.Identity)">
+    <PropertyGroup>
+      <_EnvironmentDeployPath>$(_DeployPath)\%(_Environments.Identity)\$(_ProjectName)</_EnvironmentDeployPath>
+      <_TransformPath>$(_ProjectName)\%(_Environments.Identity)</_TransformPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <_QAFiles Include="$(_QAPath)\**\*.*" Exclude="$(_QAPath)\**\.svn\**" />
+      <_TransformFiles Include="$(_TransformPath)\**\*.*" Exclude="$(_TransformPath)\**\.svn\**;$(_TransformPath)\**\!ALL.xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_QAFiles)" DestinationFolder="$(_EnvironmentDeployPath)\%(RecursiveDir)"/>
+    <ItemGroup>
+      <_SpecialTransformSourceFiles Include="$(_EnvironmentDeployPath)\**\*.xml" Exclude="$(_EnvironmentDeployPath)\**\.svn\**"/>
+    </ItemGroup>
+    <TransformXml Source="%(_SpecialTransformSourceFiles.Identity)" Transform="$(_TransformPath)\%(_SpecialTransformSourceFiles.RecursiveDir)!ALL.xml" Destination="%(_SpecialTransformSourceFiles.Identity)" Condition="Exists('$(_TransformPath)\%(_SpecialTransformSourceFiles.RecursiveDir)!ALL.xml')"/>
+    <TransformXml Source="$(_EnvironmentDeployPath)\%(RecursiveDir)%(Filename)%(Extension)" Transform="%(_TransformFiles.Identity)" Destination="$(_EnvironmentDeployPath)\%(RecursiveDir)%(Filename)%(Extension)"/>
+  </Target>
+  <Target Name="DeployRemoteAssemblies">
+    <ItemGroup>
+      <_RemoteAssemblyFiles Include="$(_SolutionPath)\RemoteAssemblies\*.*" Exclude="$(_SolutionPath)\RemoteAssemblies\**\.svn\**" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_RemoteAssemblyFiles)" DestinationFolder="$(_DeployPath)\RemoteAssemblies"/>
+  </Target>
+  <Target Name="CompressProjects">
+    <Exec Command="&quot;C:\Program Files\7-Zip\7z.exe&quot; a -mx1 &quot;$(_DeployPath)\$(_ZipFileName)&quot; &quot;$(_DeployPath)\*&quot;"/>
+  </Target>
+  <Target Name="Default">
+    <CallTarget Targets="DeployRemoteAssemblies;DeployProject;CompressProjects"/>
+  </Target>
+</Project>

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DAPDirectives xmlns="http://www.brierley.com/DAPFileProcessing">
+  <!-- General Configuration Parameters -->
+  <DAPConfiguration>
+    <Organization>AmericanEagle</Organization>
+    <Environment>DevelopmentBline</Environment>
+    <DAPDataType>GlobalAttributeSets</DAPDataType>
+    <DateConversionFormat></DateConversionFormat>
+    <TrimStrings>true</TrimStrings>
+    <EmailInformation>
+      <SMTPServer>cypwebmail.brierleyweb.com</SMTPServer>
+      <SenderEmail>aejobs@brierley.com</SenderEmail>
+      <SenderDisplayName>AE DAP Processor</SenderDisplayName>
+      <RecepientEmail>aerewards_support@brierley.com</RecepientEmail>
+      <Subject>AE AIT Profile Update   DAP Processor</Subject>
+    </EmailInformation>
+    <DoNotProcess>false</DoNotProcess>
+  </DAPConfiguration>
+  <!-- Configuration parameters for message acquisition -->
+  <InputProvider MessageProcessingScheme="Single" DebugOutputPath="E:\LoyaltyWare\DevRoot\AmericanEagle\Data\AITProfileUpdateSend">
+    <SimpleDatabaseInput CollectionName="MemberProfiles" RecordName="MemberProfile">
+      <QueryString>
+        SELECT  md.a_HHKey as alternateid, lm.firstname, lm.lastname, md.a_addresslineone as "AddressLineOne",
+        md.a_addresslinetwo as "AddressLineTwo", md.a_addresslinethree as "AddressLineThree", md.a_city as "City",
+        md.a_stateorprovince as "StateOrProvince", REPLACE(md.a_ziporpostalcode, '-') as "ZipOrPostalCode",
+        Case
+        When md.a_country = 'USA' Then 'USA'
+        When md.a_country = 'CAN' Then 'CAN'
+        When md.a_country is NULL And Exists(Select 1 from bp_ae.ats_refstates rs Where UPPER(rs.a_statecode) = UPPER(md.a_stateorprovince) and UPPER(rs.a_countrycode) = 'CAN') Then 'CAN'
+        Else 'USA'
+        End as "Country",
+        to_char(lm.birthdate, 'mmddyyyy') as Birthdate, lm.primaryphonenumber,
+        CASE to_char(md.a_gender)
+        WHEN NULL THEN ' ' WHEN '1' THEN 'M'
+        WHEN '2' THEN 'F'
+        ELSE ''
+        END as Gender,
+        vc.loyaltyidnumber, md.a_emailaddress AS "EmailAddress", '0' AS WishToReceiveMail, '0' AS WishToReceiveEmail,
+        to_char(lm.membercreatedate, 'mmddyyyy') as EnrollmentDate,
+        CASE
+        WHEN vc.isprimary = 1 THEN 'P'
+        ELSE 'S'
+        END as HouseHoldType,
+        Case
+        When b.a_brandnumber is null Then '00'
+        When b.a_brandnumber  &lt;  0 Then '00'
+        Else lpad(b.a_brandnumber, '2', '0')
+        END AS BaseBrand
+        FROM    (select distinct(ls.ipcode) from bp_ae.x$_loysync_new ls ) ls1
+        inner join    bp_ae.lw_virtualcard vc on vc.ipcode = ls1.ipcode
+        Inner Join bp_ae.lw_loyaltymember lm On vc.ipcode = lm.ipcode
+        Inner Join bp_ae.ats_memberdetails md On vc.ipcode = md.a_ipcode
+        Left Join  bp_ae.ats_refbrand b on md.a_basebrandid = b.a_brandid
+        Where 1=1
+        And lm.memberstatus = 1
+        And Substr(vc.loyaltyidnumber, 1, 1) != '0'
+        And Length(vc.loyaltyidnumber) = 14   
+        order BY vc.IPCode
+      </QueryString>
+      <Fields>
+        <Field Name="AlternateID"  Type="String"  />
+        <Field Name="FirstName"  Type="String"  />
+        <Field Name="LastName"  Type="String"  />
+        <Field Name="AddressLineOne"  Type="String"  />
+        <Field Name="AddressLineTwo"  Type="String"  />
+        <Field Name="AddressLineThree"  Type="String"  />
+        <Field Name="City"  Type="String"  />
+        <Field Name="StateOrProvince"  Type="String"  />
+        <Field Name="ZipOrPostalCode"  Type="String"  />
+        <Field Name="Country"  Type="String"  />
+        <Field Name="BirthDate"  Type="String"  />
+        <Field Name="PrimaryPhoneNumber"  Type="String"  />
+        <Field Name="Gender"  Type="String"  />
+        <Field Name="LoyaltyIdNumber"  Type="String"  />
+        <Field Name="EmailAddress"  Type="String"  />
+        <Field Name="WishToReceiveMail"  Type="String"  />
+        <Field Name="WishToReceiveEmail"  Type="String"  />
+        <Field Name="EnrollmentDate"  Type="String"  />
+        <Field Name="HouseHoldType"  Type="String"  />
+        <Field Name="BaseBrand"  Type="String"  />
+      </Fields>
+    </SimpleDatabaseInput>
+  </InputProvider>
+  <!-- Output provider -->
+  <OutputProvider>
+    <FixedRecordFileOutput CollectionName="MemberProfiles" FileName="ae_loy_{$date(format=ddMMyyyy)}.txt" Justification="Left" OutputFolder="C:\devroot\americaneagle\Trunk\LogFiles" RecordName="MemberProfile">
+      <FieldMap>
+        <Field Name="AlternateID" Justification="Left" Length="13" />
+        <Field Name="FirstName" Justification="Left" Length="14" />
+        <Field Name="LastName" Justification="Left" Length="30" />
+        <Field Name="AddressLineOne" Justification="Left" Length="30"/>
+        <Field Name="AddressLineTwo" Justification="Left" Length="30"/>
+        <Field Name="City" Justification="Left" Length="20"/>
+        <Field Name="StateOrProvince" Justification="Left" Length="2"/>
+        <Field Name="ZipOrPostalCode" Justification="Left" Length="9"/>
+        <Field Name="Country" Justification="Left" Length="3"/>
+        <Field Name="BirthDate" Justification="Left" Length="8"/>
+        <Field Name="PrimaryPhoneNumber" Justification="Left" Length="10"/>
+        <Field Name="Gender" Justification="Left" Length="1"/>
+        <Field Name="LoyaltyIdNumber" Justification="Left" Length="14"/>
+        <Field Name="EmailAddress" Justification="Left" Length="50"/>
+        <Field Name="WishToReceiveMail" Justification="Left" Length="1"/>
+        <Field Name="WishToReceiveEmail" Justification="Left" Length="1"/>
+        <Field Name="EnrollmentDate" Justification="Left" Length="8"/>
+        <Field Name="HouseHoldType" Justification="Left" Length="1"/>
+        <Field Name="BaseBrand" Justification="Left" Length="2"/>
+      </FieldMap>
+    </FixedRecordFileOutput>
+  </OutputProvider>
+  <PostProcessor>
+    <StoredProcTask Name="aejobs.UpdateLastAITProfileSentDate">
+    </StoredProcTask>
+  </PostProcessor>
+</DAPDirectives>

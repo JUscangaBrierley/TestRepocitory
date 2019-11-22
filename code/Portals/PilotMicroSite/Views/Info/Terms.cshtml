@@ -1,0 +1,299 @@
+@{
+    ViewBag.Title = "Terms";
+} 
+
+<!doctype html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+ <!--Using jQuery and jQuery UI for display effects-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <!--Using the hamburger menu display code-->
+    <script src="~/js/hamburger.js"></script>
+    
+    <script src="~/js/modernizr-latest.js"></script>
+ 
+    <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+  <![endif]-->
+  
+    <script type="text/javascript">
+        var utag_data = {
+            brand_name: "AE", // Brand name - prop1 add brand AE or aerie for brand case senitive
+            channel: "AE", //   Same as brand_name
+            root_category: "rewards", // Root Category - prop2 this is always rewards
+            main_category: "terms", // Top Level Category (Categories) - prop3 changes based on page or tab so home page would be home_page and if on earnings tab earnings_tab
+            category: "", // Category (Tops) - change for different actions/events for Profile
+            sub_category: "", // Sub category (Jeans) - prop5 if used if another level
+            bar_level_category: "", // Bar category (ex Skinny) - prop41  if used if another level
+            server: "rewards", // server static
+            logged_in: "true", // Login status true or false
+            report_suite: "aeoproduction", // add aeoproduction for prod and aeodev for dev
+            page_section_type: "rewards", //  static
+            profileId: "", // AEO Profile ID if adval
+            rewardsId: "", // AEREWARDS ID  if adval.  see if I can change in code behind
+            customerId: ""// customer ID if adval
+        }
+    </script>
+
+<!-- Loading script asynchronously -->
+
+<script type="text/javascript">
+    (function (a, b, c, d) {
+        a = '//tags.tiqcdn.com/utag/americaneagle/main/prod/utag.js'; //change prod to dev if in zone
+        b = document; c = 'script'; d = b.createElement(c); d.src = a; d.type = 'text/java' + c; d.async = true;
+        a = b.getElementsByTagName(c)[0]; a.parentNode.insertBefore(d, a);
+    })();
+</script>
+
+<link rel="shortcut icon" href="~/images/favicon.ico"/>
+<link rel="apple-touch-icon" href="~/images/72x72_ipadAppIcon.png"/>
+<title>Welcome to AEO Rewards</title>
+<link rel="canonical" href="index.html"/>
+<link rel="stylesheet" href="@Url.Content("~/CSS/aeo.css")" />
+<link rel="stylesheet" href="@Url.Content("~/CSS/media.css")" />
+
+</head>
+
+<body class="main">
+<div id="container">
+	<div align="center" class="header">
+		<div class="header_block">
+        <div class="header_block_pht">@ViewBag.MemberName AEO Account &nbsp; | &nbsp; @Html.ActionLink("Sign Out", "Logout", "Account")</div>
+        
+        <div id="hamburger">
+            	<div></div>
+            	<div></div>
+            	<div></div>
+        	</div>
+
+       	    <div class="header_block_logo"><a href="http://www.ae.com" target="_self" border="0"><img src="~/images/aeo_logo.png" width="115" alt="American Eagle Outfitters" class="aeo_logo" style="border:none"/></a><img src="~/images/aeo_bug.png" width="50" alt="American Eagle Outfitters" class="aeo_bug"/></div>    
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/hp_womens.jsp?catId=womens&navdetail=top:women:p2" target="_self" class="link_nav">WOMEN</a></div>
+       		</div>
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/hp_mens.jsp?catId=mens&navdetail=top:men:p3" target="_self" class="link_nav">MEN</a></div>
+        	</div>    
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/jeans.jsp?catId=cat7010140&navdetail=top:jeans:p4" target="_self" class="link_nav">JEANS</a></div> 
+        	</div>
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/aerie/index.jsp?catId=cat4840006&navdetail=top:aerie:p5" target="_self" class="link_nav">AERIE</a></div> 
+        	</div>   
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="https://www.ae.com/web/checkout/giftcards/giftCard.jsp?catId=cat7170001" target="_self" class="link_nav">GIFTS</a></div> 
+        	</div>   
+        	<div class="header_block_nav">
+            	<div class="header_block_nav_link"><a href="http://www.ae.com/web/browse/hp_clearance.jsp?catId=clearance&navdetail=top:clearance:p7" target="_self" class="link_nav">CLEARANCE</a></div> 
+        	</div>
+        </div>
+    </div>
+    
+    <!--START MOBILE NAVIGATION-->
+        
+        	<nav class="hide_nav">
+        	<ul>
+            	<li><a href="http://www.ae.com/web/browse/hp_womens.jsp?catId=womens&navdetail=top:women:p2" target="_self" class="menu_a">WOMEN</a></li>
+            	<li><a href="http://www.ae.com/web/browse/hp_mens.jsp?catId=mens&navdetail=top:men:p3" target="_self" class="menu_a">MEN</a></li>
+            	<li><a href="http://www.ae.com/web/browse/jeans.jsp?catId=cat7010140&navdetail=top:jeans:p4" target="_self" class="menu_a">JEANS</a></li>
+            	<li><a href="http://www.ae.com/aerie/index.jsp?catId=cat4840006&navdetail=top:aerie:p5" target="_self" class="menu_a">AERIE</a></li>
+            	<li><a href="https://www.ae.com/web/checkout/giftcards/giftCard.jsp?catId=cat7170001" target="_self" class="menu_a">GIFTS</a></li>
+            	<li><a href="http://www.ae.com/web/browse/hp_clearance.jsp?catId=clearance&navdetail=top:clearance:p7" target="_self" class="menu_a">CLEARANCE</a></li>
+                <li class="menu_b">@ViewBag.MemberName AERewards</li>
+                <li class="menu_c">@Html.ActionLink("Earning Summary", "EarningSummary", "Account")</li>
+                <li class="menu_c">@Html.ActionLink("Earning Activity", "EarningActivity", "Account")</li>
+                <li class="menu_c">@Html.ActionLink("Available Rewards", "AvailableRewards", "Account")</li>
+                <li class="menu_c">@Html.ActionLink("Profile", "Profile", "Account")</li>
+                <li class="menu_c">@Html.ActionLink("Program Details", "ProgramDetails", "Info")</li>
+                <li class="menu_c">@Html.ActionLink("FAQs", "FAQ", "Info")</li>
+                <li class="menu_x">Terms&nbsp;and&nbsp;Conditions</li>
+                <li><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" class="menu_c">Privacy&nbsp;Policy</a></li>
+            </ul>
+            </nav>
+    
+        	<!--END MOBILE NAVIGATION-->
+    
+    <!--The Layer that will be layed over the content
+    so that the content is unclickable while menu is shown-->
+    <div id="contentLayer"></div>
+    
+    <div id="content">
+    	<div class="aeo_body">
+    		<div class="nav_column_1">
+        		<div class="nav_column_1_head"><img src="~/images/aeo_rewards.png" alt="AE Rewards" width="137" height="48" style="display:block; min-height:48 !important;"/></div>
+            	<div class="nav_column_1_top">
+            		<div class="nav_column_1_text">@Html.ActionLink("Earning Summary", "EarningSummary", "Account")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Earning Activity", "EarningActivity", "Account")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Available Rewards", "AvailableRewards", "Account")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Profile", "Profile", "Account")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("Program Details", "ProgramDetails", "Info")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div class="nav_column_1_text">@Html.ActionLink("FAQs", "FAQ", "Info")</div>
+            	</div>
+            	<div class="nav_column_1_mid">
+            		<div style="background-color:#000000; vertical-align:middle; padding:3px 0 3px 10px; font-family:'gotham_bookregular', Helvetica, Arial, sans-serif; font-size:14px; color:#ffffff">Terms and Conditions</div>
+            	</div>
+            	<div class="nav_column_1_bottom">
+            		<div class="nav_column_1_text"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" target="_top">Privacy Policy</a></div>
+            	</div>
+            </div>
+             <div>
+<!-------------------------------------
+    Content Section Begin
+  ------------------------------------->  
+<div class="column_2">
+    			<div class="column_2_container">
+    				<div class="column_2_head">TERMS & CONDITIONS</div>
+            		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+            		<tr>
+                    <td class="details_table"><span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">AEO Rewards is a pilot loyalty program whereby members earn points on purchases (after discounts and before Taxes and Fees) made at American Eagle Outfitters and Aerie. For every 1,000 points earned a $5 Reward is issued, good for use at American Eagle Outfitters stores, Aerie stores, AEO Factory stores, online and via direct phone orders ("Locations").  Additional benefits include buy 5 bras, get 1 free, buy 5 pairs of jeans, get 1 free, an exclusive birthday offer and member-only sales and events. Unfortunately, this pilot is only offered in select markets at this time. If you're located in a select pilot market you will only be eligible for the AEO Rewards program, and not the current AERewards program offered in all other markets. The AEO Rewards pilot is scheduled to end on 6/30/16 but this date is subject to change. If you are not yet a member, you can find out whether you're in a participating market by entering your information at www.aeorewards.com.</span><br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">General</span><br />
+The AEO Rewards Program (the "Program" or "AEO Rewards") membership is open to individual U.S. residents at least 13 years of age in select areas. By joining the Program and becoming a member, you represent that you are at least 13 years of age, that you understand you can earn benefits as a member of AEO Rewards and that you agree that you have read and agree to these AEO Rewards Terms and Conditions, the @Html.ActionLink("Terms of Use", "Terms", "Info") and <a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" class="link_body">Privacy Policies</a> (collectively, "Terms"). These Terms are void where and to the extent prohibited by law.<br /><br />
+
+You are responsible for checking for updates to the Program Terms. The Terms published on the AEO Rewards pilot program website will be the applicable Terms for the Program. The most current online version of these Terms may be amended from time to time and will supersede all previous versions of these Terms. These Terms will be posted on www.aeorewards.com, or can be obtained by calling 1&#8209;800&#8209;340&#8209;0532.<br /><br /> 
+
+Eligible minors must get their parents' or legal guardian's permission prior to participation.  Eligible minors may only participate under the supervision of a parent or legal guardian who agrees to be bound by these Terms.  AEO will investigate any suspected violation of this provision, which may result in immediate termination of the Program account and forfeiture of corresponding Rewards.<br /><br />
+
+These Terms apply to your membership and participation in the AEO Rewards, which is operated by AEO Management Co. and its parent, subsidiaries, affiliated companies, and third party service providers (collectively, "Administrators"). Points may be earned, Rewards may be redeemed, and benefits are valid only at participating Locations. Points and Rewards have no cash or other monetary value.<br /><br />
+
+The Program and its benefits are offered at the sole discretion of Administrators.  Administrators may at any time without notice, expand, alter terminate, modify, limit, continue or discontinue the Program or merge the Program, or any part of the Program, into another Rewards program at a later date.  In the event that the Program is discontinued or merged into another rewards program before you have accumulated enough points to earn a Reward, any unused points or other benefits may not be carried over into any new program. You will not be entitled to any compensation for any unused points and the points may have a lesser or different value under any new program.<br /><br />  
+
+In order to enroll into AEO Rewards, you have to provide a valid email address. Only one AEO Rewards membership may be associated with a single email address. You may have one and only one AEO Rewards membership.  There is no fee to join AEO Rewards, and a purchase is not required to become a member. By providing your information, you consent to Administrators collecting, using and sharing your information in accordance with AEO's privacy policies.<br /><br />
+
+Employees, officers, and directors of Administrators are not currently eligible for the Program.<br /><br /> 
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Earning Points</span><br />
+As an AEO Rewards member, you can earn five points for every qualifying $1 (USD) spent, rounded to the nearest USD, at participating Locations. When purchasing in-store or online, the qualifying amount ("net qualifying purchase")  for earning points is the transaction total for merchandise, excluding Gift Card purchases or charitable items, after any discounts or  Rewards have been applied and before sales or other taxes, state fees, shipping charges (collectively "Taxes and Fees").<br /><br /> 
+
+Administrators may, in their sole discretion, establish and offer you limited-time opportunities to earn additional bonus points. These opportunities will be featured on the AEO Rewards website and are subject to change in any way, at any point in time.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Earning Free Bras or Jeans</span><br />
+As a member, if you purchase 5 bras (excluding Bandeau, bralette and sports bras) you will get the 6th bra free! You can redeem the free bra Reward at Aerie stores and online. The free bra Reward is subject to terms and conditions, including expiration dates.<br /><br /> 
+	
+As a member, if you purchase 5 pairs of jeans (excluding other denim items, such as skirts, shorts and shirts) you will get the 6th pair free!  You can redeem for a free pair of jeans at American Eagle Outfitters stores and online. The free jeans Reward is subject to terms and conditions, including expiration dates.<br /><br /> 
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Returns and Exchanges</span><br />
+Points earned on any purchases at American Eagle Outfitters and Aerie, as well as credits towards Buy 5, Get 1 Free Rewards, will be deducted from your AEO Rewards member account for merchandise you return.<br /><br />
+
+You may request a credit for any transactions that are missing from your account within 60 days of the original purchase by calling 1-800-340-0532. You may also request credit for transactions made within 7 days before you enrolled so long as you request them within 60 days of the original purchase. In order to receive credit for a net qualifying purchase, you must have the receipt information available, including store number, transaction number or online order number, register number and date of purchase.<br /><br /> 
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Rewards</span><br />
+For every 1,000 points you earn, you're eligible for a $5 off your next purchase Reward. Rewards are for discounts off future eligible purchases at participating American Eagle Outfitters stores, Aerie stores, AEO Factory stores, online and via direct phone orders.  You may use your Reward for marked down or clearance merchandise; Rewards may not be used towards purchases of Gift Cards or charitable items.<br /><br />  
+
+Other exclusions and restrictions may apply. Unless otherwise indicated, each Reward will be valid through the expiration date specified, at 11:59 ET. This includes Rewards for dollars off of purchases, in addition to the free bra and free jeans Rewards. You may use a maximum of five "$5 off your next purchase" Rewards per transaction. Rewards will be subject to terms and conditions outlined on the Reward.<br /><br /> 
+
+You will get your Rewards via email, text or by signing in to your account at AEORewards.com. You must provide a valid email address that you have authority to use and/or opt in to receive AEO Rewards text messages. Rewards will not be mailed. Rewards will take approximately 14-20 days to post to your account after you have earned 1,000 points or reached the required number of items for a Free Bra or Free Jeans Reward. Rewards are automatically generated and sent out on Tuesdays after the points have posted to your account.<br /><br /> 
+
+If the purchase amount is less than the amount of the Reward, the difference will be forfeited. In the event merchandise purchased with a Reward is returned, the Reward may be used again but is subject to the original expiration date. If the Reward expiration date has already passed at the time of the return, the Reward will not be reissued.<br /><br /> 
+
+Rewards may not be given, transferred or sold. You may be asked to present proof of membership or identification to use your Reward.<br /><br /> 
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Silver Status</span><br />
+If you spend $250 or more on net qualifying purchases in a calendar year at participating American Eagle Outfitters stores, Aerie stores, AEO Factory stores, online and via direct phone orders, you will be upgraded to AEO Rewards Silver status! Your Silver Benefits will start with the next transaction the day after the transaction that qualified you for Silver Status.<br /><br /> 
+
+AEO Rewards Silver members earn an additional four points per $1 (USD) spent at participating American Eagle Outfitters stores, Aerie stores, AEO Factory stores, online and via direct phone orders, for a total of 9 points per $1 on net qualifying purchases.<br /><br />
+
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Member Communications</span><br />
+As a member you'll receive a birthday discount of 15% off a single purchase within your birthday month. To redeem the birthday discount, you must present the Birthday Discount coupon sent via email or text. The birthday offer is valid at AEO, AEO Factory Store and Aerie stores and online. This discount is for one time use only. Members with the AEO Credit Card or AEO Visa card will get a birthday discount of 20% off a single purchase within their birthday month. See coupon for additional terms and disclosures.<br /><br /> 
+
+Administrators reserve the right to make promotional offers selectively available to members, based on purchase activity, Program participation or other factors.<br /><br /> 
+
+By providing your contact information, you agree to receive marketing communications, including offers, benefits and promotional messages related to your membership, from AEO Rewards. You may opt out of receiving these marketing communications by emailing <a href="mailto:custserv@ae.com" class="link_body">custserv@ae.com</a> or calling 800&#8209;340&#8209;0532.<br /><br />
+
+By signing up for the AEO Rewards mobile program, you are providing consent to receive mobile marketing messages from AEO Rewards at the mobile number you provide. You agree that the messages may be sent using autodial or other automated technology. You understand that you are not required to provide your consent as a condition of purchasing any goods or services. Message and data rates may apply. You may receive up to 2 messages per week.<br /><br /> 
+
+Text "HELP" for help or "STOP" to cancel to 32453 to unsubscribe at any time. Your mobile number will be held in accordance with our Privacy Policy.  For complete program details visit the Mobile Help page of our website.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Membership Cancellation</span><br />
+You may cancel your membership in the Program at any time by emailing <a href="mailto:custserv@ae.com" class="link_body">custserv@ae.com</a> or by calling 1-800-340-0532.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Fraud</span><br />
+The Program may not be used for reselling or profit. AEO will investigate any suspected violation of this provision, which may result in immediate termination of the Program account and forfeiture of corresponding points, benefits, and Rewards. AEO reserves the right to void Program accounts associated with anyone who has engaged in deception, forgery, fraud (including without limitation fraudulent use of the "Get Points" feature), or other abuses of the Program, including reselling clothing or Rewards, or violations of AEO intellectual property or other rights. Multiple accounts corresponding to the same person will be subject to termination without notice.  There may be only three (3) membership accounts per household and one per person. If you have more than one account or more than 3 accounts in one household then AEO may terminate all accounts. If an account is terminated all points, benefits and Rewards will be forfeited. Administrators reserve the right to deny membership if we deem your conduct to violate these Terms.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Privacy Policy</span><br />
+Please see the American Eagle Outfitters <a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" target="_self" class="link_body">privacy policy</a>.<br /><br /> 
+
+For more information, see our <a href="aeo_terms" class="link_body">Terms of Use</a>, or <a href="http://www.ae.com/web/contact/index.jsp?navdetail=footer:c3:p4" target="_self" class="link_body">Contact Us</a>.<br /><br /> 
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Warranty and Limitation of Liability<br />
+THE PROGRAM, ANY PLATFORM AND SYSTEMS USED BY ADMINISTRATORS TO PROCESS DATA OR OTHER INFORMATION RELATING TO THE PROGRAM ARE PROVIDED ON AN "AS IS" AND " AS AVAILABLE" BASIS, WITHOUT EXPRESS OR IMPLIED WARRANTIES OF ANY KIND, INCLUDING, WITHOUT LIMITATION, WARRANTIES OF TITLE, IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.<br /><br />
+
+TO THE FULLEST EXTENT PERMITTED UNDER APPLICABLE LAW, YOU EXPRESSLY ACKNOWLEDGE AND AGREE THAT YOU ASSUME SOLE RESPONSIBILITY AND RISK FOR YOUR PARTICIPATION IN THE PROGRAM AND THE RESULTS AND PERFORMANCE THEREOF. NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, THE ADMINISTRATORS' CUMULATIVE LIABILITY TO YOU ARISING FROM ANY CAUSE WHATSOEVER, AND REGARDLESS OF THE FORM OF THE ACTION, WILL AT ALL TIMES BE LIMITED TO THE AMOUNT, IF ANY, PAID BY YOU TO USE THE PROGRAM.  IF NO AMOUNTS WERE PAID, YOUR SOLE REMEDY UNDER THESE TERMS SHALL BE TO DISCONTINUE ANY USE OF THE PROGRAM<br /><br />
+
+YOU ACKNOWLEDGE AND AGREE, OR IF YOU ARE A MINOR YOUR PARENT OR LEGAL GUARDIAN ACKNOWLEDGES AND AGREES, BY YOUR MEMBERSHIP OR PARTICIPATION IN THE PROGRAM THAT ADMINISTRATORS AND THEIR OFFICERS, DIRECTORS AND EMPLOYEES WILL NOT BE LIABLE FOR INDIRECT, SPECIAL, COMPENSATORY, PUNITIVE, OR CONSEQUENTIAL DAMAGES, LOST PROFITS AND/OR LOSS OF OR DAMAGE TO PROPERTY DAMAGES OF ANY KIND ARISING OUT OF OR RELATED TO THE PROGRAM WHETHER THE ALLEGED LIABILITY IS BASED ON CONTRACT, TORT, NEGLIGENCE STRICT LIABILITY OR ANY OTHER BASIS, EVEN IF ADMINISTRATORS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.<br /><br />
+
+BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, ADMINSTRATORS' AND THEIR OFFICERS', DIRECTORS' AND EMPLOYEES' DAMAGES IN SUCH JURISDICTIONS SHALL BE LIMITED TO THE EXTENT PERMITTED BY LAW.</span><br /><br />
+
+THE LAWS OF THE COMMONWEALTH OF PENNSYLVANIA APPLY TO AND GOVERN THIS PROGRAM AND ANY CLAIMS RELATED TO THE PROGRAM OR THESE TERMS MUST BE EXCLUSIVELY RAISED AND RESOLVED IN THE COURTS LOCATED IN ALLEGHENY COUNTY, PENNSYLVANIA, UNITED STATES.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Credit Card Rewards Addendum to the AEO Rewards Terms and Conditions</span><br />
+By applying for an AEO or Aerie Credit Card (each an "AEO Credit Card") or AEO or Aerie Visa&reg; Card (each an "AEO Visa Card"), you acknowledge you have either previously signed up for the AEO Rewards program (the "Program") or you agree to be automatically enrolled in the Program, and that you hereby agree to be bound by these Terms and the Terms and Conditions for the Program available at <a href="http://www.aeorewards.com" target="_self" class="link_body">www.aeorewards.com</a> or by calling 1-800-340-0532.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Earning Points with your AEO Credit Card or AEO Visa Card</span><br />
+When you use your AEO Credit Card or AEO Visa Card for purchases made at participating Locations, you will earn an additional three points per $1 spent on net qualifying purchases (qualifying merchandise purchased minus discounts, taxes, returns, adjustments, state fees, shipping charges, and restocking fees) ("Net Qualifying Purchases") per transaction (rounded to the next nearest whole dollar) for a total of 8 points per dollar earned under the Program.  Qualifying merchandise does not include gift cards, gift wrap or charitable items. When you use your AEO Visa Card for purchases made outside of the participating Locations, you will earn two points per $1 dollar spent on net purchases (merchandise purchased minus discounts, returns, adjustments) per transaction (rounded to the next nearest whole dollar) ("Net World Purchases") under the Program.   If there is no purchase associated with your Program account for 12 months rolling, plus the time to the end of the calendar year, all points will be forfeited.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">General Terms and Conditions for the AEO Credit Card and AEO Visa Card</span><br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Silver Status</span><br />
+When you spend $250 in a calendar year on Net Qualifying Purchases with your AEO Credit Card or AEO Visa Card at an AEO Location, you will qualify for Silver status.  Silver status will be awarded approximately 14 days after you meet the purchase threshold.  In addition to the points you earn under the Program and the points you earn as described above, Silver status cardholders will earn an additional four points per $1 on Net Qualifying Purchases made at an AEO Brand with their AEO Credit Card or AEO Visa Card, for a total of 12 points per dollar earned under the Program.  Base program status may be referred to as Reward Blue.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Jeans and Bra Benefit</span><br />
+AEO Credit Card and AEO Visa Card accountholders automatically get 1 credit towards the "buy 5 pairs of jeans get the 6th pair free" and the "buy 5 bras get the 6th bra free" benefit ("Bra and Jean Benefit").  Bralettes & Bandeaus, and other denim such as jean skirts, shorts and shirts do not count towards the 5 purchases necessary for the Bra and Jean Benefit.  When you earn a free bra or pair of jeans under the Bra and Jean Benefit, the free bra or pair of jeans reward will expire at 11:59pm (ET) on the expiration date noted on the Bra and Jean Benefit reward you receive.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Reward Fulfillment and Redemption</span><br />
+All points earned with your AEO Credit Card and AEO Visa Card will be earned in your Program account.  Points earned can take up to 30 days to post to your Program account.  Rewards are automatically generated and sent out every Tuesday after you earn 1,000 points. If AEO has an email address connected to your Program account, rewards earned under the Program will be emailed to you as stated in and subject to the Terms and Conditions of the Program.  If AEO does not have an email address connected to your Program account, rewards will be mailed to you subject to the Terms and Conditions of the Program.<br /><br />
+
+<span style="font-family:'gotham_mediumregular', Helvetica, Arial, sans-serif;">Other Conditions</span><br />
+In order to earn points under the Program with your AEO Credit Card or AEO Visa Card, your account must be in good standing at the time of your Net Qualifying Purchase or Net World Purchase.  AEO reserves the right to amend or modify or terminate the Program at any time.  If in its sole discretion, AEO suspects fraud, misrepresentation, abuse or violation of these Terms, AEO has the right to take the appropriate administrative or legal action, including the cancellation of accumulated points and termination of Program participation.  If your participation in the Program is cancelled (either by you or by AEO) you will forfeit any remaining points.  If you close your AEO Credit Card or AEO Visa Card account, you may still participate in AEO Rewards and the Terms & Conditions of the Program will apply.<br /><br />
+
+&copy; 2015 AEO Management Co. All rights reserved.<br /><br /></td>
+            		</tr>
+            		</table>
+            
+                    
+                </div>
+<!-------------------------------------
+    Content Section End
+  ------------------------------------->            
+
+             </div>
+    </div>   	
+    <div style="clear:both"></div>
+
+   <div class="aeo_footer">
+    	<div class="aeo_footer_content1">
+        	<div class="aeo_footer_1"><a href="http://www.ae.com/web/help/terms_of_use.jsp?topic=1&navdetail=footer:utility:p1" class="link_footer">TERMS OF USE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=5&navdetail=footer:utility:p2" class="link_footer">CALIFORNIA COMPLIANCE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/privacy_policy.jsp?topic=1&navdetail=footer:utility:p3" class="link_footer">PRIVACY POLICIES</a></div><div class="aeo_footer_1"><a href="http://m.ae.com/web/index.jsp?navdetail=footer:utility:p4" class="link_footer">MOBILE SITE</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/sitemap/index.jsp?navdetail=footer:utility:p5" class="link_footer">SITE MAP</a></div><div class="aeo_footer_1"><a href="http://www.ae.com/web/help/brand_protection.jsp?navdetail=footer:utility:p6" class="link_footer">BRAND PROTECTION</a></div><div class="aeo_footer_1"><a href="https://signup.cj.com/member/signup/publisher.cj;jsessionid=abcbUmpk15mUMa9_n257u?cid=4445720"  target="_self" class="link_footer">AFFILIATE PROGRAM</a></div>
+        </div>
+        <div class="aeo_footer_content2">
+        	<div class="aeo_footer_2"><a href="http://www.ae.com/web/lp/tees.jsp?navdetail=footer:utility:p9" class="link_footer">T-SHIRTS</a></div><div class="aeo_footer_2"><a href="http://www.ae.com/web/factory/store.jsp?navdetail=footer:utility:p10" class="link_footer">AEO FACTORY STORE</a></div>
+        </div>
+        <div class="aeo_footer_content3">
+        	<div class="aeo_footer_3">&copy; 2015 AEO Management Co. All&nbsp;Rights&nbsp;Reserved.</div>
+        </div>
+        <div class="aeo_footer_content4">
+        	<img src="~/images/footer_01.png" width="61" height="30" alt=""/><img src="~/images/footer_02.png" width="37" height="30" alt=""/><img src="~/images/footer_03.png" width="106" height="30" alt=""/><img src="~/images/footer_04.png" width="77" height="30" alt=""/><img src="~/images/footer_05.png" width="45" height="30" alt=""/><img src="~/images/footer_06.png" width="61" height="30" alt=""/><img src="~/images/footer_07.png" width="63" height="30" alt=""/>
+        </div>
+    </div>
+    
+</div>
+</div>
+</body>
+</html>
+
