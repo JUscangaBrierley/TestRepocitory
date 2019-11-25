@@ -1,0 +1,79 @@
+.vs
+*.csproj.user
+/code/packages
+/code/Class Libraries/AmericanEagle.bScript/bin
+/code/Class Libraries/AmericanEagle.bScript/obj
+/code/Class Libraries/AmericanEagle.CustomRules/bin
+/code/Class Libraries/AmericanEagle.CustomRules/obj
+/code/Class Libraries/AmericanEagle.SDK/bin
+/code/Class Libraries/AmericanEagle.SDK/obj
+/code/ClientDevUtilities/Brierley.ClientDevUtilities/bin
+/code/ClientDevUtilities/Brierley.ClientDevUtilities/obj
+/code/ClientDevUtilities/Brierley.ClientDevUtilities.TestingUtilities/bin
+/code/ClientDevUtilities/Brierley.ClientDevUtilities.TestingUtilities/obj
+/code/ClientLibs/AmericanEagle.SDK.dll
+/code/ClientLibs/AmericanEagle.SDK.pdb
+/code/ClientLibs/Brierley.ClientDevUtilities.dll
+/code/ClientLibs/Brierley.ClientDevUtilities.pdb
+/code/deployment/bin
+/code/Portals/Custom Modules/AwardPoints/bin
+/code/Portals/Custom Modules/AwardPoints/obj
+/code/Portals/Custom Modules/EnrollActivate/bin
+/code/Portals/Custom Modules/EnrollActivate/obj
+/code/Portals/Custom Modules/MemberCustomDropdown/bin
+/code/Portals/Custom Modules/MemberCustomDropdown/obj
+/code/Portals/Custom Modules/MemberStatus/bin
+/code/Portals/Custom Modules/MemberStatus/obj
+/code/Portals/Custom Modules/MemberTier/bin
+/code/Portals/Custom Modules/MemberTier/obj
+/code/Portals/Custom Modules/MergeAccount/bin
+/code/Portals/Custom Modules/MergeAccount/obj
+/code/Portals/Custom Modules/PointsCalculator/bin
+/code/Portals/Custom Modules/PointsCalculator/obj
+/code/Portals/Custom Modules/Redemptions/bin
+/code/Portals/Custom Modules/Redemptions/obj
+/code/Portals/Custom Modules/Replace Card/bin
+/code/Portals/Custom Modules/Replace Card/obj
+/code/Portals/Custom Modules/RequestCredit/bin
+/code/Portals/Custom Modules/RequestCredit/obj
+/code/Portals/Custom Modules/RewardAppeasement/bin
+/code/Portals/Custom Modules/RewardAppeasement/obj
+/code/Portals/Custom Modules/RewardHistory/bin
+/code/Portals/Custom Modules/RewardHistory/obj
+/code/Portals/Custom Modules/UserAdmin/bin
+/code/Portals/Custom Modules/UserAdmin/obj
+/code/Portals/Customer Service/bin/Brierley.AEModules.AwardPoints.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.AwardPoints.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.EnrollActivate.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.EnrollActivate.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.MemberCustomDropdown.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.MemberCustomDropdown.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.MemberStatus.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.MemberStatus.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.MemberTier.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.MemberTier.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.MergeAccount.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.MergeAccount.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.PointsCalculator.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.PointsCalculator.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.Redemptions.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.Redemptions.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.ReplaceCard.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.ReplaceCard.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.RequestCredit.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.RequestCredit.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.RewardAppeasement.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.RewardAppeasement.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.RewardHistory.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.RewardHistory.pdb
+/code/Portals/Customer Service/bin/Brierley.AEModules.UserAdmin.dll
+/code/Portals/Customer Service/bin/Brierley.AEModules.UserAdmin.pdb
+/code/Tests/AmericanEagle.IntegrationTests/bin
+/code/Tests/AmericanEagle.IntegrationTests/obj
+/code/Tests/AmericanEagle.Tests/bin
+/code/Tests/AmericanEagle.Tests/obj
+/code/scripts/cicdtools
+/code/Portals/Member/Skin
+/code/Portals/Customer Service/Skin
+/code/tools/*
+!/code/tools/packages.config

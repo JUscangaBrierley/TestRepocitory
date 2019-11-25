@@ -1,4 +1,4 @@
-#load nuget:?package=Brierley.Cicd.Client.Build.Core&version=1.3.0
+#load nuget:?package=Brierley.Cicd.Client.Build.Core&version=1.5.0
 
 var target = Argument("target", "Default");
 

@@ -4,7 +4,7 @@
 
 	<!-- log file appender -->
 	<appender name="logfile" type="log4net.Appender.RollingFileAppender">
-		<file value="D:\devroot\americaneagle\workspace\LogFiles\LWIntgrService.log"/>
+		<file value="D:\devroot\aeo-loyalty\code\LogFiles\LWIntgrService.log"/>
 		<appendToFile value="true"/>
 		<rollingStyle value="Composite" />
 		<datePattern value="yyyyMMdd" />

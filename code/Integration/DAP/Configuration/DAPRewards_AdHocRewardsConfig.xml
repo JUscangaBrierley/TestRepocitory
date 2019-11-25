@@ -19,7 +19,7 @@
   </DAPConfiguration>
  
   
-  <InputProvider MessageProcessingScheme="Batch" DebugOutputPath="D:\devroot\americaneagle\workspace\LogFiles">
+  <InputProvider MessageProcessingScheme="Batch" DebugOutputPath="D:\devroot\aeo-loyalty\code\LogFiles">
     <SimpleDatabaseInput CollectionName="Rewards" RecordName="Reward">
       <QueryString>
        

@@ -4,7 +4,7 @@
 
   <!-- log file appender -->
   <appender name="logfile" type="log4net.Appender.RollingFileAppender">
-    <file value="D:\devroot\americaneagle\workspace\LogFiles\LWRulesProcessor.log"/>    
+    <file value="D:\devroot\aeo-loyalty\code\LogFiles\LWRulesProcessor.log"/>    
     <appendToFile value="true"/>
     <maximumFileSize value="10MB"/>
     <maxSizeRollBackups value="10"/>
@@ -14,7 +14,7 @@
   </appender>
 
   <appender name="xmllogfile" type="log4net.Appender.RollingFileAppender">
-    <file value="D:\devroot\americaneagle\workspace\LogFiles\LWRulesProcessor.xml"/>
+    <file value="D:\devroot\aeo-loyalty\code\LogFiles\LWRulesProcessor.xml"/>
     <appendToFile value="true"/>
     <rollingStyle value="Composite" />
     <datePattern value="yyyyMMdd" />

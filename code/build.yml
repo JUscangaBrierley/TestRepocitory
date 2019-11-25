@@ -10,4 +10,4 @@ artifact-prefix: AEO
 sonar-server: http://sonarqube.brierley.com:9000
 project-key: AEO
 project-name: AmericanEagleOutfitters
-sonar-branch: integration
+sonar-branch: develop
